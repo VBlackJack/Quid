@@ -1,0 +1,308 @@
+/*
+ * Copyright 2026 Julien Bombled
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* ==========================================================================
+   Dracula Theme for MkDocs Material
+   Palette: https://draculatheme.com/contribute
+   ========================================================================== */
+
+:root {
+  --dracula-background:  #282a36;
+  --dracula-current:     #44475a;
+  --dracula-foreground:  #f8f8f2;
+  --dracula-comment:     #6272a4;
+  --dracula-cyan:        #8be9fd;
+  --dracula-green:       #50fa7b;
+  --dracula-orange:      #ffb86c;
+  --dracula-pink:        #ff79c6;
+  --dracula-purple:      #bd93f9;
+  --dracula-red:         #ff5555;
+  --dracula-yellow:      #f1fa8c;
+}
+
+/* ---------- Base scheme ---------- */
+
+[data-md-color-scheme="dracula"] {
+  --md-default-bg-color:               var(--dracula-background);
+  --md-default-fg-color:               var(--dracula-foreground);
+  --md-default-fg-color--light:        var(--dracula-comment);
+  --md-default-fg-color--lighter:      #44475a;
+  --md-default-fg-color--lightest:     #383a4a;
+
+  --md-primary-fg-color:               var(--dracula-purple);
+  --md-primary-fg-color--light:        #bd93f9b3;
+  --md-primary-fg-color--dark:         #9d6ff5;
+  --md-primary-bg-color:               var(--dracula-background);
+  --md-primary-bg-color--light:        var(--dracula-current);
+
+  --md-accent-fg-color:                var(--dracula-pink);
+  --md-accent-fg-color--transparent:   #ff79c61a;
+  --md-accent-bg-color:                var(--dracula-pink);
+  --md-accent-bg-color--light:         #ff79c61a;
+
+  --md-typeset-color:                  var(--dracula-foreground);
+  --md-typeset-a-color:                var(--dracula-cyan);
+
+  --md-shadow-z1: 0 0.2rem 0.5rem #0000004d, 0 0 0.05rem #0000001a;
+  --md-shadow-z2: 0 0.2rem 0.5rem #00000066, 0 0 0.05rem #00000033;
+  --md-shadow-z3: 0 0.2rem 0.5rem #00000080, 0 0 0.05rem #0000004d;
+
+  color-scheme: dark;
+}
+
+/* ---------- Code highlighting ---------- */
+
+[data-md-color-scheme="dracula"] {
+  --md-code-bg-color:                  #1e1f29;
+  --md-code-fg-color:                  var(--dracula-foreground);
+  --md-code-hl-color:                  #ff79c626;
+  --md-code-hl-number-color:           var(--dracula-purple);
+  --md-code-hl-special-color:          var(--dracula-green);
+  --md-code-hl-function-color:         var(--dracula-green);
+  --md-code-hl-constant-color:         var(--dracula-purple);
+  --md-code-hl-keyword-color:          var(--dracula-pink);
+  --md-code-hl-string-color:           var(--dracula-yellow);
+  --md-code-hl-name-color:             var(--dracula-cyan);
+  --md-code-hl-operator-color:         var(--dracula-pink);
+  --md-code-hl-punctuation-color:      var(--dracula-foreground);
+  --md-code-hl-comment-color:          var(--dracula-comment);
+  --md-code-hl-generic-color:          var(--dracula-pink);
+  --md-code-hl-variable-color:         var(--dracula-foreground);
+}
+
+/* ---------- Header & tabs ---------- */
+
+[data-md-color-scheme="dracula"] .md-header {
+  background-color: #21222c;
+}
+
+[data-md-color-scheme="dracula"] .md-tabs {
+  background-color: #191a21;
+}
+
+[data-md-color-scheme="dracula"] .md-tabs__link--active,
+[data-md-color-scheme="dracula"] .md-tabs__link:hover {
+  color: var(--dracula-purple);
+}
+
+/* ---------- Navigation sidebar ---------- */
+
+[data-md-color-scheme="dracula"] .md-nav__link:hover {
+  color: var(--dracula-cyan);
+}
+
+[data-md-color-scheme="dracula"] .md-nav__link--active {
+  color: var(--dracula-purple);
+  font-weight: 700;
+}
+
+[data-md-color-scheme="dracula"] .md-nav__item--active > .md-nav__link {
+  color: var(--dracula-purple);
+}
+
+/* ---------- Footer ---------- */
+
+[data-md-color-scheme="dracula"] .md-footer {
+  background-color: #21222c;
+}
+
+[data-md-color-scheme="dracula"] .md-footer-meta {
+  background-color: #191a21;
+}
+
+/* ---------- Search ---------- */
+
+[data-md-color-scheme="dracula"] .md-search__input {
+  background-color: var(--dracula-current);
+  color: var(--dracula-foreground);
+}
+
+[data-md-color-scheme="dracula"] .md-search__input::placeholder {
+  color: var(--dracula-comment);
+}
+
+[data-md-color-scheme="dracula"] .md-search-result__meta {
+  background-color: #21222c;
+  color: var(--dracula-comment);
+}
+
+[data-md-color-scheme="dracula"] .md-search-result__item {
+  border-bottom-color: var(--dracula-current);
+}
+
+/* ---------- Admonitions ---------- */
+
+[data-md-color-scheme="dracula"] .md-typeset .admonition,
+[data-md-color-scheme="dracula"] .md-typeset details {
+  background-color: #1e1f29;
+  border-color: var(--dracula-comment);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .admonition > .admonition-title,
+[data-md-color-scheme="dracula"] .md-typeset details > summary {
+  background-color: #ffffff0d;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .note > .admonition-title,
+[data-md-color-scheme="dracula"] .md-typeset .note > summary {
+  border-color: var(--dracula-purple);
+}
+[data-md-color-scheme="dracula"] .md-typeset .note {
+  border-color: var(--dracula-purple);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .tip > .admonition-title,
+[data-md-color-scheme="dracula"] .md-typeset .tip > summary {
+  border-color: var(--dracula-green);
+}
+[data-md-color-scheme="dracula"] .md-typeset .tip {
+  border-color: var(--dracula-green);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .warning > .admonition-title,
+[data-md-color-scheme="dracula"] .md-typeset .warning > summary {
+  border-color: var(--dracula-orange);
+}
+[data-md-color-scheme="dracula"] .md-typeset .warning {
+  border-color: var(--dracula-orange);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .danger > .admonition-title,
+[data-md-color-scheme="dracula"] .md-typeset .danger > summary {
+  border-color: var(--dracula-red);
+}
+[data-md-color-scheme="dracula"] .md-typeset .danger {
+  border-color: var(--dracula-red);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .info > .admonition-title,
+[data-md-color-scheme="dracula"] .md-typeset .info > summary {
+  border-color: var(--dracula-cyan);
+}
+[data-md-color-scheme="dracula"] .md-typeset .info {
+  border-color: var(--dracula-cyan);
+}
+
+/* ---------- Tables ---------- */
+
+[data-md-color-scheme="dracula"] .md-typeset table:not([class]) {
+  background-color: var(--dracula-background);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset table:not([class]) th {
+  background-color: var(--dracula-current);
+  color: var(--dracula-purple);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset table:not([class]) tr:hover td {
+  background-color: #44475a33;
+}
+
+/* ---------- Inline code ---------- */
+
+[data-md-color-scheme="dracula"] .md-typeset code {
+  background-color: var(--dracula-current);
+  color: var(--dracula-green);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+/* ---------- Content links ---------- */
+
+[data-md-color-scheme="dracula"] .md-typeset a {
+  color: var(--dracula-cyan);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset a:hover {
+  color: var(--dracula-pink);
+}
+
+/* ---------- Headings ---------- */
+
+[data-md-color-scheme="dracula"] .md-typeset h1 {
+  color: var(--dracula-pink);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset h2 {
+  color: var(--dracula-purple);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset h3 {
+  color: var(--dracula-cyan);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset h4 {
+  color: var(--dracula-green);
+}
+
+/* ---------- Horizontal rules ---------- */
+
+[data-md-color-scheme="dracula"] .md-typeset hr {
+  border-color: var(--dracula-current);
+}
+
+/* ---------- Keyboard keys ---------- */
+
+[data-md-color-scheme="dracula"] .md-typeset .keys kbd {
+  background-color: var(--dracula-current);
+  color: var(--dracula-foreground);
+  border-color: var(--dracula-comment);
+  box-shadow: 0 0.1rem 0 0.05rem var(--dracula-comment);
+}
+
+/* ---------- Scrollbar ---------- */
+
+[data-md-color-scheme="dracula"] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+[data-md-color-scheme="dracula"] ::-webkit-scrollbar-track {
+  background: var(--dracula-background);
+}
+
+[data-md-color-scheme="dracula"] ::-webkit-scrollbar-thumb {
+  background: var(--dracula-current);
+  border-radius: 4px;
+}
+
+[data-md-color-scheme="dracula"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--dracula-comment);
+}
+
+/* ---------- Mark / highlight ---------- */
+
+[data-md-color-scheme="dracula"] .md-typeset mark {
+  background-color: #f1fa8c44;
+  color: var(--dracula-yellow);
+}
+
+/* ---------- Tasklist checkboxes ---------- */
+
+[data-md-color-scheme="dracula"] .md-typeset .task-list-indicator::before {
+  border-color: var(--dracula-comment);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset [type="checkbox"]:checked + .task-list-indicator::before {
+  background-color: var(--dracula-green);
+  border-color: var(--dracula-green);
+}
