@@ -1,0 +1,4948 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Bibliothèque de connaissances techniques">
+      
+      
+        <meta name="author" content="Julien Bombled">
+      
+      
+        <link rel="canonical" href="https://vblackjack.github.io/Quid/books/registre-pour-les-admins/02-gpo-registre-ad/">
+      
+      
+        <link rel="prev" href="../01-powershell-remoting/">
+      
+      
+        <link rel="next" href="../03-audit-conformite/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>GPO et registre en environnement AD - Quid Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#gpo-et-registre-en-environnement-active-directory" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Quid Wiki" class="md-header__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quid Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              GPO et registre en environnement AD
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../bible-registre-windows/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Bible de la Base de Registre
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../registre-pour-les-nuls/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Base de Registre pour les Nuls
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Le Registre pour les Administrateurs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../cross-index/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Index thematique
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quid Wiki" class="md-nav__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    Quid Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../bible-registre-windows/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Bible de la Base de Registre
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Bible de la Base de Registre
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture et structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/03-ruches/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les ruches principales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/04-types-donnees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/05-outils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outils et méthodes d'accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/06-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité et permissions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/07-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/08-reseau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registre et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/09-optimisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimisation et maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/10-scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripts et automatisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/11-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dépannage avancé
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/12-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Référence des clés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/13-demarrage-bcd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processus de démarrage et BCD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/14-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services Windows en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/15-com-shell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    COM, DCOM et le Shell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/16-securite-moderne/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité moderne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/17-forensique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyse forensique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/18-versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évolution à travers les versions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/19-virtualisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation et conteneurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/20-gpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/21-apps-modernes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications modernes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/22-non-documentees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clés non documentées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/23-wmi-cim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WMI, CIM et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/24-cloud-entreprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion d'entreprise et cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/25-api-avancees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Win32 et noyau en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/26-msi-installer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Installer (MSI) et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/27-etw-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETW, tracing et performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/28-taches-planifiees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planificateur de tâches et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/29-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cryptographie, DPAPI et certificats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/30-impression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sous-système d'impression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../registre-pour-les-nuls/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Base de Registre pour les Nuls
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Base de Registre pour les Nuls
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/01-cest-quoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C'est quoi la base de registre ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/02-premiers-pas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Premiers pas avec Regedit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/03-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre la structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/04-modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modifications simples et utiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/05-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarder avant de toucher
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/06-erreurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les erreurs à éviter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/07-astuces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astuces pratiques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/08-fichiers-reg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre les fichiers .reg
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/09-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mon premier dépannage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/10-evaluer-tutos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évaluer les tutoriels en ligne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/11-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/12-glossaire/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire illustré
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/13-powershell-bases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/14-gpo-debutant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe pour débutants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/15-windows11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/16-parametres-registre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paramètres Windows vs Registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/17-mini-projets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-projets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le Registre pour les Administrateurs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Le Registre pour les Administrateurs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-powershell-remoting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell Remoting et registre distant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO et registre en environnement AD
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO et registre en environnement AD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#comment-les-gpo-ecrivent-dans-le-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment les GPO ecrivent dans le registre
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comment les GPO ecrivent dans le registre">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-cles-policies-la-zone-reservee-aux-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les cles Policies : la zone reservee aux GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-fichier-registrypol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le fichier registry.pol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decoder-un-fichier-registrypol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decoder un fichier registry.pol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordre-de-traitement-des-gpo-lsdou" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordre de traitement des GPO (LSDOU)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creer-des-modeles-admxadml-personnalises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer des modeles ADMX/ADML personnalises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creer des modeles ADMX/ADML personnalises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-des-fichiers-admxadml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure des fichiers ADMX/ADML
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-le-fichier-admx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer le fichier ADMX
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-le-fichier-adml-traduction-francaise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer le fichier ADML (traduction francaise)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployer-les-fichiers-admx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployer les fichiers ADMX
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpo-policies-vs-gpo-preferences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPO Policies vs GPO Preferences
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GPO Policies vs GPO Preferences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comparaison-detaillee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparaison detaillee
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quand-utiliser-les-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quand utiliser les Policies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quand-utiliser-les-preferences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quand utiliser les Preferences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-une-gpo-preference-de-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer une GPO Preference de registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-quatre-actions-des-preferences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les quatre actions des Preferences
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ciblage-par-element-item-level-targeting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ciblage par element (Item-Level Targeting)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ciblage par element (Item-Level Targeting)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criteres-de-ciblage-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Criteres de ciblage disponibles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combiner-les-criteres-avec-des-operateurs-logiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combiner les criteres avec des operateurs logiques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifier-un-ciblage-basee-sur-le-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifier un ciblage basee sur le registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact-sur-les-performances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impact sur les performances
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifier-lapplication-du-ciblage-via-les-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifier l'application du ciblage via les logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#depannage-de-lapplication-des-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depannage de l'application des GPO
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Depannage de l&#39;application des GPO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etape-1-gpresult-le-verdict-final" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 1 : gpresult — le verdict final
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-2-forcer-un-rafraichissement-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 2 : Forcer un rafraichissement GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-3-verifier-le-rsop-resultant-set-of-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 3 : Verifier le RSOP (Resultant Set of Policy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-4-examiner-les-journaux-devenements-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 4 : Examiner les journaux d'evenements GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-ids-cles-pour-le-diagnostic-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Event IDs cles pour le diagnostic GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-5-verifier-directement-dans-le-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 5 : Verifier directement dans le registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arbre-de-decision-du-diagnostic-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arbre de decision du diagnostic GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-reel-deployer-un-parametre-de-registre-personnalise-avec-fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario reel : deployer un parametre de registre personnalise avec fallback
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario reel : deployer un parametre de registre personnalise avec fallback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etape-1-creer-la-gpo-preference-avec-ciblage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 1 : Creer la GPO Preference avec ciblage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-2-configurer-le-filtrage-de-securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 2 : Configurer le filtrage de securite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-3-preparer-le-script-de-fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 3 : Preparer le script de fallback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-4-verifier-le-deploiement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 4 : Verifier le deploiement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-audit-conformite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit et conformite du registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-deploiement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploiement et industrialisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-ad-ds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory Domain Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-dhcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DHCP Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-wsus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WSUS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-iis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IIS / Web Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-rds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Desktop Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-hyper-v/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hyper-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-file-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Server / DFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-print-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Print Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-radius-nps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RADIUS / NPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-globalprotect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GlobalProtect (Palo Alto)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-sccm-mecm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCCM / MECM (ConfigMgr)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-intune/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft Intune
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-antivirus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Antivirus enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-citrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Citrix Virtual Apps & Desktops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-vmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMware Horizon / Workspace ONE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-m365-office/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft 365 Apps (Office)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-navigateurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigateurs enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-vpn-clients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VPN clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-backup-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backup et monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-exchange/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exchange Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-sql-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-sharepoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SharePoint Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-adobe-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adobe et Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-compliance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compliance (HIPAA, PCI-DSS, SOC 2)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-zero-trust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zero Trust et VDI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cross-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index thematique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#comment-les-gpo-ecrivent-dans-le-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment les GPO ecrivent dans le registre
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Comment les GPO ecrivent dans le registre">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-cles-policies-la-zone-reservee-aux-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les cles Policies : la zone reservee aux GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#le-fichier-registrypol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le fichier registry.pol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#decoder-un-fichier-registrypol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decoder un fichier registry.pol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ordre-de-traitement-des-gpo-lsdou" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ordre de traitement des GPO (LSDOU)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creer-des-modeles-admxadml-personnalises" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer des modeles ADMX/ADML personnalises
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creer des modeles ADMX/ADML personnalises">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-des-fichiers-admxadml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure des fichiers ADMX/ADML
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-le-fichier-admx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer le fichier ADMX
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-le-fichier-adml-traduction-francaise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer le fichier ADML (traduction francaise)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployer-les-fichiers-admx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployer les fichiers ADMX
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpo-policies-vs-gpo-preferences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPO Policies vs GPO Preferences
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GPO Policies vs GPO Preferences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comparaison-detaillee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparaison detaillee
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quand-utiliser-les-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quand utiliser les Policies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quand-utiliser-les-preferences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quand utiliser les Preferences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-une-gpo-preference-de-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer une GPO Preference de registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-quatre-actions-des-preferences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les quatre actions des Preferences
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ciblage-par-element-item-level-targeting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ciblage par element (Item-Level Targeting)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ciblage par element (Item-Level Targeting)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criteres-de-ciblage-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Criteres de ciblage disponibles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combiner-les-criteres-avec-des-operateurs-logiques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combiner les criteres avec des operateurs logiques
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifier-un-ciblage-basee-sur-le-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifier un ciblage basee sur le registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact-sur-les-performances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impact sur les performances
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifier-lapplication-du-ciblage-via-les-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifier l'application du ciblage via les logs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#depannage-de-lapplication-des-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Depannage de l'application des GPO
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Depannage de l&#39;application des GPO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etape-1-gpresult-le-verdict-final" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 1 : gpresult — le verdict final
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-2-forcer-un-rafraichissement-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 2 : Forcer un rafraichissement GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-3-verifier-le-rsop-resultant-set-of-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 3 : Verifier le RSOP (Resultant Set of Policy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-4-examiner-les-journaux-devenements-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 4 : Examiner les journaux d'evenements GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#event-ids-cles-pour-le-diagnostic-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Event IDs cles pour le diagnostic GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-5-verifier-directement-dans-le-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 5 : Verifier directement dans le registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#arbre-de-decision-du-diagnostic-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arbre de decision du diagnostic GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-reel-deployer-un-parametre-de-registre-personnalise-avec-fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario reel : deployer un parametre de registre personnalise avec fallback
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario reel : deployer un parametre de registre personnalise avec fallback">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etape-1-creer-la-gpo-preference-avec-ciblage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 1 : Creer la GPO Preference avec ciblage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-2-configurer-le-filtrage-de-securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 2 : Configurer le filtrage de securite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-3-preparer-le-script-de-fallback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 3 : Preparer le script de fallback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-4-verifier-le-deploiement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 4 : Verifier le deploiement
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">active-directory</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">admx</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">gpo</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">group-policy</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">registre</span>
+      
+    
+  </nav>
+
+
+
+<h1 id="gpo-et-registre-en-environnement-active-directory">GPO et registre en environnement Active Directory<a class="headerlink" href="#gpo-et-registre-en-environnement-active-directory" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Ce que vous allez apprendre</p>
+<ul>
+<li>Comment les GPO ecrivent dans le registre et ou trouver les cles resultantes</li>
+<li>Creer des modeles ADMX/ADML personnalises pour vos applications internes</li>
+<li>Choisir entre GPO Policies et GPO Preferences selon le contexte</li>
+<li>Utiliser le ciblage par element (Item-Level Targeting) pour des deploiements chirurgicaux</li>
+<li>Diagnostiquer les problemes d'application GPO avec les outils integres</li>
+</ul>
+</div>
+<hr />
+<h2 id="comment-les-gpo-ecrivent-dans-le-registre">Comment les GPO ecrivent dans le registre<a class="headerlink" href="#comment-les-gpo-ecrivent-dans-le-registre" title="Permanent link">&para;</a></h2>
+<p>Vous venez de creer une GPO qui desactive l'acces au Panneau de configuration. Mais ou exactement cette GPO ecrit-elle dans le registre ? Comprendre ce mecanisme est essentiel pour diagnostiquer les conflits et les applications partielles.</p>
+<h3 id="les-cles-policies-la-zone-reservee-aux-gpo">Les cles Policies : la zone reservee aux GPO<a class="headerlink" href="#les-cles-policies-la-zone-reservee-aux-gpo" title="Permanent link">&para;</a></h3>
+<p>Quand une GPO modifie un parametre, elle n'ecrit pas directement dans la cle "normale" du registre. Elle ecrit dans une zone dediee sous <code>Policies</code>, qui a priorite sur les valeurs standards.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>HKLM\SOFTWARE\Policies\                    ← GPO machine (Computer Configuration)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>HKCU\SOFTWARE\Policies\                    ← GPO utilisateur (User Configuration)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\  ← Ancienne convention
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\  ← Ancienne convention
+</span></code></pre></div>
+<p>C'est comme un panneau "sens interdit" pose par la mairie (GPO) : il a priorite sur les habitudes des automobilistes (parametres locaux), meme si la route existe toujours.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c"># Compare a GPO-controlled value with its &quot;normal&quot; equivalent</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c"># GPO value (takes precedence)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">Get-ItemProperty</span> <span class="s2">&quot;HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;DisableNotificationCenter&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c"># Local value (ignored when GPO is present)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nb">Get-ItemProperty</span> <span class="s2">&quot;HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced&quot;</span> <span class="n">-Name</span> <span class="s2">&quot;DisableNotificationCenter&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>DisableNotificationCenter : 1
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>PSPath                    : ...SOFTWARE\Policies\Microsoft\Windows\Explorer
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>(la valeur locale n&#39;est pas consultee car la GPO a priorite)
+</span></code></pre></div>
+<h3 id="le-fichier-registrypol">Le fichier registry.pol<a class="headerlink" href="#le-fichier-registrypol" title="Permanent link">&para;</a></h3>
+<p>Chaque GPO stocke ses parametres de registre dans un fichier binaire appele <code>registry.pol</code>, situe dans le dossier SYSVOL du controleur de domaine.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>\\entreprise.local\SYSVOL\entreprise.local\Policies\{GUID-GPO}\Machine\registry.pol
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>\\entreprise.local\SYSVOL\entreprise.local\Policies\{GUID-GPO}\User\registry.pol
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c"># Find registry.pol files for a specific GPO</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nv">$gpoId</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-GPO</span> <span class="n">-Name</span> <span class="s2">&quot;SEC - Disable Control Panel&quot;</span><span class="p">).</span><span class="n">Id</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nv">$sysvolPath</span> <span class="p">=</span> <span class="s2">&quot;\\$env:USERDNSDOMAIN\SYSVOL\$env:USERDNSDOMAIN\Policies\{$gpoId}&quot;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">Get-ChildItem</span> <span class="n">-Path</span> <span class="nv">$sysvolPath</span> <span class="n">-Recurse</span> <span class="n">-Filter</span> <span class="s2">&quot;registry.pol&quot;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>    Directory: \\entreprise.local\SYSVOL\entreprise.local\Policies\{a1b2c3d4-...}\Machine
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Mode                 LastWriteTime         Length Name
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>----                 -------------         ------ ----
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>-a----         04/04/2026    09:15           4096 registry.pol
+</span></code></pre></div>
+<h3 id="decoder-un-fichier-registrypol">Decoder un fichier registry.pol<a class="headerlink" href="#decoder-un-fichier-registrypol" title="Permanent link">&para;</a></h3>
+<p>Le fichier <code>registry.pol</code> est binaire, mais le module <code>GPRegistryPolicy</code> permet de le lire.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c"># Install the GPRegistryPolicy module (if not already present)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">Install-Module</span> <span class="n">-Name</span> <span class="n">GPRegistryPolicyParser</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span> <span class="n">-Force</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c"># Parse a registry.pol file</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nv">$polPath</span> <span class="p">=</span> <span class="s2">&quot;\\entreprise.local\SYSVOL\entreprise.local\Policies\{$gpoId}\Machine\registry.pol&quot;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">Parse-PolFile</span> <span class="n">-Path</span> <span class="nv">$polPath</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>KeyName     : SOFTWARE\Policies\Microsoft\Windows\System
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>ValueName   : DisableCMD
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>ValueType   : REG_DWORD
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>ValueLength : 4
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>ValueData   : 2
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>KeyName     : SOFTWARE\Policies\Microsoft\Windows\Explorer
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>ValueName   : NoControlPanel
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>ValueType   : REG_DWORD
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>ValueLength : 4
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>ValueData   : 1
+</span></code></pre></div>
+<h3 id="ordre-de-traitement-des-gpo-lsdou">Ordre de traitement des GPO (LSDOU)<a class="headerlink" href="#ordre-de-traitement-des-gpo-lsdou" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart LR
+    L["Locale&lt;br/&gt;gpedit.msc"] --&gt; S["Site AD"]
+    S --&gt; D["Domaine"]
+    D --&gt; OU1["OU parente"]
+    OU1 --&gt; OU2["OU enfant&lt;br/&gt;(la plus proche)"]
+    style L fill:#8be9fd,color:#000
+    style S fill:#bd93f9,color:#fff
+    style D fill:#ffb86c,color:#000
+    style OU1 fill:#ff79c6,color:#fff
+    style OU2 fill:#ff5555,color:#fff</code></pre>
+<blockquote>
+<p>La derniere GPO appliquee (OU enfant) a la <strong>priorite la plus elevee</strong>.</p>
+</blockquote>
+<p>Les GPO s'appliquent dans un ordre precis. La derniere appliquee gagne en cas de conflit :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Ordre</th>
+<th>Source</th>
+<th>Priorite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">1</td>
+<td><strong>L</strong>ocale (gpedit.msc)</td>
+<td>La plus faible</td>
+</tr>
+<tr>
+<td style="text-align: center;">2</td>
+<td><strong>S</strong>ite AD</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: center;">3</td>
+<td><strong>D</strong>omaine</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: center;">4</td>
+<td><strong>O</strong>U parente</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align: center;">5</td>
+<td><strong>U</strong> (OU enfant, la plus proche de l'objet)</td>
+<td>La plus forte</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Memoriser LSDOU</p>
+<p>L'ordre de traitement suit l'acronyme LSDOU : Locale, Site, Domaine, OU. La derniere GPO appliquee a la priorite la plus elevee. En cas de conflit, l'OU la plus specifique gagne.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Les GPO ecrivent sous <code>SOFTWARE\Policies\</code> et non dans les cles standards</li>
+<li>Le fichier <code>registry.pol</code> dans SYSVOL contient les parametres de registre bruts</li>
+<li>L'ordre LSDOU determine quelle GPO gagne en cas de conflit</li>
+<li>Les cles <code>Policies</code> ont toujours priorite sur les cles locales</li>
+</ul>
+</div>
+<hr />
+<h2 id="creer-des-modeles-admxadml-personnalises">Creer des modeles ADMX/ADML personnalises<a class="headerlink" href="#creer-des-modeles-admxadml-personnalises" title="Permanent link">&para;</a></h2>
+<p>Votre application interne "InventPro" stocke sa configuration dans <code>HKLM\SOFTWARE\MonEntreprise\InventPro</code>. Vous voulez gerer ces parametres via des GPO, avec une interface graphique dans la console GPMC. La solution : creer un modele ADMX/ADML personnalise.</p>
+<h3 id="structure-des-fichiers-admxadml">Structure des fichiers ADMX/ADML<a class="headerlink" href="#structure-des-fichiers-admxadml" title="Permanent link">&para;</a></h3>
+<p>Un modele ADMX se compose de deux fichiers :</p>
+<table>
+<thead>
+<tr>
+<th>Fichier</th>
+<th>Role</th>
+<th>Emplacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.admx</code></td>
+<td>Definition des parametres (XML, langue neutre)</td>
+<td><code>C:\Windows\PolicyDefinitions\</code></td>
+</tr>
+<tr>
+<td><code>.adml</code></td>
+<td>Textes affiches dans l'interface (XML, localise)</td>
+<td><code>C:\Windows\PolicyDefinitions\fr-FR\</code></td>
+</tr>
+</tbody>
+</table>
+<p>Le fichier ADMX est le squelette (quelles cles, quels types de valeurs), le fichier ADML est la peau (ce que l'administrateur voit dans la console).</p>
+<h3 id="creer-le-fichier-admx">Creer le fichier ADMX<a class="headerlink" href="#creer-le-fichier-admx" title="Permanent link">&para;</a></h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="cm">&lt;!-- InventPro.admx - Custom ADMX template for InventPro application --&gt;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nt">&lt;policyDefinitions</span><span class="w"> </span><span class="na">xmlns:xsd=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema&quot;</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">                   </span><span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">                   </span><span class="na">revision=</span><span class="s">&quot;1.0&quot;</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">                   </span><span class="na">schemaVersion=</span><span class="s">&quot;1.0&quot;</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">                   </span><span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">  </span><span class="nt">&lt;policyNamespaces&gt;</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">    </span><span class="nt">&lt;target</span><span class="w"> </span><span class="na">prefix=</span><span class="s">&quot;inventpro&quot;</span><span class="w"> </span><span class="na">namespace=</span><span class="s">&quot;MonEntreprise.InventPro&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">    </span><span class="nt">&lt;using</span><span class="w"> </span><span class="na">prefix=</span><span class="s">&quot;windows&quot;</span><span class="w"> </span><span class="na">namespace=</span><span class="s">&quot;Microsoft.Policies.Windows&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">  </span><span class="nt">&lt;/policyNamespaces&gt;</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">  </span><span class="nt">&lt;resources</span><span class="w"> </span><span class="na">minRequiredRevision=</span><span class="s">&quot;1.0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="w">  </span><span class="nt">&lt;categories&gt;</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">    </span><span class="nt">&lt;category</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;InventPro&quot;</span><span class="w"> </span><span class="na">displayName=</span><span class="s">&quot;$(string.Cat_InventPro)&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">    </span><span class="nt">&lt;category</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;InventProNetwork&quot;</span><span class="w"> </span><span class="na">displayName=</span><span class="s">&quot;$(string.Cat_Network)&quot;</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">              </span><span class="na">parentCategory=</span><span class="s">&quot;InventPro&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">  </span><span class="nt">&lt;/categories&gt;</span>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">  </span><span class="nt">&lt;policies&gt;</span>
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a><span class="w">    </span><span class="cm">&lt;!-- Server URL setting --&gt;</span>
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a><span class="w">    </span><span class="nt">&lt;policy</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;ServerUrl&quot;</span>
+</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a><span class="w">            </span><span class="na">class=</span><span class="s">&quot;Machine&quot;</span>
+</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a><span class="w">            </span><span class="na">displayName=</span><span class="s">&quot;$(string.Pol_ServerUrl)&quot;</span>
+</span><span id="__span-8-27"><a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a><span class="w">            </span><span class="na">explainText=</span><span class="s">&quot;$(string.Pol_ServerUrl_Help)&quot;</span>
+</span><span id="__span-8-28"><a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a><span class="w">            </span><span class="na">key=</span><span class="s">&quot;SOFTWARE\MonEntreprise\InventPro&quot;</span>
+</span><span id="__span-8-29"><a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a><span class="w">            </span><span class="na">presentation=</span><span class="s">&quot;$(presentation.Pol_ServerUrl)&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-8-30"><a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a><span class="w">      </span><span class="nt">&lt;parentCategory</span><span class="w"> </span><span class="na">ref=</span><span class="s">&quot;InventProNetwork&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-31"><a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a><span class="w">      </span><span class="nt">&lt;supportedOn</span><span class="w"> </span><span class="na">ref=</span><span class="s">&quot;windows:SUPPORTED_Windows_10_0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-32"><a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a><span class="w">      </span><span class="nt">&lt;elements&gt;</span>
+</span><span id="__span-8-33"><a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a><span class="w">        </span><span class="nt">&lt;text</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;ServerUrl_Value&quot;</span><span class="w"> </span><span class="na">valueName=</span><span class="s">&quot;ServerUrl&quot;</span><span class="w"> </span><span class="na">required=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="na">maxLength=</span><span class="s">&quot;512&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-34"><a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a><span class="w">      </span><span class="nt">&lt;/elements&gt;</span>
+</span><span id="__span-8-35"><a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a><span class="w">    </span><span class="nt">&lt;/policy&gt;</span>
+</span><span id="__span-8-36"><a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a>
+</span><span id="__span-8-37"><a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a><span class="w">    </span><span class="cm">&lt;!-- Sync interval setting --&gt;</span>
+</span><span id="__span-8-38"><a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a><span class="w">    </span><span class="nt">&lt;policy</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;SyncInterval&quot;</span>
+</span><span id="__span-8-39"><a id="__codelineno-8-39" name="__codelineno-8-39" href="#__codelineno-8-39"></a><span class="w">            </span><span class="na">class=</span><span class="s">&quot;Machine&quot;</span>
+</span><span id="__span-8-40"><a id="__codelineno-8-40" name="__codelineno-8-40" href="#__codelineno-8-40"></a><span class="w">            </span><span class="na">displayName=</span><span class="s">&quot;$(string.Pol_SyncInterval)&quot;</span>
+</span><span id="__span-8-41"><a id="__codelineno-8-41" name="__codelineno-8-41" href="#__codelineno-8-41"></a><span class="w">            </span><span class="na">explainText=</span><span class="s">&quot;$(string.Pol_SyncInterval_Help)&quot;</span>
+</span><span id="__span-8-42"><a id="__codelineno-8-42" name="__codelineno-8-42" href="#__codelineno-8-42"></a><span class="w">            </span><span class="na">key=</span><span class="s">&quot;SOFTWARE\MonEntreprise\InventPro&quot;</span>
+</span><span id="__span-8-43"><a id="__codelineno-8-43" name="__codelineno-8-43" href="#__codelineno-8-43"></a><span class="w">            </span><span class="na">presentation=</span><span class="s">&quot;$(presentation.Pol_SyncInterval)&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-8-44"><a id="__codelineno-8-44" name="__codelineno-8-44" href="#__codelineno-8-44"></a><span class="w">      </span><span class="nt">&lt;parentCategory</span><span class="w"> </span><span class="na">ref=</span><span class="s">&quot;InventProNetwork&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-45"><a id="__codelineno-8-45" name="__codelineno-8-45" href="#__codelineno-8-45"></a><span class="w">      </span><span class="nt">&lt;supportedOn</span><span class="w"> </span><span class="na">ref=</span><span class="s">&quot;windows:SUPPORTED_Windows_10_0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-46"><a id="__codelineno-8-46" name="__codelineno-8-46" href="#__codelineno-8-46"></a><span class="w">      </span><span class="nt">&lt;elements&gt;</span>
+</span><span id="__span-8-47"><a id="__codelineno-8-47" name="__codelineno-8-47" href="#__codelineno-8-47"></a><span class="w">        </span><span class="nt">&lt;decimal</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;SyncInterval_Value&quot;</span><span class="w"> </span><span class="na">valueName=</span><span class="s">&quot;SyncIntervalMinutes&quot;</span>
+</span><span id="__span-8-48"><a id="__codelineno-8-48" name="__codelineno-8-48" href="#__codelineno-8-48"></a><span class="w">                 </span><span class="na">minValue=</span><span class="s">&quot;5&quot;</span><span class="w"> </span><span class="na">maxValue=</span><span class="s">&quot;1440&quot;</span><span class="w"> </span><span class="na">required=</span><span class="s">&quot;true&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-49"><a id="__codelineno-8-49" name="__codelineno-8-49" href="#__codelineno-8-49"></a><span class="w">      </span><span class="nt">&lt;/elements&gt;</span>
+</span><span id="__span-8-50"><a id="__codelineno-8-50" name="__codelineno-8-50" href="#__codelineno-8-50"></a><span class="w">    </span><span class="nt">&lt;/policy&gt;</span>
+</span><span id="__span-8-51"><a id="__codelineno-8-51" name="__codelineno-8-51" href="#__codelineno-8-51"></a>
+</span><span id="__span-8-52"><a id="__codelineno-8-52" name="__codelineno-8-52" href="#__codelineno-8-52"></a><span class="w">    </span><span class="cm">&lt;!-- Enable debug mode --&gt;</span>
+</span><span id="__span-8-53"><a id="__codelineno-8-53" name="__codelineno-8-53" href="#__codelineno-8-53"></a><span class="w">    </span><span class="nt">&lt;policy</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;DebugMode&quot;</span>
+</span><span id="__span-8-54"><a id="__codelineno-8-54" name="__codelineno-8-54" href="#__codelineno-8-54"></a><span class="w">            </span><span class="na">class=</span><span class="s">&quot;Machine&quot;</span>
+</span><span id="__span-8-55"><a id="__codelineno-8-55" name="__codelineno-8-55" href="#__codelineno-8-55"></a><span class="w">            </span><span class="na">displayName=</span><span class="s">&quot;$(string.Pol_DebugMode)&quot;</span>
+</span><span id="__span-8-56"><a id="__codelineno-8-56" name="__codelineno-8-56" href="#__codelineno-8-56"></a><span class="w">            </span><span class="na">explainText=</span><span class="s">&quot;$(string.Pol_DebugMode_Help)&quot;</span>
+</span><span id="__span-8-57"><a id="__codelineno-8-57" name="__codelineno-8-57" href="#__codelineno-8-57"></a><span class="w">            </span><span class="na">key=</span><span class="s">&quot;SOFTWARE\MonEntreprise\InventPro&quot;</span>
+</span><span id="__span-8-58"><a id="__codelineno-8-58" name="__codelineno-8-58" href="#__codelineno-8-58"></a><span class="w">            </span><span class="na">valueName=</span><span class="s">&quot;DebugMode&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-8-59"><a id="__codelineno-8-59" name="__codelineno-8-59" href="#__codelineno-8-59"></a><span class="w">      </span><span class="nt">&lt;parentCategory</span><span class="w"> </span><span class="na">ref=</span><span class="s">&quot;InventPro&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-60"><a id="__codelineno-8-60" name="__codelineno-8-60" href="#__codelineno-8-60"></a><span class="w">      </span><span class="nt">&lt;supportedOn</span><span class="w"> </span><span class="na">ref=</span><span class="s">&quot;windows:SUPPORTED_Windows_10_0&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-8-61"><a id="__codelineno-8-61" name="__codelineno-8-61" href="#__codelineno-8-61"></a><span class="w">      </span><span class="nt">&lt;enabledValue&gt;&lt;decimal</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="nt">/&gt;&lt;/enabledValue&gt;</span>
+</span><span id="__span-8-62"><a id="__codelineno-8-62" name="__codelineno-8-62" href="#__codelineno-8-62"></a><span class="w">      </span><span class="nt">&lt;disabledValue&gt;&lt;decimal</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;0&quot;</span><span class="w"> </span><span class="nt">/&gt;&lt;/disabledValue&gt;</span>
+</span><span id="__span-8-63"><a id="__codelineno-8-63" name="__codelineno-8-63" href="#__codelineno-8-63"></a><span class="w">    </span><span class="nt">&lt;/policy&gt;</span>
+</span><span id="__span-8-64"><a id="__codelineno-8-64" name="__codelineno-8-64" href="#__codelineno-8-64"></a><span class="w">  </span><span class="nt">&lt;/policies&gt;</span>
+</span><span id="__span-8-65"><a id="__codelineno-8-65" name="__codelineno-8-65" href="#__codelineno-8-65"></a><span class="nt">&lt;/policyDefinitions&gt;</span>
+</span></code></pre></div>
+<h3 id="creer-le-fichier-adml-traduction-francaise">Creer le fichier ADML (traduction francaise)<a class="headerlink" href="#creer-le-fichier-adml-traduction-francaise" title="Permanent link">&para;</a></h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="cm">&lt;!-- InventPro.adml - French language file for InventPro ADMX --&gt;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nt">&lt;policyDefinitionResources</span><span class="w"> </span><span class="na">xmlns:xsd=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema&quot;</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">                           </span><span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">                           </span><span class="na">revision=</span><span class="s">&quot;1.0&quot;</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">                           </span><span class="na">schemaVersion=</span><span class="s">&quot;1.0&quot;</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">                           </span><span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">  </span><span class="nt">&lt;displayName&gt;</span>InventPro<span class="nt">&lt;/displayName&gt;</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span><span class="nt">&lt;description&gt;</span>Parametres<span class="w"> </span>de<span class="w"> </span>configuration<span class="w"> </span>InventPro<span class="nt">&lt;/description&gt;</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">  </span><span class="nt">&lt;resources&gt;</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span><span class="nt">&lt;stringTable&gt;</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">      </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Cat_InventPro&quot;</span><span class="nt">&gt;</span>InventPro<span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">      </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Cat_Network&quot;</span><span class="nt">&gt;</span>Reseau<span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">      </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Pol_ServerUrl&quot;</span><span class="nt">&gt;</span>URL<span class="w"> </span>du<span class="w"> </span>serveur<span class="w"> </span>InventPro<span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">      </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Pol_ServerUrl_Help&quot;</span><span class="nt">&gt;</span>Definit<span class="w"> </span>l&#39;URL<span class="w"> </span>du<span class="w"> </span>serveur<span class="w"> </span>InventPro.
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>Exemple<span class="w"> </span>:<span class="w"> </span>https://inventpro.entreprise.local/api
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>Si<span class="w"> </span>ce<span class="w"> </span>parametre<span class="w"> </span>est<span class="w"> </span>active,<span class="w"> </span>l&#39;application<span class="w"> </span>utilisera<span class="w"> </span>cette<span class="w"> </span>URL.
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>Si<span class="w"> </span>desactive<span class="w"> </span>ou<span class="w"> </span>non<span class="w"> </span>configure,<span class="w"> </span>l&#39;application<span class="w"> </span>utilisera<span class="w"> </span>sa<span class="w"> </span>valeur<span class="w"> </span>par<span class="w"> </span>defaut.<span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">      </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Pol_SyncInterval&quot;</span><span class="nt">&gt;</span>Intervalle<span class="w"> </span>de<span class="w"> </span>synchronisation<span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w">      </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Pol_SyncInterval_Help&quot;</span><span class="nt">&gt;</span>Definit<span class="w"> </span>l&#39;intervalle<span class="w"> </span>de<span class="w"> </span>synchronisation<span class="w"> </span>en<span class="w"> </span>minutes.
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>Valeurs<span class="w"> </span>acceptees<span class="w"> </span>:<span class="w"> </span>5<span class="w"> </span>a<span class="w"> </span>1440<span class="w"> </span>(24<span class="w"> </span>heures).
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>Si<span class="w"> </span>non<span class="w"> </span>configure,<span class="w"> </span>l&#39;intervalle<span class="w"> </span>par<span class="w"> </span>defaut<span class="w"> </span>est<span class="w"> </span>de<span class="w"> </span>60<span class="w"> </span>minutes.<span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="w">      </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Pol_DebugMode&quot;</span><span class="nt">&gt;</span>Mode<span class="w"> </span>debug<span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="w">      </span><span class="nt">&lt;string</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Pol_DebugMode_Help&quot;</span><span class="nt">&gt;</span>Active<span class="w"> </span>ou<span class="w"> </span>desactive<span class="w"> </span>le<span class="w"> </span>mode<span class="w"> </span>debug<span class="w"> </span>de<span class="w"> </span>l&#39;application<span class="w"> </span>InventPro.
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>Le<span class="w"> </span>mode<span class="w"> </span>debug<span class="w"> </span>genere<span class="w"> </span>des<span class="w"> </span>logs<span class="w"> </span>detailles<span class="w"> </span>dans<span class="w"> </span>le<span class="w"> </span>dossier<span class="w"> </span>de<span class="w"> </span>l&#39;application.
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>Ne<span class="w"> </span>pas<span class="w"> </span>activer<span class="w"> </span>en<span class="w"> </span>production<span class="w"> </span>sauf<span class="w"> </span>pour<span class="w"> </span>le<span class="w"> </span>diagnostic.<span class="nt">&lt;/string&gt;</span>
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="w">    </span><span class="nt">&lt;/stringTable&gt;</span>
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="w">    </span><span class="nt">&lt;presentationTable&gt;</span>
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="w">      </span><span class="nt">&lt;presentation</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Pol_ServerUrl&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="w">        </span><span class="nt">&lt;textBox</span><span class="w"> </span><span class="na">refId=</span><span class="s">&quot;ServerUrl_Value&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="w">          </span><span class="nt">&lt;label&gt;</span>URL<span class="w"> </span>du<span class="w"> </span>serveur<span class="w"> </span>:<span class="nt">&lt;/label&gt;</span>
+</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="w">          </span><span class="nt">&lt;defaultValue&gt;</span>https://inventpro.entreprise.local/api<span class="nt">&lt;/defaultValue&gt;</span>
+</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="w">        </span><span class="nt">&lt;/textBox&gt;</span>
+</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="w">      </span><span class="nt">&lt;/presentation&gt;</span>
+</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a><span class="w">      </span><span class="nt">&lt;presentation</span><span class="w"> </span><span class="na">id=</span><span class="s">&quot;Pol_SyncInterval&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="w">        </span><span class="nt">&lt;decimalTextBox</span><span class="w"> </span><span class="na">refId=</span><span class="s">&quot;SyncInterval_Value&quot;</span><span class="w"> </span><span class="na">defaultValue=</span><span class="s">&quot;60&quot;</span><span class="w"> </span><span class="na">spinStep=</span><span class="s">&quot;5&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a><span class="w">          </span>Intervalle<span class="w"> </span>(minutes)<span class="w"> </span>:
+</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a><span class="w">        </span><span class="nt">&lt;/decimalTextBox&gt;</span>
+</span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a><span class="w">      </span><span class="nt">&lt;/presentation&gt;</span>
+</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a><span class="w">    </span><span class="nt">&lt;/presentationTable&gt;</span>
+</span><span id="__span-9-44"><a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a><span class="w">  </span><span class="nt">&lt;/resources&gt;</span>
+</span><span id="__span-9-45"><a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a><span class="nt">&lt;/policyDefinitionResources&gt;</span>
+</span></code></pre></div>
+<h3 id="deployer-les-fichiers-admx">Deployer les fichiers ADMX<a class="headerlink" href="#deployer-les-fichiers-admx" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c"># Deploy ADMX/ADML to the Central Store (recommended for domain environments)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nv">$centralStore</span> <span class="p">=</span> <span class="s2">&quot;\\$env:USERDNSDOMAIN\SYSVOL\$env:USERDNSDOMAIN\Policies\PolicyDefinitions&quot;</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c"># Copy the ADMX file</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nb">Copy-Item</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Admin\ADMX\InventPro.admx&quot;</span> <span class="n">-Destination</span> <span class="nv">$centralStore</span> <span class="n">-Force</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c"># Copy the ADML file to the French language folder</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nv">$frFolder</span> <span class="p">=</span> <span class="nb">Join-Path</span> <span class="nv">$centralStore</span> <span class="s2">&quot;fr-FR&quot;</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$frFolder</span><span class="p">))</span> <span class="p">{</span> <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$frFolder</span> <span class="n">-ItemType</span> <span class="n">Directory</span> <span class="n">-Force</span> <span class="p">}</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="nb">Copy-Item</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Admin\ADMX\fr-FR\InventPro.adml&quot;</span> <span class="n">-Destination</span> <span class="nv">$frFolder</span> <span class="n">-Force</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="c"># Verify</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="nb">Get-ChildItem</span> <span class="nv">$centralStore</span> <span class="n">-Filter</span> <span class="s2">&quot;InventPro*&quot;</span> <span class="n">-Recurse</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>    Directory: \\entreprise.local\SYSVOL\...\PolicyDefinitions
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Mode                 LastWriteTime         Length Name
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>----                 -------------         ------ ----
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>-a----         04/04/2026    10:30           2048 InventPro.admx
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    Directory: \\entreprise.local\SYSVOL\...\PolicyDefinitions\fr-FR
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>-a----         04/04/2026    10:30           1536 InventPro.adml
+</span></code></pre></div>
+<p>Apres le deploiement, les parametres InventPro apparaissent dans la console GPMC sous <code>Computer Configuration &gt; Administrative Templates &gt; InventPro</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Central Store vs deploiement local</p>
+<p>Sans Central Store (<code>PolicyDefinitions</code> dans SYSVOL), chaque controleur de domaine utilise ses propres modeles locaux. Creez toujours un Central Store pour garantir la coherence des modeles ADMX dans tout le domaine.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Un modele ADMX se compose de deux fichiers : <code>.admx</code> (parametres) et <code>.adml</code> (textes localises)</li>
+<li>Le Central Store dans SYSVOL assure la coherence des modeles sur tous les DC</li>
+<li>Chaque parametre ADMX mappe vers une cle et une valeur de registre specifiques</li>
+<li>Les types supportes incluent <code>text</code>, <code>decimal</code>, <code>boolean</code>, <code>enum</code> et <code>list</code></li>
+</ul>
+</div>
+<hr />
+<h2 id="gpo-policies-vs-gpo-preferences">GPO Policies vs GPO Preferences<a class="headerlink" href="#gpo-policies-vs-gpo-preferences" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["Deployer une valeur&lt;br/&gt;de registre"] --&gt; B{"L'utilisateur peut&lt;br/&gt;modifier la valeur ?"}
+    B --&gt;|"Non, imposer"| C{"Un modele ADMX&lt;br/&gt;existe ?"}
+    B --&gt;|"Oui, valeur par defaut"| D["GPO Preference"]
+    C --&gt;|"Oui"| E["GPO Policy&lt;br/&gt;(Administrative Templates)"]
+    C --&gt;|"Non"| F{"La cle est sous&lt;br/&gt;Policies\ ?"}
+    F --&gt;|"Oui"| G["Creer un ADMX&lt;br/&gt;personnalise"]
+    F --&gt;|"Non"| D
+    D --&gt; H{"Ciblage granulaire&lt;br/&gt;necessaire ?"}
+    H --&gt;|"Oui"| I["Item-Level Targeting"]
+    H --&gt;|"Non"| J["Action : Update"]
+    style A fill:#bd93f9,color:#fff
+    style B fill:#ffb86c,color:#000
+    style C fill:#ffb86c,color:#000
+    style F fill:#ffb86c,color:#000
+    style H fill:#ffb86c,color:#000
+    style E fill:#ff79c6,color:#fff
+    style D fill:#50fa7b,color:#000
+    style G fill:#8be9fd,color:#000
+    style I fill:#50fa7b,color:#000
+    style J fill:#50fa7b,color:#000</code></pre>
+<p>Vous devez deployer une valeur de registre sur 500 postes. Deux mecanismes existent dans la console GPMC : les <strong>Policies</strong> (Administrative Templates) et les <strong>Preferences</strong> (Registry). Le choix n'est pas anodin.</p>
+<h3 id="comparaison-detaillee">Comparaison detaillee<a class="headerlink" href="#comparaison-detaillee" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Critere</th>
+<th>GPO Policies</th>
+<th>GPO Preferences</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Emplacement registre</td>
+<td><code>SOFTWARE\Policies\</code></td>
+<td>Cle de votre choix</td>
+</tr>
+<tr>
+<td>Comportement a la suppression de la GPO</td>
+<td>Valeur supprimee automatiquement</td>
+<td>Valeur persistante (sauf option)</td>
+</tr>
+<tr>
+<td>Interface utilisateur</td>
+<td>Parametre grise pour l'utilisateur</td>
+<td>Utilisateur peut modifier la valeur</td>
+</tr>
+<tr>
+<td>Necessite un ADMX</td>
+<td>Oui</td>
+<td>Non</td>
+</tr>
+<tr>
+<td>Ciblage par element</td>
+<td>Non</td>
+<td>Oui (Item-Level Targeting)</td>
+</tr>
+<tr>
+<td>Application</td>
+<td>Chaque rafraichissement GPO</td>
+<td>Selon le mode choisi (Apply once, Replace, etc.)</td>
+</tr>
+<tr>
+<td>Priorite</td>
+<td>Elevee (tattooing)</td>
+<td>Normale</td>
+</tr>
+</tbody>
+</table>
+<h3 id="quand-utiliser-les-policies">Quand utiliser les Policies<a class="headerlink" href="#quand-utiliser-les-policies" title="Permanent link">&para;</a></h3>
+<p>Utilisez les Policies quand le parametre doit etre <strong>impose</strong> et que l'utilisateur ne doit pas pouvoir le contourner. C'est un verrou.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c"># Example: GPO Policy sets DisableTaskMgr - user cannot change it</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nb">Get-ItemProperty</span> <span class="s2">&quot;HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&quot;</span> <span class="p">`</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="n">-Name</span> <span class="s2">&quot;DisableTaskMgr&quot;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>DisableTaskMgr : 1
+</span></code></pre></div>
+<p>L'utilisateur voit le Gestionnaire de taches grise et ne peut pas modifier cette valeur, meme via regedit (elle sera reecrite au prochain rafraichissement GPO).</p>
+<h3 id="quand-utiliser-les-preferences">Quand utiliser les Preferences<a class="headerlink" href="#quand-utiliser-les-preferences" title="Permanent link">&para;</a></h3>
+<p>Utilisez les Preferences quand vous voulez <strong>configurer une valeur par defaut</strong> que l'utilisateur peut eventuellement modifier, ou quand vous devez ecrire dans une cle hors de <code>Policies\</code>.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c"># Example: GPO Preference sets a default proxy - user can change it</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nb">Get-ItemProperty</span> <span class="s2">&quot;HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings&quot;</span> <span class="p">`</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="n">-Name</span> <span class="s2">&quot;ProxyServer&quot;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ProxyServer : proxy.entreprise.local:8080
+</span></code></pre></div>
+<h3 id="creer-une-gpo-preference-de-registre">Creer une GPO Preference de registre<a class="headerlink" href="#creer-une-gpo-preference-de-registre" title="Permanent link">&para;</a></h3>
+<p>Dans la console GPMC :</p>
+<ol>
+<li><strong>Computer Configuration</strong> &gt; <strong>Preferences</strong> &gt; <strong>Windows Settings</strong> &gt; <strong>Registry</strong></li>
+<li>Clic droit &gt; <strong>Nouveau</strong> &gt; <strong>Element de Registre</strong></li>
+<li>Configurez les champs :</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>Replace</td>
+</tr>
+<tr>
+<td>Ruche</td>
+<td>HKEY_LOCAL_MACHINE</td>
+</tr>
+<tr>
+<td>Chemin</td>
+<td>SOFTWARE\MonEntreprise\Config</td>
+</tr>
+<tr>
+<td>Nom de la valeur</td>
+<td>MaintenanceWindow</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>REG_SZ</td>
+</tr>
+<tr>
+<td>Donnees</td>
+<td>Sunday 02:00-06:00</td>
+</tr>
+</tbody>
+</table>
+<h3 id="les-quatre-actions-des-preferences">Les quatre actions des Preferences<a class="headerlink" href="#les-quatre-actions-des-preferences" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Comportement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Create</strong></td>
+<td>Cree la valeur seulement si elle n'existe pas</td>
+</tr>
+<tr>
+<td><strong>Replace</strong></td>
+<td>Supprime et recree la valeur (ecrase toujours)</td>
+</tr>
+<tr>
+<td><strong>Update</strong></td>
+<td>Modifie la valeur si elle existe, la cree sinon</td>
+</tr>
+<tr>
+<td><strong>Delete</strong></td>
+<td>Supprime la valeur ou la cle</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Quelle action choisir ?</p>
+<p>Dans la majorite des cas, utilisez <strong>Update</strong>. C'est l'action la plus flexible : elle cree la valeur si absente et la met a jour si presente, sans supprimer les autres valeurs de la meme cle.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Les Policies ecrivent sous <code>Policies\</code> et sont imposees (l'utilisateur ne peut pas les modifier)</li>
+<li>Les Preferences ecrivent ou vous voulez et offrent quatre modes d'action</li>
+<li>Les Policies disparaissent quand la GPO est supprimee, les Preferences persistent par defaut</li>
+<li>Utilisez les Policies pour les parametres de securite, les Preferences pour la configuration applicative</li>
+</ul>
+</div>
+<hr />
+<h2 id="ciblage-par-element-item-level-targeting">Ciblage par element (Item-Level Targeting)<a class="headerlink" href="#ciblage-par-element-item-level-targeting" title="Permanent link">&para;</a></h2>
+<p>Votre service RH utilise une application qui necessite un parametre de registre specifique, mais uniquement sur les machines Windows 11 du batiment B avec plus de 8 Go de RAM. Plutot que de creer une OU dediee, utilisez le ciblage par element des GPO Preferences.</p>
+<h3 id="criteres-de-ciblage-disponibles">Criteres de ciblage disponibles<a class="headerlink" href="#criteres-de-ciblage-disponibles" title="Permanent link">&para;</a></h3>
+<p>Le ciblage par element offre une granularite que les filtres WMI des Policies ne peuvent pas atteindre :</p>
+<table>
+<thead>
+<tr>
+<th>Critere</th>
+<th>Exemples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Systeme d'exploitation</td>
+<td>Windows 11 23H2 uniquement</td>
+</tr>
+<tr>
+<td>Groupe de securite</td>
+<td>Membre de "GRP-RH-Users"</td>
+</tr>
+<tr>
+<td>Plage IP</td>
+<td>192.168.10.0/24</td>
+</tr>
+<tr>
+<td>Nom de l'ordinateur</td>
+<td>Commence par "PC-RH-"</td>
+</tr>
+<tr>
+<td>Variable d'environnement</td>
+<td><code>%DEPARTMENT%</code> = "RH"</td>
+</tr>
+<tr>
+<td>Registre</td>
+<td>Si <code>HKLM\SOFTWARE\AppX\Version</code> existe</td>
+</tr>
+<tr>
+<td>Espace disque</td>
+<td>Plus de 10 Go libres</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>Plus de 8192 Mo</td>
+</tr>
+<tr>
+<td>Processeur</td>
+<td>Architecture x64</td>
+</tr>
+<tr>
+<td>Site AD</td>
+<td>Site "Batiment-B"</td>
+</tr>
+<tr>
+<td>Organisational Unit</td>
+<td>OU specifique</td>
+</tr>
+<tr>
+<td>Plage horaire</td>
+<td>Entre 08:00 et 18:00</td>
+</tr>
+</tbody>
+</table>
+<h3 id="combiner-les-criteres-avec-des-operateurs-logiques">Combiner les criteres avec des operateurs logiques<a class="headerlink" href="#combiner-les-criteres-avec-des-operateurs-logiques" title="Permanent link">&para;</a></h3>
+<p>Les criteres se combinent avec des operateurs ET/OU. Dans la console GPMC, utilisez les boutons "Item" et "Collection" pour construire des conditions complexes.</p>
+<p>Exemple de ciblage composite :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>IF (OS = Windows 11)
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>AND (Security Group = GRP-RH-Users)
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>AND (IP Range = 192.168.10.0/24)
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>AND (Registry Value HKLM\SOFTWARE\AppRH exists)
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>THEN apply the preference
+</span></code></pre></div>
+<h3 id="verifier-un-ciblage-basee-sur-le-registre">Verifier un ciblage basee sur le registre<a class="headerlink" href="#verifier-un-ciblage-basee-sur-le-registre" title="Permanent link">&para;</a></h3>
+<p>Un cas d'usage frequent : appliquer un parametre uniquement si une application est installee (detectee via le registre).</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c"># Simulate the registry-based targeting check</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nv">$appKey</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{APP-GUID}&quot;</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="k">if</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$appKey</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="nv">$version</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ItemProperty</span> <span class="nv">$appKey</span><span class="p">).</span><span class="n">DisplayVersion</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    <span class="nb">Write-Host</span> <span class="s2">&quot;Application found: v$version - Preference would apply&quot;</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>    <span class="nb">Write-Host</span> <span class="s2">&quot;Application not found - Preference would NOT apply&quot;</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Application found: v4.2.1 - Preference would apply
+</span></code></pre></div>
+<h3 id="impact-sur-les-performances">Impact sur les performances<a class="headerlink" href="#impact-sur-les-performances" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Le ciblage par element ajoute du temps de traitement</p>
+<p>Chaque critere de ciblage est evalue a chaque rafraichissement GPO (toutes les 90 minutes par defaut). Un ciblage trop complexe (10+ criteres, requetes WMI lourdes) peut ralentir le demarrage de session. Limitez-vous a 3-4 criteres par element.</p>
+</div>
+<h3 id="verifier-lapplication-du-ciblage-via-les-logs">Verifier l'application du ciblage via les logs<a class="headerlink" href="#verifier-lapplication-du-ciblage-via-les-logs" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c"># Check Group Policy Preferences operational logs</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nb">Get-WinEvent</span> <span class="n">-LogName</span> <span class="s2">&quot;Microsoft-Windows-GroupPolicy/Operational&quot;</span> <span class="n">-MaxEvents</span> <span class="n">20</span> <span class="p">|</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Message</span> <span class="o">-like</span> <span class="s2">&quot;*preference*&quot;</span> <span class="o">-or</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Message</span> <span class="o">-like</span> <span class="s2">&quot;*targeting*&quot;</span> <span class="p">}</span> <span class="p">|</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="nb">Select-Object</span> <span class="n">TimeCreated</span><span class="p">,</span> <span class="n">Id</span><span class="p">,</span> <span class="n">Message</span> <span class="p">|</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="nb">Format-List</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>TimeCreated : 04/04/2026 08:15:33
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>Id          : 4016
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>Message     : Starting registry preference extension processing.
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>TimeCreated : 04/04/2026 08:15:33
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>Id          : 5310
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>Message     : Item-level targeting evaluated: match found. Applying preference.
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>TimeCreated : 04/04/2026 08:15:34
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>Id          : 4017
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>Message     : Completed registry preference extension processing in 312 milliseconds.
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Le ciblage par element offre plus de 15 criteres combinables (OS, groupe, IP, registre, etc.)</li>
+<li>Les criteres se combinent avec des operateurs logiques ET/OU pour un ciblage chirurgical</li>
+<li>Le ciblage base sur le registre permet de conditionner l'application a la presence d'une application</li>
+<li>Limitez la complexite du ciblage pour ne pas impacter les temps de demarrage</li>
+</ul>
+</div>
+<hr />
+<h2 id="depannage-de-lapplication-des-gpo">Depannage de l'application des GPO<a class="headerlink" href="#depannage-de-lapplication-des-gpo" title="Permanent link">&para;</a></h2>
+<p>Il est 9h du matin, un utilisateur signale que sa GPO de configuration proxy ne s'applique pas. Vous avez 15 minutes avant la reunion de crise. Voici la methodologie de diagnostic systematique.</p>
+<h3 id="etape-1-gpresult-le-verdict-final">Etape 1 : gpresult — le verdict final<a class="headerlink" href="#etape-1-gpresult-le-verdict-final" title="Permanent link">&para;</a></h3>
+<p><code>gpresult</code> montre exactement quelles GPO ont ete appliquees sur une machine et pour un utilisateur.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c"># Generate a full GPO report in HTML</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="n">gpresult</span> <span class="p">/</span><span class="nb">H </span><span class="s2">&quot;C:\Admin\gpo-report.html&quot;</span> <span class="p">/</span><span class="n">F</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c"># Quick text output for the current user</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="n">gpresult</span> <span class="p">/</span><span class="nb">R</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Microsoft (R) Windows (R) Operating System Group Policy Result tool v2.0
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>(c) Microsoft Corporation. All rights reserved.
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>COMPUTER SETTINGS
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>------------------
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    Applied Group Policy Objects
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>    ----------------------------
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>        SEC - Hardening Baseline
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>        NET - Proxy Configuration
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>        Default Domain Policy
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>    The following GPOs were not applied because they were filtered out
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>    ------------------------------------------------------------------
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>        APP - InventPro Config
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>            Filtering:  Denied (Security)
+</span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>            Reason:     Computer is not a member of the required security group
+</span><span id="__span-22-17"><a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a>
+</span><span id="__span-22-18"><a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a>USER SETTINGS
+</span><span id="__span-22-19"><a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a>-------------
+</span><span id="__span-22-20"><a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a>    Applied Group Policy Objects
+</span><span id="__span-22-21"><a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a>    ----------------------------
+</span><span id="__span-22-22"><a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a>        USR - Desktop Configuration
+</span><span id="__span-22-23"><a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a>        Default Domain Policy
+</span></code></pre></div>
+<h3 id="etape-2-forcer-un-rafraichissement-gpo">Etape 2 : Forcer un rafraichissement GPO<a class="headerlink" href="#etape-2-forcer-un-rafraichissement-gpo" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c"># Force a complete GPO refresh</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="n">gpupdate</span> <span class="p">/</span><span class="n">force</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c"># Force refresh and log off (for user policies that require logoff)</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="n">gpupdate</span> <span class="p">/</span><span class="n">force</span> <span class="p">/</span><span class="n">logoff</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Updating policy...
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>Computer Policy update has completed successfully.
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>User Policy update has completed successfully.
+</span></code></pre></div>
+<h3 id="etape-3-verifier-le-rsop-resultant-set-of-policy">Etape 3 : Verifier le RSOP (Resultant Set of Policy)<a class="headerlink" href="#etape-3-verifier-le-rsop-resultant-set-of-policy" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c"># Check the resultant set of policy for a specific registry value</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nb">Get-GPResultantSetOfPolicy</span> <span class="n">-ReportType</span> <span class="n">Html</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Admin\rsop.html&quot;</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c"># Or via PowerShell: check which GPO set a specific registry value</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="nv">$rsop</span> <span class="p">=</span> <span class="nb">Get-GPResultantSetOfPolicy</span> <span class="n">-ReportType</span> <span class="n">Xml</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="nv">$rsop</span><span class="p">.</span><span class="n">Rsop</span><span class="p">.</span><span class="n">ComputerResults</span><span class="p">.</span><span class="n">ExtensionData</span> <span class="p">|</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>    <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-like</span> <span class="s2">&quot;*Registry*&quot;</span> <span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>(rapport HTML genere avec le detail de chaque parametre et la GPO source)
+</span></code></pre></div>
+<h3 id="etape-4-examiner-les-journaux-devenements-gpo">Etape 4 : Examiner les journaux d'evenements GPO<a class="headerlink" href="#etape-4-examiner-les-journaux-devenements-gpo" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c"># Check Group Policy operational event log</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="nb">Get-WinEvent</span> <span class="n">-LogName</span> <span class="s2">&quot;Microsoft-Windows-GroupPolicy/Operational&quot;</span> <span class="n">-MaxEvents</span> <span class="n">50</span> <span class="p">|</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Level</span> <span class="o">-le</span> <span class="n">3</span> <span class="p">}</span> <span class="p">|</span>  <span class="c"># Warnings and errors only</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>    <span class="nb">Select-Object</span> <span class="n">TimeCreated</span><span class="p">,</span> <span class="n">LevelDisplayName</span><span class="p">,</span> <span class="n">Id</span><span class="p">,</span> <span class="n">Message</span> <span class="p">|</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>    <span class="nb">Format-Table</span> <span class="n">-Wrap</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>TimeCreated          LevelDisplayName Id   Message
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>-----------          ---------------- --   -------
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>04/04/2026 08:15:22  Warning          7016 Completed Registry Extension Processing in 3125ms.
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>                                            The Group Policy client-side extension took too long.
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>04/04/2026 08:14:55  Error            7002 Cannot find the domain controller for domain
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>                                            &quot;entreprise.local&quot;. (Error: 1355)
+</span></code></pre></div>
+<h3 id="event-ids-cles-pour-le-diagnostic-gpo">Event IDs cles pour le diagnostic GPO<a class="headerlink" href="#event-ids-cles-pour-le-diagnostic-gpo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Event ID</th>
+<th>Source</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">4004</td>
+<td>GroupPolicy</td>
+<td>Debut du traitement GPO machine</td>
+</tr>
+<tr>
+<td style="text-align: center;">4005</td>
+<td>GroupPolicy</td>
+<td>Debut du traitement GPO utilisateur</td>
+</tr>
+<tr>
+<td style="text-align: center;">4016</td>
+<td>GroupPolicy</td>
+<td>Debut du traitement des Preferences registre</td>
+</tr>
+<tr>
+<td style="text-align: center;">4017</td>
+<td>GroupPolicy</td>
+<td>Fin du traitement des Preferences registre</td>
+</tr>
+<tr>
+<td style="text-align: center;">5310</td>
+<td>GroupPolicy</td>
+<td>Resultat du ciblage par element (match/no match)</td>
+</tr>
+<tr>
+<td style="text-align: center;">5312</td>
+<td>GroupPolicy</td>
+<td>Resultat detaille de l'evaluation ILT</td>
+</tr>
+<tr>
+<td style="text-align: center;">7002</td>
+<td>GroupPolicy</td>
+<td>Erreur de connectivite au DC</td>
+</tr>
+<tr>
+<td style="text-align: center;">7016</td>
+<td>GroupPolicy</td>
+<td>Extension trop lente</td>
+</tr>
+<tr>
+<td style="text-align: center;">8004</td>
+<td>GroupPolicy</td>
+<td>GPO filtree par securite</td>
+</tr>
+</tbody>
+</table>
+<h3 id="etape-5-verifier-directement-dans-le-registre">Etape 5 : Verifier directement dans le registre<a class="headerlink" href="#etape-5-verifier-directement-dans-le-registre" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c"># Check the local GPO cache to see what was applied</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="nb">Get-ChildItem</span> <span class="s2">&quot;HKLM:\SOFTWARE\Policies\Microsoft&quot;</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">PSChildName</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="nb">Get-ChildItem</span> <span class="s2">&quot;HKCU:\SOFTWARE\Policies\Microsoft&quot;</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">PSChildName</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="c"># Check a specific value that should have been set by GPO</span>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="nv">$expectedPath</span> <span class="p">=</span> <span class="s2">&quot;HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings&quot;</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="k">if</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$expectedPath</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>    <span class="nb">Get-ItemProperty</span> <span class="nv">$expectedPath</span>
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>    <span class="nb">Write-Host</span> <span class="s2">&quot;Key does not exist - GPO may not have been applied&quot;</span>
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>PSChildName
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>-----------
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>Edge
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>Internet Explorer
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>Windows
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>Windows Defender
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>ProxySettingsPerUser : 0
+</span><span id="__span-30-9"><a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a>ProxyEnable          : 1
+</span><span id="__span-30-10"><a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a>ProxyServer          : proxy.entreprise.local:8080
+</span></code></pre></div>
+<h3 id="arbre-de-decision-du-diagnostic-gpo">Arbre de decision du diagnostic GPO<a class="headerlink" href="#arbre-de-decision-du-diagnostic-gpo" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>La GPO ne s&#39;applique pas ?
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>│
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>├── gpresult montre &quot;Filtered out&quot; ?
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>│   ├── Filtering: Denied (Security) → Verifier les ACL de la GPO
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>│   ├── Filtering: Denied (WMI) → Verifier le filtre WMI
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>│   └── Filtering: Not Applied (Link disabled) → Verifier le lien dans GPMC
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>│
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>├── gpresult ne montre pas la GPO du tout ?
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>│   ├── La GPO est-elle liee a la bonne OU ? → Verifier dans GPMC
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>│   ├── L&#39;objet est-il dans la bonne OU ? → `dsquery computer -name PC-NAME`
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>│   └── Heritage bloque ? → Verifier &quot;Block Inheritance&quot; sur l&#39;OU
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a>│
+</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>└── gpresult montre la GPO comme appliquee mais la valeur n&#39;est pas la ?
+</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a>    ├── Conflit avec une autre GPO → Verifier la priorite (LSDOU)
+</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a>    ├── Preference avec ILT → Verifier les logs 5310/5312
+</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a>    └── Cache GPO corrompu → `rd /s /q &quot;%LOCALAPPDATA%\GroupPolicy&quot;` + gpupdate
+</span></code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Ne jamais supprimer le cache GPO sans raison</p>
+<p>La suppression du cache GPO local (<code>%LOCALAPPDATA%\GroupPolicy</code> ou <code>%WINDIR%\System32\GroupPolicy</code>) force une re-evaluation complete. C'est un dernier recours, pas une premiere etape.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li><code>gpresult /R</code> est le premier reflexe pour tout probleme de GPO</li>
+<li>Les journaux <code>Microsoft-Windows-GroupPolicy/Operational</code> contiennent le detail du traitement</li>
+<li>Les Event IDs 5310 et 8004 revelent les raisons de filtrage et de ciblage</li>
+<li>Un arbre de decision systematique evite les diagnostics hasardeux</li>
+</ul>
+</div>
+<hr />
+<h2 id="scenario-reel-deployer-un-parametre-de-registre-personnalise-avec-fallback">Scenario reel : deployer un parametre de registre personnalise avec fallback<a class="headerlink" href="#scenario-reel-deployer-un-parametre-de-registre-personnalise-avec-fallback" title="Permanent link">&para;</a></h2>
+<p>Votre application metier "FactuPro" doit se connecter a un nouveau serveur API. Le parametre <code>ApiEndpoint</code> doit etre deploye dans <code>HKLM\SOFTWARE\MonEntreprise\FactuPro</code> sur toutes les machines de l'OU <code>OU=Finance,OU=Workstations,DC=entreprise,DC=local</code>. Condition : uniquement si FactuPro est installe (version 3.x ou superieure). En cas d'echec, un script de fallback doit appliquer le parametre au prochain demarrage.</p>
+<h3 id="etape-1-creer-la-gpo-preference-avec-ciblage">Etape 1 : Creer la GPO Preference avec ciblage<a class="headerlink" href="#etape-1-creer-la-gpo-preference-avec-ciblage" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Ouvrir GPMC, creer la GPO <strong>APP - FactuPro API Endpoint</strong></li>
+<li>La lier a l'OU <code>OU=Finance,OU=Workstations,DC=entreprise,DC=local</code></li>
+<li>Naviguer vers <code>Computer Configuration &gt; Preferences &gt; Windows Settings &gt; Registry</code></li>
+<li>Creer un nouvel element :</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action</td>
+<td>Update</td>
+</tr>
+<tr>
+<td>Ruche</td>
+<td>HKEY_LOCAL_MACHINE</td>
+</tr>
+<tr>
+<td>Chemin</td>
+<td>SOFTWARE\MonEntreprise\FactuPro</td>
+</tr>
+<tr>
+<td>Nom</td>
+<td>ApiEndpoint</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>REG_SZ</td>
+</tr>
+<tr>
+<td>Donnees</td>
+<td>factuapi-v2.entreprise.local</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Configurer l'Item-Level Targeting :<ul>
+<li>Critere 1 : Registry Match — <code>HKLM\SOFTWARE\MonEntreprise\FactuPro\Version</code> existe</li>
+<li>Critere 2 : Registry Value Match — <code>Version</code> &gt;= <code>3.0.0</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="etape-2-configurer-le-filtrage-de-securite">Etape 2 : Configurer le filtrage de securite<a class="headerlink" href="#etape-2-configurer-le-filtrage-de-securite" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c"># Create a security group for FactuPro machines</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="nb">New-ADGroup</span> <span class="n">-Name</span> <span class="s2">&quot;GRP-FactuPro-Machines&quot;</span> <span class="n">-GroupScope</span> <span class="n">Global</span> <span class="p">`</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>    <span class="n">-Path</span> <span class="s2">&quot;OU=Groups,DC=entreprise,DC=local&quot;</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="c"># Add Finance workstations to the group</span>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="nv">$financeComputers</span> <span class="p">=</span> <span class="nb">Get-ADComputer</span> <span class="n">-SearchBase</span> <span class="s2">&quot;OU=Finance,OU=Workstations,DC=entreprise,DC=local&quot;</span> <span class="n">-Filter</span> <span class="p">*</span>
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="nv">$financeComputers</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a>    <span class="nb">Add-ADGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;GRP-FactuPro-Machines&quot;</span> <span class="n">-Members</span> <span class="nv">$_</span>
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="p">}</span>
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="c"># Set GPO security filtering</span>
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="nb">Set-GPPermission</span> <span class="n">-Name</span> <span class="s2">&quot;APP - FactuPro API Endpoint&quot;</span> <span class="p">`</span>
+</span><span id="__span-32-13"><a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a>    <span class="n">-TargetName</span> <span class="s2">&quot;GRP-FactuPro-Machines&quot;</span> <span class="n">-TargetType</span> <span class="nb">Group </span><span class="p">`</span>
+</span><span id="__span-32-14"><a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a>    <span class="n">-PermissionLevel</span> <span class="n">GpoApply</span>
+</span><span id="__span-32-15"><a id="__codelineno-32-15" name="__codelineno-32-15" href="#__codelineno-32-15"></a>
+</span><span id="__span-32-16"><a id="__codelineno-32-16" name="__codelineno-32-16" href="#__codelineno-32-16"></a><span class="c"># Remove default &quot;Authenticated Users&quot; Apply permission</span>
+</span><span id="__span-32-17"><a id="__codelineno-32-17" name="__codelineno-32-17" href="#__codelineno-32-17"></a><span class="nb">Set-GPPermission</span> <span class="n">-Name</span> <span class="s2">&quot;APP - FactuPro API Endpoint&quot;</span> <span class="p">`</span>
+</span><span id="__span-32-18"><a id="__codelineno-32-18" name="__codelineno-32-18" href="#__codelineno-32-18"></a>    <span class="n">-TargetName</span> <span class="s2">&quot;Authenticated Users&quot;</span> <span class="n">-TargetType</span> <span class="nb">Group </span><span class="p">`</span>
+</span><span id="__span-32-19"><a id="__codelineno-32-19" name="__codelineno-32-19" href="#__codelineno-32-19"></a>    <span class="n">-PermissionLevel</span> <span class="n">GpoRead</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>(aucune sortie = succes)
+</span></code></pre></div>
+<h3 id="etape-3-preparer-le-script-de-fallback">Etape 3 : Preparer le script de fallback<a class="headerlink" href="#etape-3-preparer-le-script-de-fallback" title="Permanent link">&para;</a></h3>
+<p>Deployez ce script via GPO Startup Scripts comme filet de securite :</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="c"># FactuPro-Fallback.ps1 - Startup script fallback for FactuPro API endpoint</span>
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a><span class="nv">$regPath</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\MonEntreprise\FactuPro&quot;</span>
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a><span class="nv">$valueName</span> <span class="p">=</span> <span class="s2">&quot;ApiEndpoint&quot;</span>
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a><span class="nv">$expectedValue</span> <span class="p">=</span> <span class="s2">&quot;factuapi-v2.entreprise.local&quot;</span>
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a><span class="c"># Check if FactuPro is installed</span>
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$regPath</span><span class="p">))</span> <span class="p">{</span>
+</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>    <span class="n">exit</span> <span class="n">0</span>  <span class="c"># FactuPro not installed, nothing to do</span>
+</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a><span class="p">}</span>
+</span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a>
+</span><span id="__span-34-11"><a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a><span class="c"># Check if value already correct</span>
+</span><span id="__span-34-12"><a id="__codelineno-34-12" name="__codelineno-34-12" href="#__codelineno-34-12"></a><span class="nv">$currentValue</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$regPath</span> <span class="n">-Name</span> <span class="nv">$valueName</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span><span class="p">).</span><span class="nv">$valueName</span>
+</span><span id="__span-34-13"><a id="__codelineno-34-13" name="__codelineno-34-13" href="#__codelineno-34-13"></a>
+</span><span id="__span-34-14"><a id="__codelineno-34-14" name="__codelineno-34-14" href="#__codelineno-34-14"></a><span class="k">if</span> <span class="p">(</span><span class="nv">$currentValue</span> <span class="o">-eq</span> <span class="nv">$expectedValue</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-34-15"><a id="__codelineno-34-15" name="__codelineno-34-15" href="#__codelineno-34-15"></a>    <span class="n">exit</span> <span class="n">0</span>  <span class="c"># Already configured correctly</span>
+</span><span id="__span-34-16"><a id="__codelineno-34-16" name="__codelineno-34-16" href="#__codelineno-34-16"></a><span class="p">}</span>
+</span><span id="__span-34-17"><a id="__codelineno-34-17" name="__codelineno-34-17" href="#__codelineno-34-17"></a>
+</span><span id="__span-34-18"><a id="__codelineno-34-18" name="__codelineno-34-18" href="#__codelineno-34-18"></a><span class="c"># Apply the setting</span>
+</span><span id="__span-34-19"><a id="__codelineno-34-19" name="__codelineno-34-19" href="#__codelineno-34-19"></a><span class="k">try</span> <span class="p">{</span>
+</span><span id="__span-34-20"><a id="__codelineno-34-20" name="__codelineno-34-20" href="#__codelineno-34-20"></a>    <span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$regPath</span> <span class="n">-Name</span> <span class="nv">$valueName</span> <span class="n">-Value</span> <span class="nv">$expectedValue</span> <span class="n">-Force</span>
+</span><span id="__span-34-21"><a id="__codelineno-34-21" name="__codelineno-34-21" href="#__codelineno-34-21"></a>    <span class="nv">$logPath</span> <span class="p">=</span> <span class="s2">&quot;C:\Windows\Logs\FactuPro-Fallback.log&quot;</span>
+</span><span id="__span-34-22"><a id="__codelineno-34-22" name="__codelineno-34-22" href="#__codelineno-34-22"></a>    <span class="nv">$logEntry</span> <span class="p">=</span> <span class="s2">&quot;</span><span class="p">$(</span><span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="s1">&#39;yyyy-MM-dd HH:mm:ss&#39;</span><span class="p">)</span><span class="s2"> - ApiEndpoint updated from &#39;$currentValue&#39; to &#39;$expectedValue&#39;&quot;</span>
+</span><span id="__span-34-23"><a id="__codelineno-34-23" name="__codelineno-34-23" href="#__codelineno-34-23"></a>    <span class="nb">Add-Content</span> <span class="n">-Path</span> <span class="nv">$logPath</span> <span class="n">-Value</span> <span class="nv">$logEntry</span>
+</span><span id="__span-34-24"><a id="__codelineno-34-24" name="__codelineno-34-24" href="#__codelineno-34-24"></a><span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span><span id="__span-34-25"><a id="__codelineno-34-25" name="__codelineno-34-25" href="#__codelineno-34-25"></a>    <span class="nv">$logEntry</span> <span class="p">=</span> <span class="s2">&quot;</span><span class="p">$(</span><span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="s1">&#39;yyyy-MM-dd HH:mm:ss&#39;</span><span class="p">)</span><span class="s2"> - ERROR: </span><span class="p">$(</span><span class="nv">$_</span><span class="p">.</span><span class="n">Exception</span><span class="p">.</span><span class="n">Message</span><span class="p">)</span><span class="s2">&quot;</span>
+</span><span id="__span-34-26"><a id="__codelineno-34-26" name="__codelineno-34-26" href="#__codelineno-34-26"></a>    <span class="nb">Add-Content</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Windows\Logs\FactuPro-Fallback.log&quot;</span> <span class="n">-Value</span> <span class="nv">$logEntry</span>
+</span><span id="__span-34-27"><a id="__codelineno-34-27" name="__codelineno-34-27" href="#__codelineno-34-27"></a>    <span class="n">exit</span> <span class="n">1</span>
+</span><span id="__span-34-28"><a id="__codelineno-34-28" name="__codelineno-34-28" href="#__codelineno-34-28"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="etape-4-verifier-le-deploiement">Etape 4 : Verifier le deploiement<a class="headerlink" href="#etape-4-verifier-le-deploiement" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c"># Verify deployment on all Finance workstations</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="nv">$financeComputers</span> <span class="p">=</span> <span class="nb">Get-ADComputer</span> <span class="n">-SearchBase</span> <span class="s2">&quot;OU=Finance,OU=Workstations,DC=entreprise,DC=local&quot;</span> <span class="p">`</span>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>    <span class="n">-Filter</span> <span class="p">*</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">Name</span>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="nv">$verifyResults</span> <span class="p">=</span> <span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="nv">$financeComputers</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>    <span class="nv">$path</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\MonEntreprise\FactuPro&quot;</span>
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>    <span class="nv">$api</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;ApiEndpoint&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span><span class="p">).</span><span class="n">ApiEndpoint</span>
+</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>    <span class="nv">$ver</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;Version&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span><span class="p">).</span><span class="n">Version</span>
+</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>
+</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>    <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-35-11"><a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a>        <span class="n">Computer</span>    <span class="p">=</span> <span class="nv">$env:COMPUTERNAME</span>
+</span><span id="__span-35-12"><a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a>        <span class="n">Installed</span>   <span class="p">=</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$path</span><span class="p">)</span>
+</span><span id="__span-35-13"><a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a>        <span class="n">Version</span>     <span class="p">=</span> <span class="nv">$ver</span>
+</span><span id="__span-35-14"><a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a>        <span class="n">ApiEndpoint</span> <span class="p">=</span> <span class="nv">$api</span>
+</span><span id="__span-35-15"><a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a>        <span class="n">Compliant</span>   <span class="p">=</span> <span class="p">(</span><span class="nv">$api</span> <span class="o">-eq</span> <span class="s2">&quot;factuapi-v2.entreprise.local&quot;</span><span class="p">)</span>
+</span><span id="__span-35-16"><a id="__codelineno-35-16" name="__codelineno-35-16" href="#__codelineno-35-16"></a>    <span class="p">}</span>
+</span><span id="__span-35-17"><a id="__codelineno-35-17" name="__codelineno-35-17" href="#__codelineno-35-17"></a><span class="p">}</span> <span class="n">-ThrottleLimit</span> <span class="n">50</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-35-18"><a id="__codelineno-35-18" name="__codelineno-35-18" href="#__codelineno-35-18"></a>
+</span><span id="__span-35-19"><a id="__codelineno-35-19" name="__codelineno-35-19" href="#__codelineno-35-19"></a><span class="c"># Summary report</span>
+</span><span id="__span-35-20"><a id="__codelineno-35-20" name="__codelineno-35-20" href="#__codelineno-35-20"></a><span class="nv">$verifyResults</span> <span class="p">|</span> <span class="nb">Group-Object</span> <span class="n">Compliant</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="p">@{</span><span class="n">N</span><span class="p">=</span><span class="s2">&quot;Status&quot;</span><span class="p">;</span><span class="n">E</span><span class="p">={</span>
+</span><span id="__span-35-21"><a id="__codelineno-35-21" name="__codelineno-35-21" href="#__codelineno-35-21"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">Name</span> <span class="o">-eq</span> <span class="s2">&quot;True&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;Compliant&quot;</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="s2">&quot;Non-Compliant&quot;</span> <span class="p">}</span>
+</span><span id="__span-35-22"><a id="__codelineno-35-22" name="__codelineno-35-22" href="#__codelineno-35-22"></a><span class="p">}},</span> <span class="n">Count</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">-AutoSize</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>Status         Count
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>------         -----
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>Compliant         42
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>Non-Compliant      3
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Combinez GPO Preference et script de fallback</p>
+<p>La GPO Preference gere le cas standard. Le script de startup couvre les cas ou la GPO n'a pas pu s'appliquer (machine hors reseau lors du rafraichissement, timing, etc.). Cette approche "ceinture et bretelles" garantit une couverture maximale.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Combinez GPO Preferences (ciblage ILT) et script de fallback (startup) pour un deploiement robuste</li>
+<li>Le filtrage de securite par groupe AD limite l'application aux machines pertinentes</li>
+<li>Le script de fallback couvre les cas ou la GPO n'a pas pu s'appliquer a temps</li>
+<li>Verifiez toujours le deploiement par un audit PowerShell Remoting apres application</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pied de page" >
+        
+          
+          <a href="../01-powershell-remoting/" class="md-footer__link md-footer__link--prev" aria-label="Précédent: PowerShell Remoting et registre distant">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Précédent
+              </span>
+              <div class="md-ellipsis">
+                PowerShell Remoting et registre distant
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../03-audit-conformite/" class="md-footer__link md-footer__link--next" aria-label="Suivant: Audit et conformite du registre">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Suivant
+              </span>
+              <div class="md-ellipsis">
+                Audit et conformite du registre
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Julien Bombled
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/julienbombled/quid-wiki" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

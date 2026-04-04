@@ -1,0 +1,4084 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Bibliothèque de connaissances techniques">
+      
+      
+        <meta name="author" content="Julien Bombled">
+      
+      
+        <link rel="canonical" href="https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/07-astuces/">
+      
+      
+        <link rel="prev" href="../06-erreurs/">
+      
+      
+        <link rel="next" href="../08-fichiers-reg/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Astuces pratiques - Quid Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#astuces-pratiques" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Quid Wiki" class="md-header__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quid Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Astuces pratiques
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../bible-registre-windows/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Bible de la Base de Registre
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Base de Registre pour les Nuls
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../registre-pour-les-admins/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Le Registre pour les Administrateurs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../cross-index/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Index thematique
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quid Wiki" class="md-nav__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    Quid Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../bible-registre-windows/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Bible de la Base de Registre
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Bible de la Base de Registre
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture et structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/03-ruches/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les ruches principales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/04-types-donnees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/05-outils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outils et méthodes d'accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/06-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité et permissions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/07-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/08-reseau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registre et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/09-optimisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimisation et maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/10-scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripts et automatisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/11-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dépannage avancé
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/12-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Référence des clés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/13-demarrage-bcd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processus de démarrage et BCD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/14-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services Windows en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/15-com-shell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    COM, DCOM et le Shell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/16-securite-moderne/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité moderne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/17-forensique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyse forensique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/18-versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évolution à travers les versions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/19-virtualisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation et conteneurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/20-gpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/21-apps-modernes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications modernes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/22-non-documentees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clés non documentées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/23-wmi-cim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WMI, CIM et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/24-cloud-entreprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion d'entreprise et cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/25-api-avancees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Win32 et noyau en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/26-msi-installer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Installer (MSI) et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/27-etw-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETW, tracing et performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/28-taches-planifiees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planificateur de tâches et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/29-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cryptographie, DPAPI et certificats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/30-impression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sous-système d'impression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Base de Registre pour les Nuls
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Base de Registre pour les Nuls
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-cest-quoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C'est quoi la base de registre ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-premiers-pas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Premiers pas avec Regedit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre la structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modifications simples et utiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarder avant de toucher
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-erreurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les erreurs à éviter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astuces pratiques
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astuces pratiques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#personnalisation-du-bureau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Personnalisation du Bureau
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Personnalisation du Bureau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changer-le-delai-de-survol-de-la-barre-des-taches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changer le delai de survol de la barre des taches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#degrouper-les-fenetres-dans-la-barre-des-taches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Degrouper les fenetres dans la barre des taches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajouter-ouvrir-une-invite-de-commandes-ici-au-menu-contextuel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ajouter "Ouvrir une invite de commandes ici" au menu contextuel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performances
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performances">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supprimer-le-delai-de-demarrage-des-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supprimer le delai de demarrage des applications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accelerer-lapparition-des-sous-menus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accelerer l'apparition des sous-menus
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reseau
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reseau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desactiver-la-detection-automatique-de-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desactiver la detection automatique de proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajuster-la-taille-du-cache-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ajuster la taille du cache DNS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Securite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Securite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verrouiller-le-fond-decran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verrouiller le fond d'ecran
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#masquer-un-lecteur-dans-lexplorateur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masquer un lecteur dans l'explorateur
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appliquer-plusieurs-modifications-dun-coup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appliquer plusieurs modifications d'un coup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appliquer plusieurs modifications d&#39;un coup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comment-creer-un-fichier-reg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment creer un fichier .reg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple-de-fichier-reg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple de fichier .reg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-lutiliser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment l'utiliser
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-fichiers-reg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre les fichiers .reg
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mon premier dépannage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-evaluer-tutos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évaluer les tutoriels en ligne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-glossaire/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire illustré
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-powershell-bases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-gpo-debutant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe pour débutants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-windows11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-parametres-registre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paramètres Windows vs Registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-mini-projets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-projets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../registre-pour-les-admins/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le Registre pour les Administrateurs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Le Registre pour les Administrateurs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/01-powershell-remoting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell Remoting et registre distant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/02-gpo-registre-ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO et registre en environnement AD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/03-audit-conformite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit et conformite du registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/04-deploiement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploiement et industrialisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/05-ad-ds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory Domain Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/06-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/07-dhcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DHCP Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/08-wsus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WSUS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/09-iis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IIS / Web Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/10-rds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Desktop Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/11-hyper-v/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hyper-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/12-file-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Server / DFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/13-print-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Print Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/14-radius-nps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RADIUS / NPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/15-globalprotect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GlobalProtect (Palo Alto)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/16-sccm-mecm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCCM / MECM (ConfigMgr)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/17-intune/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft Intune
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/18-antivirus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Antivirus enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/19-citrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Citrix Virtual Apps & Desktops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/20-vmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMware Horizon / Workspace ONE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/21-m365-office/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft 365 Apps (Office)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/22-navigateurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigateurs enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/23-vpn-clients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VPN clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/24-backup-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backup et monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/25-exchange/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exchange Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/26-sql-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/27-sharepoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SharePoint Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/28-adobe-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adobe et Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/29-compliance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compliance (HIPAA, PCI-DSS, SOC 2)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/30-zero-trust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zero Trust et VDI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cross-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index thematique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#personnalisation-du-bureau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Personnalisation du Bureau
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Personnalisation du Bureau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#changer-le-delai-de-survol-de-la-barre-des-taches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changer le delai de survol de la barre des taches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#degrouper-les-fenetres-dans-la-barre-des-taches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Degrouper les fenetres dans la barre des taches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajouter-ouvrir-une-invite-de-commandes-ici-au-menu-contextuel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ajouter "Ouvrir une invite de commandes ici" au menu contextuel
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performances
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performances">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supprimer-le-delai-de-demarrage-des-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supprimer le delai de demarrage des applications
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#accelerer-lapparition-des-sous-menus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Accelerer l'apparition des sous-menus
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reseau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reseau
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Reseau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#desactiver-la-detection-automatique-de-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Desactiver la detection automatique de proxy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ajuster-la-taille-du-cache-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ajuster la taille du cache DNS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Securite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Securite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verrouiller-le-fond-decran" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verrouiller le fond d'ecran
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#masquer-un-lecteur-dans-lexplorateur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Masquer un lecteur dans l'explorateur
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appliquer-plusieurs-modifications-dun-coup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Appliquer plusieurs modifications d'un coup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Appliquer plusieurs modifications d&#39;un coup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comment-creer-un-fichier-reg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment creer un fichier .reg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exemple-de-fichier-reg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple de fichier .reg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comment-lutiliser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment l'utiliser
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">astuces</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">débutant</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">registre</span>
+      
+    
+  </nav>
+
+
+
+<h1 id="astuces-pratiques">Astuces pratiques<a class="headerlink" href="#astuces-pratiques" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Ce que vous allez apprendre</p>
+<ul>
+<li>Des astuces de personnalisation du Bureau</li>
+<li>Des reglages pour ameliorer la reactivite de Windows</li>
+<li>Des ajustements reseau utiles</li>
+<li>Des tweaks de securite pour proteger votre PC</li>
+<li>Comment appliquer plusieurs modifications d'un coup avec un fichier <code>.reg</code></li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Rappel</p>
+<p>Avant <strong>chaque</strong> modification, sauvegardez la cle concernee (clic droit &gt; Exporter). C'est la regle d'or. Chapitre 5 si vous avez besoin d'un rappel.</p>
+</div>
+<hr />
+<h2 id="personnalisation-du-bureau">Personnalisation du Bureau<a class="headerlink" href="#personnalisation-du-bureau" title="Permanent link">&para;</a></h2>
+<h3 id="changer-le-delai-de-survol-de-la-barre-des-taches">Changer le delai de survol de la barre des taches<a class="headerlink" href="#changer-le-delai-de-survol-de-la-barre-des-taches" title="Permanent link">&para;</a></h3>
+<p>Quand vous survolez une icone dans la barre des taches, Windows attend un peu avant d'afficher l'apercu de la fenetre. Vous pouvez raccourcir ce delai.</p>
+<div class="admonition example">
+<p class="admonition-title">Essayez vous-meme</p>
+<p><strong>Cle</strong> : collez dans la barre d'adresse de Regedit :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>HKEY_CURRENT_USER\Control Panel\Mouse
+</span></code></pre></div></p>
+<p><strong>Modification</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Donnees</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MouseHoverTime</code></td>
+<td style="text-align: center;">REG_SZ</td>
+<td style="text-align: center;"><code>200</code></td>
+<td>Reduit le delai de 400 ms a 200 ms</td>
+</tr>
+</tbody>
+</table>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>survolez une icone dans la barre des taches. L&#39;apercu apparait plus vite qu&#39;avant.
+</span></code></pre></div>
+<p><strong>Valeur par defaut</strong> : <code>400</code> (pour revenir en arriere).</p>
+</div>
+<hr />
+<h3 id="degrouper-les-fenetres-dans-la-barre-des-taches">Degrouper les fenetres dans la barre des taches<a class="headerlink" href="#degrouper-les-fenetres-dans-la-barre-des-taches" title="Permanent link">&para;</a></h3>
+<p>Par defaut, Windows regroupe toutes les fenetres d'une meme application sous un seul bouton. Si vous preferez voir chaque fenetre separement :</p>
+<div class="admonition example">
+<p class="admonition-title">Essayez vous-meme</p>
+<p><strong>Cle</strong> :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+</span></code></pre></div></p>
+<p><strong>Modification</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Donnees</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TaskbarGlomLevel</code></td>
+<td style="text-align: center;">REG_DWORD</td>
+<td style="text-align: center;"><code>2</code></td>
+<td>Chaque fenetre a son propre bouton</td>
+</tr>
+</tbody>
+</table>
+<p>Les trois options possibles :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Valeur</th>
+<th style="text-align: center;">Comportement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>0</code></td>
+<td style="text-align: center;">Toujours regrouper</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>1</code></td>
+<td style="text-align: center;">Regrouper seulement si la barre est pleine</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>2</code></td>
+<td style="text-align: center;">Ne jamais regrouper</td>
+</tr>
+</tbody>
+</table>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>fermez et rouvrez votre session (ou redemarrez l&#39;explorateur). Chaque fenetre a maintenant son propre bouton dans la barre des taches.
+</span></code></pre></div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Redemarrage necessaire</p>
+<p>Fermez et rouvrez la session, ou redemarrez l'explorateur pour appliquer ce changement.</p>
+</div>
+<hr />
+<h3 id="ajouter-ouvrir-une-invite-de-commandes-ici-au-menu-contextuel">Ajouter "Ouvrir une invite de commandes ici" au menu contextuel<a class="headerlink" href="#ajouter-ouvrir-une-invite-de-commandes-ici-au-menu-contextuel" title="Permanent link">&para;</a></h3>
+<p>Vous voulez pouvoir faire un clic droit dans un dossier et ouvrir directement une invite de commandes a cet emplacement ? Voici comment.</p>
+<div class="admonition example">
+<p class="admonition-title">Essayez vous-meme</p>
+<p><strong>Etape 1</strong> : Naviguez vers :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>HKEY_CLASSES_ROOT\Directory\Background\shell
+</span></code></pre></div></p>
+<p><strong>Etape 2</strong> : Clic droit sur <code>shell</code> &gt; <strong>Nouveau</strong> &gt; <strong>Cle</strong> &gt; nommez-la <code>cmd</code></p>
+<p><strong>Etape 3</strong> : Cliquez sur la cle <code>cmd</code>. Double-cliquez sur <strong>(Par defaut)</strong> et entrez :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Ouvrir une invite de commandes ici
+</span></code></pre></div></p>
+<p><strong>Etape 4</strong> : Clic droit sur <code>cmd</code> &gt; <strong>Nouveau</strong> &gt; <strong>Cle</strong> &gt; nommez-la <code>command</code></p>
+<p><strong>Etape 5</strong> : Cliquez sur <code>command</code>. Double-cliquez sur <strong>(Par defaut)</strong> et entrez :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>cmd.exe /s /k pushd &quot;%V&quot;
+</span></code></pre></div></p>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>faites un clic droit sur le fond d&#39;un dossier dans l&#39;explorateur. Vous voyez maintenant &quot;Ouvrir une invite de commandes ici&quot; dans le menu.
+</span></code></pre></div>
+</div>
+<div class="admonition quote">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Vous pouvez personnaliser le delai de survol de la barre des taches (<code>MouseHoverTime</code>), degrouper les fenetres (<code>TaskbarGlomLevel</code>) et ajouter des options au menu contextuel.</li>
+<li>Ces modifications se font dans <code>HKCU</code> et sont sans risque pour les autres utilisateurs.</li>
+</ul>
+</div>
+<hr />
+<h2 id="performances">Performances<a class="headerlink" href="#performances" title="Permanent link">&para;</a></h2>
+<h3 id="supprimer-le-delai-de-demarrage-des-applications">Supprimer le delai de demarrage des applications<a class="headerlink" href="#supprimer-le-delai-de-demarrage-des-applications" title="Permanent link">&para;</a></h3>
+<p>Windows impose un delai au lancement des programmes configures pour demarrer automatiquement. Ce delai peut etre supprime pour accelerer le demarrage.</p>
+<div class="admonition example">
+<p class="admonition-title">Essayez vous-meme</p>
+<p><strong>Cle</strong> :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize
+</span></code></pre></div></p>
+<p><strong>Modification</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Donnees</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StartupDelayInMSec</code></td>
+<td style="text-align: center;">REG_DWORD</td>
+<td style="text-align: center;"><code>0</code></td>
+<td>Supprime le delai de demarrage</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">La cle n'existe probablement pas</p>
+<p>La cle <code>Serialize</code> n'existe pas par defaut. Pas de panique, il faut la creer :</p>
+<ol>
+<li>Clic droit sur <code>Explorer</code> &gt; <strong>Nouveau</strong> &gt; <strong>Cle</strong> &gt; nommez-la <code>Serialize</code></li>
+<li>Clic droit dans le panneau de droite &gt; <strong>Nouveau</strong> &gt; <strong>Valeur DWORD (32 bits)</strong></li>
+<li>Nommez-la <code>StartupDelayInMSec</code></li>
+<li>Laissez la valeur a <code>0</code></li>
+</ol>
+</div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>au prochain redemarrage, vos programmes de demarrage se lancent plus rapidement.
+</span></code></pre></div>
+</div>
+<hr />
+<h3 id="accelerer-lapparition-des-sous-menus">Accelerer l'apparition des sous-menus<a class="headerlink" href="#accelerer-lapparition-des-sous-menus" title="Permanent link">&para;</a></h3>
+<p>Quand vous survolez un menu qui a des sous-menus, il y a un petit delai avant que le sous-menu apparaisse. Vous pouvez le reduire.</p>
+<div class="admonition example">
+<p class="admonition-title">Essayez vous-meme</p>
+<p><strong>Cle</strong> :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>HKEY_CURRENT_USER\Control Panel\Desktop
+</span></code></pre></div></p>
+<p><strong>Modification</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Donnees</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MenuShowDelay</code></td>
+<td style="text-align: center;">REG_SZ</td>
+<td style="text-align: center;"><code>100</code></td>
+<td>Reduit le delai de 400 ms a 100 ms</td>
+</tr>
+</tbody>
+</table>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>les menus et sous-menus s&#39;ouvrent presque instantanement.
+</span></code></pre></div>
+<p><strong>Valeur par defaut</strong> : <code>400</code> (pour revenir en arriere).</p>
+</div>
+<div class="admonition quote">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Vous pouvez supprimer le delai de demarrage des applications (<code>StartupDelayInMSec</code> = <code>0</code>) et accelerer l'affichage des sous-menus (<code>MenuShowDelay</code>).</li>
+<li>Ces reglages rendent Windows plus reactif sans effets secondaires.</li>
+</ul>
+</div>
+<hr />
+<h2 id="reseau">Reseau<a class="headerlink" href="#reseau" title="Permanent link">&para;</a></h2>
+<h3 id="desactiver-la-detection-automatique-de-proxy">Desactiver la detection automatique de proxy<a class="headerlink" href="#desactiver-la-detection-automatique-de-proxy" title="Permanent link">&para;</a></h3>
+<p>Si vous n'utilisez pas de proxy (c'est le cas de la plupart des particuliers), desactiver la detection automatique peut accelerer legerement votre connexion reseau.</p>
+<div class="admonition example">
+<p class="admonition-title">Essayez vous-meme</p>
+<p><strong>Cle</strong> :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings
+</span></code></pre></div></p>
+<p><strong>Modification</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Donnees</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProxyEnable</code></td>
+<td style="text-align: center;">REG_DWORD</td>
+<td style="text-align: center;"><code>0</code></td>
+<td>Desactive le proxy</td>
+</tr>
+</tbody>
+</table>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>votre navigateur ne perd plus de temps a chercher un proxy inexistant.
+</span></code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Utilisateurs en entreprise</p>
+<p>Si vous etes sur un reseau d'entreprise qui utilise un proxy, <strong>ne touchez pas</strong> a ce reglage. Votre connexion Internet cesserait de fonctionner.</p>
+</div>
+<hr />
+<h3 id="ajuster-la-taille-du-cache-dns">Ajuster la taille du cache DNS<a class="headerlink" href="#ajuster-la-taille-du-cache-dns" title="Permanent link">&para;</a></h3>
+<p>Le cache DNS stocke les adresses des sites web que vous avez visites, pour ne pas avoir a les rechercher a chaque fois. Vous pouvez ajuster sa duree de vie.</p>
+<div class="admonition example">
+<p class="admonition-title">Essayez vous-meme</p>
+<p><strong>Cle</strong> (necessite les droits administrateur) :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters
+</span></code></pre></div></p>
+<p><strong>Modifications</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Donnees</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MaxCacheEntryTtlLimit</code></td>
+<td style="text-align: center;">REG_DWORD</td>
+<td style="text-align: center;"><code>86400</code></td>
+<td>Duree max du cache : 24h (en secondes)</td>
+</tr>
+<tr>
+<td><code>MaxNegativeCacheTtl</code></td>
+<td style="text-align: center;">REG_DWORD</td>
+<td style="text-align: center;"><code>300</code></td>
+<td>Duree du cache negatif : 5 min (en secondes)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">C'est quoi le cache negatif ?</p>
+<p>Quand un site web est introuvable, Windows se souvient de cette "non-reponse" pendant un certain temps. C'est le cache negatif. Reduire sa duree permet de reessayer plus vite si le site revient en ligne.</p>
+</div>
+</div>
+<div class="admonition quote">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Desactiver la detection automatique de proxy (<code>ProxyEnable</code> = <code>0</code>) peut accelerer legerement la connexion si vous n'utilisez pas de proxy.</li>
+<li>Le cache DNS peut etre ajuste pour optimiser la resolution des noms de domaine.</li>
+</ul>
+</div>
+<hr />
+<h2 id="securite">Securite<a class="headerlink" href="#securite" title="Permanent link">&para;</a></h2>
+<h3 id="verrouiller-le-fond-decran">Verrouiller le fond d'ecran<a class="headerlink" href="#verrouiller-le-fond-decran" title="Permanent link">&para;</a></h3>
+<p>Empecher la modification du fond d'ecran. Utile en entreprise, en salle informatique ou si vos enfants changent le fond d'ecran toutes les 5 minutes.</p>
+<div class="admonition example">
+<p class="admonition-title">Essayez vous-meme</p>
+<p><strong>Cle</strong> :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\ActiveDesktop
+</span></code></pre></div></p>
+<p><strong>Modification</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Donnees</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NoChangingWallPaper</code></td>
+<td style="text-align: center;">REG_DWORD</td>
+<td style="text-align: center;"><code>1</code></td>
+<td>Interdit le changement de fond d'ecran</td>
+</tr>
+</tbody>
+</table>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>dans les parametres de personnalisation, l&#39;option de fond d&#39;ecran est grisee.
+</span></code></pre></div>
+<p>Pour annuler : remettre la valeur a <code>0</code> ou supprimer la valeur.</p>
+</div>
+<hr />
+<h3 id="masquer-un-lecteur-dans-lexplorateur">Masquer un lecteur dans l'explorateur<a class="headerlink" href="#masquer-un-lecteur-dans-lexplorateur" title="Permanent link">&para;</a></h3>
+<p>Vous pouvez cacher un lecteur (par exemple <code>D:</code>) dans l'explorateur sans le desactiver. Les fichiers restent accessibles, mais le lecteur n'apparait plus dans "Ce PC".</p>
+<div class="admonition example">
+<p class="admonition-title">Essayez vous-meme</p>
+<p><strong>Cle</strong> :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer
+</span></code></pre></div></p>
+<p><strong>Modification</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Donnees</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NoDrives</code></td>
+<td style="text-align: center;">REG_DWORD</td>
+<td style="text-align: center;">Voir le tableau ci-dessous</td>
+<td>Masque les lecteurs specifies</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tableau des valeurs par lecteur</strong> :</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Lecteur</th>
+<th style="text-align: center;">Valeur decimale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">A:</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr>
+<td style="text-align: center;">B:</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr>
+<td style="text-align: center;">C:</td>
+<td style="text-align: center;">4</td>
+</tr>
+<tr>
+<td style="text-align: center;">D:</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr>
+<td style="text-align: center;">E:</td>
+<td style="text-align: center;">16</td>
+</tr>
+</tbody>
+</table>
+<p>Pour masquer <strong>plusieurs</strong> lecteurs, additionnez les valeurs.</p>
+<p>Par exemple : masquer <code>D:</code> et <code>E:</code> = 8 + 16 = <strong>24</strong>.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Juste cache, pas bloque</p>
+<p>Le lecteur est <strong>invisible</strong> dans l'explorateur mais reste <strong>accessible</strong> en tapant son chemin directement (ex. : <code>D:\</code> dans la barre d'adresse).</p>
+<p>Pour bloquer reellement l'acces, il faut modifier les permissions NTFS (ce qui depasse le cadre de ce livre).</p>
+</div>
+<div class="admonition quote">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Vous pouvez verrouiller le fond d'ecran (<code>NoChangingWallPaper</code>) et masquer des lecteurs dans l'Explorateur (<code>NoDrives</code>).</li>
+<li>Masquer un lecteur le rend invisible mais pas inaccessible : le chemin direct fonctionne toujours.</li>
+</ul>
+</div>
+<hr />
+<h2 id="appliquer-plusieurs-modifications-dun-coup">Appliquer plusieurs modifications d'un coup<a class="headerlink" href="#appliquer-plusieurs-modifications-dun-coup" title="Permanent link">&para;</a></h2>
+<p>Si vous avez plusieurs modifications a faire, vous pouvez creer un <strong>fichier <code>.reg</code></strong> qui les applique toutes en un double-clic.</p>
+<p>C'est comme ecrire une liste de courses au lieu de faire un aller-retour au magasin pour chaque article.</p>
+<h3 id="comment-creer-un-fichier-reg">Comment creer un fichier .reg<a class="headerlink" href="#comment-creer-un-fichier-reg" title="Permanent link">&para;</a></h3>
+<div class="admonition example">
+<p class="admonition-title">Pas a pas</p>
+<ol>
+<li>Ouvrir le <strong>Bloc-notes</strong> (<span class="keys"><kbd class="key-windows">Win</kbd><span>+</span><kbd class="key-r">R</kbd></span> puis <code>notepad</code>)</li>
+<li>Ecrire le contenu (voir l'exemple ci-dessous)</li>
+<li><strong>Fichier</strong> &gt; <strong>Enregistrer sous...</strong></li>
+<li>Dans <strong>Type</strong>, choisir <code>Tous les fichiers (*.*)</code></li>
+<li>Nommer le fichier avec l'extension <code>.reg</code> (ex. : <code>mes_tweaks.reg</code>)</li>
+<li>Cliquer <strong>Enregistrer</strong></li>
+</ol>
+</div>
+<h3 id="exemple-de-fichier-reg">Exemple de fichier .reg<a class="headerlink" href="#exemple-de-fichier-reg" title="Permanent link">&para;</a></h3>
+<div class="language-ini highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="na">Windows Registry Editor Version 5.00</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1">; Show file extensions</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="k">[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="na">&quot;HideFileExt&quot;</span><span class="o">=</span><span class="s">dword:00000000</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1">; Open explorer on &quot;This PC&quot;</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="k">[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="na">&quot;LaunchTo&quot;</span><span class="o">=</span><span class="s">dword:00000001</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="c1">; Reduce menu delay</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="k">[HKEY_CURRENT_USER\Control Panel\Desktop]</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="na">&quot;MenuShowDelay&quot;</span><span class="o">=</span><span class="s">&quot;100&quot;</span>
+</span></code></pre></div>
+<h3 id="comment-lutiliser">Comment l'utiliser<a class="headerlink" href="#comment-lutiliser" title="Permanent link">&para;</a></h3>
+<p><strong>Double-cliquer</strong> sur le fichier <code>.reg</code> et confirmer l'import. Toutes les modifications s'appliquent d'un coup.</p>
+<div class="admonition warning">
+<p class="admonition-title">Premiere ligne obligatoire</p>
+<p>Le fichier <strong>doit</strong> commencer par <code>Windows Registry Editor Version 5.00</code>. Sans cette ligne, Windows ne reconnait pas le fichier comme un fichier de registre valide.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Les commentaires</p>
+<p>Les lignes qui commencent par <code>;</code> sont des commentaires. Elles sont ignorees par Windows mais vous aident a comprendre ce que fait chaque section. Utilisez-les abondamment !</p>
+</div>
+<div class="admonition quote">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Un fichier <code>.reg</code> permet d'appliquer <strong>plusieurs modifications</strong> en un seul double-clic, comme une liste de courses.</li>
+<li>Le fichier doit commencer par <code>Windows Registry Editor Version 5.00</code> et les commentaires (<code>;</code>) sont recommandes pour documenter chaque modification.</li>
+</ul>
+</div>
+<hr />
+<div class="admonition quote">
+<p class="admonition-title">En resume</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Categorie</th>
+<th style="text-align: center;">Astuce phare</th>
+<th style="text-align: center;">Difficulte</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Bureau</td>
+<td style="text-align: center;">Degrouper les fenetres</td>
+<td style="text-align: center;">Facile</td>
+</tr>
+<tr>
+<td style="text-align: center;">Bureau</td>
+<td style="text-align: center;">Menu contextuel personnalise</td>
+<td style="text-align: center;">Moyen</td>
+</tr>
+<tr>
+<td style="text-align: center;">Performance</td>
+<td style="text-align: center;">Supprimer le delai de demarrage</td>
+<td style="text-align: center;">Facile</td>
+</tr>
+<tr>
+<td style="text-align: center;">Performance</td>
+<td style="text-align: center;">Accelerer les menus</td>
+<td style="text-align: center;">Facile</td>
+</tr>
+<tr>
+<td style="text-align: center;">Reseau</td>
+<td style="text-align: center;">Desactiver la detection de proxy</td>
+<td style="text-align: center;">Facile</td>
+</tr>
+<tr>
+<td style="text-align: center;">Securite</td>
+<td style="text-align: center;">Masquer un lecteur</td>
+<td style="text-align: center;">Moyen</td>
+</tr>
+<tr>
+<td style="text-align: center;">Productivite</td>
+<td style="text-align: center;">Fichier <code>.reg</code> pour tout automatiser</td>
+<td style="text-align: center;">Moyen</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pied de page" >
+        
+          
+          <a href="../06-erreurs/" class="md-footer__link md-footer__link--prev" aria-label="Précédent: Les erreurs à éviter">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Précédent
+              </span>
+              <div class="md-ellipsis">
+                Les erreurs à éviter
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../08-fichiers-reg/" class="md-footer__link md-footer__link--next" aria-label="Suivant: Comprendre les fichiers .reg">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Suivant
+              </span>
+              <div class="md-ellipsis">
+                Comprendre les fichiers .reg
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Julien Bombled
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/julienbombled/quid-wiki" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

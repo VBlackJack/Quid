@@ -1,0 +1,5754 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Bibliothèque de connaissances techniques">
+      
+      
+        <meta name="author" content="Julien Bombled">
+      
+      
+        <link rel="canonical" href="https://vblackjack.github.io/Quid/books/bible-registre-windows/18-versions/">
+      
+      
+        <link rel="prev" href="../17-forensique/">
+      
+      
+        <link rel="next" href="../19-virtualisation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Évolution à travers les versions - Quid Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#evolution-a-travers-les-versions" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Quid Wiki" class="md-header__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quid Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Évolution à travers les versions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Bible de la Base de Registre
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../registre-pour-les-nuls/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Base de Registre pour les Nuls
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../registre-pour-les-admins/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Le Registre pour les Administrateurs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../cross-index/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Index thematique
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quid Wiki" class="md-nav__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    Quid Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Bible de la Base de Registre
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Bible de la Base de Registre
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture et structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-ruches/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les ruches principales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-types-donnees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-outils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outils et méthodes d'accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité et permissions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-reseau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registre et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-optimisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimisation et maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripts et automatisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dépannage avancé
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Référence des clés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-demarrage-bcd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processus de démarrage et BCD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services Windows en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-com-shell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    COM, DCOM et le Shell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-securite-moderne/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité moderne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-forensique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyse forensique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évolution à travers les versions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évolution à travers les versions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ce-que-vous-allez-apprendre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que vous allez apprendre
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chronologie-30-ans-devolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chronologie : 30 ans d'evolution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-31-1992-la-naissance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 3.1 (1992) : la naissance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-9598me-1995-2000-le-registre-multi-fichier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 95/98/ME (1995-2000) : le registre multi-fichier
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 95/98/ME (1995-2000) : le registre multi-fichier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deux-fichiers-deux-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deux fichiers, deux roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-branches-sont-apparues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les branches sont apparues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systeme-de-sauvegarde-automatique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Systeme de sauvegarde automatique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limites-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limites techniques
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-nt-31-a-40-1993-1996-larchitecture-moderne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows NT 3.1 a 4.0 (1993-1996) : l'architecture moderne
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows NT 3.1 a 4.0 (1993-1996) : l&#39;architecture moderne">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-cinq-ruches-fondamentales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les cinq ruches fondamentales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#innovations-majeures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Innovations majeures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format-binaire-version-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format binaire : version 1.3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-2000-2000-active-directory-et-strategie-de-groupe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 2000 (2000) : Active Directory et strategie de groupe
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 2000 (2000) : Active Directory et strategie de groupe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#active-directory-et-strategie-de-groupe-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active Directory et strategie de groupe (GPO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-policy-preferences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Group Policy Preferences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autres-ajouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autres ajouts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-xp-2001-restauration-systeme-et-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows XP (2001) : restauration systeme et protection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows XP (2001) : restauration systeme et protection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-restore-et-le-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Restore et le registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regback-sauvegarde-automatique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RegBack : sauvegarde automatique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-file-protection-wfpsfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows File Protection (WFP/SFC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last-known-good-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Last Known Good Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-vista-2006-trois-revolutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows Vista (2006) : trois revolutions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows Vista (2006) : trois revolutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-virtualisation-uac-du-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Virtualisation UAC du registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-registre-transactionnel-ktmtxr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Registre transactionnel (KTM/TxR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-associations-de-fichiers-par-utilisateur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Associations de fichiers par utilisateur
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-7-2009-optimisations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 7 (2009) : optimisations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 7 (2009) : optimisations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maintenance-en-arriere-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintenance en arriere-plan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nouvelles-cles-notables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nouvelles cles notables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-mineure-du-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version mineure du format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-8-81-2012-2013-demarrage-hybride" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 8 / 8.1 (2012-2013) : demarrage hybride
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 8 / 8.1 (2012-2013) : demarrage hybride">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-boot-demarrage-rapide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hybrid Boot (demarrage rapide)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-moderne-et-nouvelles-cles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface moderne et nouvelles cles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimisations-du-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimisations du format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-10-2015-2021-evolution-continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 10 (2015-2021) : evolution continue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 10 (2015-2021) : evolution continue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1507-1607-la-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1507 - 1607 : la base
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1703-creators-update-barre-dadresse-dans-regedit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1703 (Creators Update) : barre d'adresse dans Regedit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1803-april-2018-update-regback-desactive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1803 (April 2018 Update) : RegBack desactive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1903-settings-vs-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1903+ : Settings vs Registry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20h2-wdac-et-politiques-de-securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20H2+ : WDAC et politiques de securite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recapitulatif-des-changements-par-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recapitulatif des changements par version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-11-2021-interface-repensee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 11 (2021+) : interface repensee
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 11 (2021+) : interface repensee">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alignement-de-la-barre-des-taches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alignement de la barre des taches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snap-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snap Layouts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#widgets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Widgets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teams-integration-versions-initiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teams integration (versions initiales)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menus-contextuels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menus contextuels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tableau-des-nouvelles-cles-windows-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tableau des nouvelles cles Windows 11
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editions-serveur-differences-cles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editions serveur : differences cles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Editions serveur : differences cles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cles-specifiques-aux-serveurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cles specifiques aux serveurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#differences-de-configuration-par-defaut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Differences de configuration par defaut
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-core-registre-minimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server Core : registre minimal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-des-ruches-versions-majeures-et-mineures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format des ruches : versions majeures et mineures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Format des ruches : versions majeures et mineures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verifier-la-version-dune-ruche" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifier la version d'une ruche
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-preservation-du-registre-lors-des-mises-a-niveau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration : preservation du registre lors des mises a niveau
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration : preservation du registre lors des mises a niveau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comment-windows-preserve-le-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment Windows preserve le registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dossier-windowsold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dossier Windows.old
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transformations-appliquees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformations appliquees
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fonctionnalites-obsoletes-et-traces-residuelles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonctionnalites obsoletes et traces residuelles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lavenir-du-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'avenir du registre
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="L&#39;avenir du registre">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#le-registre-est-il-en-voie-de-disparition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le registre est-il en voie de disparition ?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ce-qui-pourrait-changer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce qui pourrait changer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-virtualisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation et conteneurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-gpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-apps-modernes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications modernes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-non-documentees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clés non documentées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-wmi-cim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WMI, CIM et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-cloud-entreprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion d'entreprise et cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-api-avancees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Win32 et noyau en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-msi-installer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Installer (MSI) et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-etw-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETW, tracing et performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-taches-planifiees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planificateur de tâches et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cryptographie, DPAPI et certificats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-impression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sous-système d'impression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../registre-pour-les-nuls/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Base de Registre pour les Nuls
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Base de Registre pour les Nuls
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/01-cest-quoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C'est quoi la base de registre ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/02-premiers-pas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Premiers pas avec Regedit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/03-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre la structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/04-modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modifications simples et utiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/05-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarder avant de toucher
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/06-erreurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les erreurs à éviter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/07-astuces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astuces pratiques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/08-fichiers-reg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre les fichiers .reg
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/09-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mon premier dépannage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/10-evaluer-tutos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évaluer les tutoriels en ligne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/11-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/12-glossaire/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire illustré
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/13-powershell-bases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/14-gpo-debutant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe pour débutants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/15-windows11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/16-parametres-registre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paramètres Windows vs Registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/17-mini-projets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-projets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../registre-pour-les-admins/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le Registre pour les Administrateurs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Le Registre pour les Administrateurs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/01-powershell-remoting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell Remoting et registre distant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/02-gpo-registre-ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO et registre en environnement AD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/03-audit-conformite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit et conformite du registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/04-deploiement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploiement et industrialisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/05-ad-ds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory Domain Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/06-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/07-dhcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DHCP Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/08-wsus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WSUS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/09-iis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IIS / Web Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/10-rds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Desktop Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/11-hyper-v/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hyper-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/12-file-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Server / DFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/13-print-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Print Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/14-radius-nps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RADIUS / NPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/15-globalprotect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GlobalProtect (Palo Alto)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/16-sccm-mecm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCCM / MECM (ConfigMgr)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/17-intune/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft Intune
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/18-antivirus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Antivirus enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/19-citrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Citrix Virtual Apps & Desktops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/20-vmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMware Horizon / Workspace ONE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/21-m365-office/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft 365 Apps (Office)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/22-navigateurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigateurs enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/23-vpn-clients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VPN clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/24-backup-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backup et monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/25-exchange/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exchange Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/26-sql-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/27-sharepoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SharePoint Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/28-adobe-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adobe et Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/29-compliance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compliance (HIPAA, PCI-DSS, SOC 2)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/30-zero-trust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zero Trust et VDI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cross-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index thematique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ce-que-vous-allez-apprendre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que vous allez apprendre
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#chronologie-30-ans-devolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chronologie : 30 ans d'evolution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-31-1992-la-naissance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 3.1 (1992) : la naissance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-9598me-1995-2000-le-registre-multi-fichier" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 95/98/ME (1995-2000) : le registre multi-fichier
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 95/98/ME (1995-2000) : le registre multi-fichier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deux-fichiers-deux-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deux fichiers, deux roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-branches-sont-apparues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les branches sont apparues
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#systeme-de-sauvegarde-automatique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Systeme de sauvegarde automatique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limites-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limites techniques
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-nt-31-a-40-1993-1996-larchitecture-moderne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows NT 3.1 a 4.0 (1993-1996) : l'architecture moderne
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows NT 3.1 a 4.0 (1993-1996) : l&#39;architecture moderne">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#les-cinq-ruches-fondamentales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les cinq ruches fondamentales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#innovations-majeures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Innovations majeures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#format-binaire-version-13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format binaire : version 1.3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-2000-2000-active-directory-et-strategie-de-groupe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 2000 (2000) : Active Directory et strategie de groupe
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 2000 (2000) : Active Directory et strategie de groupe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#active-directory-et-strategie-de-groupe-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active Directory et strategie de groupe (GPO)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-policy-preferences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Group Policy Preferences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autres-ajouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Autres ajouts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-xp-2001-restauration-systeme-et-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows XP (2001) : restauration systeme et protection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows XP (2001) : restauration systeme et protection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#system-restore-et-le-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Restore et le registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regback-sauvegarde-automatique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RegBack : sauvegarde automatique
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#windows-file-protection-wfpsfc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows File Protection (WFP/SFC)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#last-known-good-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Last Known Good Configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-vista-2006-trois-revolutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows Vista (2006) : trois revolutions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows Vista (2006) : trois revolutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-virtualisation-uac-du-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Virtualisation UAC du registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-registre-transactionnel-ktmtxr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Registre transactionnel (KTM/TxR)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-associations-de-fichiers-par-utilisateur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Associations de fichiers par utilisateur
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-7-2009-optimisations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 7 (2009) : optimisations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 7 (2009) : optimisations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maintenance-en-arriere-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maintenance en arriere-plan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nouvelles-cles-notables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nouvelles cles notables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#version-mineure-du-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Version mineure du format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-8-81-2012-2013-demarrage-hybride" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 8 / 8.1 (2012-2013) : demarrage hybride
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 8 / 8.1 (2012-2013) : demarrage hybride">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hybrid-boot-demarrage-rapide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hybrid Boot (demarrage rapide)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interface-moderne-et-nouvelles-cles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interface moderne et nouvelles cles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimisations-du-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimisations du format
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-10-2015-2021-evolution-continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 10 (2015-2021) : evolution continue
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 10 (2015-2021) : evolution continue">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1507-1607-la-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1507 - 1607 : la base
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1703-creators-update-barre-dadresse-dans-regedit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1703 (Creators Update) : barre d'adresse dans Regedit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1803-april-2018-update-regback-desactive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1803 (April 2018 Update) : RegBack desactive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1903-settings-vs-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1903+ : Settings vs Registry
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20h2-wdac-et-politiques-de-securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20H2+ : WDAC et politiques de securite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recapitulatif-des-changements-par-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recapitulatif des changements par version
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-11-2021-interface-repensee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 11 (2021+) : interface repensee
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 11 (2021+) : interface repensee">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alignement-de-la-barre-des-taches" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alignement de la barre des taches
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#snap-layouts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Snap Layouts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#widgets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Widgets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#teams-integration-versions-initiales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Teams integration (versions initiales)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#menus-contextuels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Menus contextuels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tableau-des-nouvelles-cles-windows-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tableau des nouvelles cles Windows 11
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#editions-serveur-differences-cles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editions serveur : differences cles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Editions serveur : differences cles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cles-specifiques-aux-serveurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cles specifiques aux serveurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#differences-de-configuration-par-defaut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Differences de configuration par defaut
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-core-registre-minimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server Core : registre minimal
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-des-ruches-versions-majeures-et-mineures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Format des ruches : versions majeures et mineures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Format des ruches : versions majeures et mineures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verifier-la-version-dune-ruche" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifier la version d'une ruche
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-preservation-du-registre-lors-des-mises-a-niveau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migration : preservation du registre lors des mises a niveau
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migration : preservation du registre lors des mises a niveau">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comment-windows-preserve-le-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comment Windows preserve le registre
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dossier-windowsold" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dossier Windows.old
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transformations-appliquees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformations appliquees
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fonctionnalites-obsoletes-et-traces-residuelles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonctionnalites obsoletes et traces residuelles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lavenir-du-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        L'avenir du registre
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="L&#39;avenir du registre">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#le-registre-est-il-en-voie-de-disparition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Le registre est-il en voie de disparition ?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ce-qui-pourrait-changer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce qui pourrait changer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">historique</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">registre</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">versions</span>
+      
+    
+  </nav>
+
+
+
+<h1 id="evolution-a-travers-les-versions">Evolution a travers les versions<a class="headerlink" href="#evolution-a-travers-les-versions" title="Permanent link">&para;</a></h1>
+<h2 id="ce-que-vous-allez-apprendre">Ce que vous allez apprendre<a class="headerlink" href="#ce-que-vous-allez-apprendre" title="Permanent link">&para;</a></h2>
+<ul>
+<li>L'histoire complete du registre, de Windows 3.1 a Windows 11</li>
+<li>Les changements majeurs a chaque generation : format, structure, fonctionnalites</li>
+<li>L'evolution du format binaire des ruches (versions majeures/mineures)</li>
+<li>Les differences entre editions desktop et serveur</li>
+<li>Comment Windows preserve le registre lors des mises a niveau</li>
+<li>Les cles disparues et les fonctionnalites obsoletes</li>
+<li>L'avenir du registre face aux nouvelles approches de configuration</li>
+</ul>
+<hr />
+<h2 id="chronologie-30-ans-devolution">Chronologie : 30 ans d'evolution<a class="headerlink" href="#chronologie-30-ans-devolution" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>timeline
+    title Evolution du registre Windows
+    1992 : Windows 3.1
+         : REG.DAT unique
+         : OLE uniquement
+    1995 : Windows 95
+         : SYSTEM.DAT + USER.DAT
+         : Multi-fichier
+    1996 : Windows NT 4.0
+         : SAM, SECURITY, SOFTWARE, SYSTEM
+         : Architecture moderne
+    2000 : Windows 2000
+         : Active Directory
+         : Group Policy
+    2001 : Windows XP
+         : System Restore
+         : RegBack
+    2006 : Windows Vista
+         : Virtualisation UAC
+         : TxR transactionnel
+    2009 : Windows 7
+         : Maintenance arriere-plan
+         : Format optimise
+    2012 : Windows 8
+         : Hybrid Boot
+         : Demarrage rapide
+    2015 : Windows 10
+         : Evolution continue
+         : Settings vs Registry
+    2021 : Windows 11
+         : Nouvelles cles UI
+         : Integration cloud</code></pre>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Le registre Windows a evolue sur 30 ans, de Windows 3.1 (1992) a Windows 11 (2021)</li>
+<li>Chaque generation a apporte des changements majeurs : multi-fichier (95), securite et Unicode (NT), GPO (2000), virtualisation UAC et transactions (Vista), demarrage rapide (8), separation Settings/Registry (10)</li>
+<li>Malgre ces evolutions, le format sous-jacent est reste fondamentalement compatible</li>
+</ul>
+</div>
+<hr />
+<h2 id="windows-31-1992-la-naissance">Windows 3.1 (1992) : la naissance<a class="headerlink" href="#windows-31-1992-la-naissance" title="Permanent link">&para;</a></h2>
+<p>Le tout premier registre etait <strong>d'une simplicite extreme</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Caracteristique</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fichier</td>
+<td><code>REG.DAT</code> unique</td>
+</tr>
+<tr>
+<td>Emplacement</td>
+<td><code>C:\WINDOWS\</code></td>
+</tr>
+<tr>
+<td>Taille typique</td>
+<td>Quelques Ko</td>
+</tr>
+<tr>
+<td>Contenu</td>
+<td>Enregistrements OLE et associations de fichiers uniquement</td>
+</tr>
+<tr>
+<td>Structure</td>
+<td>Base de donnees plate, un seul niveau de hierarchie</td>
+</tr>
+</tbody>
+</table>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>HKEY_CLASSES_ROOT
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── .doc = Word.Document
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── .xls = Excel.Sheet
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└── Word.Document
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    └── shell
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        └── open
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            └── command = C:\WINWORD\WINWORD.EXE %1
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Analogie</p>
+<p>Le registre de Windows 3.1 etait comme un <strong>carnet d'adresses</strong> avec une seule page : il ne servait qu'a dire "pour ouvrir un fichier <code>.doc</code>, lance Word".</p>
+</div>
+<p>Il n'y avait qu'<strong>une seule ruche</strong> : <code>HKEY_CLASSES_ROOT</code>.
+Pas de configuration systeme, pas de profils utilisateurs, pas de securite.</p>
+<p>L'editeur etait <code>REGEDIT.EXE</code>, deja present mais avec une interface tres basique.</p>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Le premier registre Windows (3.1) se limitait a un fichier unique <code>REG.DAT</code> de quelques Ko</li>
+<li>Il ne contenait que les associations de fichiers et les enregistrements OLE</li>
+<li>Une seule branche existait (<code>HKEY_CLASSES_ROOT</code>), sans securite ni profils utilisateurs</li>
+</ul>
+</div>
+<hr />
+<h2 id="windows-9598me-1995-2000-le-registre-multi-fichier">Windows 95/98/ME (1995-2000) : le registre multi-fichier<a class="headerlink" href="#windows-9598me-1995-2000-le-registre-multi-fichier" title="Permanent link">&para;</a></h2>
+<p>Avec Windows 95, le registre est devenu un <strong>composant central</strong> du systeme.</p>
+<h3 id="deux-fichiers-deux-roles">Deux fichiers, deux roles<a class="headerlink" href="#deux-fichiers-deux-roles" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Fichier</th>
+<th>Role</th>
+<th>Emplacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SYSTEM.DAT</code></td>
+<td>Configuration machine (materiel, pilotes, logiciels)</td>
+<td><code>C:\WINDOWS\</code></td>
+</tr>
+<tr>
+<td><code>USER.DAT</code></td>
+<td>Preferences utilisateur</td>
+<td><code>C:\WINDOWS\</code> ou <code>C:\WINDOWS\Profiles\&lt;user&gt;\</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="les-branches-sont-apparues">Les branches sont apparues<a class="headerlink" href="#les-branches-sont-apparues" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>HKEY_CLASSES_ROOT     ← Associations de fichiers (herite de 3.1)
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>HKEY_CURRENT_USER     ← NOUVEAU : preferences de l&#39;utilisateur courant
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>HKEY_LOCAL_MACHINE    ← NOUVEAU : configuration de la machine
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>HKEY_USERS            ← NOUVEAU : tous les profils charges
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>HKEY_CURRENT_CONFIG   ← NOUVEAU : profil materiel actif
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>HKEY_DYN_DATA         ← NOUVEAU : donnees dynamiques (performances, Plug and Play)
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">HKEY_DYN_DATA</p>
+<p>Cette branche, unique a Windows 95/98/ME, contenait des <strong>donnees en temps reel</strong> sur les performances et le Plug and Play. Elle existait uniquement en memoire et a ete supprimee dans Windows NT/2000.</p>
+</div>
+<h3 id="systeme-de-sauvegarde-automatique">Systeme de sauvegarde automatique<a class="headerlink" href="#systeme-de-sauvegarde-automatique" title="Permanent link">&para;</a></h3>
+<p>Windows 95 creait automatiquement des copies de secours :</p>
+<table>
+<thead>
+<tr>
+<th>Fichier</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SYSTEM.DA0</code></td>
+<td>Copie de <code>SYSTEM.DAT</code> du dernier demarrage reussi</td>
+</tr>
+<tr>
+<td><code>USER.DA0</code></td>
+<td>Copie de <code>USER.DAT</code> du dernier demarrage reussi</td>
+</tr>
+</tbody>
+</table>
+<p>Windows ME a ajoute un <strong>registre de restauration</strong> via <code>scanreg</code> :</p>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">:</span><span class="c1">: Windows 98/ME : restaurer le registre depuis une sauvegarde</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>scanreg /restore
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>L&#39;utilitaire liste les sauvegardes disponibles et propose un retour a une copie precedente.
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Pas de securite</p>
+<p>Le registre de Windows 9x n'avait <strong>aucun controle d'acces</strong>. N'importe quel programme pouvait lire et ecrire n'importe quelle cle. C'etait un far west.</p>
+</div>
+<h3 id="limites-techniques">Limites techniques<a class="headerlink" href="#limites-techniques" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Limite</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Taille maximale</td>
+<td>Pas de limite theorique, mais instabilite au-dela de quelques Mo</td>
+</tr>
+<tr>
+<td>Format</td>
+<td>Proprietaire, non documente</td>
+</tr>
+<tr>
+<td>Pas de transactions</td>
+<td>Corruption frequente en cas de crash</td>
+</tr>
+<tr>
+<td>Pas de securite</td>
+<td>Aucune ACL</td>
+</tr>
+<tr>
+<td>Encodage</td>
+<td>ANSI (pas Unicode)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Windows 95 a transforme le registre en composant central avec deux fichiers (<code>SYSTEM.DAT</code> et <code>USER.DAT</code>)</li>
+<li>Les cinq branches racines modernes sont apparues, dont <code>HKEY_CURRENT_USER</code> et <code>HKEY_LOCAL_MACHINE</code></li>
+<li>Aucun controle d'acces, pas de transactions, format ANSI : la stabilite et la securite etaient absentes</li>
+</ul>
+</div>
+<hr />
+<h2 id="windows-nt-31-a-40-1993-1996-larchitecture-moderne">Windows NT 3.1 a 4.0 (1993-1996) : l'architecture moderne<a class="headerlink" href="#windows-nt-31-a-40-1993-1996-larchitecture-moderne" title="Permanent link">&para;</a></h2>
+<p><strong>C'est ici que nait le registre que nous connaissons aujourd'hui.</strong></p>
+<p>Windows NT a ete concu en partant de zero par Dave Cutler et son equipe.
+Le registre NT est fondamentalement different de celui de Windows 95 :</p>
+<h3 id="les-cinq-ruches-fondamentales">Les cinq ruches fondamentales<a class="headerlink" href="#les-cinq-ruches-fondamentales" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Ruche</th>
+<th>Fichier</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SAM</td>
+<td><code>SAM</code></td>
+<td>Comptes utilisateurs et groupes locaux</td>
+</tr>
+<tr>
+<td>SECURITY</td>
+<td><code>SECURITY</code></td>
+<td>Politiques de securite et droits</td>
+</tr>
+<tr>
+<td>SOFTWARE</td>
+<td><code>SOFTWARE</code></td>
+<td>Configuration des logiciels installes</td>
+</tr>
+<tr>
+<td>SYSTEM</td>
+<td><code>SYSTEM</code></td>
+<td>Configuration materielle et services</td>
+</tr>
+<tr>
+<td>DEFAULT</td>
+<td><code>DEFAULT</code></td>
+<td>Profil par defaut pour les nouveaux utilisateurs</td>
+</tr>
+</tbody>
+</table>
+<p>Emplacement : <code>%SystemRoot%\System32\config\</code></p>
+<p>Chaque utilisateur possede egalement un fichier <code>NTUSER.DAT</code> dans son profil.</p>
+<h3 id="innovations-majeures">Innovations majeures<a class="headerlink" href="#innovations-majeures" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Innovation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Securite (ACL)</strong></td>
+<td>Chaque cle a son propre descripteur de securite</td>
+</tr>
+<tr>
+<td><strong>Unicode</strong></td>
+<td>Support natif des caracteres internationaux</td>
+</tr>
+<tr>
+<td><strong>Transactions</strong></td>
+<td>Journaux <code>.LOG</code> pour la protection contre la corruption</td>
+</tr>
+<tr>
+<td><strong>Hive format</strong></td>
+<td>Format binaire structure avec cellules, bacs et en-tetes</td>
+</tr>
+<tr>
+<td><strong>Configuration Manager</strong></td>
+<td>Composant noyau dedie (<code>ntoskrnl.exe</code>)</td>
+</tr>
+<tr>
+<td><strong>API unifiee</strong></td>
+<td><code>RegOpenKeyEx</code>, <code>RegSetValueEx</code>, <code>RegQueryValueEx</code>...</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Analogie</p>
+<p>Si le registre de Windows 95 etait un <strong>cahier d'ecolier</strong>, le registre NT est un <strong>coffre-fort bancaire</strong> avec des serrures individuelles sur chaque tiroir, un journal de toutes les operations, et un gardien qui verifie les identites.</p>
+</div>
+<h3 id="format-binaire-version-13">Format binaire : version 1.3<a class="headerlink" href="#format-binaire-version-13" title="Permanent link">&para;</a></h3>
+<p>Le format initial des ruches NT utilisait la signature <code>regf</code> avec :</p>
+<ul>
+<li>Version majeure : <code>1</code></li>
+<li>Version mineure : <code>3</code></li>
+<li>Taille de page : 4 096 octets (un <em>bin</em>)</li>
+<li>Cellules signees (negatif = alloue, positif = libre)</li>
+</ul>
+<p>Ce format de base est reste compatible avec toutes les versions ulterieures.</p>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Windows NT a pose les bases du registre moderne : cinq ruches, securite par ACL, Unicode natif et journaux de transactions</li>
+<li>Le Configuration Manager, composant du noyau, gere le registre avec le format binaire <code>regf</code> version 1.3</li>
+<li>Ce format est reste fondamentalement compatible avec toutes les versions ulterieures de Windows</li>
+</ul>
+</div>
+<hr />
+<h2 id="windows-2000-2000-active-directory-et-strategie-de-groupe">Windows 2000 (2000) : Active Directory et strategie de groupe<a class="headerlink" href="#windows-2000-2000-active-directory-et-strategie-de-groupe" title="Permanent link">&para;</a></h2>
+<p>Windows 2000 n'a pas change la <strong>structure</strong> du registre, mais a transforme sa <strong>gestion</strong> en environnement entreprise.</p>
+<h3 id="active-directory-et-strategie-de-groupe-gpo">Active Directory et strategie de groupe (GPO)<a class="headerlink" href="#active-directory-et-strategie-de-groupe-gpo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Nouveaute</th>
+<th>Impact sur le registre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Group Policy Objects (GPO)</strong></td>
+<td>Permet de configurer le registre de milliers de machines depuis un serveur central</td>
+</tr>
+<tr>
+<td><strong>Registry Policy (Registry.pol)</strong></td>
+<td>Fichier binaire dans le SYSVOL qui contient les modifications de registre a appliquer</td>
+</tr>
+<tr>
+<td><strong>HKLM\SOFTWARE\Policies</strong></td>
+<td>Nouvelle branche dediee aux politiques de groupe</td>
+</tr>
+<tr>
+<td><strong>HKCU\SOFTWARE\Policies</strong></td>
+<td>Politiques utilisateur appliquees via GPO</td>
+</tr>
+</tbody>
+</table>
+<h3 id="group-policy-preferences">Group Policy Preferences<a class="headerlink" href="#group-policy-preferences" title="Permanent link">&para;</a></h3>
+<p>Les <strong>preferences de strategie de groupe</strong> permettent de creer, modifier ou supprimer des valeurs du registre sans les "tatouer" (elles persistent meme si la GPO est retiree).</p>
+<h3 id="autres-ajouts">Autres ajouts<a class="headerlink" href="#autres-ajouts" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Installer  ← Windows Installer (MSI)
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>HKLM\SOFTWARE\Microsoft\Cryptography                      ← Infrastructure PKI
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>HKLM\SYSTEM\CurrentControlSet\Services\DNS                 ← Service DNS integre
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Windows 2000 a introduit les strategies de groupe (GPO) et les branches <code>Policies</code> dans le registre</li>
+<li>Le fichier <code>Registry.pol</code> sur le SYSVOL permet de configurer le registre de milliers de machines depuis un serveur central</li>
+<li>La structure des ruches n'a pas change, mais la gestion centralisee en entreprise a transforme l'usage du registre</li>
+</ul>
+</div>
+<hr />
+<h2 id="windows-xp-2001-restauration-systeme-et-protection">Windows XP (2001) : restauration systeme et protection<a class="headerlink" href="#windows-xp-2001-restauration-systeme-et-protection" title="Permanent link">&para;</a></h2>
+<h3 id="system-restore-et-le-registre">System Restore et le registre<a class="headerlink" href="#system-restore-et-le-registre" title="Permanent link">&para;</a></h3>
+<p>Windows XP a introduit la <strong>Restauration du systeme</strong> (<em>System Restore</em>) qui sauvegarde automatiquement les ruches du registre dans les points de restauration.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>%SystemRoot%\System32\Restore
+</span></code></pre></div>
+<p>Les instantanes du registre sont stockes avec chaque point de restauration, permettant de revenir a un etat anterieur.</p>
+<h3 id="regback-sauvegarde-automatique">RegBack : sauvegarde automatique<a class="headerlink" href="#regback-sauvegarde-automatique" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>%SystemRoot%\System32\config\RegBack\
+</span></code></pre></div>
+<p>Windows XP a introduit une tache planifiee qui copie regulierement les ruches dans ce dossier :</p>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">dir</span> <span class="nv">%SystemRoot%</span>\System32\config\RegBack
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a> Directory of C:\Windows\System32\config\RegBack
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>03/10/2024  03:00 AM      12,582,912 DEFAULT
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>03/10/2024  03:00 AM      12,582,912 SAM
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>03/10/2024  03:00 AM      12,582,912 SECURITY
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>03/10/2024  03:00 AM      67,108,864 SOFTWARE
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>03/10/2024  03:00 AM      16,777,216 SYSTEM
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">RegBack desactive depuis Windows 10 1803</p>
+<p>A partir de Windows 10 version 1803, <strong>RegBack est desactive par defaut</strong>. Les fichiers existent toujours dans le dossier, mais ils ont une taille de <strong>0 octet</strong>. Microsoft a juge que cette sauvegarde etait redondante avec les points de restauration et les cliches instantanes (Volume Shadow Copies). La cle pour le reactiver :
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Configuration Manager
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>EnablePeriodicBackup = 1 (REG_DWORD)
+</span></code></pre></div></p>
+</div>
+<h3 id="windows-file-protection-wfpsfc">Windows File Protection (WFP/SFC)<a class="headerlink" href="#windows-file-protection-wfpsfc" title="Permanent link">&para;</a></h3>
+<p>Le registre suit les fichiers systeme proteges :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\SFCDisable
+</span></code></pre></div>
+<h3 id="last-known-good-configuration">Last Known Good Configuration<a class="headerlink" href="#last-known-good-configuration" title="Permanent link">&para;</a></h3>
+<p>Amelioration du mecanisme de "derniere bonne configuration connue" :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>HKLM\SYSTEM\Select
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    Current   : 1
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    Default   : 1
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    LastKnownGood : 2
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    Failed    : 0
+</span></code></pre></div>
+<p>Windows garde <strong>plusieurs jeux de configuration</strong> (<em>ControlSet001</em>, <em>ControlSet002</em>) et peut revenir au dernier fonctionnel.</p>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Windows XP a introduit la restauration systeme et le dossier <code>RegBack</code> pour la sauvegarde automatique des ruches</li>
+<li>Le mecanisme <em>Last Known Good Configuration</em> permet de revenir a un jeu de configuration fonctionnel</li>
+<li>Attention : <code>RegBack</code> est desactive par defaut depuis Windows 10 version 1803</li>
+</ul>
+</div>
+<hr />
+<h2 id="windows-vista-2006-trois-revolutions">Windows Vista (2006) : trois revolutions<a class="headerlink" href="#windows-vista-2006-trois-revolutions" title="Permanent link">&para;</a></h2>
+<p>Windows Vista a apporte les trois plus grands changements au registre depuis Windows NT.</p>
+<h3 id="1-virtualisation-uac-du-registre">1. Virtualisation UAC du registre<a class="headerlink" href="#1-virtualisation-uac-du-registre" title="Permanent link">&para;</a></h3>
+<p>Pour assurer la compatibilite avec les anciennes applications qui ecrivent dans <code>HKLM\SOFTWARE</code> sans privileges administrateur :</p>
+<pre class="mermaid"><code>graph TD
+    A["Application legacy&lt;br/&gt;sans privileges admin"] --&gt;|Tente d'ecrire dans&lt;br/&gt;HKLM\SOFTWARE\MonApp| B{"Ecriture autorisee ?"}
+    B --&gt;|Non : acces refuse| C["Virtualisation activee"]
+    C --&gt; D["Redirige vers&lt;br/&gt;HKCU\Software\Classes\VirtualStore\MACHINE\SOFTWARE\MonApp"]
+    B --&gt;|Oui : processus eleve| E["Ecriture directe dans&lt;br/&gt;HKLM\SOFTWARE\MonApp"]</code></pre>
+<div class="admonition info">
+<p class="admonition-title">Transparence</p>
+<p>L'application ne sait pas qu'elle ecrit dans le VirtualStore. Pour elle, tout semble normal. C'est Windows qui intercepte et redirige silencieusement.</p>
+</div>
+<h3 id="2-registre-transactionnel-ktmtxr">2. Registre transactionnel (KTM/TxR)<a class="headerlink" href="#2-registre-transactionnel-ktmtxr" title="Permanent link">&para;</a></h3>
+<p>Windows Vista a introduit le <strong>Kernel Transaction Manager</strong> (KTM) et les <strong>Transacted Registry</strong> (TxR) pour permettre des modifications atomiques du registre :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>C:\Windows\System32\config\TxR\  ← Fichiers de transactions
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transaction</strong></td>
+<td>Groupe de modifications appliquees en bloc (tout ou rien)</td>
+</tr>
+<tr>
+<td><strong>Commit</strong></td>
+<td>Validation : toutes les modifications sont appliquees</td>
+</tr>
+<tr>
+<td><strong>Rollback</strong></td>
+<td>Annulation : aucune modification n'est appliquee</td>
+</tr>
+</tbody>
+</table>
+<p>Les journaux de transactions sont passes a un systeme dual (<code>.LOG1</code> + <code>.LOG2</code>) pour plus de robustesse.</p>
+<h3 id="3-associations-de-fichiers-par-utilisateur">3. Associations de fichiers par utilisateur<a class="headerlink" href="#3-associations-de-fichiers-par-utilisateur" title="Permanent link">&para;</a></h3>
+<p>Avant Vista, les associations de fichiers etaient globales.
+Depuis Vista, un utilisateur peut surcharger les associations machine :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pdf\UserChoice
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    ProgId = Acrobat.Document.DC
+</span></code></pre></div>
+<p>Cette cle <code>UserChoice</code> a priorite sur <code>HKCR\.pdf</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Windows Vista a apporte trois revolutions : la virtualisation UAC du registre, les transactions atomiques (KTM/TxR) et les associations de fichiers par utilisateur</li>
+<li>La virtualisation redirige les ecritures des applications legacy vers <code>HKCU\...\VirtualStore</code> de maniere transparente</li>
+<li>Les journaux de transactions passent au systeme dual (<code>.LOG1</code> + <code>.LOG2</code>) pour une meilleure robustesse</li>
+</ul>
+</div>
+<hr />
+<h2 id="windows-7-2009-optimisations">Windows 7 (2009) : optimisations<a class="headerlink" href="#windows-7-2009-optimisations" title="Permanent link">&para;</a></h2>
+<p>Windows 7 n'a pas apporte de revolution architecturale, mais des ameliorations incrementales :</p>
+<h3 id="maintenance-en-arriere-plan">Maintenance en arriere-plan<a class="headerlink" href="#maintenance-en-arriere-plan" title="Permanent link">&para;</a></h3>
+<p>Le Configuration Manager effectue desormais des optimisations automatiques :</p>
+<table>
+<thead>
+<tr>
+<th>Optimisation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compactage</td>
+<td>Recuperation de l'espace non alloue dans les ruches</td>
+</tr>
+<tr>
+<td>Defragmentation interne</td>
+<td>Reorganisation des cellules pour ameliorer les performances</td>
+</tr>
+<tr>
+<td>Nettoyage</td>
+<td>Suppression des donnees orphelines</td>
+</tr>
+</tbody>
+</table>
+<p>Ces operations sont invisibles et se produisent lors des periodes d'inactivite.</p>
+<h3 id="nouvelles-cles-notables">Nouvelles cles notables<a class="headerlink" href="#nouvelles-cles-notables" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\HomeGroup  ← Groupe residentiel
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband  ← Barre des taches repensee
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Reliability  ← Moniteur de fiabilite
+</span></code></pre></div>
+<h3 id="version-mineure-du-format">Version mineure du format<a class="headerlink" href="#version-mineure-du-format" title="Permanent link">&para;</a></h3>
+<p>Le format des ruches passe a la version mineure <code>5</code> (version 1.5) pour supporter :</p>
+<ul>
+<li>Des checkpoints dans les journaux de transactions</li>
+<li>Un mecanisme de recuperation ameliore</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Windows 7 a introduit la maintenance en arriere-plan du registre (compactage, defragmentation interne, nettoyage)</li>
+<li>Le format des ruches passe a la version mineure 5 avec des checkpoints dans les journaux</li>
+<li>Pas de revolution architecturale, mais des optimisations incrementales de performances et de fiabilite</li>
+</ul>
+</div>
+<hr />
+<h2 id="windows-8-81-2012-2013-demarrage-hybride">Windows 8 / 8.1 (2012-2013) : demarrage hybride<a class="headerlink" href="#windows-8-81-2012-2013-demarrage-hybride" title="Permanent link">&para;</a></h2>
+<h3 id="hybrid-boot-demarrage-rapide">Hybrid Boot (demarrage rapide)<a class="headerlink" href="#hybrid-boot-demarrage-rapide" title="Permanent link">&para;</a></h3>
+<p>Le changement majeur est le <strong>Fast Startup</strong> qui affecte directement le registre :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    HiberbootEnabled = 1
+</span></code></pre></div>
+<p>Au lieu d'un arret complet, Windows 8 effectue une <strong>hibernation partielle</strong> du noyau.
+Les ruches SYSTEM et SOFTWARE sont <strong>sauvegardees en memoire</strong> dans le fichier <code>hiberfil.sys</code>, ce qui accelere le demarrage.</p>
+<div class="admonition warning">
+<p class="admonition-title">Implication forensique</p>
+<p>Avec le demarrage rapide, un "arret" de Windows n'ecrit <strong>pas forcement</strong> les ruches sur le disque de maniere propre. Les ruches chargees au demarrage suivant proviennent de l'etat hibernation, pas d'un etat frais.</p>
+</div>
+<h3 id="interface-moderne-et-nouvelles-cles">Interface moderne et nouvelles cles<a class="headerlink" href="#interface-moderne-et-nouvelles-cles" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>HKCU\Software\Microsoft\Windows\CurrentVersion\ImmersiveShell  ← Interface Metro/Modern UI
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel        ← Applications du Store
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>HKCU\Software\Microsoft\Windows\CurrentVersion\CloudStore      ← Synchronisation cloud
+</span></code></pre></div>
+<h3 id="optimisations-du-format">Optimisations du format<a class="headerlink" href="#optimisations-du-format" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Amelioration</th>
+<th>Detail</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compression des donnees</td>
+<td>Les grandes valeurs peuvent etre compressees</td>
+</tr>
+<tr>
+<td>Chargement paresseux</td>
+<td>Les sous-arbres rarement accedes sont charges a la demande</td>
+</tr>
+<tr>
+<td>Prefetch du registre</td>
+<td>Anticipation des lectures basee sur l'historique d'acces</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Le demarrage hybride (<em>Fast Startup</em>) sauvegarde les ruches SYSTEM et SOFTWARE dans <code>hiberfil.sys</code> pour accelerer le boot</li>
+<li>De nouvelles cles apparaissent pour l'interface Modern UI, les applications du Store et la synchronisation cloud</li>
+<li>Le format gagne en optimisations : compression des grandes valeurs, chargement paresseux et prefetch</li>
+</ul>
+</div>
+<hr />
+<h2 id="windows-10-2015-2021-evolution-continue">Windows 10 (2015-2021) : evolution continue<a class="headerlink" href="#windows-10-2015-2021-evolution-continue" title="Permanent link">&para;</a></h2>
+<p>Windows 10 a introduit un modele de mises a jour semestrielles.
+Le registre a evolue progressivement avec chaque version.</p>
+<h3 id="1507-1607-la-base">1507 - 1607 : la base<a class="headerlink" href="#1507-1607-la-base" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate  ← Windows Update revu
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>    AppsUseLightTheme = 0  ← Theme sombre (nouveau)
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>    AllowTelemetry = 1  ← Telemetrie (tres controverse)
+</span></code></pre></div>
+<h3 id="1703-creators-update-barre-dadresse-dans-regedit">1703 (Creators Update) : barre d'adresse dans Regedit<a class="headerlink" href="#1703-creators-update-barre-dadresse-dans-regedit" title="Permanent link">&para;</a></h3>
+<p>Enfin ! Regedit obtient une <strong>barre d'adresse</strong> permettant de coller directement un chemin :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>HKCU\Software\Microsoft\Windows\CurrentVersion\Applets\Regedit
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    View = ...  ← Nouvelles options d&#39;affichage
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Gain de productivite</p>
+<p>Avant la version 1703, il fallait naviguer cle par cle dans l'arborescence. Depuis, vous pouvez coller <code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion</code> dans la barre d'adresse et y acceder instantanement.</p>
+</div>
+<h3 id="1803-april-2018-update-regback-desactive">1803 (April 2018 Update) : RegBack desactive<a class="headerlink" href="#1803-april-2018-update-regback-desactive" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Configuration Manager
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    EnablePeriodicBackup = 0  ← RegBack desactive par defaut
+</span></code></pre></div>
+<p>Le dossier <code>RegBack</code> existe toujours, mais les fichiers sont <strong>vides</strong> (0 octet).</p>
+<div class="admonition danger">
+<p class="admonition-title">Impact en depannage</p>
+<p>Cette modification a surpris de nombreux administrateurs qui comptaient sur RegBack pour reparer un registre corrompu. Desormais, il faut reactiver manuellement la sauvegarde ou utiliser les points de restauration.</p>
+</div>
+<h3 id="1903-settings-vs-registry">1903+ : Settings vs Registry<a class="headerlink" href="#1903-settings-vs-registry" title="Permanent link">&para;</a></h3>
+<p>Windows 10 a commence a deplacer certains parametres <strong>hors du registre</strong> :</p>
+<pre class="mermaid"><code>graph LR
+    A["Registre traditionnel&lt;br/&gt;HKLM/HKCU"] --&gt; B["Parametre systeme"]
+    C["Settings app&lt;br/&gt;settings.dat"] --&gt; B
+    D["MDM / CSP&lt;br/&gt;PolicyManager"] --&gt; B</code></pre>
+<p>Certains parametres de l'application <strong>Parametres</strong> (<em>Settings</em>) sont stockes dans des fichiers <code>settings.dat</code> (format binaire proprietaire) plutot que dans le registre.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>%LocalAppData%\Packages\windows.immersivecontrolpanel_cw5n1h2txyewy\Settings\settings.dat
+</span></code></pre></div>
+<h3 id="20h2-wdac-et-politiques-de-securite">20H2+ : WDAC et politiques de securite<a class="headerlink" href="#20h2-wdac-et-politiques-de-securite" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>HKLM\SYSTEM\CurrentControlSet\Control\CI   ← Code Integrity / WDAC
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    EnableVirtualizationBasedSecurity = 1
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    RequirePlatformSecurityFeatures = 3
+</span></code></pre></div>
+<h3 id="recapitulatif-des-changements-par-version">Recapitulatif des changements par version<a class="headerlink" href="#recapitulatif-des-changements-par-version" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Annee</th>
+<th>Changement registre majeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1507</td>
+<td>2015</td>
+<td>Telemetrie, Theme sombre</td>
+</tr>
+<tr>
+<td>1607</td>
+<td>2016</td>
+<td>Windows Subsystem for Linux (cles Lxss)</td>
+</tr>
+<tr>
+<td>1703</td>
+<td>2017</td>
+<td>Barre d'adresse Regedit</td>
+</tr>
+<tr>
+<td>1803</td>
+<td>2018</td>
+<td>RegBack desactive par defaut</td>
+</tr>
+<tr>
+<td>1903</td>
+<td>2019</td>
+<td>Separation Settings / Registry</td>
+</tr>
+<tr>
+<td>2004</td>
+<td>2020</td>
+<td>WSL 2 (nouvelles cles)</td>
+</tr>
+<tr>
+<td>20H2</td>
+<td>2020</td>
+<td>WDAC integration poussee</td>
+</tr>
+<tr>
+<td>21H1</td>
+<td>2021</td>
+<td>Nettoyage cles obsoletes Edge Legacy</td>
+</tr>
+<tr>
+<td>21H2</td>
+<td>2021</td>
+<td>Derniere version "majeure"</td>
+</tr>
+<tr>
+<td>22H2</td>
+<td>2022</td>
+<td>Version finale de Windows 10</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Windows 10 a introduit un modele de mises a jour semestrielles, faisant evoluer le registre progressivement</li>
+<li>Changements majeurs : barre d'adresse dans Regedit (1703), <code>RegBack</code> desactive par defaut (1803), separation Settings/Registry (1903+)</li>
+<li>Certains parametres migrent vers des fichiers <code>settings.dat</code> proprietaires, amorcant une diversification hors du registre</li>
+</ul>
+</div>
+<hr />
+<h2 id="windows-11-2021-interface-repensee">Windows 11 (2021+) : interface repensee<a class="headerlink" href="#windows-11-2021-interface-repensee" title="Permanent link">&para;</a></h2>
+<p>Windows 11 a introduit de nombreuses nouvelles cles liees a son interface utilisateur revisitee.</p>
+<h3 id="alignement-de-la-barre-des-taches">Alignement de la barre des taches<a class="headerlink" href="#alignement-de-la-barre-des-taches" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>; Center (default)
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>[HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>&quot;TaskbarAl&quot;=dword:00000001
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>; Left alignment
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>[HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>&quot;TaskbarAl&quot;=dword:00000000
+</span></code></pre></div>
+<h3 id="snap-layouts">Snap Layouts<a class="headerlink" href="#snap-layouts" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>    EnableSnapAssistFlyout = 1    ; Snap Layouts au survol du bouton Agrandir
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    EnableSnapBar = 1             ; Barre de Snap en haut de l&#39;ecran
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>    SnapAssist = 1                ; Assistance au positionnement
+</span></code></pre></div>
+<h3 id="widgets">Widgets<a class="headerlink" href="#widgets" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    TaskbarDa = 1    ; Afficher les widgets dans la barre des taches (1 = oui, 0 = non)
+</span></code></pre></div>
+<h3 id="teams-integration-versions-initiales">Teams integration (versions initiales)<a class="headerlink" href="#teams-integration-versions-initiales" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    TaskbarMn = 1    ; Icone Chat/Teams dans la barre des taches
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Teams retire</p>
+<p>Microsoft a retire l'integration de Teams Chat de la barre des taches dans les versions recentes de Windows 11. La cle <code>TaskbarMn</code> n'a plus d'effet sur les builds recents.</p>
+</div>
+<h3 id="menus-contextuels">Menus contextuels<a class="headerlink" href="#menus-contextuels" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>; Restore Windows 10 classic context menu
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>[HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32]
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>@=&quot;&quot;
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c"># Restore classic context menu</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="nb">New-Item</span> <span class="n">-Path</span> <span class="s2">&quot;HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32&quot;</span> <span class="n">-Value</span> <span class="s2">&quot;&quot;</span> <span class="n">-Force</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="c"># Restart Explorer for the change to take effect</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="nb">Stop-Process</span> <span class="n">-Name</span> <span class="n">explorer</span> <span class="n">-Force</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Le menu contextuel classique revient apres redemarrage d&#39;Explorer.
+</span></code></pre></div>
+<h3 id="tableau-des-nouvelles-cles-windows-11">Tableau des nouvelles cles Windows 11<a class="headerlink" href="#tableau-des-nouvelles-cles-windows-11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Cle / Valeur</th>
+<th>Branche</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TaskbarAl</code></td>
+<td><code>Explorer\Advanced</code></td>
+<td>Alignement barre des taches (0=gauche, 1=centre)</td>
+</tr>
+<tr>
+<td><code>TaskbarDa</code></td>
+<td><code>Explorer\Advanced</code></td>
+<td>Widgets (0=masque, 1=affiche)</td>
+</tr>
+<tr>
+<td><code>TaskbarMn</code></td>
+<td><code>Explorer\Advanced</code></td>
+<td>Chat Teams (0=masque, 1=affiche)</td>
+</tr>
+<tr>
+<td><code>TaskbarSi</code></td>
+<td><code>Explorer\Advanced</code></td>
+<td>Taille barre des taches (0=petit, 1=moyen, 2=grand)</td>
+</tr>
+<tr>
+<td><code>Start_Layout</code></td>
+<td><code>Explorer\Advanced</code></td>
+<td>Disposition du menu Demarrer (0=plus d'epingles, 1=defaut, 2=plus de recommandations)</td>
+</tr>
+<tr>
+<td><code>EnableSnapAssistFlyout</code></td>
+<td><code>Explorer\Advanced</code></td>
+<td>Snap Layouts au survol</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Windows 11 a introduit de nombreuses nouvelles cles sous <code>Explorer\Advanced</code> pour personnaliser la barre des taches, les widgets et les Snap Layouts</li>
+<li>Le menu contextuel classique peut etre restaure via une cle CLSID specifique dans <code>HKCU\Software\Classes</code></li>
+<li>Certaines cles comme <code>TaskbarMn</code> (Teams Chat) sont devenues obsoletes dans les builds recents</li>
+</ul>
+</div>
+<hr />
+<h2 id="editions-serveur-differences-cles">Editions serveur : differences cles<a class="headerlink" href="#editions-serveur-differences-cles" title="Permanent link">&para;</a></h2>
+<p>Les editions Windows Server partagent le meme format de registre, mais leur <strong>configuration par defaut</strong> differe significativement.</p>
+<h3 id="cles-specifiques-aux-serveurs">Cles specifiques aux serveurs<a class="headerlink" href="#cles-specifiques-aux-serveurs" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>HKLM\SYSTEM\CurrentControlSet\Control\ProductOptions
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>    ProductType = &quot;ServerNT&quot;          ; Server standard
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    ProductType = &quot;LanmanNT&quot;          ; Domain controller
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>    InstallationType = &quot;Server&quot;       ; vs &quot;Client&quot; pour les editions desktop
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>    EditionID = &quot;ServerStandard&quot;      ; ou &quot;ServerDatacenter&quot;
+</span></code></pre></div>
+<h3 id="differences-de-configuration-par-defaut">Differences de configuration par defaut<a class="headerlink" href="#differences-de-configuration-par-defaut" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Parametre</th>
+<th>Desktop</th>
+<th>Server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DisableAntiSpyware</code></td>
+<td>0 (Defender actif)</td>
+<td>1 (souvent desactive)</td>
+</tr>
+<tr>
+<td><code>NtfsDisableLastAccessUpdate</code></td>
+<td>1 (desactive)</td>
+<td>1 (desactive)</td>
+</tr>
+<tr>
+<td><code>Start</code> des services multimedia</td>
+<td>2 (auto)</td>
+<td>4 (desactive)</td>
+</tr>
+<tr>
+<td>IE Enhanced Security</td>
+<td>Desactive</td>
+<td>Active</td>
+</tr>
+<tr>
+<td>Pare-feu profil domaine</td>
+<td>Actif</td>
+<td>Actif avec regles strictes</td>
+</tr>
+<tr>
+<td>Telemetrie</td>
+<td>Normal</td>
+<td>Minimal</td>
+</tr>
+</tbody>
+</table>
+<h3 id="server-core-registre-minimal">Server Core : registre minimal<a class="headerlink" href="#server-core-registre-minimal" title="Permanent link">&para;</a></h3>
+<p>Server Core n'a pas d'Explorateur Windows ni d'interface graphique.
+De nombreuses cles liees au shell (<code>Explorer</code>, <code>Themes</code>, <code>Desktop</code>) sont absentes ou vides.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="c"># Check if running Server Core</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nv">$installType</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ItemProperty</span> <span class="s2">&quot;HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;</span><span class="p">).</span><span class="n">InstallationType</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="k">if</span> <span class="p">(</span><span class="nv">$installType</span> <span class="o">-eq</span> <span class="s2">&quot;Server Core&quot;</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>    <span class="nb">Write-Output</span> <span class="s2">&quot;Server Core detected - minimal registry&quot;</span>
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>Server Core detected - minimal registry
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Les editions Windows Server partagent le meme format de registre mais ont une configuration par defaut differente (services multimedia desactives, securite renforcee)</li>
+<li>La valeur <code>ProductType</code> dans <code>ProductOptions</code> distingue un serveur (<code>ServerNT</code>) d'un controleur de domaine (<code>LanmanNT</code>)</li>
+<li>Server Core possede un registre minimal, sans les cles liees au shell graphique</li>
+</ul>
+</div>
+<hr />
+<h2 id="format-des-ruches-versions-majeures-et-mineures">Format des ruches : versions majeures et mineures<a class="headerlink" href="#format-des-ruches-versions-majeures-et-mineures" title="Permanent link">&para;</a></h2>
+<p>Le format binaire des ruches a evolue au fil des versions de Windows.</p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Windows</th>
+<th>Changements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.1</td>
+<td>NT 3.1</td>
+<td>Format initial</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>NT 3.5</td>
+<td>Corrections mineures</td>
+</tr>
+<tr>
+<td>1.3</td>
+<td>NT 4.0</td>
+<td>Format stable de reference</td>
+</tr>
+<tr>
+<td>1.4</td>
+<td>Vista</td>
+<td>Support des journaux duaux (.LOG1/.LOG2)</td>
+</tr>
+<tr>
+<td>1.5</td>
+<td>7/8</td>
+<td>Checkpoints dans les journaux</td>
+</tr>
+<tr>
+<td>1.6</td>
+<td>10</td>
+<td>Optimisations internes</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Compatibilite ascendante</p>
+<p>La version majeure est restee <code>1</code> depuis le debut. Cela signifie que le format est <strong>fondamentalement le meme</strong> depuis NT 3.1. Un outil qui sait lire la version 1.3 peut generalement lire toutes les versions ulterieures. Les changements de version mineure ajoutent des fonctionnalites sans casser la compatibilite.</p>
+</div>
+<h3 id="verifier-la-version-dune-ruche">Verifier la version d'une ruche<a class="headerlink" href="#verifier-la-version-dune-ruche" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="c1"># Read the hive header</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;C:/Windows/System32/config/SYSTEM&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a>    <span class="n">header</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+</span><span id="__span-32-6"><a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>
+</span><span id="__span-32-7"><a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="n">signature</span> <span class="o">=</span> <span class="n">header</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+</span><span id="__span-32-8"><a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="n">major_version</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack_from</span><span class="p">(</span><span class="s2">&quot;&lt;I&quot;</span><span class="p">,</span> <span class="n">header</span><span class="p">,</span> <span class="mh">0x14</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-32-9"><a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="n">minor_version</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack_from</span><span class="p">(</span><span class="s2">&quot;&lt;I&quot;</span><span class="p">,</span> <span class="n">header</span><span class="p">,</span> <span class="mh">0x18</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="__span-32-10"><a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a>
+</span><span id="__span-32-11"><a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Signature: </span><span class="si">{</span><span class="n">signature</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span><span id="__span-32-12"><a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Version: </span><span class="si">{</span><span class="n">major_version</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">minor_version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>Signature: b&#39;regf&#39;
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>Version: 1.6
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Le format binaire des ruches a evolue de la version 1.1 (NT 3.1) a la version 1.6 (Windows 10), mais la version majeure est restee <code>1</code></li>
+<li>Cette stabilite garantit une compatibilite ascendante : un outil lisant la version 1.3 peut generalement lire toutes les versions suivantes</li>
+<li>La signature <code>regf</code> et la structure en cellules/bacs sont restees fondamentalement inchangees depuis 30 ans</li>
+</ul>
+</div>
+<hr />
+<h2 id="migration-preservation-du-registre-lors-des-mises-a-niveau">Migration : preservation du registre lors des mises a niveau<a class="headerlink" href="#migration-preservation-du-registre-lors-des-mises-a-niveau" title="Permanent link">&para;</a></h2>
+<h3 id="comment-windows-preserve-le-registre">Comment Windows preserve le registre<a class="headerlink" href="#comment-windows-preserve-le-registre" title="Permanent link">&para;</a></h3>
+<p>Lors d'une mise a niveau majeure (ex : Windows 10 vers Windows 11), Windows suit un processus en plusieurs etapes :</p>
+<pre class="mermaid"><code>graph TD
+    A["1. Inventaire&lt;br/&gt;Scanner le registre existant"] --&gt; B["2. Sauvegarde&lt;br/&gt;Copier les ruches dans Windows.old"]
+    B --&gt; C["3. Migration&lt;br/&gt;Appliquer les transformations"]
+    C --&gt; D["4. Fusion&lt;br/&gt;Integrer les nouvelles cles"]
+    D --&gt; E["5. Nettoyage&lt;br/&gt;Supprimer les cles obsoletes"]
+    E --&gt; F["6. Verification&lt;br/&gt;Valider la coherence"]</code></pre>
+<h3 id="dossier-windowsold">Dossier Windows.old<a class="headerlink" href="#dossier-windowsold" title="Permanent link">&para;</a></h3>
+<p>Apres une mise a niveau, les anciennes ruches sont conservees dans :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>C:\Windows.old\Windows\System32\config\
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Duree de conservation</p>
+<p>Windows garde le dossier <code>Windows.old</code> pendant <strong>10 jours</strong> (Windows 10/11). Passe ce delai, il est supprime automatiquement par la tache de nettoyage de disque. Pensez a copier les ruches si vous avez besoin de les comparer.</p>
+</div>
+<h3 id="transformations-appliquees">Transformations appliquees<a class="headerlink" href="#transformations-appliquees" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Type de transformation</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ajout de cles</strong></td>
+<td>Nouvelles cles pour les fonctionnalites ajoutees</td>
+</tr>
+<tr>
+<td><strong>Migration de valeurs</strong></td>
+<td>Deplacer un parametre d'une cle a une autre</td>
+</tr>
+<tr>
+<td><strong>Suppression de cles</strong></td>
+<td>Retirer les cles de fonctionnalites supprimees</td>
+</tr>
+<tr>
+<td><strong>Mise a jour de valeurs</strong></td>
+<td>Modifier les valeurs par defaut</td>
+</tr>
+</tbody>
+</table>
+<p>Les regles de migration sont definies dans des fichiers <strong>manifest</strong> (<code>.man</code>) dans le dossier d'installation de Windows.</p>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Lors d'une mise a niveau, Windows sauvegarde les anciennes ruches dans <code>Windows.old</code>, applique des transformations puis fusionne les nouvelles cles</li>
+<li>Le dossier <code>Windows.old</code> est conserve 10 jours avant suppression automatique</li>
+<li>Les regles de migration (ajout, deplacement, suppression de cles) sont definies dans des fichiers manifest du systeme</li>
+</ul>
+</div>
+<hr />
+<h2 id="fonctionnalites-obsoletes-et-traces-residuelles">Fonctionnalites obsoletes et traces residuelles<a class="headerlink" href="#fonctionnalites-obsoletes-et-traces-residuelles" title="Permanent link">&para;</a></h2>
+<p>De nombreuses fonctionnalites disparues laissent des <strong>vestiges</strong> dans le registre :</p>
+<table>
+<thead>
+<tr>
+<th>Fonctionnalite</th>
+<th>Cle residuelle</th>
+<th>Statut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Internet Explorer</td>
+<td><code>HKLM\SOFTWARE\Microsoft\Internet Explorer</code></td>
+<td>Retire dans Win 11 24H2</td>
+</tr>
+<tr>
+<td>HomeGroup</td>
+<td><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\HomeGroup</code></td>
+<td>Retire depuis Win 10 1803</td>
+</tr>
+<tr>
+<td>Windows Media Center</td>
+<td><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center</code></td>
+<td>Retire depuis Win 10</td>
+</tr>
+<tr>
+<td>Windows Phone companion</td>
+<td><code>HKLM\SOFTWARE\Microsoft\Windows Phone</code></td>
+<td>Retire depuis Win 10</td>
+</tr>
+<tr>
+<td>Paint Classic (mspaint)</td>
+<td><code>HKCU\Software\Microsoft\Windows\CurrentVersion\Applets\Paint</code></td>
+<td>Remplace par Paint 3D puis revenu</td>
+</tr>
+<tr>
+<td>Cortana standalone</td>
+<td><code>HKCU\Software\Microsoft\Windows\CurrentVersion\Search\CortanaConsent</code></td>
+<td>Retire dans Win 11</td>
+</tr>
+<tr>
+<td>Edge Legacy (EdgeHTML)</td>
+<td><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\*edge*</code></td>
+<td>Remplace par Edge Chromium</td>
+</tr>
+<tr>
+<td>Windows To Go</td>
+<td><code>HKLM\SOFTWARE\Policies\Microsoft\PortableOperatingSystem</code></td>
+<td>Retire depuis Win 10 2004</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Nettoyage</p>
+<p>Windows ne supprime pas toujours les cles des fonctionnalites retirees. Elles restent dans le registre comme des <strong>fossiles numeriques</strong>. Cela peut preter a confusion lors du diagnostic, car une cle presente ne signifie pas que la fonctionnalite est active.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>De nombreuses fonctionnalites retirees (Internet Explorer, HomeGroup, Cortana, Edge Legacy) laissent des cles residuelles dans le registre</li>
+<li>Windows ne nettoie pas systematiquement ces vestiges lors des mises a jour</li>
+<li>La presence d'une cle ne garantit pas que la fonctionnalite associee est active ou meme disponible</li>
+</ul>
+</div>
+<hr />
+<h2 id="lavenir-du-registre">L'avenir du registre<a class="headerlink" href="#lavenir-du-registre" title="Permanent link">&para;</a></h2>
+<h3 id="le-registre-est-il-en-voie-de-disparition">Le registre est-il en voie de disparition ?<a class="headerlink" href="#le-registre-est-il-en-voie-de-disparition" title="Permanent link">&para;</a></h3>
+<p>Plusieurs signaux suggerent une diversification des mecanismes de configuration :</p>
+<table>
+<thead>
+<tr>
+<th>Mecanisme</th>
+<th>Role</th>
+<th>Remplace le registre ?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Settings app</strong></td>
+<td>Parametres utilisateur</td>
+<td>Partiellement (settings.dat)</td>
+</tr>
+<tr>
+<td><strong>MDM / CSP</strong></td>
+<td>Gestion d'entreprise via Intune</td>
+<td>Ecrit souvent dans le registre, mais l'abstrait</td>
+</tr>
+<tr>
+<td><strong>MSIX</strong></td>
+<td>Paquets applicatifs</td>
+<td>Registre virtualise dans le package</td>
+</tr>
+<tr>
+<td><strong>Cloud Config</strong></td>
+<td>Synchronisation Azure AD</td>
+<td>Politique distribuee depuis le cloud</td>
+</tr>
+<tr>
+<td><strong>DSC</strong> (Desired State Configuration)</td>
+<td>Automatisation</td>
+<td>Utilise le registre comme backend</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<p>Le registre ne disparaitra <strong>pas</strong> de sitot. Il reste le <strong>fondement</strong> de la configuration Windows. Les nouvelles approches (Settings, MDM, MSIX) sont des <strong>couches d'abstraction</strong> au-dessus du registre, pas des remplacements. Meme dans Windows 11, la quasi-totalite des parametres finissent par atterrir dans le registre.</p>
+</div>
+<h3 id="ce-qui-pourrait-changer">Ce qui pourrait changer<a class="headerlink" href="#ce-qui-pourrait-changer" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TD
+    A["Aujourd'hui&lt;br/&gt;Registre = source de verite"] --&gt; B["Demain ?&lt;br/&gt;Registre = cache local"]
+    B --&gt; C["Cloud = source de verite&lt;br/&gt;Azure AD / Intune"]
+    B --&gt; D["Registre virtualise&lt;br/&gt;Par application"]
+    B --&gt; E["Format modernise ?&lt;br/&gt;JSON/SQLite"]</code></pre>
+<p>Windows evolue vers un modele ou le registre pourrait devenir un <strong>cache local</strong> d'une configuration geree dans le cloud.
+Mais pour les annees a venir, connaitre le registre reste une competence <strong>indispensable</strong> pour tout professionnel Windows.</p>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Les nouvelles approches (Settings app, MDM/CSP, MSIX, cloud) sont des couches d'abstraction au-dessus du registre, pas des remplacements</li>
+<li>Le registre pourrait evoluer vers un role de cache local d'une configuration geree dans le cloud</li>
+<li>Pour les annees a venir, la maitrise du registre reste une competence indispensable pour tout professionnel Windows</li>
+</ul>
+</div>
+<hr />
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<p>Le registre Windows est passe d'un simple fichier de correspondances OLE (Windows 3.1) a une base de donnees complexe, securisee et transactionnelle (NT et au-dela). Chaque generation a apporte des ameliorations sans jamais rompre la compatibilite fondamentale. Le format <code>regf</code> version 1.x est reste remarquablement stable pendant 30 ans. Meme si de nouvelles approches emergent (MDM, Settings, cloud), le registre reste le coeur de la configuration Windows.</p>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pied de page" >
+        
+          
+          <a href="../17-forensique/" class="md-footer__link md-footer__link--prev" aria-label="Précédent: Analyse forensique">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Précédent
+              </span>
+              <div class="md-ellipsis">
+                Analyse forensique
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../19-virtualisation/" class="md-footer__link md-footer__link--next" aria-label="Suivant: Virtualisation et conteneurs">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Suivant
+              </span>
+              <div class="md-ellipsis">
+                Virtualisation et conteneurs
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Julien Bombled
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/julienbombled/quid-wiki" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4771 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Bibliothèque de connaissances techniques">
+      
+      
+        <meta name="author" content="Julien Bombled">
+      
+      
+        <link rel="canonical" href="https://vblackjack.github.io/Quid/books/registre-pour-les-admins/23-vpn-clients/">
+      
+      
+        <link rel="prev" href="../22-navigateurs/">
+      
+      
+        <link rel="next" href="../24-backup-monitoring/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>VPN clients - Quid Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vpn-clients" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Quid Wiki" class="md-header__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quid Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              VPN clients
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../bible-registre-windows/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Bible de la Base de Registre
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../registre-pour-les-nuls/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Base de Registre pour les Nuls
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Le Registre pour les Administrateurs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../cross-index/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Index thematique
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quid Wiki" class="md-nav__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    Quid Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../bible-registre-windows/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Bible de la Base de Registre
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Bible de la Base de Registre
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture et structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/03-ruches/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les ruches principales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/04-types-donnees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/05-outils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outils et méthodes d'accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/06-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité et permissions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/07-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/08-reseau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registre et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/09-optimisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimisation et maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/10-scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripts et automatisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/11-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dépannage avancé
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/12-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Référence des clés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/13-demarrage-bcd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processus de démarrage et BCD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/14-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services Windows en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/15-com-shell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    COM, DCOM et le Shell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/16-securite-moderne/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité moderne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/17-forensique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyse forensique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/18-versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évolution à travers les versions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/19-virtualisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation et conteneurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/20-gpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/21-apps-modernes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications modernes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/22-non-documentees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clés non documentées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/23-wmi-cim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WMI, CIM et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/24-cloud-entreprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion d'entreprise et cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/25-api-avancees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Win32 et noyau en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/26-msi-installer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Installer (MSI) et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/27-etw-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETW, tracing et performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/28-taches-planifiees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planificateur de tâches et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/29-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cryptographie, DPAPI et certificats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/30-impression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sous-système d'impression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../registre-pour-les-nuls/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Base de Registre pour les Nuls
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Base de Registre pour les Nuls
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/01-cest-quoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C'est quoi la base de registre ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/02-premiers-pas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Premiers pas avec Regedit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/03-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre la structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/04-modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modifications simples et utiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/05-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarder avant de toucher
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/06-erreurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les erreurs à éviter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/07-astuces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astuces pratiques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/08-fichiers-reg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre les fichiers .reg
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/09-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mon premier dépannage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/10-evaluer-tutos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évaluer les tutoriels en ligne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/11-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/12-glossaire/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire illustré
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/13-powershell-bases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/14-gpo-debutant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe pour débutants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/15-windows11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/16-parametres-registre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paramètres Windows vs Registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/17-mini-projets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-projets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le Registre pour les Administrateurs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Le Registre pour les Administrateurs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-powershell-remoting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell Remoting et registre distant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-gpo-registre-ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO et registre en environnement AD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-audit-conformite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit et conformite du registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-deploiement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploiement et industrialisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-ad-ds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory Domain Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-dhcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DHCP Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-wsus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WSUS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-iis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IIS / Web Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-rds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Desktop Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-hyper-v/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hyper-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-file-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Server / DFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-print-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Print Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-radius-nps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RADIUS / NPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-globalprotect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GlobalProtect (Palo Alto)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-sccm-mecm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCCM / MECM (ConfigMgr)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-intune/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft Intune
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-antivirus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Antivirus enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-citrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Citrix Virtual Apps & Desktops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-vmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMware Horizon / Workspace ONE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-m365-office/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft 365 Apps (Office)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-navigateurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigateurs enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VPN clients
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VPN clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cisco-anyconnect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cisco AnyConnect
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cisco AnyConnect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cles-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cles principales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preferences-utilisateur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preferences utilisateur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profils-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profils XML
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-de-diagnostic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module de diagnostic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forticlient-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FortiClient VPN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FortiClient VPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cles-principales_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cles principales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-des-tunnels-ssl-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration des tunnels SSL VPN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-ipsec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration IPsec
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forticlient-ems-gestion-centralisee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FortiClient EMS (gestion centralisee)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wireguard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WireGuard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WireGuard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-et-tunnels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service et tunnels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-dun-tunnel-via-ligne-de-commande" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import d'un tunnel via ligne de commande
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vpn-natif-windows-rasman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VPN natif Windows (RasMan)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VPN natif Windows (RasMan)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cles-principales_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cles principales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametres-rasman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parametres RasMan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phonebook-rasphonepbk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phonebook (rasphone.pbk)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-une-connexion-vpn-via-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer une connexion VPN via PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#split-tunneling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Split tunneling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Split tunneling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vpn-natif-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VPN natif Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cisco-anyconnect_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cisco AnyConnect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forticlient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FortiClient
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-connect-et-always-on-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-connect et always-on VPN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Auto-connect et always-on VPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#always-on-vpn-windows-natif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Always On VPN (Windows natif)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anyconnect-auto-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AnyConnect auto-connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forticlient-auto-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FortiClient auto-connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificats-et-authentification-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certificats et authentification VPN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Certificats et authentification VPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#magasin-de-certificats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magasin de certificats
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-deployer-cisco-anyconnect-avec-profils-pre-configures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario : deployer Cisco AnyConnect avec profils pre-configures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario : deployer Cisco AnyConnect avec profils pre-configures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contexte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contexte
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-1-preparer-le-profil-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 1 : preparer le profil XML
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-2-creer-le-script-de-deploiement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 2 : creer le script de deploiement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-3-deployer-via-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 3 : deployer via GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-4-verification-a-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 4 : verification a distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-backup-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backup et monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-exchange/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exchange Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-sql-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-sharepoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SharePoint Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-adobe-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adobe et Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-compliance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compliance (HIPAA, PCI-DSS, SOC 2)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-zero-trust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zero Trust et VDI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cross-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index thematique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cisco-anyconnect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cisco AnyConnect
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cisco AnyConnect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cles-principales" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cles principales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preferences-utilisateur" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preferences utilisateur
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#profils-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profils XML
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#module-de-diagnostic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Module de diagnostic
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forticlient-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FortiClient VPN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FortiClient VPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cles-principales_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cles principales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-des-tunnels-ssl-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration des tunnels SSL VPN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-ipsec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration IPsec
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forticlient-ems-gestion-centralisee" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FortiClient EMS (gestion centralisee)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wireguard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WireGuard
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="WireGuard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-et-tunnels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service et tunnels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#import-dun-tunnel-via-ligne-de-commande" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import d'un tunnel via ligne de commande
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vpn-natif-windows-rasman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VPN natif Windows (RasMan)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="VPN natif Windows (RasMan)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cles-principales_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cles principales
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parametres-rasman" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parametres RasMan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phonebook-rasphonepbk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phonebook (rasphone.pbk)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-une-connexion-vpn-via-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer une connexion VPN via PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#split-tunneling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Split tunneling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Split tunneling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vpn-natif-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VPN natif Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cisco-anyconnect_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cisco AnyConnect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forticlient" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FortiClient
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#auto-connect-et-always-on-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Auto-connect et always-on VPN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Auto-connect et always-on VPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#always-on-vpn-windows-natif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Always On VPN (Windows natif)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anyconnect-auto-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AnyConnect auto-connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forticlient-auto-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FortiClient auto-connect
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificats-et-authentification-vpn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certificats et authentification VPN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Certificats et authentification VPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#magasin-de-certificats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magasin de certificats
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-deployer-cisco-anyconnect-avec-profils-pre-configures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario : deployer Cisco AnyConnect avec profils pre-configures
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario : deployer Cisco AnyConnect avec profils pre-configures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#contexte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contexte
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-1-preparer-le-profil-xml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 1 : preparer le profil XML
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-2-creer-le-script-de-deploiement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 2 : creer le script de deploiement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-3-deployer-via-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 3 : deployer via GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-4-verification-a-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 4 : verification a distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">cisco</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">entreprise</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">fortinet</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">registre</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">vpn</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">wireguard</span>
+      
+    
+  </nav>
+
+
+
+<h1 id="vpn-clients">VPN clients<a class="headerlink" href="#vpn-clients" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Ce que vous allez apprendre</p>
+<ul>
+<li>Localiser et configurer les cles de registre de Cisco AnyConnect</li>
+<li>Gerer FortiClient VPN via le registre</li>
+<li>Configurer WireGuard et ses tunnels dans le registre</li>
+<li>Manipuler les connexions VPN natives Windows (RasMan, RasEntry)</li>
+<li>Configurer le split tunneling pour chaque client VPN</li>
+<li>Activer les modes auto-connect et always-on VPN</li>
+<li>Gerer les certificats et l'authentification VPN</li>
+<li>Deployer Cisco AnyConnect avec des profils pre-configures via registre et GPO</li>
+</ul>
+</div>
+<hr />
+<h2 id="cisco-anyconnect">Cisco AnyConnect<a class="headerlink" href="#cisco-anyconnect" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#bd93f9', 'primaryTextColor': '#f8f8f2', 'primaryBorderColor': '#bd93f9', 'lineColor': '#ff79c6', 'secondaryColor': '#44475a', 'tertiaryColor': '#282a36', 'edgeLabelBackground': '#282a36', 'nodeBorder': '#ff79c6', 'mainBkg': '#44475a', 'textColor': '#f8f8f2'}}}%%
+flowchart TD
+    subgraph anyconnect["Cisco AnyConnect"]
+        direction TB
+        A1["Client lourd&lt;br/&gt;Profils XML + registre"]:::pink
+        A2["SSL VPN + DTLS"]:::pink
+        A3["Split tunneling serveur"]:::pink
+    end
+    subgraph forti["FortiClient"]
+        direction TB
+        B1["Client lourd ou EMS"]:::orange
+        B2["SSL VPN + IPsec"]:::orange
+        B3["Split tunneling registre"]:::orange
+    end
+    subgraph natif["VPN natif Windows"]
+        direction TB
+        C1["Integre a Windows"]:::blue
+        C2["IKEv2 / SSTP / L2TP"]:::blue
+        C3["Split tunneling PowerShell"]:::blue
+    end
+
+    classDef pink fill:#ff79c6,stroke:#ff79c6,color:#282a36
+    classDef orange fill:#ffb86c,stroke:#ffb86c,color:#282a36
+    classDef blue fill:#8be9fd,stroke:#8be9fd,color:#282a36</code></pre>
+<p>Cisco AnyConnect Secure Mobility Client est l'un des clients VPN les plus deployes en entreprise. Sa configuration registre se repartit entre les parametres du client lui-meme et les profils de connexion.</p>
+<h3 id="cles-principales">Cles principales<a class="headerlink" href="#cles-principales" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>HKLM\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InstallDir</code></td>
+<td>REG_SZ</td>
+<td>Repertoire d'installation</td>
+</tr>
+<tr>
+<td><code>Version</code></td>
+<td>REG_SZ</td>
+<td>Version installee du client</td>
+</tr>
+</tbody>
+</table>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c"># Check AnyConnect installation and version</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">reg</span> <span class="n">query</span> <span class="s2">&quot;HKLM\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client&quot;</span> <span class="p">/</span><span class="n">v</span> <span class="n">Version</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>HKEY_LOCAL_MACHINE\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    Version    REG_SZ    5.1.3.62
+</span></code></pre></div>
+<h3 id="preferences-utilisateur">Preferences utilisateur<a class="headerlink" href="#preferences-utilisateur" title="Permanent link">&para;</a></h3>
+<p>Les preferences de connexion de l'utilisateur sont stockees dans <code>HKCU</code> :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>HKCU\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DefaultUser</code></td>
+<td>REG_SZ</td>
+<td>Nom d'utilisateur par defaut</td>
+</tr>
+<tr>
+<td><code>DefaultHostName</code></td>
+<td>REG_SZ</td>
+<td>Serveur VPN par defaut</td>
+</tr>
+<tr>
+<td><code>DefaultHostAddress</code></td>
+<td>REG_SZ</td>
+<td>Adresse IP ou FQDN du serveur</td>
+</tr>
+<tr>
+<td><code>DefaultGroup</code></td>
+<td>REG_SZ</td>
+<td>Groupe de connexion par defaut</td>
+</tr>
+</tbody>
+</table>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c"># Set default VPN server for the current user</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nv">$path</span> <span class="p">=</span> <span class="s2">&quot;HKCU:\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Force</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;DefaultHostName&quot;</span> <span class="n">-Value</span> <span class="s2">&quot;VPN Corporate&quot;</span> <span class="n">-Type</span> <span class="n">String</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;DefaultHostAddress&quot;</span> <span class="n">-Value</span> <span class="s2">&quot;vpn.corp.local&quot;</span> <span class="n">-Type</span> <span class="n">String</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Aucune sortie. Le client AnyConnect affichera &quot;VPN Corporate&quot; comme serveur par defaut au prochain lancement.
+</span></code></pre></div>
+<h3 id="profils-xml">Profils XML<a class="headerlink" href="#profils-xml" title="Permanent link">&para;</a></h3>
+<p>AnyConnect utilise des profils XML pour sa configuration avancee. Le registre pointe vers l'emplacement de ces profils :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>HKLM\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client\Profile
+</span></code></pre></div>
+<p>Les profils sont stockes sous forme de fichiers XML dans le repertoire d'installation, generalement :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>C:\ProgramData\Cisco\Cisco AnyConnect Secure Mobility Client\Profile\
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c"># List AnyConnect profile files</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">Get-ChildItem</span> <span class="s2">&quot;C:\ProgramData\Cisco\Cisco AnyConnect Secure Mobility Client\Profile\&quot;</span> <span class="p">`</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">-Filter</span> <span class="s2">&quot;*.xml&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>    Directory: C:\ProgramData\Cisco\Cisco AnyConnect Secure Mobility Client\Profile
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Mode                 LastWriteTime         Length Name
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>----                 -------------         ------ ----
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>-a---          2025-03-15    14:22           2048 CorporateVPN.xml
+</span></code></pre></div>
+<h3 id="module-de-diagnostic">Module de diagnostic<a class="headerlink" href="#module-de-diagnostic" title="Permanent link">&para;</a></h3>
+<p>Le module de diagnostic reseau (DART) possede ses propres cles :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>HKLM\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client\DART
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c"># Check DART module installation</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="n">reg</span> <span class="n">query</span> <span class="s2">&quot;HKLM\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client\DART&quot;</span> <span class="n">2</span><span class="p">&gt;</span><span class="nv">$null</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">if</span> <span class="p">(</span><span class="nv">$LASTEXITCODE</span> <span class="o">-eq</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span> <span class="nb">Write-Output</span> <span class="s2">&quot;DART module installed&quot;</span> <span class="p">}</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">else</span> <span class="p">{</span> <span class="nb">Write-Output</span> <span class="s2">&quot;DART module not found&quot;</span> <span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>DART module installed
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>AnyConnect stocke sa configuration sous <code>HKLM\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client</code></li>
+<li>Les preferences utilisateur sont sous <code>HKCU</code> (serveur par defaut, groupe, identifiant)</li>
+<li>Les profils XML definissent la configuration avancee (split tunneling, auto-connect, etc.)</li>
+<li>Le module DART fournit des outils de diagnostic reseau</li>
+</ul>
+</div>
+<hr />
+<h2 id="forticlient-vpn">FortiClient VPN<a class="headerlink" href="#forticlient-vpn" title="Permanent link">&para;</a></h2>
+<p>FortiClient de Fortinet stocke sa configuration VPN dans le registre avec une structure hierarchique qui reflete les tunnels configures.</p>
+<h3 id="cles-principales_1">Cles principales<a class="headerlink" href="#cles-principales_1" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>HKLM\SOFTWARE\Fortinet\FortiClient
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>HKLM\SOFTWARE\Fortinet\FortiClient\Sslvpn\Tunnels
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c"># Check FortiClient installation</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">reg</span> <span class="n">query</span> <span class="s2">&quot;HKLM\SOFTWARE\Fortinet\FortiClient&quot;</span> <span class="p">/</span><span class="n">v</span> <span class="n">Version</span> <span class="n">2</span><span class="p">&gt;</span><span class="nv">$null</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>HKEY_LOCAL_MACHINE\SOFTWARE\Fortinet\FortiClient
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>    Version    REG_SZ    7.4.1.1418
+</span></code></pre></div>
+<h3 id="configuration-des-tunnels-ssl-vpn">Configuration des tunnels SSL VPN<a class="headerlink" href="#configuration-des-tunnels-ssl-vpn" title="Permanent link">&para;</a></h3>
+<p>Chaque tunnel VPN est represente par une sous-cle sous <code>Tunnels</code>, nommee d'apres le nom du tunnel.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>HKLM\SOFTWARE\Fortinet\FortiClient\Sslvpn\Tunnels\&lt;NomTunnel&gt;
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Server</code></td>
+<td>REG_SZ</td>
+<td>Adresse du serveur VPN (FQDN ou IP)</td>
+</tr>
+<tr>
+<td><code>ServerPort</code></td>
+<td>REG_DWORD</td>
+<td>Port du serveur (par defaut <code>443</code>)</td>
+</tr>
+<tr>
+<td><code>Description</code></td>
+<td>REG_SZ</td>
+<td>Description du tunnel</td>
+</tr>
+<tr>
+<td><code>promptusername</code></td>
+<td>REG_DWORD</td>
+<td><code>1</code> = demander le nom d'utilisateur</td>
+</tr>
+<tr>
+<td><code>promptcertificate</code></td>
+<td>REG_DWORD</td>
+<td><code>1</code> = demander le certificat client</td>
+</tr>
+<tr>
+<td><code>ServerCert</code></td>
+<td>REG_SZ</td>
+<td>Hash SHA1 du certificat serveur attendu</td>
+</tr>
+</tbody>
+</table>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c"># Create a new FortiClient SSL VPN tunnel</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nv">$tunnelPath</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\Fortinet\FortiClient\Sslvpn\Tunnels\Corporate VPN&quot;</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$tunnelPath</span> <span class="n">-Force</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$tunnelPath</span> <span class="n">-Name</span> <span class="s2">&quot;Server&quot;</span> <span class="n">-Value</span> <span class="s2">&quot;vpn.corp.local&quot;</span> <span class="n">-Type</span> <span class="n">String</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$tunnelPath</span> <span class="n">-Name</span> <span class="s2">&quot;ServerPort&quot;</span> <span class="n">-Value</span> <span class="n">443</span> <span class="n">-Type</span> <span class="n">DWord</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$tunnelPath</span> <span class="n">-Name</span> <span class="s2">&quot;Description&quot;</span> <span class="n">-Value</span> <span class="s2">&quot;Corporate VPN Tunnel&quot;</span> <span class="n">-Type</span> <span class="n">String</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$tunnelPath</span> <span class="n">-Name</span> <span class="s2">&quot;promptusername&quot;</span> <span class="n">-Value</span> <span class="n">1</span> <span class="n">-Type</span> <span class="n">DWord</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$tunnelPath</span> <span class="n">-Name</span> <span class="s2">&quot;promptcertificate&quot;</span> <span class="n">-Value</span> <span class="n">0</span> <span class="n">-Type</span> <span class="n">DWord</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Aucune sortie. Le tunnel &quot;Corporate VPN&quot; apparaitra dans la liste des connexions FortiClient.
+</span></code></pre></div>
+<h3 id="configuration-ipsec">Configuration IPsec<a class="headerlink" href="#configuration-ipsec" title="Permanent link">&para;</a></h3>
+<p>Les tunnels IPsec suivent la meme logique sous <code>HKLM\SOFTWARE\Fortinet\FortiClient\FA_VPN\Tunnels\&lt;NomTunnel&gt;</code> avec les valeurs <code>Server</code>, <code>psk</code> (chiffree), <code>ike_version</code> (<code>1</code> ou <code>2</code>) et <code>mode</code> (<code>aggressive</code> ou <code>main</code>).</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c"># List all FortiClient VPN tunnels (SSL and IPsec)</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="k">foreach</span> <span class="p">(</span><span class="nv">$type</span> <span class="k">in</span> <span class="p">@(</span><span class="s2">&quot;Sslvpn&quot;</span><span class="p">,</span> <span class="s2">&quot;FA_VPN&quot;</span><span class="p">))</span> <span class="p">{</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    <span class="nv">$path</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\Fortinet\FortiClient\$type\Tunnels&quot;</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    <span class="nb">Write-Output</span> <span class="s2">&quot;=== $type ===&quot;</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$path</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>        <span class="nb">Get-ChildItem</span> <span class="nv">$path</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span> <span class="nb">Write-Output</span> <span class="nv">$_</span><span class="p">.</span><span class="n">PSChildName</span> <span class="p">}</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="nb">Write-Output</span> <span class="s2">&quot;No tunnels configured&quot;</span> <span class="p">}</span>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>=== Sslvpn ===
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>Corporate VPN
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>=== FA_VPN ===
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>Site-to-Site HQ
+</span></code></pre></div>
+<h3 id="forticlient-ems-gestion-centralisee">FortiClient EMS (gestion centralisee)<a class="headerlink" href="#forticlient-ems-gestion-centralisee" title="Permanent link">&para;</a></h3>
+<p>En environnement manage par FortiClient EMS, la configuration est poussee depuis la console centrale. Le registre conserve les parametres de connexion au serveur EMS :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>HKLM\SOFTWARE\Fortinet\FortiClient\FA_EMS
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>srv_name</code></td>
+<td>REG_SZ</td>
+<td>Nom du serveur EMS</td>
+</tr>
+<tr>
+<td><code>srv_ip</code></td>
+<td>REG_SZ</td>
+<td>Adresse IP du serveur EMS</td>
+</tr>
+<tr>
+<td><code>managed</code></td>
+<td>REG_DWORD</td>
+<td><code>1</code> = gere par EMS</td>
+</tr>
+</tbody>
+</table>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c"># Check FortiClient EMS management status</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nv">$emsPath</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\Fortinet\FortiClient\FA_EMS&quot;</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="k">if</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$emsPath</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>    <span class="nv">$managed</span> <span class="p">=</span> <span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$emsPath</span> <span class="n">-Name</span> <span class="s2">&quot;managed&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>    <span class="nv">$server</span> <span class="p">=</span> <span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$emsPath</span> <span class="n">-Name</span> <span class="s2">&quot;srv_name&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>    <span class="nb">Write-Output</span> <span class="s2">&quot;Managed by EMS: </span><span class="p">$(</span><span class="nv">$managed</span><span class="p">.</span><span class="n">managed</span><span class="p">)</span><span class="s2">&quot;</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>    <span class="nb">Write-Output</span> <span class="s2">&quot;EMS Server: </span><span class="p">$(</span><span class="nv">$server</span><span class="p">.</span><span class="n">srv_name</span><span class="p">)</span><span class="s2">&quot;</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>    <span class="nb">Write-Output</span> <span class="s2">&quot;FortiClient is not managed by EMS&quot;</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Managed by EMS: 1
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>EMS Server: ems.corp.local
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>FortiClient stocke les tunnels SSL sous <code>Sslvpn\Tunnels\&lt;NomTunnel&gt;</code> et IPsec sous <code>FA_VPN\Tunnels\&lt;NomTunnel&gt;</code></li>
+<li>Chaque tunnel est une sous-cle avec ses propres valeurs (serveur, port, authentification)</li>
+<li>La gestion centralisee FortiClient EMS est configuree sous <code>FA_EMS</code></li>
+<li>Les tunnels peuvent etre pre-configures via le registre pour un deploiement silencieux</li>
+</ul>
+</div>
+<hr />
+<h2 id="wireguard">WireGuard<a class="headerlink" href="#wireguard" title="Permanent link">&para;</a></h2>
+<p>WireGuard adopte une approche minimaliste. Sa configuration reside principalement dans des fichiers <code>.conf</code>, mais le service Windows et les tunnels sont references dans le registre.</p>
+<h3 id="service-et-tunnels">Service et tunnels<a class="headerlink" href="#service-et-tunnels" title="Permanent link">&para;</a></h3>
+<p>WireGuard cree un service Windows distinct par tunnel actif. Le nom du service suit le format <code>WireGuardTunnel$NomDuTunnel</code>. Les fichiers de configuration sont chiffres par DPAPI dans <code>C:\Program Files\WireGuard\Data\Configurations\</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>HKLM\SYSTEM\CurrentControlSet\Services\WireGuardTunnel$&lt;NomTunnel&gt;
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ImagePath</code></td>
+<td>REG_EXPAND_SZ</td>
+<td>Chemin vers l'executable avec le nom du tunnel</td>
+</tr>
+<tr>
+<td><code>Start</code></td>
+<td>REG_DWORD</td>
+<td><code>2</code> = automatique, <code>3</code> = manuel, <code>4</code> = desactive</td>
+</tr>
+</tbody>
+</table>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c"># List WireGuard tunnel services</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="s2">&quot;WireGuardTunnel$*&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span> <span class="p">|</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Status</span><span class="p">,</span> <span class="n">StartType</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>Name                          Status StartType
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>----                          ------ ---------
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>WireGuardTunnel$Corporate     Running Automatic
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>WireGuardTunnel$Backup        Stopped    Manual
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c"># Set WireGuard tunnel to start automatically</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="nb">Set-ItemProperty</span> <span class="p">`</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="n">-Path</span> <span class="s2">&quot;HKLM:\SYSTEM\CurrentControlSet\Services\WireGuardTunnel</span><span class="se">`$</span><span class="s2">Corporate&quot;</span> <span class="p">`</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>    <span class="n">-Name</span> <span class="s2">&quot;Start&quot;</span> <span class="n">-Value</span> <span class="n">2</span> <span class="n">-Type</span> <span class="n">DWord</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Aucune sortie. Le tunnel &quot;Corporate&quot; demarrera automatiquement au boot.
+</span></code></pre></div>
+<h3 id="import-dun-tunnel-via-ligne-de-commande">Import d'un tunnel via ligne de commande<a class="headerlink" href="#import-dun-tunnel-via-ligne-de-commande" title="Permanent link">&para;</a></h3>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1">rem Import a WireGuard tunnel configuration</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="s2">&quot;C:\Program Files\WireGuard\wireguard.exe&quot;</span> /installtunnelservice <span class="s2">&quot;C:\Deploy\Corporate.conf&quot;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>Aucune sortie si l&#39;import reussit. Le service WireGuardTunnel$Corporate est cree et demarre.
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>WireGuard cree un service Windows par tunnel : <code>WireGuardTunnel$&lt;Nom&gt;</code></li>
+<li>Les fichiers de configuration sont chiffres par DPAPI dans <code>C:\Program Files\WireGuard\Data\Configurations\</code></li>
+<li>Le type de demarrage du service controle le comportement auto-connect</li>
+<li>L'import de tunnels se fait via <code>wireguard.exe /installtunnelservice</code></li>
+</ul>
+</div>
+<hr />
+<h2 id="vpn-natif-windows-rasman">VPN natif Windows (RasMan)<a class="headerlink" href="#vpn-natif-windows-rasman" title="Permanent link">&para;</a></h2>
+<p>Windows integre un client VPN natif qui supporte PPTP, L2TP/IPsec, SSTP et IKEv2. La configuration est geree par le service <strong>Remote Access Service Manager</strong> (RasMan).</p>
+<h3 id="cles-principales_2">Cles principales<a class="headerlink" href="#cles-principales_2" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>HKLM\SYSTEM\CurrentControlSet\Services\RasMan\Parameters
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Connections
+</span></code></pre></div>
+<h3 id="parametres-rasman">Parametres RasMan<a class="headerlink" href="#parametres-rasman" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>HKLM\SYSTEM\CurrentControlSet\Services\RasMan\Parameters
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProhibitIpSec</code></td>
+<td>REG_DWORD</td>
+<td><code>1</code> = desactive la couche IPsec pour L2TP</td>
+</tr>
+<tr>
+<td><code>NegotiateDH2048_AES256</code></td>
+<td>REG_DWORD</td>
+<td><code>1</code> = force DH-2048 et AES-256 pour IKEv2</td>
+</tr>
+<tr>
+<td><code>AllowL2TPWeakCrypto</code></td>
+<td>REG_DWORD</td>
+<td><code>0</code> = interdit le chiffrement faible pour L2TP</td>
+</tr>
+</tbody>
+</table>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c"># Force strong crypto for IKEv2 connections</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="nv">$path</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SYSTEM\CurrentControlSet\Services\RasMan\Parameters&quot;</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;NegotiateDH2048_AES256&quot;</span> <span class="n">-Value</span> <span class="n">1</span> <span class="n">-Type</span> <span class="n">DWord</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>Aucune sortie. Les connexions IKEv2 utiliseront DH-2048 et AES-256.
+</span></code></pre></div>
+<h3 id="phonebook-rasphonepbk">Phonebook (rasphone.pbk)<a class="headerlink" href="#phonebook-rasphonepbk" title="Permanent link">&para;</a></h3>
+<p>Les connexions VPN Windows sont stockees dans des fichiers "phonebook" (<code>.pbk</code>). Deux emplacements existent :</p>
+<table>
+<thead>
+<tr>
+<th>Emplacement</th>
+<th>Portee</th>
+<th>Chemin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Utilisateur</td>
+<td>Session courante</td>
+<td><code>%APPDATA%\Microsoft\Network\Connections\Pbk\rasphone.pbk</code></td>
+</tr>
+<tr>
+<td>Machine</td>
+<td>Tous les utilisateurs</td>
+<td><code>C:\ProgramData\Microsoft\Network\Connections\Pbk\rasphone.pbk</code></td>
+</tr>
+</tbody>
+</table>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c"># List VPN connections for the current user</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="nb">Get-VpnConnection</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">ServerAddress</span><span class="p">,</span> <span class="n">TunnelType</span><span class="p">,</span> <span class="n">AuthenticationMethod</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>Name            ServerAddress      TunnelType AuthenticationMethod
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>----            -------------      ---------- --------------------
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>Corporate VPN   vpn.corp.local     Ikev2      {MachineCertificate}
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>Backup VPN      vpn-backup.corp    Sstp       {MsChapv2}
+</span></code></pre></div>
+<h3 id="creer-une-connexion-vpn-via-powershell">Creer une connexion VPN via PowerShell<a class="headerlink" href="#creer-une-connexion-vpn-via-powershell" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="c"># Create an IKEv2 VPN connection for all users</span>
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="nb">Add-VpnConnection</span> <span class="n">-Name</span> <span class="s2">&quot;Corporate VPN&quot;</span> <span class="p">`</span>
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>    <span class="n">-ServerAddress</span> <span class="s2">&quot;vpn.corp.local&quot;</span> <span class="p">`</span>
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>    <span class="n">-TunnelType</span> <span class="n">Ikev2</span> <span class="p">`</span>
+</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>    <span class="n">-AuthenticationMethod</span> <span class="n">MachineCertificate</span> <span class="p">`</span>
+</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>    <span class="n">-EncryptionLevel</span> <span class="n">Required</span> <span class="p">`</span>
+</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>    <span class="n">-AllUserConnection</span> <span class="p">`</span>
+</span><span id="__span-37-8"><a id="__codelineno-37-8" name="__codelineno-37-8" href="#__codelineno-37-8"></a>    <span class="n">-SplitTunneling</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>Aucune sortie. La connexion &quot;Corporate VPN&quot; apparait dans les parametres reseau pour tous les utilisateurs.
+</span></code></pre></div>
+<p>Les protocoles d'authentification PPP sont configures sous <code>HKLM\SYSTEM\CurrentControlSet\Services\RasMan\PPP\ControlProtocols</code> (sous-cles <code>Eap</code>, <code>Chap</code>, <code>Pap</code>). Les profils IKEv2 avances sont sous <code>RasMan\IKEv2\Profile</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Le VPN natif Windows est gere par le service RasMan et stocke dans des fichiers phonebook (<code>.pbk</code>)</li>
+<li><code>NegotiateDH2048_AES256</code> force le chiffrement fort pour IKEv2</li>
+<li><code>Add-VpnConnection</code> cree des connexions via PowerShell (plus fiable que le registre direct)</li>
+<li>L'option <code>-AllUserConnection</code> deploie la connexion pour tous les utilisateurs</li>
+</ul>
+</div>
+<hr />
+<h2 id="split-tunneling">Split tunneling<a class="headerlink" href="#split-tunneling" title="Permanent link">&para;</a></h2>
+<p>Le split tunneling permet de router uniquement le trafic destine au reseau d'entreprise via le VPN. Le reste du trafic passe par la connexion Internet locale. Chaque client VPN gere cette fonctionnalite differemment.</p>
+<h3 id="vpn-natif-windows">VPN natif Windows<a class="headerlink" href="#vpn-natif-windows" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c"># Enable split tunneling on an existing VPN connection</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="nb">Set-VpnConnection</span> <span class="n">-Name</span> <span class="s2">&quot;Corporate VPN&quot;</span> <span class="n">-SplitTunneling</span> <span class="nv">$true</span>
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="c"># Add specific routes to the VPN tunnel</span>
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="nb">Add-VpnConnectionRoute</span> <span class="n">-ConnectionName</span> <span class="s2">&quot;Corporate VPN&quot;</span> <span class="p">`</span>
+</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a>    <span class="n">-DestinationPrefix</span> <span class="s2">&quot;10.0.0.0/8&quot;</span>
+</span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="nb">Add-VpnConnectionRoute</span> <span class="n">-ConnectionName</span> <span class="s2">&quot;Corporate VPN&quot;</span> <span class="p">`</span>
+</span><span id="__span-39-8"><a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a>    <span class="n">-DestinationPrefix</span> <span class="s2">&quot;172.16.0.0/12&quot;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>Aucune sortie. Seul le trafic vers 10.0.0.0/8 et 172.16.0.0/12 passera par le VPN.
+</span></code></pre></div>
+<h3 id="cisco-anyconnect_1">Cisco AnyConnect<a class="headerlink" href="#cisco-anyconnect_1" title="Permanent link">&para;</a></h3>
+<p>Le split tunneling AnyConnect est configure cote serveur (ASA/FTD), mais le comportement cote client peut etre verifie dans le registre :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>HKLM\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client\SplitTunnelRoutes
+</span></code></pre></div>
+<p>Les routes sont poussees par le concentrateur VPN et stockees temporairement dans le registre pendant la session.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c"># Check AnyConnect split tunnel routes during active session</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="n">reg</span> <span class="n">query</span> <span class="s2">&quot;HKLM\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client&quot;</span> <span class="p">/</span><span class="n">s</span> <span class="p">|</span> <span class="p">`</span>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>    <span class="nb">Select-String</span> <span class="n">-Pattern</span> <span class="s2">&quot;SplitTunnel|Route&quot;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>    SplitTunnelRoutes    REG_SZ    10.0.0.0/255.0.0.0, 172.16.0.0/255.240.0.0
+</span></code></pre></div>
+<h3 id="forticlient">FortiClient<a class="headerlink" href="#forticlient" title="Permanent link">&para;</a></h3>
+<p>Le split tunneling FortiClient peut etre pre-configure dans le registre pour chaque tunnel :</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c"># Check FortiClient tunnel split tunneling configuration</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="nv">$tunnelPath</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\Fortinet\FortiClient\Sslvpn\Tunnels\Corporate VPN&quot;</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$tunnelPath</span> <span class="n">-Name</span> <span class="s2">&quot;SplitTunnel&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>SplitTunnel : 1
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Valeur <code>SplitTunnel</code></th>
+<th>Comportement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>0</code></td>
+<td>Tout le trafic passe par le VPN (full tunnel)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>1</code></td>
+<td>Seul le trafic vers les reseaux configures passe par le VPN</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Split tunneling et securite</p>
+<p>Le split tunneling ameliore les performances mais cree un risque de securite : le poste est simultanement connecte au reseau d'entreprise et a Internet sans passer par le firewall corporate. Certaines politiques de securite l'interdisent formellement.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Le VPN natif Windows configure le split tunneling via <code>Set-VpnConnection -SplitTunneling</code> et <code>Add-VpnConnectionRoute</code></li>
+<li>AnyConnect recoit ses routes de split tunneling depuis le serveur VPN</li>
+<li>FortiClient supporte la pre-configuration du split tunneling dans le registre</li>
+<li>Le split tunneling est un compromis entre performance et securite</li>
+</ul>
+</div>
+<hr />
+<h2 id="auto-connect-et-always-on-vpn">Auto-connect et always-on VPN<a class="headerlink" href="#auto-connect-et-always-on-vpn" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#bd93f9', 'primaryTextColor': '#f8f8f2', 'primaryBorderColor': '#bd93f9', 'lineColor': '#ff79c6', 'secondaryColor': '#44475a', 'tertiaryColor': '#282a36', 'edgeLabelBackground': '#282a36', 'nodeBorder': '#ff79c6', 'mainBkg': '#44475a', 'textColor': '#f8f8f2'}}}%%
+flowchart TD
+    A["&lt;b&gt;Demarrage du poste&lt;/b&gt;"]:::purple --&gt; B["Device Tunnel&lt;br/&gt;Certificat machine"]:::blue
+    B --&gt; C["Connexion VPN&lt;br/&gt;avant logon"]:::green
+    C --&gt; D["GPO + Kerberos&lt;br/&gt;disponibles"]:::green
+    D --&gt; E["&lt;b&gt;Ouverture de session&lt;/b&gt;"]:::purple
+    E --&gt; F["User Tunnel&lt;br/&gt;Certificat utilisateur"]:::pink
+    F --&gt; G["Acces complet&lt;br/&gt;au reseau"]:::green
+
+    classDef purple fill:#bd93f9,stroke:#bd93f9,color:#282a36
+    classDef blue fill:#8be9fd,stroke:#8be9fd,color:#282a36
+    classDef green fill:#50fa7b,stroke:#50fa7b,color:#282a36
+    classDef pink fill:#ff79c6,stroke:#ff79c6,color:#282a36</code></pre>
+<h3 id="always-on-vpn-windows-natif">Always On VPN (Windows natif)<a class="headerlink" href="#always-on-vpn-windows-natif" title="Permanent link">&para;</a></h3>
+<p>La fonctionnalite Always On VPN de Windows remplace DirectAccess. Elle utilise le profil VPN natif avec des parametres supplementaires.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>HKLM\SYSTEM\CurrentControlSet\Services\RasMan\Parameters
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AutoTriggerDisabledProfilesList</code></td>
+<td>REG_MULTI_SZ</td>
+<td>Profils VPN pour lesquels le declenchement automatique est desactive</td>
+</tr>
+</tbody>
+</table>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="c"># Create an Always On VPN connection (device tunnel)</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="nb">Add-VpnConnection</span> <span class="n">-Name</span> <span class="s2">&quot;AlwaysOn-Device&quot;</span> <span class="p">`</span>
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>    <span class="n">-ServerAddress</span> <span class="s2">&quot;vpn.corp.local&quot;</span> <span class="p">`</span>
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>    <span class="n">-TunnelType</span> <span class="n">Ikev2</span> <span class="p">`</span>
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>    <span class="n">-AuthenticationMethod</span> <span class="n">MachineCertificate</span> <span class="p">`</span>
+</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a>    <span class="n">-AllUserConnection</span> <span class="p">`</span>
+</span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a>    <span class="n">-DeviceTunnel</span>
+</span><span id="__span-47-8"><a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a>
+</span><span id="__span-47-9"><a id="__codelineno-47-9" name="__codelineno-47-9" href="#__codelineno-47-9"></a><span class="c"># Enable auto-trigger for specific applications</span>
+</span><span id="__span-47-10"><a id="__codelineno-47-10" name="__codelineno-47-10" href="#__codelineno-47-10"></a><span class="nb">Add-VpnConnectionTriggerApplication</span> <span class="n">-Name</span> <span class="s2">&quot;AlwaysOn-Device&quot;</span> <span class="p">`</span>
+</span><span id="__span-47-11"><a id="__codelineno-47-11" name="__codelineno-47-11" href="#__codelineno-47-11"></a>    <span class="n">-ApplicationID</span> <span class="s2">&quot;C:\Windows\System32\outlook.exe&quot;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>Aucune sortie. Le tunnel VPN se connectera automatiquement lorsque Outlook sera lance.
+</span></code></pre></div>
+<p>Le Device Tunnel se connecte au niveau de la machine, avant meme l'ouverture de session utilisateur. Cela permet l'application des GPO et l'authentification Kerberos des le demarrage.</p>
+<h3 id="anyconnect-auto-connect">AnyConnect auto-connect<a class="headerlink" href="#anyconnect-auto-connect" title="Permanent link">&para;</a></h3>
+<p>L'auto-connect AnyConnect se configure dans le profil XML. La cle de registre suivante reference le profil actif :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>HKLM\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client\Profile
+</span></code></pre></div>
+<p>Le parametre <code>AutoConnectOnStart</code> dans le profil XML controle la connexion automatique :</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="cm">&lt;!-- AnyConnect profile excerpt for auto-connect --&gt;</span>
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="nt">&lt;AnyConnectProfile&gt;</span>
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="w">    </span><span class="nt">&lt;AutoConnectOnStart</span><span class="w"> </span><span class="na">UserControllable=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/AutoConnectOnStart&gt;</span>
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="w">    </span><span class="nt">&lt;AutoReconnect</span><span class="w"> </span><span class="na">UserControllable=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/AutoReconnect&gt;</span>
+</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="w">    </span><span class="nt">&lt;AutoReconnectBehavior&gt;</span>ReconnectAfterResume<span class="nt">&lt;/AutoReconnectBehavior&gt;</span>
+</span><span id="__span-50-6"><a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a><span class="w">    </span><span class="nt">&lt;AutoUpdate</span><span class="w"> </span><span class="na">UserControllable=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/AutoUpdate&gt;</span>
+</span><span id="__span-50-7"><a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a><span class="nt">&lt;/AnyConnectProfile&gt;</span>
+</span></code></pre></div>
+<h3 id="forticlient-auto-connect">FortiClient auto-connect<a class="headerlink" href="#forticlient-auto-connect" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="c"># Enable auto-connect on FortiClient tunnel</span>
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="nv">$tunnelPath</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\Fortinet\FortiClient\Sslvpn\Tunnels\Corporate VPN&quot;</span>
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$tunnelPath</span> <span class="n">-Name</span> <span class="s2">&quot;AutoConnect&quot;</span> <span class="n">-Value</span> <span class="n">1</span> <span class="n">-Type</span> <span class="n">DWord</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>Aucune sortie. FortiClient tentera de se connecter automatiquement a ce tunnel au demarrage.
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Always On VPN Windows utilise le Device Tunnel (<code>-DeviceTunnel</code>) pour une connexion avant l'ouverture de session</li>
+<li>AnyConnect gere l'auto-connect via le profil XML (<code>AutoConnectOnStart</code>)</li>
+<li>FortiClient supporte <code>AutoConnect</code> directement dans le registre</li>
+<li>Le Device Tunnel est essentiel pour les GPO et l'authentification Kerberos au demarrage</li>
+</ul>
+</div>
+<hr />
+<h2 id="certificats-et-authentification-vpn">Certificats et authentification VPN<a class="headerlink" href="#certificats-et-authentification-vpn" title="Permanent link">&para;</a></h2>
+<p>L'authentification par certificat est la methode la plus securisee pour les connexions VPN enterprise. Les certificats sont stockes dans le magasin de certificats Windows, accessible via le registre.</p>
+<h3 id="magasin-de-certificats">Magasin de certificats<a class="headerlink" href="#magasin-de-certificats" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>HKLM\SOFTWARE\Microsoft\SystemCertificates\My\Certificates
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>HKCU\SOFTWARE\Microsoft\SystemCertificates\My\Certificates
+</span></code></pre></div>
+<p>Chaque certificat est identifie par son empreinte SHA1 (thumbprint). Les sous-cles contiennent le blob binaire du certificat.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="c"># List machine certificates suitable for VPN authentication</span>
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a><span class="nb">Get-ChildItem</span> <span class="n">Cert</span><span class="p">:\</span><span class="n">LocalMachine</span><span class="p">\</span><span class="n">My</span> <span class="p">|</span>
+</span><span id="__span-54-3"><a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>    <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">EnhancedKeyUsageList</span><span class="p">.</span><span class="n">FriendlyName</span> <span class="o">-contains</span> <span class="s2">&quot;Client Authentication&quot;</span> <span class="p">}</span> <span class="p">|</span>
+</span><span id="__span-54-4"><a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a>    <span class="nb">Select-Object</span> <span class="n">Thumbprint</span><span class="p">,</span> <span class="n">Subject</span><span class="p">,</span> <span class="n">NotAfter</span> <span class="p">|</span>
+</span><span id="__span-54-5"><a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a>    <span class="nb">Format-Table</span> <span class="n">-AutoSize</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>Thumbprint                               Subject                          NotAfter
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>----------                               -------                          --------
+</span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>A1B2C3D4E5F6A1B2C3D4E5F6A1B2C3D4E5F6A1B2 CN=WORKSTATION01.corp.local      2026-06-15 00:00:00
+</span><span id="__span-55-4"><a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a>F6E5D4C3B2A1F6E5D4C3B2A1F6E5D4C3B2A1F6E5 CN=VPN-Client-Corp               2026-12-31 00:00:00
+</span></code></pre></div>
+<p>Le certificat du serveur VPN doit etre emis par une CA presente dans le magasin des racines de confiance (<code>HKLM\SOFTWARE\Microsoft\SystemCertificates\Root\Certificates</code>). La configuration EAP est sous <code>RasMan\PPP\ControlProtocols\Eap</code> (sous-cles <code>13</code> = EAP-TLS, <code>25</code> = PEAP, <code>26</code> = MS-CHAPv2).</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="c"># Configure IKEv2 VPN with machine certificate and verify</span>
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="nb">Set-VpnConnection</span> <span class="n">-Name</span> <span class="s2">&quot;Corporate VPN&quot;</span> <span class="n">-AuthenticationMethod</span> <span class="n">MachineCertificate</span>
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="nb">Get-VpnConnection</span> <span class="n">-Name</span> <span class="s2">&quot;Corporate VPN&quot;</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">AuthenticationMethod</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>Name            AuthenticationMethod
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>----            --------------------
+</span><span id="__span-57-3"><a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>Corporate VPN   {MachineCertificate}
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Les certificats VPN sont dans le magasin Windows (<code>Cert:\LocalMachine\My</code>)</li>
+<li>L'authentification <code>MachineCertificate</code> pour IKEv2 est la plus securisee</li>
+<li>La CA racine du serveur VPN doit etre dans le magasin des racines de confiance</li>
+<li>La configuration EAP est sous <code>RasMan\PPP\ControlProtocols\Eap</code></li>
+</ul>
+</div>
+<hr />
+<h2 id="scenario-deployer-cisco-anyconnect-avec-profils-pre-configures">Scenario : deployer Cisco AnyConnect avec profils pre-configures<a class="headerlink" href="#scenario-deployer-cisco-anyconnect-avec-profils-pre-configures" title="Permanent link">&para;</a></h2>
+<h3 id="contexte">Contexte<a class="headerlink" href="#contexte" title="Permanent link">&para;</a></h3>
+<p>L'equipe infrastructure doit deployer Cisco AnyConnect sur 200 postes avec un profil pre-configure qui inclut le serveur VPN, le split tunneling et l'auto-connect. Le deploiement doit etre silencieux et fonctionne via GPO.</p>
+<h3 id="etape-1-preparer-le-profil-xml">Etape 1 : preparer le profil XML<a class="headerlink" href="#etape-1-preparer-le-profil-xml" title="Permanent link">&para;</a></h3>
+<p>Creez le profil XML qui sera deploye sur chaque poste :</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-58-2"><a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a><span class="cm">&lt;!-- AnyConnect VPN profile for corporate deployment --&gt;</span>
+</span><span id="__span-58-3"><a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a><span class="nt">&lt;AnyConnectProfile</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://schemas.xmlsoap.org/encoding/&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-58-4"><a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a><span class="w">    </span><span class="nt">&lt;ServerList&gt;</span>
+</span><span id="__span-58-5"><a id="__codelineno-58-5" name="__codelineno-58-5" href="#__codelineno-58-5"></a><span class="w">        </span><span class="nt">&lt;HostEntry&gt;</span>
+</span><span id="__span-58-6"><a id="__codelineno-58-6" name="__codelineno-58-6" href="#__codelineno-58-6"></a><span class="w">            </span><span class="nt">&lt;HostName&gt;</span>VPN<span class="w"> </span>Corporate<span class="nt">&lt;/HostName&gt;</span>
+</span><span id="__span-58-7"><a id="__codelineno-58-7" name="__codelineno-58-7" href="#__codelineno-58-7"></a><span class="w">            </span><span class="nt">&lt;HostAddress&gt;</span>vpn.corp.local<span class="nt">&lt;/HostAddress&gt;</span>
+</span><span id="__span-58-8"><a id="__codelineno-58-8" name="__codelineno-58-8" href="#__codelineno-58-8"></a><span class="w">            </span><span class="nt">&lt;UserGroup&gt;</span>OU=Employees<span class="nt">&lt;/UserGroup&gt;</span>
+</span><span id="__span-58-9"><a id="__codelineno-58-9" name="__codelineno-58-9" href="#__codelineno-58-9"></a><span class="w">        </span><span class="nt">&lt;/HostEntry&gt;</span>
+</span><span id="__span-58-10"><a id="__codelineno-58-10" name="__codelineno-58-10" href="#__codelineno-58-10"></a><span class="w">        </span><span class="nt">&lt;HostEntry&gt;</span>
+</span><span id="__span-58-11"><a id="__codelineno-58-11" name="__codelineno-58-11" href="#__codelineno-58-11"></a><span class="w">            </span><span class="nt">&lt;HostName&gt;</span>VPN<span class="w"> </span>Backup<span class="nt">&lt;/HostName&gt;</span>
+</span><span id="__span-58-12"><a id="__codelineno-58-12" name="__codelineno-58-12" href="#__codelineno-58-12"></a><span class="w">            </span><span class="nt">&lt;HostAddress&gt;</span>vpn-backup.corp.local<span class="nt">&lt;/HostAddress&gt;</span>
+</span><span id="__span-58-13"><a id="__codelineno-58-13" name="__codelineno-58-13" href="#__codelineno-58-13"></a><span class="w">            </span><span class="nt">&lt;UserGroup&gt;</span>OU=Employees<span class="nt">&lt;/UserGroup&gt;</span>
+</span><span id="__span-58-14"><a id="__codelineno-58-14" name="__codelineno-58-14" href="#__codelineno-58-14"></a><span class="w">        </span><span class="nt">&lt;/HostEntry&gt;</span>
+</span><span id="__span-58-15"><a id="__codelineno-58-15" name="__codelineno-58-15" href="#__codelineno-58-15"></a><span class="w">    </span><span class="nt">&lt;/ServerList&gt;</span>
+</span><span id="__span-58-16"><a id="__codelineno-58-16" name="__codelineno-58-16" href="#__codelineno-58-16"></a><span class="w">    </span><span class="nt">&lt;AutoConnectOnStart</span><span class="w"> </span><span class="na">UserControllable=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/AutoConnectOnStart&gt;</span>
+</span><span id="__span-58-17"><a id="__codelineno-58-17" name="__codelineno-58-17" href="#__codelineno-58-17"></a><span class="w">    </span><span class="nt">&lt;AutoReconnect</span><span class="w"> </span><span class="na">UserControllable=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/AutoReconnect&gt;</span>
+</span><span id="__span-58-18"><a id="__codelineno-58-18" name="__codelineno-58-18" href="#__codelineno-58-18"></a><span class="w">    </span><span class="nt">&lt;AutoReconnectBehavior&gt;</span>ReconnectAfterResume<span class="nt">&lt;/AutoReconnectBehavior&gt;</span>
+</span><span id="__span-58-19"><a id="__codelineno-58-19" name="__codelineno-58-19" href="#__codelineno-58-19"></a><span class="w">    </span><span class="nt">&lt;AutoUpdate</span><span class="w"> </span><span class="na">UserControllable=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/AutoUpdate&gt;</span>
+</span><span id="__span-58-20"><a id="__codelineno-58-20" name="__codelineno-58-20" href="#__codelineno-58-20"></a><span class="w">    </span><span class="nt">&lt;LocalLanAccess</span><span class="w"> </span><span class="na">UserControllable=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>true<span class="nt">&lt;/LocalLanAccess&gt;</span>
+</span><span id="__span-58-21"><a id="__codelineno-58-21" name="__codelineno-58-21" href="#__codelineno-58-21"></a><span class="w">    </span><span class="nt">&lt;BlockUntrustedServers&gt;</span>true<span class="nt">&lt;/BlockUntrustedServers&gt;</span>
+</span><span id="__span-58-22"><a id="__codelineno-58-22" name="__codelineno-58-22" href="#__codelineno-58-22"></a><span class="nt">&lt;/AnyConnectProfile&gt;</span>
+</span></code></pre></div>
+<h3 id="etape-2-creer-le-script-de-deploiement">Etape 2 : creer le script de deploiement<a class="headerlink" href="#etape-2-creer-le-script-de-deploiement" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="c"># AnyConnect silent deployment script</span>
+</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a><span class="c"># Run as SYSTEM via GPO startup script or SCCM</span>
+</span><span id="__span-59-3"><a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a>
+</span><span id="__span-59-4"><a id="__codelineno-59-4" name="__codelineno-59-4" href="#__codelineno-59-4"></a><span class="k">param</span><span class="p">(</span>
+</span><span id="__span-59-5"><a id="__codelineno-59-5" name="__codelineno-59-5" href="#__codelineno-59-5"></a>    <span class="no">[string]</span><span class="nv">$InstallerPath</span> <span class="p">=</span> <span class="s2">&quot;\\fileserver\deploy$\AnyConnect\anyconnect-win-5.1.3.62-predeploy-k9.msi&quot;</span><span class="p">,</span>
+</span><span id="__span-59-6"><a id="__codelineno-59-6" name="__codelineno-59-6" href="#__codelineno-59-6"></a>    <span class="no">[string]</span><span class="nv">$ProfileSource</span> <span class="p">=</span> <span class="s2">&quot;\\fileserver\deploy$\AnyConnect\CorporateVPN.xml&quot;</span>
+</span><span id="__span-59-7"><a id="__codelineno-59-7" name="__codelineno-59-7" href="#__codelineno-59-7"></a><span class="p">)</span>
+</span><span id="__span-59-8"><a id="__codelineno-59-8" name="__codelineno-59-8" href="#__codelineno-59-8"></a>
+</span><span id="__span-59-9"><a id="__codelineno-59-9" name="__codelineno-59-9" href="#__codelineno-59-9"></a><span class="nv">$profileDest</span> <span class="p">=</span> <span class="s2">&quot;C:\ProgramData\Cisco\Cisco AnyConnect Secure Mobility Client\Profile&quot;</span>
+</span><span id="__span-59-10"><a id="__codelineno-59-10" name="__codelineno-59-10" href="#__codelineno-59-10"></a><span class="nv">$logPath</span> <span class="p">=</span> <span class="s2">&quot;C:\Windows\Temp\AnyConnect-Install.log&quot;</span>
+</span><span id="__span-59-11"><a id="__codelineno-59-11" name="__codelineno-59-11" href="#__codelineno-59-11"></a>
+</span><span id="__span-59-12"><a id="__codelineno-59-12" name="__codelineno-59-12" href="#__codelineno-59-12"></a><span class="c"># Step 1: install AnyConnect silently</span>
+</span><span id="__span-59-13"><a id="__codelineno-59-13" name="__codelineno-59-13" href="#__codelineno-59-13"></a><span class="nv">$installArgs</span> <span class="p">=</span> <span class="p">@(</span>
+</span><span id="__span-59-14"><a id="__codelineno-59-14" name="__codelineno-59-14" href="#__codelineno-59-14"></a>    <span class="s2">&quot;/i&quot;</span><span class="p">,</span> <span class="nv">$InstallerPath</span><span class="p">,</span>
+</span><span id="__span-59-15"><a id="__codelineno-59-15" name="__codelineno-59-15" href="#__codelineno-59-15"></a>    <span class="s2">&quot;/qn&quot;</span><span class="p">,</span>
+</span><span id="__span-59-16"><a id="__codelineno-59-16" name="__codelineno-59-16" href="#__codelineno-59-16"></a>    <span class="s2">&quot;/norestart&quot;</span><span class="p">,</span>
+</span><span id="__span-59-17"><a id="__codelineno-59-17" name="__codelineno-59-17" href="#__codelineno-59-17"></a>    <span class="s2">&quot;PRE_DEPLOY_DISABLE_VPN=0&quot;</span><span class="p">,</span>
+</span><span id="__span-59-18"><a id="__codelineno-59-18" name="__codelineno-59-18" href="#__codelineno-59-18"></a>    <span class="s2">&quot;/l*v&quot;</span><span class="p">,</span> <span class="nv">$logPath</span>
+</span><span id="__span-59-19"><a id="__codelineno-59-19" name="__codelineno-59-19" href="#__codelineno-59-19"></a><span class="p">)</span>
+</span><span id="__span-59-20"><a id="__codelineno-59-20" name="__codelineno-59-20" href="#__codelineno-59-20"></a><span class="nb">Start-Process</span> <span class="s2">&quot;msiexec.exe&quot;</span> <span class="n">-ArgumentList</span> <span class="nv">$installArgs</span> <span class="n">-Wait</span> <span class="n">-NoNewWindow</span>
+</span><span id="__span-59-21"><a id="__codelineno-59-21" name="__codelineno-59-21" href="#__codelineno-59-21"></a>
+</span><span id="__span-59-22"><a id="__codelineno-59-22" name="__codelineno-59-22" href="#__codelineno-59-22"></a><span class="c"># Step 2: create profile directory and copy profile</span>
+</span><span id="__span-59-23"><a id="__codelineno-59-23" name="__codelineno-59-23" href="#__codelineno-59-23"></a><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$profileDest</span><span class="p">))</span> <span class="p">{</span>
+</span><span id="__span-59-24"><a id="__codelineno-59-24" name="__codelineno-59-24" href="#__codelineno-59-24"></a>    <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$profileDest</span> <span class="n">-ItemType</span> <span class="n">Directory</span> <span class="n">-Force</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+</span><span id="__span-59-25"><a id="__codelineno-59-25" name="__codelineno-59-25" href="#__codelineno-59-25"></a><span class="p">}</span>
+</span><span id="__span-59-26"><a id="__codelineno-59-26" name="__codelineno-59-26" href="#__codelineno-59-26"></a><span class="nb">Copy-Item</span> <span class="n">-Path</span> <span class="nv">$ProfileSource</span> <span class="n">-Destination</span> <span class="s2">&quot;$profileDest\CorporateVPN.xml&quot;</span> <span class="n">-Force</span>
+</span><span id="__span-59-27"><a id="__codelineno-59-27" name="__codelineno-59-27" href="#__codelineno-59-27"></a>
+</span><span id="__span-59-28"><a id="__codelineno-59-28" name="__codelineno-59-28" href="#__codelineno-59-28"></a><span class="c"># Step 3: configure registry defaults</span>
+</span><span id="__span-59-29"><a id="__codelineno-59-29" name="__codelineno-59-29" href="#__codelineno-59-29"></a><span class="nv">$regPath</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client&quot;</span>
+</span><span id="__span-59-30"><a id="__codelineno-59-30" name="__codelineno-59-30" href="#__codelineno-59-30"></a><span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$regPath</span><span class="p">))</span> <span class="p">{</span>
+</span><span id="__span-59-31"><a id="__codelineno-59-31" name="__codelineno-59-31" href="#__codelineno-59-31"></a>    <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$regPath</span> <span class="n">-Force</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+</span><span id="__span-59-32"><a id="__codelineno-59-32" name="__codelineno-59-32" href="#__codelineno-59-32"></a><span class="p">}</span>
+</span><span id="__span-59-33"><a id="__codelineno-59-33" name="__codelineno-59-33" href="#__codelineno-59-33"></a>
+</span><span id="__span-59-34"><a id="__codelineno-59-34" name="__codelineno-59-34" href="#__codelineno-59-34"></a><span class="c"># Step 4: verify installation</span>
+</span><span id="__span-59-35"><a id="__codelineno-59-35" name="__codelineno-59-35" href="#__codelineno-59-35"></a><span class="nv">$version</span> <span class="p">=</span> <span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$regPath</span> <span class="n">-Name</span> <span class="s2">&quot;Version&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-59-36"><a id="__codelineno-59-36" name="__codelineno-59-36" href="#__codelineno-59-36"></a><span class="k">if</span> <span class="p">(</span><span class="nv">$version</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-59-37"><a id="__codelineno-59-37" name="__codelineno-59-37" href="#__codelineno-59-37"></a>    <span class="nb">Write-Output</span> <span class="s2">&quot;AnyConnect </span><span class="p">$(</span><span class="nv">$version</span><span class="p">.</span><span class="n">Version</span><span class="p">)</span><span class="s2"> installed successfully&quot;</span>
+</span><span id="__span-59-38"><a id="__codelineno-59-38" name="__codelineno-59-38" href="#__codelineno-59-38"></a>    <span class="nb">Write-Output</span> <span class="s2">&quot;Profile deployed to $profileDest\CorporateVPN.xml&quot;</span>
+</span><span id="__span-59-39"><a id="__codelineno-59-39" name="__codelineno-59-39" href="#__codelineno-59-39"></a><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-59-40"><a id="__codelineno-59-40" name="__codelineno-59-40" href="#__codelineno-59-40"></a>    <span class="nb">Write-Error</span> <span class="s2">&quot;AnyConnect installation failed. Check log: $logPath&quot;</span>
+</span><span id="__span-59-41"><a id="__codelineno-59-41" name="__codelineno-59-41" href="#__codelineno-59-41"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>AnyConnect 5.1.3.62 installed successfully
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a>Profile deployed to C:\ProgramData\Cisco\Cisco AnyConnect Secure Mobility Client\Profile\CorporateVPN.xml
+</span></code></pre></div>
+<h3 id="etape-3-deployer-via-gpo">Etape 3 : deployer via GPO<a class="headerlink" href="#etape-3-deployer-via-gpo" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Ouvrez la console <strong>GPMC</strong> (<code>gpmc.msc</code>)</li>
+<li>Creez une GPO : <code>VPN - Deploiement AnyConnect</code></li>
+<li>Liez la GPO a l'OU des postes de travail cibles</li>
+<li>Editez la GPO :<ul>
+<li><strong>Configuration ordinateur</strong> &gt; <strong>Strategies</strong> &gt; <strong>Parametres Windows</strong> &gt; <strong>Scripts (demarrage/arret)</strong> &gt; <strong>Demarrage</strong></li>
+<li>Onglet <strong>Scripts PowerShell</strong> &gt; Ajoutez le script ci-dessus</li>
+<li>Definissez les parametres : <code>-InstallerPath</code> et <code>-ProfileSource</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="etape-4-verification-a-distance">Etape 4 : verification a distance<a class="headerlink" href="#etape-4-verification-a-distance" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="c"># Verify AnyConnect deployment across multiple machines</span>
+</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="nv">$machines</span> <span class="p">=</span> <span class="nb">Get-Content</span> <span class="s2">&quot;C:\Admin\target-workstations.txt&quot;</span>
+</span><span id="__span-61-3"><a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a><span class="nv">$results</span> <span class="p">=</span> <span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="nv">$machines</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-61-4"><a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a>    <span class="nv">$version</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ItemProperty</span> <span class="p">`</span>
+</span><span id="__span-61-5"><a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a>        <span class="s2">&quot;HKLM:\SOFTWARE\Cisco\Cisco AnyConnect Secure Mobility Client&quot;</span> <span class="p">`</span>
+</span><span id="__span-61-6"><a id="__codelineno-61-6" name="__codelineno-61-6" href="#__codelineno-61-6"></a>        <span class="n">-Name</span> <span class="s2">&quot;Version&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span><span class="p">).</span><span class="n">Version</span>
+</span><span id="__span-61-7"><a id="__codelineno-61-7" name="__codelineno-61-7" href="#__codelineno-61-7"></a>    <span class="nv">$profileExists</span> <span class="p">=</span> <span class="nb">Test-Path</span> <span class="p">`</span>
+</span><span id="__span-61-8"><a id="__codelineno-61-8" name="__codelineno-61-8" href="#__codelineno-61-8"></a>        <span class="s2">&quot;C:\ProgramData\Cisco\Cisco AnyConnect Secure Mobility Client\Profile\CorporateVPN.xml&quot;</span>
+</span><span id="__span-61-9"><a id="__codelineno-61-9" name="__codelineno-61-9" href="#__codelineno-61-9"></a>    <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-61-10"><a id="__codelineno-61-10" name="__codelineno-61-10" href="#__codelineno-61-10"></a>        <span class="n">Computer</span> <span class="p">=</span> <span class="nv">$env:COMPUTERNAME</span>
+</span><span id="__span-61-11"><a id="__codelineno-61-11" name="__codelineno-61-11" href="#__codelineno-61-11"></a>        <span class="n">Version</span>  <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$version</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$version</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="s2">&quot;Not installed&quot;</span> <span class="p">}</span>
+</span><span id="__span-61-12"><a id="__codelineno-61-12" name="__codelineno-61-12" href="#__codelineno-61-12"></a>        <span class="n">Profile</span>  <span class="p">=</span> <span class="nv">$profileExists</span>
+</span><span id="__span-61-13"><a id="__codelineno-61-13" name="__codelineno-61-13" href="#__codelineno-61-13"></a>    <span class="p">}</span>
+</span><span id="__span-61-14"><a id="__codelineno-61-14" name="__codelineno-61-14" href="#__codelineno-61-14"></a><span class="p">}</span>
+</span><span id="__span-61-15"><a id="__codelineno-61-15" name="__codelineno-61-15" href="#__codelineno-61-15"></a><span class="nv">$results</span> <span class="p">|</span> <span class="nb">Sort-Object</span> <span class="n">Computer</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">-AutoSize</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>Computer      Version     Profile
+</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>--------      -------     -------
+</span><span id="__span-62-3"><a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a>WORKSTATION01 5.1.3.62    True
+</span><span id="__span-62-4"><a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a>WORKSTATION02 5.1.3.62    True
+</span><span id="__span-62-5"><a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a>WORKSTATION03 Not installed False
+</span><span id="__span-62-6"><a id="__codelineno-62-6" name="__codelineno-62-6" href="#__codelineno-62-6"></a>WORKSTATION04 5.1.3.62    True
+</span></code></pre></div>
+<div class="admonition danger">
+<p class="admonition-title">Pre-requis reseau</p>
+<p>Le partage <code>\\fileserver\deploy$</code> doit etre accessible par le compte SYSTEM des machines cibles. Verifiez les permissions NTFS et de partage. En cas d'echec, verifiez les logs dans <code>C:\Windows\Temp\AnyConnect-Install.log</code>.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Le deploiement AnyConnect combine une installation MSI silencieuse et un profil XML pre-configure</li>
+<li>Le profil XML definit les serveurs, l'auto-connect, l'auto-reconnect et le comportement utilisateur</li>
+<li>Le deploiement via GPO utilise un script de demarrage PowerShell</li>
+<li>La verification a distance avec <code>Invoke-Command</code> permet de valider le deploiement sur tout le parc</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pied de page" >
+        
+          
+          <a href="../22-navigateurs/" class="md-footer__link md-footer__link--prev" aria-label="Précédent: Navigateurs enterprise">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Précédent
+              </span>
+              <div class="md-ellipsis">
+                Navigateurs enterprise
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../24-backup-monitoring/" class="md-footer__link md-footer__link--next" aria-label="Suivant: Backup et monitoring">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Suivant
+              </span>
+              <div class="md-ellipsis">
+                Backup et monitoring
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Julien Bombled
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/julienbombled/quid-wiki" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

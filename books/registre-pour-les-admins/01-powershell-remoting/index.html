@@ -1,0 +1,4809 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Bibliothèque de connaissances techniques">
+      
+      
+        <meta name="author" content="Julien Bombled">
+      
+      
+        <link rel="canonical" href="https://vblackjack.github.io/Quid/books/registre-pour-les-admins/01-powershell-remoting/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../02-gpo-registre-ad/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>PowerShell Remoting et registre distant - Quid Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#powershell-remoting-et-le-registre-a-distance" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Quid Wiki" class="md-header__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quid Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              PowerShell Remoting et registre distant
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../bible-registre-windows/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Bible de la Base de Registre
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../registre-pour-les-nuls/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Base de Registre pour les Nuls
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Le Registre pour les Administrateurs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../cross-index/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Index thematique
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quid Wiki" class="md-nav__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    Quid Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../bible-registre-windows/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Bible de la Base de Registre
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Bible de la Base de Registre
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture et structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/03-ruches/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les ruches principales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/04-types-donnees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/05-outils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outils et méthodes d'accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/06-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité et permissions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/07-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/08-reseau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registre et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/09-optimisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimisation et maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/10-scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripts et automatisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/11-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dépannage avancé
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/12-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Référence des clés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/13-demarrage-bcd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processus de démarrage et BCD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/14-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services Windows en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/15-com-shell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    COM, DCOM et le Shell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/16-securite-moderne/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité moderne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/17-forensique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyse forensique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/18-versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évolution à travers les versions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/19-virtualisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation et conteneurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/20-gpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/21-apps-modernes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications modernes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/22-non-documentees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clés non documentées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/23-wmi-cim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WMI, CIM et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/24-cloud-entreprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion d'entreprise et cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/25-api-avancees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Win32 et noyau en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/26-msi-installer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Installer (MSI) et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/27-etw-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETW, tracing et performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/28-taches-planifiees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planificateur de tâches et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/29-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cryptographie, DPAPI et certificats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bible-registre-windows/30-impression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sous-système d'impression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../registre-pour-les-nuls/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Base de Registre pour les Nuls
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Base de Registre pour les Nuls
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/01-cest-quoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C'est quoi la base de registre ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/02-premiers-pas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Premiers pas avec Regedit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/03-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre la structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/04-modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modifications simples et utiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/05-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarder avant de toucher
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/06-erreurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les erreurs à éviter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/07-astuces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astuces pratiques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/08-fichiers-reg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre les fichiers .reg
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/09-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mon premier dépannage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/10-evaluer-tutos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évaluer les tutoriels en ligne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/11-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/12-glossaire/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire illustré
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/13-powershell-bases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/14-gpo-debutant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe pour débutants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/15-windows11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/16-parametres-registre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paramètres Windows vs Registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/17-mini-projets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-projets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le Registre pour les Administrateurs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Le Registre pour les Administrateurs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell Remoting et registre distant
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell Remoting et registre distant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-de-winrm-et-prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration de WinRM et prerequis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration de WinRM et prerequis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#activer-psremoting-sur-la-machine-cible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activer PSRemoting sur la machine cible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifier-letat-de-winrm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifier l'etat de WinRM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurer-les-trustedhosts-environnement-workgroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurer les TrustedHosts (environnement workgroup)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regles-de-pare-feu-associees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regles de pare-feu associees
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activation-a-grande-echelle-via-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activation a grande echelle via GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invoke-command-pour-les-operations-de-registre-a-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invoke-Command pour les operations de registre a distance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Invoke-Command pour les operations de registre a distance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lire-une-valeur-de-registre-a-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lire une valeur de registre a distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecrire-une-valeur-de-registre-a-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ecrire une valeur de registre a distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-une-cle-et-une-valeur-inexistantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer une cle et une valeur inexistantes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supprimer-une-valeur-ou-une-cle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supprimer une valeur ou une cle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utiliser-des-sessions-persistantes-pour-plusieurs-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utiliser des sessions persistantes pour plusieurs operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessions-cim-pour-lacces-au-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sessions CIM pour l'acces au registre
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sessions CIM pour l&#39;acces au registre">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creer-une-session-cim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer une session CIM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constantes-de-ruches-pour-stdregprov" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constantes de ruches pour StdRegProv
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lire-une-valeur-string-via-cim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lire une valeur String via CIM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lire-une-valeur-dword-via-cim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lire une valeur DWORD via CIM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecrire-une-valeur-via-cim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ecrire une valeur via CIM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumerer-les-sous-cles-et-valeurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumerer les sous-cles et valeurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operations-massives-sur-plusieurs-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operations massives sur plusieurs machines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operations massives sur plusieurs machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lire-une-valeur-sur-plusieurs-machines-simultanement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lire une valeur sur plusieurs machines simultanement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corriger-les-machines-non-conformes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corriger les machines non conformes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-des-erreurs-avec-collecte-de-resultats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestion des erreurs avec collecte de resultats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution-parallele-avec-foreach-object-parallel-powershell-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution parallele avec ForEach-Object -Parallel (PowerShell 7+)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considerations-de-securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Considerations de securite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Considerations de securite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kerberos-et-le-probleme-du-double-hop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos et le probleme du double-hop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solutions-au-double-hop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solutions au double-hop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delegation-contrainte-kerberos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delegation contrainte Kerberos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#credssp-a-eviter-en-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CredSSP (a eviter en production)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#just-enough-administration-jea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Just Enough Administration (JEA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-reel-deployer-un-correctif-de-registre-sur-200-postes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario reel : deployer un correctif de registre sur 200 postes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario reel : deployer un correctif de registre sur 200 postes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etape-1-preparer-la-liste-des-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 1 : Preparer la liste des machines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-2-auditer-letat-actuel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 2 : Auditer l'etat actuel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-3-appliquer-le-correctif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 3 : Appliquer le correctif
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-4-generer-le-rapport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 4 : Generer le rapport
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-gpo-registre-ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO et registre en environnement AD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-audit-conformite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit et conformite du registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-deploiement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploiement et industrialisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-ad-ds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory Domain Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-dhcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DHCP Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-wsus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WSUS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-iis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IIS / Web Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-rds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Desktop Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-hyper-v/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hyper-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-file-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Server / DFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-print-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Print Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-radius-nps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RADIUS / NPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-globalprotect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GlobalProtect (Palo Alto)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-sccm-mecm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCCM / MECM (ConfigMgr)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-intune/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft Intune
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-antivirus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Antivirus enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-citrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Citrix Virtual Apps & Desktops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-vmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMware Horizon / Workspace ONE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-m365-office/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft 365 Apps (Office)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-navigateurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigateurs enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-vpn-clients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VPN clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-backup-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backup et monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-exchange/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exchange Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-sql-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-sharepoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SharePoint Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-adobe-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adobe et Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-compliance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compliance (HIPAA, PCI-DSS, SOC 2)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-zero-trust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zero Trust et VDI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cross-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index thematique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-de-winrm-et-prerequis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration de WinRM et prerequis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration de WinRM et prerequis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#activer-psremoting-sur-la-machine-cible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activer PSRemoting sur la machine cible
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verifier-letat-de-winrm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifier l'etat de WinRM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurer-les-trustedhosts-environnement-workgroup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configurer les TrustedHosts (environnement workgroup)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#regles-de-pare-feu-associees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Regles de pare-feu associees
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activation-a-grande-echelle-via-gpo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Activation a grande echelle via GPO
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#invoke-command-pour-les-operations-de-registre-a-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invoke-Command pour les operations de registre a distance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Invoke-Command pour les operations de registre a distance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lire-une-valeur-de-registre-a-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lire une valeur de registre a distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecrire-une-valeur-de-registre-a-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ecrire une valeur de registre a distance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creer-une-cle-et-une-valeur-inexistantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer une cle et une valeur inexistantes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#supprimer-une-valeur-ou-une-cle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supprimer une valeur ou une cle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utiliser-des-sessions-persistantes-pour-plusieurs-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Utiliser des sessions persistantes pour plusieurs operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessions-cim-pour-lacces-au-registre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sessions CIM pour l'acces au registre
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sessions CIM pour l&#39;acces au registre">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creer-une-session-cim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creer une session CIM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#constantes-de-ruches-pour-stdregprov" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constantes de ruches pour StdRegProv
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lire-une-valeur-string-via-cim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lire une valeur String via CIM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lire-une-valeur-dword-via-cim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lire une valeur DWORD via CIM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ecrire-une-valeur-via-cim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ecrire une valeur via CIM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enumerer-les-sous-cles-et-valeurs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumerer les sous-cles et valeurs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operations-massives-sur-plusieurs-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operations massives sur plusieurs machines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operations massives sur plusieurs machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lire-une-valeur-sur-plusieurs-machines-simultanement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lire une valeur sur plusieurs machines simultanement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#corriger-les-machines-non-conformes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Corriger les machines non conformes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-des-erreurs-avec-collecte-de-resultats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Gestion des erreurs avec collecte de resultats
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#execution-parallele-avec-foreach-object-parallel-powershell-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Execution parallele avec ForEach-Object -Parallel (PowerShell 7+)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#considerations-de-securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Considerations de securite
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Considerations de securite">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kerberos-et-le-probleme-du-double-hop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos et le probleme du double-hop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solutions-au-double-hop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Solutions au double-hop
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delegation-contrainte-kerberos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delegation contrainte Kerberos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#credssp-a-eviter-en-production" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CredSSP (a eviter en production)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#just-enough-administration-jea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Just Enough Administration (JEA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scenario-reel-deployer-un-correctif-de-registre-sur-200-postes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scenario reel : deployer un correctif de registre sur 200 postes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Scenario reel : deployer un correctif de registre sur 200 postes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etape-1-preparer-la-liste-des-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 1 : Preparer la liste des machines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-2-auditer-letat-actuel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 2 : Auditer l'etat actuel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-3-appliquer-le-correctif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 3 : Appliquer le correctif
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etape-4-generer-le-rapport" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Etape 4 : Generer le rapport
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">administration</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">powershell</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">registre</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">remoting</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">winrm</span>
+      
+    
+  </nav>
+
+
+
+<h1 id="powershell-remoting-et-le-registre-a-distance">PowerShell Remoting et le registre a distance<a class="headerlink" href="#powershell-remoting-et-le-registre-a-distance" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">Ce que vous allez apprendre</p>
+<ul>
+<li>Configurer WinRM et les prerequis pour le remoting PowerShell</li>
+<li>Utiliser Invoke-Command pour lire, ecrire et supprimer des cles de registre a distance</li>
+<li>Exploiter les sessions CIM pour acceder au registre via StdRegProv</li>
+<li>Orchestrer des operations massives sur des centaines de machines en parallele</li>
+<li>Maitriser les mecanismes de securite : Kerberos, CredSSP, JEA</li>
+</ul>
+</div>
+<hr />
+<h2 id="configuration-de-winrm-et-prerequis">Configuration de WinRM et prerequis<a class="headerlink" href="#configuration-de-winrm-et-prerequis" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>sequenceDiagram
+    participant Admin as Poste Admin
+    participant WinRM as Service WinRM
+    participant Target as Machine Cible
+    Admin-&gt;&gt;WinRM: Invoke-Command (port 5985)
+    WinRM-&gt;&gt;Target: Authentification Kerberos / NTLM
+    Target--&gt;&gt;WinRM: Ticket de session
+    WinRM-&gt;&gt;Target: Envoi du ScriptBlock chiffre
+    Target--&gt;&gt;WinRM: Execution locale
+    WinRM--&gt;&gt;Admin: Resultat deserialise
+    style Admin fill:#bd93f9,color:#fff
+    style WinRM fill:#8be9fd,color:#000
+    style Target fill:#50fa7b,color:#000</code></pre>
+<p>Vous devez deployer un correctif de registre sur 200 postes de travail, mais aucun d'entre eux n'accepte de connexion distante. Avant toute operation de registre a distance, WinRM doit etre configure sur chaque machine cible.</p>
+<h3 id="activer-psremoting-sur-la-machine-cible">Activer PSRemoting sur la machine cible<a class="headerlink" href="#activer-psremoting-sur-la-machine-cible" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c"># Enable PowerShell Remoting (must run as Administrator)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">Enable-PSRemoting</span> <span class="n">-Force</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>WinRM has been updated to receive requests.
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>WinRM service type changed successfully.
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>WinRM service started.
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>WinRM has been updated for remote management.
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>WinRM firewall exception configured.
+</span></code></pre></div>
+<p>La commande <code>Enable-PSRemoting</code> realise quatre operations en une seule passe : elle demarre le service WinRM, le configure en demarrage automatique, cree les endpoints de session PowerShell et ouvre les regles de pare-feu necessaires.</p>
+<h3 id="verifier-letat-de-winrm">Verifier l'etat de WinRM<a class="headerlink" href="#verifier-letat-de-winrm" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c"># Check WinRM service status and listener configuration</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">Get-Service</span> <span class="n">WinRM</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">winrm</span> <span class="n">enumerate</span> <span class="n">winrm</span><span class="p">/</span><span class="n">config</span><span class="p">/</span><span class="n">listener</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Status   Name               DisplayName
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>------   ----               -----------
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Running  WinRM              Windows Remote Management (WS-Manag...
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Listener
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    Address = *
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    Transport = HTTP
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    Port = 5985
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    Hostname
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    Enabled = true
+</span></code></pre></div>
+<h3 id="configurer-les-trustedhosts-environnement-workgroup">Configurer les TrustedHosts (environnement workgroup)<a class="headerlink" href="#configurer-les-trustedhosts-environnement-workgroup" title="Permanent link">&para;</a></h3>
+<p>En domaine Active Directory, Kerberos gere l'authentification mutuelle. En workgroup, vous devez explicitement autoriser les machines distantes.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c"># Add specific machines to TrustedHosts</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">Set-Item</span> <span class="n">WSMan</span><span class="p">:\</span><span class="n">localhost</span><span class="p">\</span><span class="n">Client</span><span class="p">\</span><span class="n">TrustedHosts</span> <span class="n">-Value</span> <span class="s2">&quot;SRV01,SRV02,192.168.1.0/24&quot;</span> <span class="n">-Force</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c"># Verify the configuration</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">Get-Item</span> <span class="n">WSMan</span><span class="p">:\</span><span class="n">localhost</span><span class="p">\</span><span class="n">Client</span><span class="p">\</span><span class="n">TrustedHosts</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>   WSManConfig: Microsoft.WSMan.Management\WSMan::localhost\Client
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Type            Name                           SourceOfValue   Value
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>----            ----                           -------------   -----
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>System.String   TrustedHosts                                   SRV01,SRV02,192.168.1.0/24
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">TrustedHosts ne remplace pas le chiffrement</p>
+<p>Ajouter une machine aux TrustedHosts signifie que vous acceptez de vous authentifier sans verification Kerberos mutuelle. Le trafic reste chiffre via WinRM, mais vous n'avez aucune garantie que le serveur est bien celui qu'il pretend etre.</p>
+</div>
+<h3 id="regles-de-pare-feu-associees">Regles de pare-feu associees<a class="headerlink" href="#regles-de-pare-feu-associees" title="Permanent link">&para;</a></h3>
+<p>WinRM utilise le port TCP 5985 (HTTP) ou 5986 (HTTPS). Voici les regles de pare-feu correspondantes dans le registre :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>HKLM\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\FirewallRules
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c"># Verify firewall rules for WinRM</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nb">Get-NetFirewallRule</span> <span class="n">-DisplayName</span> <span class="s2">&quot;*Windows Remote Management*&quot;</span> <span class="p">|</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="nb">Select-Object</span> <span class="n">DisplayName</span><span class="p">,</span> <span class="n">Enabled</span><span class="p">,</span> <span class="n">Direction</span><span class="p">,</span> <span class="n">Action</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>DisplayName                                    Enabled Direction Action
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>-----------                                    ------- --------- ------
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Windows Remote Management (HTTP-In)               True   Inbound  Allow
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Windows Remote Management (HTTP-In)               True   Inbound  Allow
+</span></code></pre></div>
+<h3 id="activation-a-grande-echelle-via-gpo">Activation a grande echelle via GPO<a class="headerlink" href="#activation-a-grande-echelle-via-gpo" title="Permanent link">&para;</a></h3>
+<p>Plutot que d'activer WinRM machine par machine, utilisez une GPO :</p>
+<table>
+<thead>
+<tr>
+<th>Parametre GPO</th>
+<th>Chemin</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Autoriser la gestion a distance</td>
+<td><code>Computer Configuration\Policies\Administrative Templates\Windows Components\Windows Remote Management (WinRM)\WinRM Service</code></td>
+<td>Active, filtre IPv4 : <code>*</code></td>
+</tr>
+<tr>
+<td>Service WinRM demarrage auto</td>
+<td><code>Computer Configuration\Policies\Windows Settings\Security Settings\System Services</code></td>
+<td>WinRM : Automatique</td>
+</tr>
+<tr>
+<td>Regle pare-feu</td>
+<td><code>Computer Configuration\Policies\Windows Settings\Security Settings\Windows Firewall</code></td>
+<td>Entrant TCP 5985</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li><code>Enable-PSRemoting -Force</code> configure tout en une commande (service, listeners, pare-feu)</li>
+<li>En workgroup, les TrustedHosts sont necessaires ; en domaine, Kerberos suffit</li>
+<li>Pour un parc entier, privilegiez l'activation via GPO plutot que machine par machine</li>
+<li>WinRM utilise le port TCP 5985 (HTTP) ou 5986 (HTTPS)</li>
+</ul>
+</div>
+<hr />
+<h2 id="invoke-command-pour-les-operations-de-registre-a-distance">Invoke-Command pour les operations de registre a distance<a class="headerlink" href="#invoke-command-pour-les-operations-de-registre-a-distance" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    A["Operation de registre a distance"] --&gt; B{"Combien de machines ?"}
+    B --&gt;|"1 seule"| C{"Plusieurs commandes ?"}
+    B --&gt;|"Plusieurs"| D["Invoke-Command&lt;br/&gt;-ComputerName"]
+    C --&gt;|"Non"| E["Invoke-Command&lt;br/&gt;-ComputerName"]
+    C --&gt;|"Oui"| F["New-PSSession +&lt;br/&gt;Invoke-Command -Session"]
+    D --&gt; G{"Besoin de WMI/CIM ?"}
+    G --&gt;|"Oui"| H["New-CimSession +&lt;br/&gt;Invoke-CimMethod"]
+    G --&gt;|"Non"| I["Invoke-Command&lt;br/&gt;-ThrottleLimit"]
+    style A fill:#bd93f9,color:#fff
+    style B fill:#ffb86c,color:#000
+    style C fill:#ffb86c,color:#000
+    style G fill:#ffb86c,color:#000
+    style E fill:#50fa7b,color:#000
+    style F fill:#8be9fd,color:#000
+    style H fill:#ff79c6,color:#fff
+    style I fill:#50fa7b,color:#000
+    style D fill:#50fa7b,color:#000</code></pre>
+<p>Vous recevez un ticket : "La valeur <code>DisableNotifications</code> dans le Centre de securite est incorrecte sur le poste PC-COMPTA-03." Plutot que de vous deplacer, une seule commande PowerShell suffit.</p>
+<h3 id="lire-une-valeur-de-registre-a-distance">Lire une valeur de registre a distance<a class="headerlink" href="#lire-une-valeur-de-registre-a-distance" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c"># Read a registry value on a remote machine</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="n">PC-COMPTA</span><span class="p">-</span><span class="n">03</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="s2">&quot;HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications&quot;</span> <span class="p">`</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>                     <span class="n">-Name</span> <span class="s2">&quot;DisableNotifications&quot;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>DisableNotifications : 1
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>PSComputerName       : PC-COMPTA-03
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>RunspaceId           : a1b2c3d4-e5f6-7890-abcd-ef1234567890
+</span></code></pre></div>
+<h3 id="ecrire-une-valeur-de-registre-a-distance">Ecrire une valeur de registre a distance<a class="headerlink" href="#ecrire-une-valeur-de-registre-a-distance" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c"># Set a registry value on a remote machine</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="n">PC-COMPTA</span><span class="p">-</span><span class="n">03</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="s2">&quot;HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications&quot;</span> <span class="p">`</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>                     <span class="n">-Name</span> <span class="s2">&quot;DisableNotifications&quot;</span> <span class="p">`</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>                     <span class="n">-Value</span> <span class="n">0</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>(aucune sortie = succes)
+</span></code></pre></div>
+<h3 id="creer-une-cle-et-une-valeur-inexistantes">Creer une cle et une valeur inexistantes<a class="headerlink" href="#creer-une-cle-et-une-valeur-inexistantes" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c"># Create a new registry key and value on a remote machine</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="n">SRV-APP01</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>    <span class="nv">$path</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\MonEntreprise\AppConfig&quot;</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$path</span><span class="p">))</span> <span class="p">{</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Force</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="p">}</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="nb">New-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;MaintenanceMode&quot;</span> <span class="n">-Value</span> <span class="n">1</span> <span class="n">-PropertyType</span> <span class="n">DWord</span> <span class="n">-Force</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>MaintenanceMode : 1
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>PSPath          : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SOFTWARE\MonEntreprise\AppConfig
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>PSParentPath    : Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SOFTWARE\MonEntreprise
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>PSChildName     : AppConfig
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>PSProvider      : Microsoft.PowerShell.Core\Registry
+</span></code></pre></div>
+<h3 id="supprimer-une-valeur-ou-une-cle">Supprimer une valeur ou une cle<a class="headerlink" href="#supprimer-une-valeur-ou-une-cle" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c"># Remove a specific registry value on a remote machine</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="n">SRV-APP01</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="nb">Remove-ItemProperty</span> <span class="n">-Path</span> <span class="s2">&quot;HKLM:\SOFTWARE\MonEntreprise\AppConfig&quot;</span> <span class="p">`</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>                        <span class="n">-Name</span> <span class="s2">&quot;MaintenanceMode&quot;</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="p">}</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="c"># Remove an entire registry key and its children</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="n">SRV-APP01</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>    <span class="nb">Remove-Item</span> <span class="n">-Path</span> <span class="s2">&quot;HKLM:\SOFTWARE\MonEntreprise\AppConfig&quot;</span> <span class="n">-Recurse</span> <span class="n">-Force</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>(aucune sortie = succes)
+</span></code></pre></div>
+<h3 id="utiliser-des-sessions-persistantes-pour-plusieurs-operations">Utiliser des sessions persistantes pour plusieurs operations<a class="headerlink" href="#utiliser-des-sessions-persistantes-pour-plusieurs-operations" title="Permanent link">&para;</a></h3>
+<p>Quand vous devez executer plusieurs commandes sur la meme machine, une session persistante evite de se re-authentifier a chaque fois. C'est comme garder une porte ouverte au lieu de sonner a chaque passage.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c"># Create a persistent session</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nv">$session</span> <span class="p">=</span> <span class="nb">New-PSSession</span> <span class="n">-ComputerName</span> <span class="n">SRV-APP01</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c"># Execute multiple operations via the same session</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>    <span class="nv">$path</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\MonEntreprise\Deploy&quot;</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>    <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Force</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>    <span class="nb">New-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;Version&quot;</span> <span class="n">-Value</span> <span class="s2">&quot;2.5.1&quot;</span> <span class="n">-PropertyType</span> <span class="n">String</span> <span class="n">-Force</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>    <span class="nb">New-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;DeployDate&quot;</span> <span class="n">-Value</span> <span class="p">(</span><span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="s2">&quot;yyyy-MM-dd&quot;</span><span class="p">)</span> <span class="n">-PropertyType</span> <span class="n">String</span> <span class="n">-Force</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="p">}</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="c"># Verify</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="nb">Invoke-Command</span> <span class="n">-Session</span> <span class="nv">$session</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>    <span class="nb">Get-ItemProperty</span> <span class="s2">&quot;HKLM:\SOFTWARE\MonEntreprise\Deploy&quot;</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="p">}</span>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="c"># Clean up</span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="nb">Remove-PSSession</span> <span class="nv">$session</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Version        : 2.5.1
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>DeployDate     : 2026-04-04
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>PSComputerName : SRV-APP01
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Preferer les sessions persistantes pour le scripting</p>
+<p>Une session persistante (<code>New-PSSession</code>) conserve les variables, les modules importes et le contexte entre les appels <code>Invoke-Command</code>. Elle est aussi plus rapide car la connexion WinRM n'est etablie qu'une seule fois.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li><code>Invoke-Command</code> permet de lire, ecrire, creer et supprimer des cles de registre a distance</li>
+<li>Utilisez <code>Test-Path</code> pour verifier l'existence d'une cle avant de la creer</li>
+<li>Les sessions persistantes (<code>New-PSSession</code>) sont plus efficaces pour les operations multiples</li>
+<li>L'absence de sortie sur une ecriture ou suppression indique un succes</li>
+</ul>
+</div>
+<hr />
+<h2 id="sessions-cim-pour-lacces-au-registre">Sessions CIM pour l'acces au registre<a class="headerlink" href="#sessions-cim-pour-lacces-au-registre" title="Permanent link">&para;</a></h2>
+<p>Les sessions CIM offrent une alternative a Invoke-Command. Elles utilisent le fournisseur WMI <code>StdRegProv</code> (Standard Registry Provider), qui expose des methodes dediees pour manipuler le registre. C'est comme utiliser un outil specialise plutot qu'un couteau suisse.</p>
+<h3 id="creer-une-session-cim">Creer une session CIM<a class="headerlink" href="#creer-une-session-cim" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c"># Create a CIM session to a remote machine</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nv">$cimSession</span> <span class="p">=</span> <span class="nb">New-CimSession</span> <span class="n">-ComputerName</span> <span class="n">SRV-DC01</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c"># Verify the session</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="nv">$cimSession</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>Id           : 1
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>Name         : CimSession1
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>InstanceId   : b2c3d4e5-f6a7-8901-bcde-f23456789012
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>ComputerName : SRV-DC01
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>Protocol     : WSMAN
+</span></code></pre></div>
+<h3 id="constantes-de-ruches-pour-stdregprov">Constantes de ruches pour StdRegProv<a class="headerlink" href="#constantes-de-ruches-pour-stdregprov" title="Permanent link">&para;</a></h3>
+<p>StdRegProv utilise des constantes numeriques pour identifier les ruches :</p>
+<table>
+<thead>
+<tr>
+<th>Constante</th>
+<th>Valeur</th>
+<th>Ruche</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HKEY_CLASSES_ROOT</code></td>
+<td><code>2147483648</code></td>
+<td>HKCR</td>
+</tr>
+<tr>
+<td><code>HKEY_CURRENT_USER</code></td>
+<td><code>2147483649</code></td>
+<td>HKCU</td>
+</tr>
+<tr>
+<td><code>HKEY_LOCAL_MACHINE</code></td>
+<td><code>2147483650</code></td>
+<td>HKLM</td>
+</tr>
+<tr>
+<td><code>HKEY_USERS</code></td>
+<td><code>2147483651</code></td>
+<td>HKU</td>
+</tr>
+<tr>
+<td><code>HKEY_CURRENT_CONFIG</code></td>
+<td><code>2147483653</code></td>
+<td>HKCC</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lire-une-valeur-string-via-cim">Lire une valeur String via CIM<a class="headerlink" href="#lire-une-valeur-string-via-cim" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c"># Read a REG_SZ value using CIM StdRegProv</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nv">$HKLM</span> <span class="p">=</span> <span class="no">[uint32]</span><span class="n">2147483650</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="nv">$result</span> <span class="p">=</span> <span class="nb">Invoke-CimMethod</span> <span class="n">-CimSession</span> <span class="nv">$cimSession</span> <span class="p">`</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>    <span class="n">-Namespace</span> <span class="s2">&quot;root\default&quot;</span> <span class="p">`</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="n">-ClassName</span> <span class="s2">&quot;StdRegProv&quot;</span> <span class="p">`</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>    <span class="n">-MethodName</span> <span class="s2">&quot;GetStringValue&quot;</span> <span class="p">`</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>    <span class="n">-Arguments</span> <span class="p">@{</span>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>        <span class="n">hDefKey</span>     <span class="p">=</span> <span class="nv">$HKLM</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>        <span class="n">sSubKeyName</span> <span class="p">=</span> <span class="s2">&quot;SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;</span>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>        <span class="n">sValueName</span>  <span class="p">=</span> <span class="s2">&quot;ProductName&quot;</span>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>    <span class="p">}</span>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="nv">$result</span><span class="p">.</span><span class="n">sValue</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>Windows Server 2022 Datacenter
+</span></code></pre></div>
+<h3 id="lire-une-valeur-dword-via-cim">Lire une valeur DWORD via CIM<a class="headerlink" href="#lire-une-valeur-dword-via-cim" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c"># Read a REG_DWORD value using CIM StdRegProv</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nv">$result</span> <span class="p">=</span> <span class="nb">Invoke-CimMethod</span> <span class="n">-CimSession</span> <span class="nv">$cimSession</span> <span class="p">`</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>    <span class="n">-Namespace</span> <span class="s2">&quot;root\default&quot;</span> <span class="p">`</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>    <span class="n">-ClassName</span> <span class="s2">&quot;StdRegProv&quot;</span> <span class="p">`</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>    <span class="n">-MethodName</span> <span class="s2">&quot;GetDWORDValue&quot;</span> <span class="p">`</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>    <span class="n">-Arguments</span> <span class="p">@{</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>        <span class="n">hDefKey</span>     <span class="p">=</span> <span class="nv">$HKLM</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>        <span class="n">sSubKeyName</span> <span class="p">=</span> <span class="s2">&quot;SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&quot;</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>        <span class="n">sValueName</span>  <span class="p">=</span> <span class="s2">&quot;EnableLUA&quot;</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>    <span class="p">}</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="nv">$result</span><span class="p">.</span><span class="n">uValue</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>1
+</span></code></pre></div>
+<h3 id="ecrire-une-valeur-via-cim">Ecrire une valeur via CIM<a class="headerlink" href="#ecrire-une-valeur-via-cim" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c"># Write a REG_DWORD value using CIM StdRegProv</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nb">Invoke-CimMethod</span> <span class="n">-CimSession</span> <span class="nv">$cimSession</span> <span class="p">`</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>    <span class="n">-Namespace</span> <span class="s2">&quot;root\default&quot;</span> <span class="p">`</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>    <span class="n">-ClassName</span> <span class="s2">&quot;StdRegProv&quot;</span> <span class="p">`</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>    <span class="n">-MethodName</span> <span class="s2">&quot;SetDWORDValue&quot;</span> <span class="p">`</span>
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>    <span class="n">-Arguments</span> <span class="p">@{</span>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a>        <span class="n">hDefKey</span>     <span class="p">=</span> <span class="nv">$HKLM</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>        <span class="n">sSubKeyName</span> <span class="p">=</span> <span class="s2">&quot;SOFTWARE\MonEntreprise\Config&quot;</span>
+</span><span id="__span-25-9"><a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a>        <span class="n">sValueName</span>  <span class="p">=</span> <span class="s2">&quot;AuditEnabled&quot;</span>
+</span><span id="__span-25-10"><a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a>        <span class="n">uValue</span>      <span class="p">=</span> <span class="no">[uint32]</span><span class="n">1</span>
+</span><span id="__span-25-11"><a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a>    <span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>ReturnValue
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>-----------
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>          0
+</span></code></pre></div>
+<p>Un <code>ReturnValue</code> de <code>0</code> signifie succes. Toute autre valeur indique une erreur (acces refuse, cle inexistante, etc.).</p>
+<h3 id="enumerer-les-sous-cles-et-valeurs">Enumerer les sous-cles et valeurs<a class="headerlink" href="#enumerer-les-sous-cles-et-valeurs" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="c"># Enumerate subkeys under a registry path</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="nv">$enum</span> <span class="p">=</span> <span class="nb">Invoke-CimMethod</span> <span class="n">-CimSession</span> <span class="nv">$cimSession</span> <span class="p">`</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>    <span class="n">-Namespace</span> <span class="s2">&quot;root\default&quot;</span> <span class="p">`</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>    <span class="n">-ClassName</span> <span class="s2">&quot;StdRegProv&quot;</span> <span class="p">`</span>
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>    <span class="n">-MethodName</span> <span class="s2">&quot;EnumKey&quot;</span> <span class="p">`</span>
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a>    <span class="n">-Arguments</span> <span class="p">@{</span>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a>        <span class="n">hDefKey</span>     <span class="p">=</span> <span class="nv">$HKLM</span>
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a>        <span class="n">sSubKeyName</span> <span class="p">=</span> <span class="s2">&quot;SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall&quot;</span>
+</span><span id="__span-27-9"><a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a>    <span class="p">}</span>
+</span><span id="__span-27-10"><a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a>
+</span><span id="__span-27-11"><a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="nv">$enum</span><span class="p">.</span><span class="n">sNames</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-First</span> <span class="n">10</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>AddressBook
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>Connection Manager
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>DirectDrawEx
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>{0A7C82A5-1754-4E06-AB5A-B6AE46346CE8}
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>{1D8E6291-B0D5-35EC-8441-6616F567A0F7}
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>{26A24AE4-039D-4CA4-87B4-2F64180101F0}
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>{4A03706F-666A-4037-7777-5F2748764D10}
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>...
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">CIM vs Invoke-Command : quand choisir CIM ?</p>
+<p>Utilisez CIM quand vous travaillez avec des outils qui consomment deja des sessions CIM (SCCM, DSC, inventaire WMI). Utilisez <code>Invoke-Command</code> pour des scripts PowerShell generiques. CIM a l'avantage de fonctionner aussi via DCOM pour les machines anciennes qui ne supportent pas WinRM.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Les sessions CIM utilisent le fournisseur <code>StdRegProv</code> pour acceder au registre a distance</li>
+<li>Chaque ruche est identifiee par une constante numerique (HKLM = <code>2147483650</code>)</li>
+<li>Les methodes CIM sont typees : <code>GetStringValue</code>, <code>GetDWORDValue</code>, <code>SetDWORDValue</code>, etc.</li>
+<li>Un <code>ReturnValue</code> de 0 indique un succes, toute autre valeur est une erreur</li>
+</ul>
+</div>
+<hr />
+<h2 id="operations-massives-sur-plusieurs-machines">Operations massives sur plusieurs machines<a class="headerlink" href="#operations-massives-sur-plusieurs-machines" title="Permanent link">&para;</a></h2>
+<p>Votre responsable vous demande de verifier la valeur <code>NtpServer</code> sur les 200 postes du parc, puis de corriger les machines non conformes. Faire cela une par une prendrait des heures. PowerShell Remoting permet de paralleliser ces operations.</p>
+<h3 id="lire-une-valeur-sur-plusieurs-machines-simultanement">Lire une valeur sur plusieurs machines simultanement<a class="headerlink" href="#lire-une-valeur-sur-plusieurs-machines-simultanement" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c"># Read NTP configuration from multiple machines at once</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="nv">$computers</span> <span class="p">=</span> <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="s2">&quot;OperatingSystem -like &#39;*Windows 10*&#39;&quot;</span> <span class="p">|</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>    <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">Name</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="nv">$results</span> <span class="p">=</span> <span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="nv">$computers</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>    <span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="s2">&quot;HKLM:\SYSTEM\CurrentControlSet\Services\W32Time\Parameters&quot;</span> <span class="p">`</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>                     <span class="n">-Name</span> <span class="s2">&quot;NtpServer&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span> <span class="p">|</span>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>        <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">NtpServer</span>
+</span><span id="__span-29-9"><a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="p">}</span> <span class="n">-ThrottleLimit</span> <span class="n">50</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-29-10"><a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>
+</span><span id="__span-29-11"><a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="nv">$results</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">PSComputerName</span><span class="p">,</span> <span class="p">@{</span><span class="n">N</span><span class="p">=</span><span class="s2">&quot;NtpServer&quot;</span><span class="p">;</span><span class="n">E</span><span class="p">={</span><span class="nv">$_</span><span class="p">}}</span> <span class="p">|</span>
+</span><span id="__span-29-12"><a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a>    <span class="nb">Sort-Object</span> <span class="n">PSComputerName</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>PSComputerName  NtpServer
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>--------------  ---------
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>PC-COMPTA-01    ntp.entreprise.local,0x9
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>PC-COMPTA-02    time.windows.com,0x9
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>PC-COMPTA-03    ntp.entreprise.local,0x9
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>PC-RH-01        time.windows.com,0x9
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a>PC-RH-02        ntp.entreprise.local,0x9
+</span><span id="__span-30-8"><a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a>...
+</span></code></pre></div>
+<p>Le parametre <code>-ThrottleLimit 50</code> controle le nombre de connexions simultanees. La valeur par defaut est 32. Ajustez-la en fonction de la capacite de votre reseau et de vos serveurs.</p>
+<h3 id="corriger-les-machines-non-conformes">Corriger les machines non conformes<a class="headerlink" href="#corriger-les-machines-non-conformes" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c"># Define the expected NTP server</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="nv">$expectedNtp</span> <span class="p">=</span> <span class="s2">&quot;ntp.entreprise.local,0x9&quot;</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="c"># Find and fix non-compliant machines</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="nv">$nonCompliant</span> <span class="p">=</span> <span class="nv">$results</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span> <span class="o">-ne</span> <span class="nv">$expectedNtp</span> <span class="p">}</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="nv">$nonCompliantNames</span> <span class="p">=</span> <span class="nv">$nonCompliant</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">PSComputerName</span>
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="k">if</span> <span class="p">(</span><span class="nv">$nonCompliantNames</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>    <span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="nv">$nonCompliantNames</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a>        <span class="k">param</span><span class="p">(</span><span class="nv">$ntpServer</span><span class="p">)</span>
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a>        <span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="s2">&quot;HKLM:\SYSTEM\CurrentControlSet\Services\W32Time\Parameters&quot;</span> <span class="p">`</span>
+</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>                         <span class="n">-Name</span> <span class="s2">&quot;NtpServer&quot;</span> <span class="n">-Value</span> <span class="nv">$ntpServer</span>
+</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a>        <span class="nb">Restart-Service</span> <span class="n">W32Time</span> <span class="n">-Force</span>
+</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a>    <span class="p">}</span> <span class="n">-ArgumentList</span> <span class="nv">$expectedNtp</span> <span class="n">-ThrottleLimit</span> <span class="n">50</span>
+</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a>
+</span><span id="__span-31-17"><a id="__codelineno-31-17" name="__codelineno-31-17" href="#__codelineno-31-17"></a>    <span class="nb">Write-Host</span> <span class="s2">&quot;</span><span class="p">$(</span><span class="nv">$nonCompliantNames</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span><span class="s2"> machines corrected.&quot;</span>
+</span><span id="__span-31-18"><a id="__codelineno-31-18" name="__codelineno-31-18" href="#__codelineno-31-18"></a><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span id="__span-31-19"><a id="__codelineno-31-19" name="__codelineno-31-19" href="#__codelineno-31-19"></a>    <span class="nb">Write-Host</span> <span class="s2">&quot;All machines are compliant.&quot;</span>
+</span><span id="__span-31-20"><a id="__codelineno-31-20" name="__codelineno-31-20" href="#__codelineno-31-20"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>47 machines corrected.
+</span></code></pre></div>
+<h3 id="gestion-des-erreurs-avec-collecte-de-resultats">Gestion des erreurs avec collecte de resultats<a class="headerlink" href="#gestion-des-erreurs-avec-collecte-de-resultats" title="Permanent link">&para;</a></h3>
+<p>En environnement reel, certaines machines seront eteintes, inaccessibles ou en erreur. Un script robuste doit capturer ces cas.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="c"># Robust mass registry operation with error handling</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="nv">$computers</span> <span class="p">=</span> <span class="p">@(</span><span class="s2">&quot;SRV-APP01&quot;</span><span class="p">,</span> <span class="s2">&quot;SRV-APP02&quot;</span><span class="p">,</span> <span class="s2">&quot;SRV-DB01&quot;</span><span class="p">,</span> <span class="s2">&quot;PC-OFFLINE-01&quot;</span><span class="p">)</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="nv">$job</span> <span class="p">=</span> <span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="nv">$computers</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>    <span class="k">try</span> <span class="p">{</span>
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>        <span class="nv">$path</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\MonEntreprise\SecurityBaseline&quot;</span>
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a>        <span class="k">if</span> <span class="p">(</span><span class="o">-not</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$path</span><span class="p">))</span> <span class="p">{</span>
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a>            <span class="nb">New-Item</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Force</span> <span class="p">|</span> <span class="nb">Out-Null</span>
+</span><span id="__span-33-9"><a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a>        <span class="p">}</span>
+</span><span id="__span-33-10"><a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>        <span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;BaselineVersion&quot;</span> <span class="n">-Value</span> <span class="s2">&quot;2026.04&quot;</span> <span class="n">-Force</span>
+</span><span id="__span-33-11"><a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a>        <span class="nb">Set-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;AppliedDate&quot;</span> <span class="n">-Value</span> <span class="p">(</span><span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="s2">&quot;yyyy-MM-dd&quot;</span><span class="p">)</span> <span class="n">-Force</span>
+</span><span id="__span-33-12"><a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a>
+</span><span id="__span-33-13"><a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a>        <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-33-14"><a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a>            <span class="n">Status</span>  <span class="p">=</span> <span class="s2">&quot;Success&quot;</span>
+</span><span id="__span-33-15"><a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a>            <span class="n">Machine</span> <span class="p">=</span> <span class="nv">$env:COMPUTERNAME</span>
+</span><span id="__span-33-16"><a id="__codelineno-33-16" name="__codelineno-33-16" href="#__codelineno-33-16"></a>        <span class="p">}</span>
+</span><span id="__span-33-17"><a id="__codelineno-33-17" name="__codelineno-33-17" href="#__codelineno-33-17"></a>    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span><span id="__span-33-18"><a id="__codelineno-33-18" name="__codelineno-33-18" href="#__codelineno-33-18"></a>        <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-33-19"><a id="__codelineno-33-19" name="__codelineno-33-19" href="#__codelineno-33-19"></a>            <span class="n">Status</span>  <span class="p">=</span> <span class="s2">&quot;Failed&quot;</span>
+</span><span id="__span-33-20"><a id="__codelineno-33-20" name="__codelineno-33-20" href="#__codelineno-33-20"></a>            <span class="n">Machine</span> <span class="p">=</span> <span class="nv">$env:COMPUTERNAME</span>
+</span><span id="__span-33-21"><a id="__codelineno-33-21" name="__codelineno-33-21" href="#__codelineno-33-21"></a>            <span class="n">Error</span>   <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Exception</span><span class="p">.</span><span class="n">Message</span>
+</span><span id="__span-33-22"><a id="__codelineno-33-22" name="__codelineno-33-22" href="#__codelineno-33-22"></a>        <span class="p">}</span>
+</span><span id="__span-33-23"><a id="__codelineno-33-23" name="__codelineno-33-23" href="#__codelineno-33-23"></a>    <span class="p">}</span>
+</span><span id="__span-33-24"><a id="__codelineno-33-24" name="__codelineno-33-24" href="#__codelineno-33-24"></a><span class="p">}</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span> <span class="n">-ErrorVariable</span> <span class="n">remoteErrors</span> <span class="n">-ThrottleLimit</span> <span class="n">50</span>
+</span><span id="__span-33-25"><a id="__codelineno-33-25" name="__codelineno-33-25" href="#__codelineno-33-25"></a>
+</span><span id="__span-33-26"><a id="__codelineno-33-26" name="__codelineno-33-26" href="#__codelineno-33-26"></a><span class="c"># Display successes</span>
+</span><span id="__span-33-27"><a id="__codelineno-33-27" name="__codelineno-33-27" href="#__codelineno-33-27"></a><span class="nv">$job</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Status</span> <span class="o">-eq</span> <span class="s2">&quot;Success&quot;</span> <span class="p">|</span>
+</span><span id="__span-33-28"><a id="__codelineno-33-28" name="__codelineno-33-28" href="#__codelineno-33-28"></a>    <span class="nb">Format-Table</span> <span class="n">Machine</span><span class="p">,</span> <span class="n">Status</span> <span class="n">-AutoSize</span>
+</span><span id="__span-33-29"><a id="__codelineno-33-29" name="__codelineno-33-29" href="#__codelineno-33-29"></a>
+</span><span id="__span-33-30"><a id="__codelineno-33-30" name="__codelineno-33-30" href="#__codelineno-33-30"></a><span class="c"># Display failures (machines that responded with errors)</span>
+</span><span id="__span-33-31"><a id="__codelineno-33-31" name="__codelineno-33-31" href="#__codelineno-33-31"></a><span class="nv">$job</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="n">Status</span> <span class="o">-eq</span> <span class="s2">&quot;Failed&quot;</span> <span class="p">|</span>
+</span><span id="__span-33-32"><a id="__codelineno-33-32" name="__codelineno-33-32" href="#__codelineno-33-32"></a>    <span class="nb">Format-Table</span> <span class="n">Machine</span><span class="p">,</span> <span class="n">Status</span><span class="p">,</span> <span class="n">Error</span> <span class="n">-AutoSize</span>
+</span><span id="__span-33-33"><a id="__codelineno-33-33" name="__codelineno-33-33" href="#__codelineno-33-33"></a>
+</span><span id="__span-33-34"><a id="__codelineno-33-34" name="__codelineno-33-34" href="#__codelineno-33-34"></a><span class="c"># Display unreachable machines</span>
+</span><span id="__span-33-35"><a id="__codelineno-33-35" name="__codelineno-33-35" href="#__codelineno-33-35"></a><span class="nv">$remoteErrors</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+</span><span id="__span-33-36"><a id="__codelineno-33-36" name="__codelineno-33-36" href="#__codelineno-33-36"></a>    <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-33-37"><a id="__codelineno-33-37" name="__codelineno-33-37" href="#__codelineno-33-37"></a>        <span class="n">Machine</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">TargetObject</span>
+</span><span id="__span-33-38"><a id="__codelineno-33-38" name="__codelineno-33-38" href="#__codelineno-33-38"></a>        <span class="n">Error</span>   <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Exception</span><span class="p">.</span><span class="n">Message</span>
+</span><span id="__span-33-39"><a id="__codelineno-33-39" name="__codelineno-33-39" href="#__codelineno-33-39"></a>    <span class="p">}</span>
+</span><span id="__span-33-40"><a id="__codelineno-33-40" name="__codelineno-33-40" href="#__codelineno-33-40"></a><span class="p">}</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">-AutoSize</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>Machine    Status
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>-------    ------
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>SRV-APP01  Success
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>SRV-APP02  Success
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>SRV-DB01   Success
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>Machine        Error
+</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>-------        -----
+</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>PC-OFFLINE-01  Connecting to remote server PC-OFFLINE-01 failed...
+</span></code></pre></div>
+<h3 id="execution-parallele-avec-foreach-object-parallel-powershell-7">Execution parallele avec ForEach-Object -Parallel (PowerShell 7+)<a class="headerlink" href="#execution-parallele-avec-foreach-object-parallel-powershell-7" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c"># PowerShell 7+ parallel execution for registry operations</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="nv">$computers</span> <span class="p">=</span> <span class="nb">Get-Content</span> <span class="s2">&quot;C:\Admin\workstations.txt&quot;</span>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="nv">$computers</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="n">-Parallel</span> <span class="p">{</span>
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>    <span class="nv">$result</span> <span class="p">=</span> <span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="nv">$_</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>        <span class="nb">Get-ItemProperty</span> <span class="s2">&quot;HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System&quot;</span> <span class="p">|</span>
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>            <span class="nb">Select-Object</span> <span class="n">EnableLUA</span><span class="p">,</span> <span class="n">ConsentPromptBehaviorAdmin</span>
+</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>    <span class="p">}</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>
+</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-35-11"><a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a>        <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-35-12"><a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a>            <span class="n">Computer</span> <span class="p">=</span> <span class="nv">$_</span>
+</span><span id="__span-35-13"><a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a>            <span class="n">UAC</span>      <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="p">.</span><span class="n">EnableLUA</span> <span class="o">-eq</span> <span class="n">1</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;Enabled&quot;</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="s2">&quot;Disabled&quot;</span> <span class="p">}</span>
+</span><span id="__span-35-14"><a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a>            <span class="n">Consent</span>  <span class="p">=</span> <span class="nv">$result</span><span class="p">.</span><span class="n">ConsentPromptBehaviorAdmin</span>
+</span><span id="__span-35-15"><a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a>        <span class="p">}</span>
+</span><span id="__span-35-16"><a id="__codelineno-35-16" name="__codelineno-35-16" href="#__codelineno-35-16"></a>    <span class="p">}</span>
+</span><span id="__span-35-17"><a id="__codelineno-35-17" name="__codelineno-35-17" href="#__codelineno-35-17"></a><span class="p">}</span> <span class="n">-ThrottleLimit</span> <span class="n">100</span> <span class="p">|</span> <span class="nb">Export-Csv</span> <span class="s2">&quot;C:\Admin\uac-audit.csv&quot;</span> <span class="n">-NoTypeInformation</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>(fichier CSV genere avec les colonnes Computer, UAC, Consent)
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li><code>-ThrottleLimit</code> controle le nombre de connexions simultanees (defaut : 32)</li>
+<li>Capturez toujours les erreurs avec <code>-ErrorAction SilentlyContinue</code> et <code>-ErrorVariable</code></li>
+<li>Structurez les resultats en objets pour faciliter le tri, le filtrage et l'export</li>
+<li>PowerShell 7+ offre <code>ForEach-Object -Parallel</code> pour une parallelisation native</li>
+</ul>
+</div>
+<hr />
+<h2 id="considerations-de-securite">Considerations de securite<a class="headerlink" href="#considerations-de-securite" title="Permanent link">&para;</a></h2>
+<p>Un script qui modifie le registre de 200 machines a distance est un outil puissant, mais aussi un vecteur d'attaque potentiel. La securite du remoting PowerShell repose sur trois piliers : l'authentification, la delegation et la restriction des droits.</p>
+<h3 id="kerberos-et-le-probleme-du-double-hop">Kerberos et le probleme du double-hop<a class="headerlink" href="#kerberos-et-le-probleme-du-double-hop" title="Permanent link">&para;</a></h3>
+<p>Scenario classique : depuis votre poste d'administration, vous vous connectez en PowerShell a SRV-APP01, puis depuis SRV-APP01 vous tentez d'acceder a un partage sur SRV-FILE01. Le second saut echoue : c'est le probleme du <strong>double-hop</strong>.</p>
+<p>Kerberos ne delegue pas automatiquement vos credentials au-dela du premier saut. C'est comme donner votre badge d'acces a un collegue qui ne peut pas l'utiliser pour ouvrir une autre porte a votre place.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>Poste Admin ──[Kerberos]──&gt; SRV-APP01 ──[echec]──&gt; SRV-FILE01
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>     (1er hop: OK)              (2eme hop: pas de credentials)
+</span></code></pre></div>
+<h3 id="solutions-au-double-hop">Solutions au double-hop<a class="headerlink" href="#solutions-au-double-hop" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Solution</th>
+<th>Securite</th>
+<th>Complexite</th>
+<th>Cas d'usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CredSSP</td>
+<td>Faible</td>
+<td>Facile</td>
+<td>Tests uniquement, jamais en production</td>
+</tr>
+<tr>
+<td>Delegation contrainte Kerberos</td>
+<td>Elevee</td>
+<td>Moyenne</td>
+<td>Production, serveurs specifiques</td>
+</tr>
+<tr>
+<td>Resource-based constrained delegation</td>
+<td>Elevee</td>
+<td>Moyenne</td>
+<td>Production, inter-forets</td>
+</tr>
+<tr>
+<td>JEA (Just Enough Administration)</td>
+<td>Tres elevee</td>
+<td>Elevee</td>
+<td>Production, zero-trust</td>
+</tr>
+<tr>
+<td>PSSessionConfiguration avec RunAs</td>
+<td>Moyenne</td>
+<td>Moyenne</td>
+<td>Scenarios specifiques</td>
+</tr>
+</tbody>
+</table>
+<h3 id="delegation-contrainte-kerberos">Delegation contrainte Kerberos<a class="headerlink" href="#delegation-contrainte-kerberos" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="c"># Configure constrained delegation on SRV-APP01 in Active Directory</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="c"># SRV-APP01 will be allowed to delegate credentials to SRV-FILE01</span>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="nb">Set-ADComputer</span> <span class="n">-Identity</span> <span class="s2">&quot;SRV-APP01&quot;</span> <span class="n">-Add</span> <span class="p">@{</span>
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>    <span class="s2">&quot;msDS-AllowedToDelegateTo&quot;</span> <span class="p">=</span> <span class="p">@(</span>
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>        <span class="s2">&quot;cifs/SRV-FILE01.entreprise.local&quot;</span>
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>        <span class="s2">&quot;cifs/SRV-FILE01&quot;</span>
+</span><span id="__span-38-7"><a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>    <span class="p">)</span>
+</span><span id="__span-38-8"><a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a><span class="p">}</span>
+</span><span id="__span-38-9"><a id="__codelineno-38-9" name="__codelineno-38-9" href="#__codelineno-38-9"></a>
+</span><span id="__span-38-10"><a id="__codelineno-38-10" name="__codelineno-38-10" href="#__codelineno-38-10"></a><span class="c"># Verify the delegation</span>
+</span><span id="__span-38-11"><a id="__codelineno-38-11" name="__codelineno-38-11" href="#__codelineno-38-11"></a><span class="nb">Get-ADComputer</span> <span class="s2">&quot;SRV-APP01&quot;</span> <span class="n">-Properties</span> <span class="s2">&quot;msDS-AllowedToDelegateTo&quot;</span> <span class="p">|</span>
+</span><span id="__span-38-12"><a id="__codelineno-38-12" name="__codelineno-38-12" href="#__codelineno-38-12"></a>    <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="s2">&quot;msDS-AllowedToDelegateTo&quot;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>cifs/SRV-FILE01.entreprise.local
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>cifs/SRV-FILE01
+</span></code></pre></div>
+<h3 id="credssp-a-eviter-en-production">CredSSP (a eviter en production)<a class="headerlink" href="#credssp-a-eviter-en-production" title="Permanent link">&para;</a></h3>
+<div class="admonition danger">
+<p class="admonition-title">CredSSP expose vos credentials</p>
+<p>CredSSP envoie vos identifiants en clair au serveur intermediaire. Si ce serveur est compromis, l'attaquant recupere vos credentials d'administrateur de domaine. Ne l'utilisez jamais en production.</p>
+</div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="c"># Enable CredSSP (TEST ENVIRONMENT ONLY)</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="nb">Enable-WSManCredSSP</span> <span class="n">-Role</span> <span class="n">Client</span> <span class="n">-DelegateComputer</span> <span class="s2">&quot;SRV-APP01.entreprise.local&quot;</span> <span class="n">-Force</span>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="nb">Enable-WSManCredSSP</span> <span class="n">-Role</span> <span class="n">Server</span> <span class="n">-Force</span>  <span class="c"># On SRV-APP01</span>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="c"># Connect with CredSSP</span>
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="nv">$cred</span> <span class="p">=</span> <span class="nb">Get-Credential</span>
+</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="n">SRV-APP01</span> <span class="n">-Credential</span> <span class="nv">$cred</span> <span class="n">-Authentication</span> <span class="n">CredSSP</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-40-8"><a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a>    <span class="c"># This second hop now works (but at what cost?)</span>
+</span><span id="__span-40-9"><a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a>    <span class="nb">Get-ItemProperty</span> <span class="s2">&quot;\\SRV-FILE01\HKLM\SOFTWARE\MonApp&quot;</span>
+</span><span id="__span-40-10"><a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>(acces reussi au registre distant via double-hop)
+</span></code></pre></div>
+<h3 id="just-enough-administration-jea">Just Enough Administration (JEA)<a class="headerlink" href="#just-enough-administration-jea" title="Permanent link">&para;</a></h3>
+<p>JEA est la meilleure approche pour limiter ce qu'un administrateur peut faire sur une machine distante. Vous definissez exactement quelles commandes et quels parametres sont autorises.</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c"># Create a JEA role capability file</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="nv">$roleCapability</span> <span class="p">=</span> <span class="p">@{</span>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>    <span class="n">Path</span>            <span class="p">=</span> <span class="s2">&quot;C:\Program Files\WindowsPowerShell\Modules\RegistryJEA\RoleCapabilities\RegistryOperator.psrc&quot;</span>
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>    <span class="n">VisibleCmdlets</span>  <span class="p">=</span> <span class="p">@(</span>
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>        <span class="s2">&quot;Get-ItemProperty&quot;</span>
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>        <span class="s2">&quot;Set-ItemProperty&quot;</span>
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>        <span class="s2">&quot;Test-Path&quot;</span>
+</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>        <span class="p">@{</span>
+</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a>            <span class="n">Name</span>       <span class="p">=</span> <span class="s2">&quot;New-Item&quot;</span>
+</span><span id="__span-42-10"><a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a>            <span class="n">Parameters</span> <span class="p">=</span> <span class="p">@{</span> <span class="n">Name</span> <span class="p">=</span> <span class="s2">&quot;Path&quot;</span><span class="p">;</span> <span class="k">ValidatePattern</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\\SOFTWARE\\MonEntreprise\\*&quot;</span> <span class="p">}</span>
+</span><span id="__span-42-11"><a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a>        <span class="p">}</span>
+</span><span id="__span-42-12"><a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a>    <span class="p">)</span>
+</span><span id="__span-42-13"><a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a>    <span class="n">VisibleFunctions</span> <span class="p">=</span> <span class="p">@()</span>
+</span><span id="__span-42-14"><a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a>    <span class="n">VisibleProviders</span> <span class="p">=</span> <span class="p">@(</span><span class="s2">&quot;Registry&quot;</span><span class="p">)</span>
+</span><span id="__span-42-15"><a id="__codelineno-42-15" name="__codelineno-42-15" href="#__codelineno-42-15"></a><span class="p">}</span>
+</span><span id="__span-42-16"><a id="__codelineno-42-16" name="__codelineno-42-16" href="#__codelineno-42-16"></a>
+</span><span id="__span-42-17"><a id="__codelineno-42-17" name="__codelineno-42-17" href="#__codelineno-42-17"></a><span class="nb">New-PSRoleCapabilityFile</span> <span class="nv">@roleCapability</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>(fichier .psrc cree dans le repertoire RoleCapabilities)
+</span></code></pre></div>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="c"># Create and register the JEA session configuration</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="nv">$sessionConfig</span> <span class="p">=</span> <span class="p">@{</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>    <span class="n">Path</span>                <span class="p">=</span> <span class="s2">&quot;C:\Admin\RegistryJEA.pssc&quot;</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>    <span class="n">SessionType</span>         <span class="p">=</span> <span class="s2">&quot;RestrictedRemoteServer&quot;</span>
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a>    <span class="n">RunAsVirtualAccount</span> <span class="p">=</span> <span class="nv">$true</span>
+</span><span id="__span-44-6"><a id="__codelineno-44-6" name="__codelineno-44-6" href="#__codelineno-44-6"></a>    <span class="n">RoleDefinitions</span>     <span class="p">=</span> <span class="p">@{</span>
+</span><span id="__span-44-7"><a id="__codelineno-44-7" name="__codelineno-44-7" href="#__codelineno-44-7"></a>        <span class="s2">&quot;ENTREPRISE\Registry-Operators&quot;</span> <span class="p">=</span> <span class="p">@{</span> <span class="n">RoleCapabilities</span> <span class="p">=</span> <span class="s2">&quot;RegistryOperator&quot;</span> <span class="p">}</span>
+</span><span id="__span-44-8"><a id="__codelineno-44-8" name="__codelineno-44-8" href="#__codelineno-44-8"></a>    <span class="p">}</span>
+</span><span id="__span-44-9"><a id="__codelineno-44-9" name="__codelineno-44-9" href="#__codelineno-44-9"></a><span class="p">}</span>
+</span><span id="__span-44-10"><a id="__codelineno-44-10" name="__codelineno-44-10" href="#__codelineno-44-10"></a>
+</span><span id="__span-44-11"><a id="__codelineno-44-11" name="__codelineno-44-11" href="#__codelineno-44-11"></a><span class="nb">New-PSSessionConfigurationFile</span> <span class="nv">@sessionConfig</span>
+</span><span id="__span-44-12"><a id="__codelineno-44-12" name="__codelineno-44-12" href="#__codelineno-44-12"></a><span class="nb">Register-PSSessionConfiguration</span> <span class="n">-Name</span> <span class="s2">&quot;RegistryJEA&quot;</span> <span class="n">-Path</span> <span class="s2">&quot;C:\Admin\RegistryJEA.pssc&quot;</span> <span class="n">-Force</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>WSManConfig: Microsoft.WSMan.Management\WSMan::localhost\Plugin
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>Type            Keys                                Name
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>----            ----                                ----
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>Container       {Name=RegistryJEA}                  RegistryJEA
+</span></code></pre></div>
+<p>L'administrateur se connecte ensuite a l'endpoint JEA et ne peut executer que les commandes autorisees :</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="c"># Connect to the JEA endpoint</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="nb">Enter-PSSession</span> <span class="n">-ComputerName</span> <span class="n">SRV-APP01</span> <span class="n">-ConfigurationName</span> <span class="n">RegistryJEA</span>
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a><span class="c"># This works (authorized)</span>
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="nb">Get-ItemProperty</span> <span class="s2">&quot;HKLM:\SOFTWARE\MonEntreprise\Config&quot;</span>
+</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a>
+</span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a><span class="c"># This fails (not authorized)</span>
+</span><span id="__span-46-8"><a id="__codelineno-46-8" name="__codelineno-46-8" href="#__codelineno-46-8"></a><span class="nb">Remove-Item</span> <span class="s2">&quot;HKLM:\SOFTWARE\Microsoft\Windows&quot;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>PS SRV-APP01&gt; Get-ItemProperty &quot;HKLM:\SOFTWARE\MonEntreprise\Config&quot;
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>AppVersion : 3.2.1
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>PS SRV-APP01&gt; Remove-Item &quot;HKLM:\SOFTWARE\Microsoft\Windows&quot;
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>The term &#39;Remove-Item&#39; is not recognized as the name of a cmdlet...
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Le double-hop Kerberos est le probleme de securite n°1 en remoting PowerShell</li>
+<li>CredSSP est la solution facile mais dangereuse : a proscrire en production</li>
+<li>La delegation contrainte Kerberos est le bon compromis securite/complexite</li>
+<li>JEA offre le plus haut niveau de controle en limitant les commandes disponibles</li>
+</ul>
+</div>
+<hr />
+<h2 id="scenario-reel-deployer-un-correctif-de-registre-sur-200-postes">Scenario reel : deployer un correctif de registre sur 200 postes<a class="headerlink" href="#scenario-reel-deployer-un-correctif-de-registre-sur-200-postes" title="Permanent link">&para;</a></h2>
+<p>Votre equipe securite a identifie que la valeur <code>DisableAntiSpyware</code> est presente sur certains postes, desactivant Windows Defender. Vous devez auditer les 200 postes du parc, corriger les machines non conformes et generer un rapport.</p>
+<h3 id="etape-1-preparer-la-liste-des-machines">Etape 1 : Preparer la liste des machines<a class="headerlink" href="#etape-1-preparer-la-liste-des-machines" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="c"># Get all workstations from Active Directory</span>
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="nv">$computers</span> <span class="p">=</span> <span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="s2">&quot;OperatingSystem -like &#39;*Windows 10*&#39; -or OperatingSystem -like &#39;*Windows 11*&#39;&quot;</span> <span class="p">`</span>
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>    <span class="n">-SearchBase</span> <span class="s2">&quot;OU=Workstations,DC=entreprise,DC=local&quot;</span> <span class="p">|</span>
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>    <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">Name</span>
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>
+</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a><span class="nb">Write-Host</span> <span class="s2">&quot;Machines found: </span><span class="p">$(</span><span class="nv">$computers</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>Machines found: 203
+</span></code></pre></div>
+<h3 id="etape-2-auditer-letat-actuel">Etape 2 : Auditer l'etat actuel<a class="headerlink" href="#etape-2-auditer-letat-actuel" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="c"># Audit the DisableAntiSpyware value on all workstations</span>
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="nv">$auditResults</span> <span class="p">=</span> <span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="nv">$computers</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>    <span class="nv">$path</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender&quot;</span>
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>    <span class="nv">$value</span> <span class="p">=</span> <span class="nb">Get-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;DisableAntiSpyware&quot;</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>
+</span><span id="__span-50-6"><a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>    <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-50-7"><a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>        <span class="n">Computer</span>          <span class="p">=</span> <span class="nv">$env:COMPUTERNAME</span>
+</span><span id="__span-50-8"><a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a>        <span class="n">KeyExists</span>         <span class="p">=</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="nv">$path</span><span class="p">)</span>
+</span><span id="__span-50-9"><a id="__codelineno-50-9" name="__codelineno-50-9" href="#__codelineno-50-9"></a>        <span class="n">ValuePresent</span>      <span class="p">=</span> <span class="p">(</span><span class="nv">$null</span> <span class="o">-ne</span> <span class="nv">$value</span><span class="p">)</span>
+</span><span id="__span-50-10"><a id="__codelineno-50-10" name="__codelineno-50-10" href="#__codelineno-50-10"></a>        <span class="n">DisableAntiSpyware</span> <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="nv">$value</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$value</span><span class="p">.</span><span class="n">DisableAntiSpyware</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span> <span class="s2">&quot;N/A&quot;</span> <span class="p">}</span>
+</span><span id="__span-50-11"><a id="__codelineno-50-11" name="__codelineno-50-11" href="#__codelineno-50-11"></a>        <span class="n">DefenderStatus</span>    <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Service</span> <span class="n">WinDefend</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span><span class="p">).</span><span class="n">Status</span>
+</span><span id="__span-50-12"><a id="__codelineno-50-12" name="__codelineno-50-12" href="#__codelineno-50-12"></a>    <span class="p">}</span>
+</span><span id="__span-50-13"><a id="__codelineno-50-13" name="__codelineno-50-13" href="#__codelineno-50-13"></a><span class="p">}</span> <span class="n">-ThrottleLimit</span> <span class="n">50</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span> <span class="n">-ErrorVariable</span> <span class="n">auditErrors</span>
+</span><span id="__span-50-14"><a id="__codelineno-50-14" name="__codelineno-50-14" href="#__codelineno-50-14"></a>
+</span><span id="__span-50-15"><a id="__codelineno-50-15" name="__codelineno-50-15" href="#__codelineno-50-15"></a><span class="c"># Summary</span>
+</span><span id="__span-50-16"><a id="__codelineno-50-16" name="__codelineno-50-16" href="#__codelineno-50-16"></a><span class="nv">$compliant</span> <span class="p">=</span> <span class="nv">$auditResults</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">DisableAntiSpyware</span> <span class="o">-eq</span> <span class="s2">&quot;N/A&quot;</span> <span class="o">-or</span> <span class="nv">$_</span><span class="p">.</span><span class="n">DisableAntiSpyware</span> <span class="o">-eq</span> <span class="n">0</span> <span class="p">}</span>
+</span><span id="__span-50-17"><a id="__codelineno-50-17" name="__codelineno-50-17" href="#__codelineno-50-17"></a><span class="nv">$nonCompliant</span> <span class="p">=</span> <span class="nv">$auditResults</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span> <span class="nv">$_</span><span class="p">.</span><span class="n">DisableAntiSpyware</span> <span class="o">-eq</span> <span class="n">1</span> <span class="p">}</span>
+</span><span id="__span-50-18"><a id="__codelineno-50-18" name="__codelineno-50-18" href="#__codelineno-50-18"></a><span class="nv">$unreachable</span> <span class="p">=</span> <span class="nv">$auditErrors</span><span class="p">.</span><span class="n">Count</span>
+</span><span id="__span-50-19"><a id="__codelineno-50-19" name="__codelineno-50-19" href="#__codelineno-50-19"></a>
+</span><span id="__span-50-20"><a id="__codelineno-50-20" name="__codelineno-50-20" href="#__codelineno-50-20"></a><span class="nb">Write-Host</span> <span class="s2">&quot;Compliant    : </span><span class="p">$(</span><span class="nv">$compliant</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span><span class="s2">&quot;</span>
+</span><span id="__span-50-21"><a id="__codelineno-50-21" name="__codelineno-50-21" href="#__codelineno-50-21"></a><span class="nb">Write-Host</span> <span class="s2">&quot;Non-compliant: </span><span class="p">$(</span><span class="nv">$nonCompliant</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span><span class="s2">&quot;</span>
+</span><span id="__span-50-22"><a id="__codelineno-50-22" name="__codelineno-50-22" href="#__codelineno-50-22"></a><span class="nb">Write-Host</span> <span class="s2">&quot;Unreachable  : $unreachable&quot;</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>Compliant    : 156
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>Non-compliant: 38
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>Unreachable  : 9
+</span></code></pre></div>
+<h3 id="etape-3-appliquer-le-correctif">Etape 3 : Appliquer le correctif<a class="headerlink" href="#etape-3-appliquer-le-correctif" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="c"># Fix non-compliant machines by removing the rogue value</span>
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="nv">$fixTargets</span> <span class="p">=</span> <span class="nv">$nonCompliant</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">Computer</span>
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>
+</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a><span class="nv">$fixResults</span> <span class="p">=</span> <span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="nv">$fixTargets</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>    <span class="k">try</span> <span class="p">{</span>
+</span><span id="__span-52-6"><a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>        <span class="nv">$path</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender&quot;</span>
+</span><span id="__span-52-7"><a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a>
+</span><span id="__span-52-8"><a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a>        <span class="c"># Remove the DisableAntiSpyware value</span>
+</span><span id="__span-52-9"><a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a>        <span class="nb">Remove-ItemProperty</span> <span class="n">-Path</span> <span class="nv">$path</span> <span class="n">-Name</span> <span class="s2">&quot;DisableAntiSpyware&quot;</span> <span class="n">-Force</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span>
+</span><span id="__span-52-10"><a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a>
+</span><span id="__span-52-11"><a id="__codelineno-52-11" name="__codelineno-52-11" href="#__codelineno-52-11"></a>        <span class="c"># Restart Windows Defender service</span>
+</span><span id="__span-52-12"><a id="__codelineno-52-12" name="__codelineno-52-12" href="#__codelineno-52-12"></a>        <span class="nb">Restart-Service</span> <span class="n">WinDefend</span> <span class="n">-Force</span> <span class="n">-ErrorAction</span> <span class="n">Stop</span>
+</span><span id="__span-52-13"><a id="__codelineno-52-13" name="__codelineno-52-13" href="#__codelineno-52-13"></a>
+</span><span id="__span-52-14"><a id="__codelineno-52-14" name="__codelineno-52-14" href="#__codelineno-52-14"></a>        <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-52-15"><a id="__codelineno-52-15" name="__codelineno-52-15" href="#__codelineno-52-15"></a>            <span class="n">Computer</span> <span class="p">=</span> <span class="nv">$env:COMPUTERNAME</span>
+</span><span id="__span-52-16"><a id="__codelineno-52-16" name="__codelineno-52-16" href="#__codelineno-52-16"></a>            <span class="n">Status</span>   <span class="p">=</span> <span class="s2">&quot;Fixed&quot;</span>
+</span><span id="__span-52-17"><a id="__codelineno-52-17" name="__codelineno-52-17" href="#__codelineno-52-17"></a>            <span class="n">Defender</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Service</span> <span class="n">WinDefend</span><span class="p">).</span><span class="n">Status</span>
+</span><span id="__span-52-18"><a id="__codelineno-52-18" name="__codelineno-52-18" href="#__codelineno-52-18"></a>        <span class="p">}</span>
+</span><span id="__span-52-19"><a id="__codelineno-52-19" name="__codelineno-52-19" href="#__codelineno-52-19"></a>    <span class="p">}</span> <span class="k">catch</span> <span class="p">{</span>
+</span><span id="__span-52-20"><a id="__codelineno-52-20" name="__codelineno-52-20" href="#__codelineno-52-20"></a>        <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-52-21"><a id="__codelineno-52-21" name="__codelineno-52-21" href="#__codelineno-52-21"></a>            <span class="n">Computer</span> <span class="p">=</span> <span class="nv">$env:COMPUTERNAME</span>
+</span><span id="__span-52-22"><a id="__codelineno-52-22" name="__codelineno-52-22" href="#__codelineno-52-22"></a>            <span class="n">Status</span>   <span class="p">=</span> <span class="s2">&quot;Error&quot;</span>
+</span><span id="__span-52-23"><a id="__codelineno-52-23" name="__codelineno-52-23" href="#__codelineno-52-23"></a>            <span class="n">Defender</span> <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">Exception</span><span class="p">.</span><span class="n">Message</span>
+</span><span id="__span-52-24"><a id="__codelineno-52-24" name="__codelineno-52-24" href="#__codelineno-52-24"></a>        <span class="p">}</span>
+</span><span id="__span-52-25"><a id="__codelineno-52-25" name="__codelineno-52-25" href="#__codelineno-52-25"></a>    <span class="p">}</span>
+</span><span id="__span-52-26"><a id="__codelineno-52-26" name="__codelineno-52-26" href="#__codelineno-52-26"></a><span class="p">}</span> <span class="n">-ThrottleLimit</span> <span class="n">50</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>Computer      Status Defender
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>--------      ------ --------
+</span><span id="__span-53-3"><a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>PC-COMPTA-02  Fixed  Running
+</span><span id="__span-53-4"><a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a>PC-COMPTA-05  Fixed  Running
+</span><span id="__span-53-5"><a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a>PC-RH-01      Fixed  Running
+</span><span id="__span-53-6"><a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a>PC-RH-03      Fixed  Running
+</span><span id="__span-53-7"><a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a>...
+</span></code></pre></div>
+<h3 id="etape-4-generer-le-rapport">Etape 4 : Generer le rapport<a class="headerlink" href="#etape-4-generer-le-rapport" title="Permanent link">&para;</a></h3>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="c"># Generate a comprehensive report</span>
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a><span class="nv">$timestamp</span> <span class="p">=</span> <span class="nb">Get-Date</span> <span class="n">-Format</span> <span class="s2">&quot;yyyyMMdd-HHmmss&quot;</span>
+</span><span id="__span-54-3"><a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a><span class="nv">$reportPath</span> <span class="p">=</span> <span class="s2">&quot;C:\Admin\Reports\defender-audit-$timestamp.csv&quot;</span>
+</span><span id="__span-54-4"><a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a>
+</span><span id="__span-54-5"><a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a><span class="nv">$fullReport</span> <span class="p">=</span> <span class="p">@()</span>
+</span><span id="__span-54-6"><a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a>
+</span><span id="__span-54-7"><a id="__codelineno-54-7" name="__codelineno-54-7" href="#__codelineno-54-7"></a><span class="c"># Add successful audits</span>
+</span><span id="__span-54-8"><a id="__codelineno-54-8" name="__codelineno-54-8" href="#__codelineno-54-8"></a><span class="nv">$fullReport</span> <span class="p">+=</span> <span class="nv">$auditResults</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">Computer</span><span class="p">,</span>
+</span><span id="__span-54-9"><a id="__codelineno-54-9" name="__codelineno-54-9" href="#__codelineno-54-9"></a>    <span class="p">@{</span><span class="n">N</span><span class="p">=</span><span class="s2">&quot;Status&quot;</span><span class="p">;</span><span class="n">E</span><span class="p">={</span>
+</span><span id="__span-54-10"><a id="__codelineno-54-10" name="__codelineno-54-10" href="#__codelineno-54-10"></a>        <span class="k">if</span> <span class="p">(</span><span class="nv">$_</span><span class="p">.</span><span class="n">DisableAntiSpyware</span> <span class="o">-eq</span> <span class="n">1</span><span class="p">)</span> <span class="p">{</span> <span class="s2">&quot;Non-Compliant&quot;</span> <span class="p">}</span>
+</span><span id="__span-54-11"><a id="__codelineno-54-11" name="__codelineno-54-11" href="#__codelineno-54-11"></a>        <span class="k">else</span> <span class="p">{</span> <span class="s2">&quot;Compliant&quot;</span> <span class="p">}</span>
+</span><span id="__span-54-12"><a id="__codelineno-54-12" name="__codelineno-54-12" href="#__codelineno-54-12"></a>    <span class="p">}},</span>
+</span><span id="__span-54-13"><a id="__codelineno-54-13" name="__codelineno-54-13" href="#__codelineno-54-13"></a>    <span class="n">DisableAntiSpyware</span><span class="p">,</span> <span class="n">DefenderStatus</span>
+</span><span id="__span-54-14"><a id="__codelineno-54-14" name="__codelineno-54-14" href="#__codelineno-54-14"></a>
+</span><span id="__span-54-15"><a id="__codelineno-54-15" name="__codelineno-54-15" href="#__codelineno-54-15"></a><span class="c"># Add unreachable machines</span>
+</span><span id="__span-54-16"><a id="__codelineno-54-16" name="__codelineno-54-16" href="#__codelineno-54-16"></a><span class="nv">$fullReport</span> <span class="p">+=</span> <span class="nv">$auditErrors</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+</span><span id="__span-54-17"><a id="__codelineno-54-17" name="__codelineno-54-17" href="#__codelineno-54-17"></a>    <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-54-18"><a id="__codelineno-54-18" name="__codelineno-54-18" href="#__codelineno-54-18"></a>        <span class="n">Computer</span>           <span class="p">=</span> <span class="nv">$_</span><span class="p">.</span><span class="n">TargetObject</span>
+</span><span id="__span-54-19"><a id="__codelineno-54-19" name="__codelineno-54-19" href="#__codelineno-54-19"></a>        <span class="n">Status</span>             <span class="p">=</span> <span class="s2">&quot;Unreachable&quot;</span>
+</span><span id="__span-54-20"><a id="__codelineno-54-20" name="__codelineno-54-20" href="#__codelineno-54-20"></a>        <span class="n">DisableAntiSpyware</span> <span class="p">=</span> <span class="s2">&quot;Unknown&quot;</span>
+</span><span id="__span-54-21"><a id="__codelineno-54-21" name="__codelineno-54-21" href="#__codelineno-54-21"></a>        <span class="n">DefenderStatus</span>     <span class="p">=</span> <span class="s2">&quot;Unknown&quot;</span>
+</span><span id="__span-54-22"><a id="__codelineno-54-22" name="__codelineno-54-22" href="#__codelineno-54-22"></a>    <span class="p">}</span>
+</span><span id="__span-54-23"><a id="__codelineno-54-23" name="__codelineno-54-23" href="#__codelineno-54-23"></a><span class="p">}</span>
+</span><span id="__span-54-24"><a id="__codelineno-54-24" name="__codelineno-54-24" href="#__codelineno-54-24"></a>
+</span><span id="__span-54-25"><a id="__codelineno-54-25" name="__codelineno-54-25" href="#__codelineno-54-25"></a><span class="nv">$fullReport</span> <span class="p">|</span> <span class="nb">Export-Csv</span> <span class="n">-Path</span> <span class="nv">$reportPath</span> <span class="n">-NoTypeInformation</span> <span class="n">-Encoding</span> <span class="n">UTF8</span>
+</span><span id="__span-54-26"><a id="__codelineno-54-26" name="__codelineno-54-26" href="#__codelineno-54-26"></a><span class="nb">Write-Host</span> <span class="s2">&quot;Report saved: $reportPath&quot;</span>
+</span><span id="__span-54-27"><a id="__codelineno-54-27" name="__codelineno-54-27" href="#__codelineno-54-27"></a>
+</span><span id="__span-54-28"><a id="__codelineno-54-28" name="__codelineno-54-28" href="#__codelineno-54-28"></a><span class="c"># Display summary</span>
+</span><span id="__span-54-29"><a id="__codelineno-54-29" name="__codelineno-54-29" href="#__codelineno-54-29"></a><span class="nv">$fullReport</span> <span class="p">|</span> <span class="nb">Group-Object</span> <span class="n">Status</span> <span class="p">|</span>
+</span><span id="__span-54-30"><a id="__codelineno-54-30" name="__codelineno-54-30" href="#__codelineno-54-30"></a>    <span class="nb">Select-Object</span> <span class="n">Name</span><span class="p">,</span> <span class="n">Count</span> <span class="p">|</span>
+</span><span id="__span-54-31"><a id="__codelineno-54-31" name="__codelineno-54-31" href="#__codelineno-54-31"></a>    <span class="nb">Format-Table</span> <span class="n">-AutoSize</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>Report saved: C:\Admin\Reports\defender-audit-20260404-143022.csv
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>
+</span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>Name           Count
+</span><span id="__span-55-4"><a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a>----           -----
+</span><span id="__span-55-5"><a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a>Compliant        156
+</span><span id="__span-55-6"><a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a>Non-Compliant     38
+</span><span id="__span-55-7"><a id="__codelineno-55-7" name="__codelineno-55-7" href="#__codelineno-55-7"></a>Unreachable        9
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Verifiez avant de supprimer a grande echelle</p>
+<p>Avant d'executer le correctif sur 200 machines, testez toujours sur un echantillon de 5 a 10 postes. Validez les resultats, verifiez l'absence d'effets secondaires, puis elargissez au parc complet.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Automatisez avec une tache planifiee</p>
+<p>Ce type d'audit peut etre programme quotidiennement via une tache planifiee PowerShell. Couple a une alerte email, vous detectez les regressions en temps reel.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Un deploiement massif suit quatre etapes : inventaire, audit, correction, rapport</li>
+<li><code>-ThrottleLimit</code> et <code>-ErrorVariable</code> sont essentiels pour les operations a grande echelle</li>
+<li>Testez toujours sur un echantillon avant de deployer sur le parc complet</li>
+<li>Generez systematiquement un rapport CSV pour la tracabilite</li>
+</ul>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pied de page" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Précédent: Le Registre pour les Administrateurs">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Précédent
+              </span>
+              <div class="md-ellipsis">
+                Le Registre pour les Administrateurs
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../02-gpo-registre-ad/" class="md-footer__link md-footer__link--next" aria-label="Suivant: GPO et registre en environnement AD">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Suivant
+              </span>
+              <div class="md-ellipsis">
+                GPO et registre en environnement AD
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Julien Bombled
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/julienbombled/quid-wiki" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

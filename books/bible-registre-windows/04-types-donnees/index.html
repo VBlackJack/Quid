@@ -1,0 +1,4303 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Bibliothèque de connaissances techniques">
+      
+      
+        <meta name="author" content="Julien Bombled">
+      
+      
+        <link rel="canonical" href="https://vblackjack.github.io/Quid/books/bible-registre-windows/04-types-donnees/">
+      
+      
+        <link rel="prev" href="../03-ruches/">
+      
+      
+        <link rel="next" href="../05-outils/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Types de données - Quid Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="dracula" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#types-de-donnees" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Quid Wiki" class="md-header__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Quid Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Types de données
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Bible de la Base de Registre
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../registre-pour-les-nuls/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  La Base de Registre pour les Nuls
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../registre-pour-les-admins/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Le Registre pour les Administrateurs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../cross-index/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Index thematique
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Quid Wiki" class="md-nav__button md-logo" aria-label="Quid Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+
+    </a>
+    Quid Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Bible de la Base de Registre
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Bible de la Base de Registre
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture et structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-ruches/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les ruches principales
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types de données
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types de données
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ce-que-vous-allez-apprendre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que vous allez apprendre
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-concret-dabord" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple concret d'abord
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-11-types-en-un-coup-doeil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les 11 types en un coup d'oeil
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-types-courants-en-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les types courants en detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Les types courants en detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reg_sz-la-chaine-de-texte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_SZ -- la chaine de texte
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_expand_sz-la-chaine-avec-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_EXPAND_SZ -- la chaine avec variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_dword-le-nombre-entier-32-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_DWORD -- le nombre entier 32 bits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_qword-le-nombre-entier-64-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_QWORD -- le nombre entier 64 bits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_binary-les-donnees-binaires-brutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_BINARY -- les donnees binaires brutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_multi_sz-la-liste-de-chaines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_MULTI_SZ -- la liste de chaines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_link-le-lien-symbolique-interne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_LINK -- le lien symbolique interne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-types-materiels-reg_resource_list-reg_full_resource_descriptor-reg_resource_requirements_list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les types materiels (REG_RESOURCE_LIST, REG_FULL_RESOURCE_DESCRIPTOR, REG_RESOURCE_REQUIREMENTS_LIST)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparaison-rapide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparaison rapide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#representation-en-memoire-avance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Representation en memoire (avance)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Representation en memoire (avance)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-dune-cellule-de-valeur-vk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure d'une cellule de valeur (vk)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-cases-et-limites-dencodage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge cases et limites d'encodage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Edge cases et limites d&#39;encodage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#taille-maximale-dune-valeur-reg_sz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Taille maximale d'une valeur REG_SZ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_multi_sz-et-les-chaines-vides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_MULTI_SZ et les chaines vides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_expand_sz-et-la-resolution-non-recursive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_EXPAND_SZ et la resolution non recursive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_dword-vs-reg_dword_big_endian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_DWORD vs REG_DWORD_BIG_ENDIAN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_none-le-marqueur-sans-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_NONE : le marqueur sans type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stockage-big-data-windows-vista" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stockage "big data" (Windows Vista+)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-limite-de-1-mo-en-pratique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La limite de 1 Mo en pratique
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-outils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Outils et méthodes d'accès
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité et permissions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarde et restauration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-reseau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Registre et réseau
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-optimisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optimisation et maintenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-scripts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripts et automatisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dépannage avancé
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Référence des clés
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-demarrage-bcd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processus de démarrage et BCD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services Windows en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-com-shell/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    COM, DCOM et le Shell
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-securite-moderne/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité moderne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../17-forensique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Analyse forensique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../18-versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évolution à travers les versions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../19-virtualisation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualisation et conteneurs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../20-gpo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../21-apps-modernes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications modernes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../22-non-documentees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Clés non documentées
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../23-wmi-cim/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WMI, CIM et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../24-cloud-entreprise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion d'entreprise et cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../25-api-avancees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Win32 et noyau en profondeur
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../26-msi-installer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Installer (MSI) et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../27-etw-performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ETW, tracing et performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../28-taches-planifiees/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Planificateur de tâches et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../29-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cryptographie, DPAPI et certificats
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../30-impression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sous-système d'impression
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../registre-pour-les-nuls/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La Base de Registre pour les Nuls
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    La Base de Registre pour les Nuls
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/01-cest-quoi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C'est quoi la base de registre ?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/02-premiers-pas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Premiers pas avec Regedit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/03-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre la structure
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/04-modifications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modifications simples et utiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/05-sauvegarde/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sauvegarder avant de toucher
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/06-erreurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les erreurs à éviter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/07-astuces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astuces pratiques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/08-fichiers-reg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comprendre les fichiers .reg
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/09-depannage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mon premier dépannage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/10-evaluer-tutos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Évaluer les tutoriels en ligne
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/11-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/12-glossaire/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossaire illustré
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/13-powershell-bases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell et le registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/14-gpo-debutant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stratégies de groupe pour débutants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/15-windows11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le registre et Windows 11
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/16-parametres-registre/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Paramètres Windows vs Registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-nuls/17-mini-projets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mini-projets
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../registre-pour-les-admins/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Le Registre pour les Administrateurs
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Le Registre pour les Administrateurs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/01-powershell-remoting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PowerShell Remoting et registre distant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/02-gpo-registre-ad/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GPO et registre en environnement AD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/03-audit-conformite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audit et conformite du registre
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/04-deploiement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deploiement et industrialisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/05-ad-ds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory Domain Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/06-dns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/07-dhcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DHCP Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/08-wsus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WSUS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/09-iis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IIS / Web Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/10-rds/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Remote Desktop Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/11-hyper-v/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hyper-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/12-file-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Server / DFS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/13-print-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Print Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/14-radius-nps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RADIUS / NPS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/15-globalprotect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    GlobalProtect (Palo Alto)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/16-sccm-mecm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SCCM / MECM (ConfigMgr)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/17-intune/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft Intune
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/18-antivirus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Antivirus enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/19-citrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Citrix Virtual Apps & Desktops
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/20-vmware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMware Horizon / Workspace ONE
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/21-m365-office/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Microsoft 365 Apps (Office)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/22-navigateurs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Navigateurs enterprise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/23-vpn-clients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VPN clients
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/24-backup-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Backup et monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/25-exchange/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exchange Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/26-sql-server/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/27-sharepoint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SharePoint Server
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/28-adobe-java/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adobe et Java
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/29-compliance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compliance (HIPAA, PCI-DSS, SOC 2)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registre-pour-les-admins/30-zero-trust/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Zero Trust et VDI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../cross-index/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Index thematique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ce-que-vous-allez-apprendre" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ce que vous allez apprendre
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemple-concret-dabord" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple concret d'abord
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-11-types-en-un-coup-doeil" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les 11 types en un coup d'oeil
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#les-types-courants-en-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les types courants en detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Les types courants en detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reg_sz-la-chaine-de-texte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_SZ -- la chaine de texte
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_expand_sz-la-chaine-avec-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_EXPAND_SZ -- la chaine avec variables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_dword-le-nombre-entier-32-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_DWORD -- le nombre entier 32 bits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_qword-le-nombre-entier-64-bits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_QWORD -- le nombre entier 64 bits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_binary-les-donnees-binaires-brutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_BINARY -- les donnees binaires brutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_multi_sz-la-liste-de-chaines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_MULTI_SZ -- la liste de chaines
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_link-le-lien-symbolique-interne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_LINK -- le lien symbolique interne
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#les-types-materiels-reg_resource_list-reg_full_resource_descriptor-reg_resource_requirements_list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Les types materiels (REG_RESOURCE_LIST, REG_FULL_RESOURCE_DESCRIPTOR, REG_RESOURCE_REQUIREMENTS_LIST)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparaison-rapide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparaison rapide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#representation-en-memoire-avance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Representation en memoire (avance)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Representation en memoire (avance)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#structure-dune-cellule-de-valeur-vk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structure d'une cellule de valeur (vk)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-cases-et-limites-dencodage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge cases et limites d'encodage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Edge cases et limites d&#39;encodage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#taille-maximale-dune-valeur-reg_sz" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Taille maximale d'une valeur REG_SZ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_multi_sz-et-les-chaines-vides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_MULTI_SZ et les chaines vides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_expand_sz-et-la-resolution-non-recursive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_EXPAND_SZ et la resolution non recursive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_dword-vs-reg_dword_big_endian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_DWORD vs REG_DWORD_BIG_ENDIAN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reg_none-le-marqueur-sans-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REG_NONE : le marqueur sans type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stockage-big-data-windows-vista" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stockage "big data" (Windows Vista+)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#la-limite-de-1-mo-en-pratique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La limite de 1 Mo en pratique
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">données</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">registre</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">types</span>
+      
+    
+  </nav>
+
+
+
+<h1 id="types-de-donnees">Types de donnees<a class="headerlink" href="#types-de-donnees" title="Permanent link">&para;</a></h1>
+<h2 id="ce-que-vous-allez-apprendre">Ce que vous allez apprendre<a class="headerlink" href="#ce-que-vous-allez-apprendre" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Les 11 types de donnees du registre et quand utiliser chacun</li>
+<li>Comment lire et ecrire les types courants (REG_SZ, REG_DWORD, REG_MULTI_SZ...)</li>
+<li>Le stockage interne des valeurs en memoire</li>
+<li>L'astuce de l'optimisation "inline" pour les petites donnees</li>
+</ul>
+<hr />
+<h2 id="exemple-concret-dabord">Exemple concret d'abord<a class="headerlink" href="#exemple-concret-dabord" title="Permanent link">&para;</a></h2>
+<p>Avant la theorie, regardons les types en action :</p>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>reg query <span class="s2">&quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion&quot;</span> /v ProductName
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    ProductName    REG_SZ    Windows 11 Pro
+</span></code></pre></div>
+<p>Le <code>REG_SZ</code> au milieu, c'est le <strong>type</strong> de la valeur. Il dit a Windows : "cette donnee est une chaine de caracteres".</p>
+<div class="admonition tip">
+<p class="admonition-title">Analogie</p>
+<p>Le type d'une valeur du registre, c'est comme le <strong>format d'un fichier</strong>. Un <code>.jpg</code> est une image, un <code>.txt</code> est du texte, un <code>.exe</code> est un programme. De la meme maniere, <code>REG_SZ</code> est du texte, <code>REG_DWORD</code> est un nombre, <code>REG_BINARY</code> est du binaire brut.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Chaque valeur du registre a un type qui indique a Windows comment interpreter ses donnees</li>
+<li>Le type apparait dans les resultats de <code>reg query</code> (ex : <code>REG_SZ</code> pour une chaine de texte)</li>
+<li>C'est l'equivalent du format de fichier (<code>.txt</code>, <code>.jpg</code>) mais pour les donnees du registre</li>
+</ul>
+</div>
+<hr />
+<h2 id="les-11-types-en-un-coup-doeil">Les 11 types en un coup d'oeil<a class="headerlink" href="#les-11-types-en-un-coup-doeil" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>ID</th>
+<th>En bref</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>REG_NONE</code></td>
+<td>0</td>
+<td>Aucun type defini</td>
+</tr>
+<tr>
+<td><code>REG_SZ</code></td>
+<td>1</td>
+<td>Chaine de texte</td>
+</tr>
+<tr>
+<td><code>REG_EXPAND_SZ</code></td>
+<td>2</td>
+<td>Chaine avec variables d'environnement (<code>%SystemRoot%\...</code>)</td>
+</tr>
+<tr>
+<td><code>REG_BINARY</code></td>
+<td>3</td>
+<td>Donnees binaires brutes</td>
+</tr>
+<tr>
+<td><code>REG_DWORD</code></td>
+<td>4</td>
+<td>Nombre entier 32 bits</td>
+</tr>
+<tr>
+<td><code>REG_DWORD_BIG_ENDIAN</code></td>
+<td>5</td>
+<td>Nombre 32 bits (big-endian, tres rare)</td>
+</tr>
+<tr>
+<td><code>REG_LINK</code></td>
+<td>6</td>
+<td>Lien symbolique vers une autre cle</td>
+</tr>
+<tr>
+<td><code>REG_MULTI_SZ</code></td>
+<td>7</td>
+<td>Liste de chaines</td>
+</tr>
+<tr>
+<td><code>REG_RESOURCE_LIST</code></td>
+<td>8</td>
+<td>Liste de ressources materielles</td>
+</tr>
+<tr>
+<td><code>REG_FULL_RESOURCE_DESCRIPTOR</code></td>
+<td>9</td>
+<td>Descripteur de ressource materielle</td>
+</tr>
+<tr>
+<td><code>REG_RESOURCE_REQUIREMENTS_LIST</code></td>
+<td>10</td>
+<td>Exigences de ressources</td>
+</tr>
+<tr>
+<td><code>REG_QWORD</code></td>
+<td>11</td>
+<td>Nombre entier 64 bits</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">En pratique</p>
+<p>Vous utiliserez <strong>90% du temps</strong> seulement 4 types : <code>REG_SZ</code>, <code>REG_DWORD</code>, <code>REG_EXPAND_SZ</code> et <code>REG_MULTI_SZ</code>. Les types 8, 9 et 10 sont reserves au systeme pour la gestion du materiel.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>Le registre propose 11 types de donnees, identifies par un ID numerique (0 a 11)</li>
+<li>En pratique, 4 types couvrent 90% des besoins : <code>REG_SZ</code>, <code>REG_DWORD</code>, <code>REG_EXPAND_SZ</code> et <code>REG_MULTI_SZ</code></li>
+<li>Les types 8, 9 et 10 sont reserves au systeme pour la gestion du materiel</li>
+</ul>
+</div>
+<hr />
+<h2 id="les-types-courants-en-detail">Les types courants en detail<a class="headerlink" href="#les-types-courants-en-detail" title="Permanent link">&para;</a></h2>
+<h3 id="reg_sz-la-chaine-de-texte">REG_SZ -- la chaine de texte<a class="headerlink" href="#reg_sz-la-chaine-de-texte" title="Permanent link">&para;</a></h3>
+<p>Le type le <strong>plus frequent</strong>. Stocke une chaine de caracteres Unicode (UTF-16LE) terminee par un caractere nul (<code>\0</code>).</p>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1">rem Creer une valeur REG_SZ</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>reg add <span class="s2">&quot;HKCU\Software\Demo&quot;</span> /v AppPath /t REG_SZ /d <span class="s2">&quot;C:\Program Files\MonApp\app.exe&quot;</span> /f
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>The operation completed successfully.
+</span></code></pre></div>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1">rem Relire la valeur</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>reg query <span class="s2">&quot;HKCU\Software\Demo&quot;</span> /v AppPath
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>HKEY_CURRENT_USER\Software\Demo
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    AppPath    REG_SZ    C:\Program Files\MonApp\app.exe
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Encodage UTF-16</p>
+<p>Toutes les chaines du registre sont stockees en <strong>UTF-16 Little Endian</strong>. Meme si Regedit les affiche comme du texte simple, chaque caractere occupe <strong>2 octets</strong>, plus 2 octets pour le terminateur nul.</p>
+</div>
+<hr />
+<h3 id="reg_expand_sz-la-chaine-avec-variables">REG_EXPAND_SZ -- la chaine avec variables<a class="headerlink" href="#reg_expand_sz-la-chaine-avec-variables" title="Permanent link">&para;</a></h3>
+<p>Identique a <code>REG_SZ</code>, mais contient des <strong>references a des variables d'environnement</strong> :</p>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>reg add <span class="s2">&quot;HKCU\Software\Demo&quot;</span> /v SysPath /t REG_EXPAND_SZ /d <span class="s2">&quot;</span><span class="se">%%</span><span class="s2">SystemRoot</span><span class="se">%%</span><span class="s2">\System32\drivers&quot;</span> /f
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>The operation completed successfully.
+</span></code></pre></div>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>reg query <span class="s2">&quot;HKCU\Software\Demo&quot;</span> /v SysPath
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>HKEY_CURRENT_USER\Software\Demo
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    SysPath    REG_EXPAND_SZ    %SystemRoot%\System32\drivers
+</span></code></pre></div>
+<p>La valeur stockee est <code>%SystemRoot%\System32\drivers</code>.
+A la lecture, elle peut etre <strong>resolue</strong> en <code>C:\Windows\System32\drivers</code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Resolution des variables</p>
+<p>La resolution n'est <strong>pas automatique</strong>. L'application doit appeler <code>ExpandEnvironmentStrings()</code> ou utiliser <code>RegGetValue()</code> avec le flag <code>RRF_RT_REG_EXPAND_SZ</code> pour obtenir la valeur resolue.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Analogie</p>
+<p><code>REG_EXPAND_SZ</code> est comme une adresse avec un <strong>code postal</strong>. L'adresse dit <code>%Ville%</code>, et c'est au facteur (l'application) de traduire le code en nom de ville.</p>
+</div>
+<hr />
+<h3 id="reg_dword-le-nombre-entier-32-bits">REG_DWORD -- le nombre entier 32 bits<a class="headerlink" href="#reg_dword-le-nombre-entier-32-bits" title="Permanent link">&para;</a></h3>
+<p>Entier <strong>32 bits non signe</strong> (de 0 a 4 294 967 295).
+C'est le type standard pour les booleens, les compteurs et les options.</p>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">rem Activer une fonctionnalite (1 = on)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>reg add <span class="s2">&quot;HKCU\Software\Demo&quot;</span> /v EnableFeature /t REG_DWORD /d 1 /f
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>The operation completed successfully.
+</span></code></pre></div>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>reg query <span class="s2">&quot;HKCU\Software\Demo&quot;</span> /v EnableFeature
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>HKEY_CURRENT_USER\Software\Demo
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    EnableFeature    REG_DWORD    0x1
+</span></code></pre></div>
+<p><strong>Conventions courantes</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Valeur</th>
+<th>Signification habituelle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td>Desactive / Faux</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td>Active / Vrai</td>
+</tr>
+<tr>
+<td>Autres</td>
+<td>Selon le contexte (delais en ms, tailles en octets, etc.)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Analogie</p>
+<p>Un <code>REG_DWORD</code> est comme un <strong>interrupteur numerote</strong>. Position 0 = eteint, position 1 = allume. Mais certains interrupteurs ont plus de positions (0 a 4 294 967 295).</p>
+</div>
+<hr />
+<h3 id="reg_qword-le-nombre-entier-64-bits">REG_QWORD -- le nombre entier 64 bits<a class="headerlink" href="#reg_qword-le-nombre-entier-64-bits" title="Permanent link">&para;</a></h3>
+<p>Entier <strong>64 bits non signe</strong> (de 0 a 18 446 744 073 709 551 615).
+Utilise pour les compteurs, horodatages et valeurs depassant la capacite d'un DWORD.</p>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>reg add <span class="s2">&quot;HKCU\Software\Demo&quot;</span> /v BigCounter /t REG_QWORD /d 1000 /f
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>The operation completed successfully.
+</span></code></pre></div>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>reg query <span class="s2">&quot;HKCU\Software\Demo&quot;</span> /v BigCounter
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>HKEY_CURRENT_USER\Software\Demo
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    BigCounter    REG_QWORD    0x3e8
+</span></code></pre></div>
+<p><code>0x3e8</code> en hexadecimal = <code>1000</code> en decimal.</p>
+<hr />
+<h3 id="reg_binary-les-donnees-binaires-brutes">REG_BINARY -- les donnees binaires brutes<a class="headerlink" href="#reg_binary-les-donnees-binaires-brutes" title="Permanent link">&para;</a></h3>
+<p>Donnees binaires <strong>sans format impose</strong>. L'interpretation depend entierement de l'application.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>Nom :    ConfigBlob
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>Type :   REG_BINARY
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>Donnees : 48 00 65 00 6C 00 6C 00 6F 00
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Quand l'utiliser</p>
+<p><code>REG_BINARY</code> est le "sac a tout" du registre. Il est utilise quand aucun autre type ne convient : structures de donnees custom, blobs de configuration, etc.</p>
+</div>
+<hr />
+<h3 id="reg_multi_sz-la-liste-de-chaines">REG_MULTI_SZ -- la liste de chaines<a class="headerlink" href="#reg_multi_sz-la-liste-de-chaines" title="Permanent link">&para;</a></h3>
+<p>Liste ordonnee de chaines, chacune terminee par un caractere nul.
+La liste entiere se termine par un <strong>double</strong> caractere nul.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Nom :    DependOnService
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>Type :   REG_MULTI_SZ
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>Donnees : LanmanWorkstation\0
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>          Netlogon\0
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>          \0
+</span></code></pre></div>
+<p><strong>Cas d'usage typiques</strong> :</p>
+<ul>
+<li>Dependances de services</li>
+<li>Listes de pilotes a charger</li>
+<li>Chemins de recherche multiples</li>
+</ul>
+<p>En PowerShell, la manipulation est plus naturelle :</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c"># Read a REG_MULTI_SZ value</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="nv">$deps</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-ItemProperty</span> <span class="s2">&quot;HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon&quot;</span><span class="p">).</span><span class="n">DependOnService</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="nv">$deps</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>LanmanWorkstation
+</span></code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">Analogie</p>
+<p><code>REG_MULTI_SZ</code> est comme une <strong>liste de courses</strong>. Chaque element est separe par un retour a la ligne (le <code>\0</code>), et la fin de la liste est marquee par un double retour.</p>
+</div>
+<hr />
+<h3 id="reg_link-le-lien-symbolique-interne">REG_LINK -- le lien symbolique interne<a class="headerlink" href="#reg_link-le-lien-symbolique-interne" title="Permanent link">&para;</a></h3>
+<p>Lien symbolique pointant vers <strong>une autre cle du registre</strong>.
+C'est ce type qui est utilise pour creer les alias comme <code>HKEY_CURRENT_USER</code> ou <code>CurrentControlSet</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Usage restreint</p>
+<p>Les liens symboliques ne peuvent etre crees qu'avec l'API native (<code>NtCreateKey</code> avec <code>REG_OPTION_CREATE_LINK</code>). L'API Win32 standard et <code>reg.exe</code> ne permettent <strong>pas</strong> de creer ce type de valeur.</p>
+</div>
+<hr />
+<h3 id="les-types-materiels-reg_resource_list-reg_full_resource_descriptor-reg_resource_requirements_list">Les types materiels (REG_RESOURCE_LIST, REG_FULL_RESOURCE_DESCRIPTOR, REG_RESOURCE_REQUIREMENTS_LIST)<a class="headerlink" href="#les-types-materiels-reg_resource_list-reg_full_resource_descriptor-reg_resource_requirements_list" title="Permanent link">&para;</a></h3>
+<p>Ces trois types sont reserves au <strong>gestionnaire Plug and Play</strong> (PnP) de Windows. Vous ne les manipulerez jamais directement, mais comprendre leur role aide a dechiffrer certaines cles systeme.</p>
+<p>Ils resident principalement sous :</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>HKLM\HARDWARE\ResourceMap
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>ID</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>REG_RESOURCE_LIST</code></td>
+<td>8</td>
+<td>Liste de ressources materielles attribuees a un pilote : IRQ, canaux DMA, ports E/S, plages memoire</td>
+</tr>
+<tr>
+<td><code>REG_FULL_RESOURCE_DESCRIPTOR</code></td>
+<td>9</td>
+<td>Descripteur complet d'un peripherique unique (toutes ses ressources en un seul bloc)</td>
+</tr>
+<tr>
+<td><code>REG_RESOURCE_REQUIREMENTS_LIST</code></td>
+<td>10</td>
+<td>Ressources qu'un peripherique <strong>demande</strong> avant que le PnP Manager ne les attribue</td>
+</tr>
+</tbody>
+</table>
+<h4 id="structure-interne">Structure interne<a class="headerlink" href="#structure-interne" title="Permanent link">&para;</a></h4>
+<p>Ces valeurs encapsulent des structures C documentees dans le WDK (Windows Driver Kit) :</p>
+<table>
+<thead>
+<tr>
+<th>Type registre</th>
+<th>Structure C sous-jacente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>REG_RESOURCE_LIST</code></td>
+<td><code>CM_RESOURCE_LIST</code> contenant un tableau de <code>CM_FULL_RESOURCE_DESCRIPTOR</code></td>
+</tr>
+<tr>
+<td><code>REG_FULL_RESOURCE_DESCRIPTOR</code></td>
+<td><code>CM_FULL_RESOURCE_DESCRIPTOR</code> (interface type + <code>CM_PARTIAL_RESOURCE_LIST</code>)</td>
+</tr>
+<tr>
+<td><code>REG_RESOURCE_REQUIREMENTS_LIST</code></td>
+<td><code>IO_RESOURCE_REQUIREMENTS_LIST</code> (liste de plages acceptables)</td>
+</tr>
+</tbody>
+</table>
+<p>Chaque <code>CM_PARTIAL_RESOURCE_DESCRIPTOR</code> indique un type de ressource :</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Ressource</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Port E/S</td>
+</tr>
+<tr>
+<td>2</td>
+<td>IRQ (ligne d'interruption)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Memoire mappee</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Canal DMA</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Ne jamais creer ces valeurs manuellement</p>
+<p>Le PnP Manager est le seul composant autorise a ecrire ces donnees. Modifier ou creer une valeur de type 8, 9 ou 10 a la main peut provoquer des conflits de ressources, des ecrans bleus ou rendre un peripherique inaccessible.</p>
+</div>
+<h4 id="lire-la-carte-des-ressources-en-powershell">Lire la carte des ressources en PowerShell<a class="headerlink" href="#lire-la-carte-des-ressources-en-powershell" title="Permanent link">&para;</a></h4>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c"># Browse hardware resource map entries</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nv">$basePath</span> <span class="p">=</span> <span class="s2">&quot;HKLM:\HARDWARE\ResourceMap&quot;</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nb">Get-ChildItem</span> <span class="nv">$basePath</span> <span class="n">-Recurse</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>    <span class="nv">$key</span> <span class="p">=</span> <span class="nv">$_</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>    <span class="nv">$key</span><span class="p">.</span><span class="n">GetValueNames</span><span class="p">()</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>        <span class="nv">$type</span> <span class="p">=</span> <span class="nv">$key</span><span class="p">.</span><span class="n">GetValueKind</span><span class="p">(</span><span class="nv">$_</span><span class="p">)</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>        <span class="no">[PSCustomObject]</span><span class="p">@{</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>            <span class="n">Key</span>      <span class="p">=</span> <span class="nv">$key</span><span class="p">.</span><span class="n">Name</span> <span class="o">-replace</span> <span class="s2">&quot;HKEY_LOCAL_MACHINE&quot;</span><span class="p">,</span> <span class="s2">&quot;HKLM&quot;</span>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>            <span class="n">Value</span>    <span class="p">=</span> <span class="nv">$_</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>            <span class="nb">Type </span>    <span class="p">=</span> <span class="nv">$type</span>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a>            <span class="n">SizeBytes</span> <span class="p">=</span> <span class="p">(</span><span class="nv">$key</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="nv">$_</span><span class="p">,</span> <span class="nv">$null</span><span class="p">,</span> <span class="s2">&quot;DoNotExpandEnvironmentNames&quot;</span><span class="p">)).</span><span class="n">Length</span>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>        <span class="p">}</span>
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>    <span class="p">}</span>
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a><span class="p">}</span> <span class="p">|</span> <span class="nb">Format-Table</span> <span class="n">-AutoSize</span>
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Key                                                        Value                Type              SizeBytes
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>---                                                        -----                ----              ---------
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>HKLM\HARDWARE\ResourceMap\PnP Manager\PnpManager          .Raw                 Unknown                 312
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>HKLM\HARDWARE\ResourceMap\System Resources\Physical Memory .Translated          Unknown                 120
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Analogie</p>
+<p>Imaginez un immeuble de bureaux. <code>REG_RESOURCE_REQUIREMENTS_LIST</code> est la <strong>liste de voeux</strong> d'un locataire ("je veux un bureau au 3e etage avec vue"). <code>REG_RESOURCE_LIST</code> est le <strong>bail signe</strong> ("bureau 302 attribue"). <code>REG_FULL_RESOURCE_DESCRIPTOR</code> est la <strong>fiche complete</strong> du bureau (surface, equipements, acces reseau).</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li><code>REG_SZ</code> (texte) et <code>REG_DWORD</code> (nombre 32 bits) sont les types les plus frequents</li>
+<li><code>REG_EXPAND_SZ</code> permet d'utiliser des variables d'environnement (<code>%SystemRoot%</code>)</li>
+<li><code>REG_MULTI_SZ</code> stocke des listes de chaines, <code>REG_BINARY</code> du binaire brut</li>
+<li>Les types materiels (8, 9, 10) sont reserves au gestionnaire Plug and Play</li>
+</ul>
+</div>
+<hr />
+<h2 id="comparaison-rapide">Comparaison rapide<a class="headerlink" href="#comparaison-rapide" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Besoin</th>
+<th>Type a utiliser</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stocker du texte simple</td>
+<td><code>REG_SZ</code></td>
+</tr>
+<tr>
+<td>Stocker un chemin avec <code>%variables%</code></td>
+<td><code>REG_EXPAND_SZ</code></td>
+</tr>
+<tr>
+<td>Stocker un booleen ou un petit nombre</td>
+<td><code>REG_DWORD</code></td>
+</tr>
+<tr>
+<td>Stocker un grand nombre (&gt; 4 milliards)</td>
+<td><code>REG_QWORD</code></td>
+</tr>
+<tr>
+<td>Stocker une liste de chaines</td>
+<td><code>REG_MULTI_SZ</code></td>
+</tr>
+<tr>
+<td>Stocker des donnees binaires brutes</td>
+<td><code>REG_BINARY</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<p>Le registre propose 11 types, mais 4 couvrent 90% des besoins : <code>REG_SZ</code> (texte), <code>REG_DWORD</code> (nombre), <code>REG_EXPAND_SZ</code> (texte avec variables) et <code>REG_MULTI_SZ</code> (liste de textes). Chaque valeur a un type fixe qui determine comment Windows interprete ses donnees.</p>
+</div>
+<hr />
+<h2 id="representation-en-memoire-avance">Representation en memoire (avance)<a class="headerlink" href="#representation-en-memoire-avance" title="Permanent link">&para;</a></h2>
+<p>Pour les curieux, voici comment une valeur est stockee <strong>physiquement</strong> dans le fichier de ruche.</p>
+<h3 id="structure-dune-cellule-de-valeur-vk">Structure d'une cellule de valeur (<code>vk</code>)<a class="headerlink" href="#structure-dune-cellule-de-valeur-vk" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Taille</th>
+<th>Champ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0x00</code></td>
+<td>4</td>
+<td>Taille de la cellule (negatif si allouee)</td>
+</tr>
+<tr>
+<td><code>0x04</code></td>
+<td>2</td>
+<td>Signature <code>vk</code> (0x6B76)</td>
+</tr>
+<tr>
+<td><code>0x06</code></td>
+<td>2</td>
+<td>Longueur du nom</td>
+</tr>
+<tr>
+<td><code>0x08</code></td>
+<td>4</td>
+<td>Taille des donnees</td>
+</tr>
+<tr>
+<td><code>0x0C</code></td>
+<td>4</td>
+<td>Offset des donnees (ou donnees inline si &lt;= 4 octets)</td>
+</tr>
+<tr>
+<td><code>0x10</code></td>
+<td>4</td>
+<td>Type de donnees (REG_SZ = 1, REG_DWORD = 4, etc.)</td>
+</tr>
+<tr>
+<td><code>0x14</code></td>
+<td>2</td>
+<td>Flags (bit 0 = nom ASCII, sinon Unicode)</td>
+</tr>
+<tr>
+<td><code>0x18</code></td>
+<td>var</td>
+<td>Nom de la valeur</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Donnees inline : l'optimisation cachee</p>
+<p>Quand les donnees font <strong>4 octets ou moins</strong> (typiquement un <code>REG_DWORD</code>), elles sont stockees <strong>directement dans le champ "offset"</strong> au lieu d'etre dans une cellule separee. Le bit de poids fort du champ "taille des donnees" est mis a <code>1</code> pour signaler cette astuce. Cela evite une allocation supplementaire et accelere la lecture.</p>
+</div>
+<pre class="mermaid"><code>graph LR
+    subgraph "Cellule vk — donnees inline"
+        A["Taille"] --&gt; B["Signature vk"]
+        B --&gt; C["Nom"]
+        C --&gt; D["Type = REG_DWORD"]
+        D --&gt; E["Donnees = 0x00000001&lt;br/&gt;&lt;small&gt;stockees directement ici&lt;/small&gt;"]
+    end
+    subgraph "Cellule vk — donnees externes"
+        F["Taille"] --&gt; G["Signature vk"]
+        G --&gt; H["Nom"]
+        H --&gt; I["Type = REG_SZ"]
+        I --&gt; J["Offset → cellule de donnees"]
+        J --&gt; K["Cellule separee&lt;br/&gt;&lt;small&gt;contient la chaine&lt;/small&gt;"]
+    end</code></pre>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<p>Chaque valeur du registre est une cellule <code>vk</code> dans un fichier de ruche. Elle contient le nom, le type et soit les donnees directement (si &lt;= 4 octets), soit un pointeur vers une cellule separee. C'est cette structure binaire qui permet au Configuration Manager de lire et ecrire des valeurs efficacement.</p>
+</div>
+<hr />
+<h2 id="edge-cases-et-limites-dencodage">Edge cases et limites d'encodage<a class="headerlink" href="#edge-cases-et-limites-dencodage" title="Permanent link">&para;</a></h2>
+<p>Chaque type du registre a ses particularites et ses limites. Connaitre ces cas limites evite des heures de debogage.</p>
+<h3 id="taille-maximale-dune-valeur-reg_sz">Taille maximale d'une valeur REG_SZ<a class="headerlink" href="#taille-maximale-dune-valeur-reg_sz" title="Permanent link">&para;</a></h3>
+<p>L'API <code>RegSetValueEx</code> autorise theoriquement une valeur jusqu'a <strong>2 Go</strong> (le champ taille est un DWORD). En pratique, la limite reelle est d'environ <strong>1 Mo</strong>. Au-dela, certaines applications et certains outils (Regedit, reg.exe) ne peuvent plus afficher ou manipuler la valeur correctement.</p>
+<table>
+<thead>
+<tr>
+<th>Limite</th>
+<th>Valeur</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Theorique (API)</td>
+<td>~2 Go</td>
+</tr>
+<tr>
+<td>Pratique (fiable)</td>
+<td>~1 Mo</td>
+</tr>
+<tr>
+<td>Recommandee</td>
+<td>&lt; 16 Ko</td>
+</tr>
+</tbody>
+</table>
+<h3 id="reg_multi_sz-et-les-chaines-vides">REG_MULTI_SZ et les chaines vides<a class="headerlink" href="#reg_multi_sz-et-les-chaines-vides" title="Permanent link">&para;</a></h3>
+<p>Une <code>REG_MULTI_SZ</code> est une suite de chaines separees par des <code>\0</code>, terminee par un double <code>\0</code>. Que se passe-t-il si une chaine est vide (deux <code>\0</code> consecutifs au milieu) ? Windows interprete cela comme la <strong>fin de la liste</strong>. Les elements suivants sont ignores silencieusement.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Valeur stockee :  &quot;Premier\0\0Deuxieme\0\0&quot;
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>Valeur lue :      &quot;Premier&quot;
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Chaines vides dans REG_MULTI_SZ</p>
+<p>N'inserez jamais de chaine vide dans une liste <code>REG_MULTI_SZ</code>. Le double <code>\0</code> resultant est interprete comme le terminateur de liste, et tout ce qui suit est perdu.</p>
+</div>
+<h3 id="reg_expand_sz-et-la-resolution-non-recursive">REG_EXPAND_SZ et la resolution non recursive<a class="headerlink" href="#reg_expand_sz-et-la-resolution-non-recursive" title="Permanent link">&para;</a></h3>
+<p>Les variables d'environnement dans une <code>REG_EXPAND_SZ</code> sont resolues <strong>une seule fois</strong>. Si une variable pointe vers une valeur contenant elle-meme <code>%UneAutreVariable%</code>, la seconde n'est <strong>pas</strong> resolue.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>%CUSTOM_PATH%  =  %SystemRoot%\MonDossier
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>REG_EXPAND_SZ  =  %CUSTOM_PATH%\fichier.txt
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>Apres resolution :  %SystemRoot%\MonDossier\fichier.txt   (et non C:\Windows\MonDossier\fichier.txt)
+</span></code></pre></div>
+<p>L'appel a <code>ExpandEnvironmentStrings()</code> ne fait qu'un seul passage de substitution, pas de resolution en chaine.</p>
+<h3 id="reg_dword-vs-reg_dword_big_endian">REG_DWORD vs REG_DWORD_BIG_ENDIAN<a class="headerlink" href="#reg_dword-vs-reg_dword_big_endian" title="Permanent link">&para;</a></h3>
+<p>Les deux stockent un entier 32 bits, mais l'ordre des octets differe :</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Valeur logique</th>
+<th>Octets en memoire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>REG_DWORD</code> (little-endian)</td>
+<td><code>0x00000001</code></td>
+<td><code>01 00 00 00</code></td>
+</tr>
+<tr>
+<td><code>REG_DWORD_BIG_ENDIAN</code></td>
+<td><code>0x00000001</code></td>
+<td><code>00 00 00 01</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>REG_DWORD_BIG_ENDIAN</code> (type 5) est extremement rare. Il existe pour compatibilite avec certains protocoles reseau, mais la quasi-totalite des valeurs Windows utilise le format little-endian standard.</p>
+<h3 id="reg_none-le-marqueur-sans-type">REG_NONE : le marqueur sans type<a class="headerlink" href="#reg_none-le-marqueur-sans-type" title="Permanent link">&para;</a></h3>
+<p><code>REG_NONE</code> (type 0) n'impose aucun format. Il sert dans deux cas :</p>
+<ul>
+<li><strong>Marqueur de presence</strong> : la simple existence de la valeur suffit, le contenu n'importe pas</li>
+<li><strong>Donnees opaques</strong> : l'application interprete elle-meme le blob binaire, sans indication de format</li>
+</ul>
+<p>Certaines cles systeme utilisent <code>REG_NONE</code> pour signaler qu'une fonctionnalite est active, avec zero octet de donnees.</p>
+<h3 id="stockage-big-data-windows-vista">Stockage "big data" (Windows Vista+)<a class="headerlink" href="#stockage-big-data-windows-vista" title="Permanent link">&para;</a></h3>
+<p>Avant Windows Vista, une cellule de donnees ne pouvait pas depasser <strong>16 344 octets</strong> (la taille maximale d'une cellule dans un bin de 4 Ko). A partir de Vista, le gestionnaire de configuration utilise un mecanisme de <strong>big data</strong> : les donnees sont decoupees en segments de 16 344 octets, chacun dans sa propre cellule, et une cellule d'index les reference.</p>
+<pre class="mermaid"><code>graph LR
+    A["Cellule vk&lt;br/&gt;Type = REG_SZ"] --&gt; B["Cellule d'index&lt;br/&gt;(liste d'offsets)"]
+    B --&gt; C["Segment 1&lt;br/&gt;16 344 octets"]
+    B --&gt; D["Segment 2&lt;br/&gt;16 344 octets"]
+    B --&gt; E["Segment N&lt;br/&gt;reste"]</code></pre>
+<h3 id="la-limite-de-1-mo-en-pratique">La limite de 1 Mo en pratique<a class="headerlink" href="#la-limite-de-1-mo-en-pratique" title="Permanent link">&para;</a></h3>
+<p><code>RegSetValueEx</code> peut retourner <code>ERROR_SUCCESS</code> meme pour des donnees depassant 1 Mo. Cependant :</p>
+<ul>
+<li><strong>Regedit</strong> ne peut pas afficher correctement les valeurs superieure a 1 Mo</li>
+<li><strong>reg.exe</strong> tronque silencieusement certaines valeurs volumineuses a l'export</li>
+<li>Les API .NET (<code>Microsoft.Win32.Registry</code>) peuvent lever une <code>IOException</code> au-dela de certains seuils</li>
+<li>Le temps de chargement de la ruche augmente significativement avec des valeurs tres volumineuses</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Bonne pratique</p>
+<p>Si vous avez besoin de stocker plus de quelques kilo-octets, envisagez de placer les donnees dans un <strong>fichier externe</strong> et de stocker uniquement le chemin dans le registre (en <code>REG_SZ</code> ou <code>REG_EXPAND_SZ</code>).</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">En resume</p>
+<ul>
+<li>La taille recommandee d'une valeur est inferieure a 16 Ko (limite pratique : environ 1 Mo)</li>
+<li>Les chaines vides dans <code>REG_MULTI_SZ</code> coupent la liste ; <code>REG_EXPAND_SZ</code> ne resout les variables qu'une seule fois</li>
+<li><code>REG_DWORD_BIG_ENDIAN</code> est quasi inexistant ; <code>REG_NONE</code> sert de marqueur de presence sans format impose</li>
+<li>Depuis Vista, le mecanisme "big data" decoupe les grosses valeurs en segments de 16 344 octets</li>
+</ul>
+</div>
+<hr />
+<p>Nettoyons les valeurs de demonstration :</p>
+<div class="language-batch highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>reg delete <span class="s2">&quot;HKCU\Software\Demo&quot;</span> /f
+</span></code></pre></div>
+<div class="language-text highlight"><span class="filename">Resultat attendu</span><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>The operation completed successfully.
+</span></code></pre></div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Retour en haut de la page
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pied de page" >
+        
+          
+          <a href="../03-ruches/" class="md-footer__link md-footer__link--prev" aria-label="Précédent: Les ruches principales">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Précédent
+              </span>
+              <div class="md-ellipsis">
+                Les ruches principales
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../05-outils/" class="md-footer__link md-footer__link--next" aria-label="Suivant: Outils et méthodes d&#39;accès">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Suivant
+              </span>
+              <div class="md-ellipsis">
+                Outils et méthodes d'accès
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Julien Bombled
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/julienbombled/quid-wiki" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
