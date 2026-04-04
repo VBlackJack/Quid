@@ -21,9 +21,14 @@
 
 :root {
   --dracula-background:  #282a36;
+  --dracula-surface:     #21222c;
+  --dracula-surface-alt: #191a21;
+  --dracula-surface-raised: #303241;
+  --dracula-surface-border: #3a3d4e;
   --dracula-current:     #44475a;
   --dracula-foreground:  #f8f8f2;
   --dracula-comment:     #6272a4;
+  --dracula-muted:       #c0c4d6;
   --dracula-cyan:        #8be9fd;
   --dracula-green:       #50fa7b;
   --dracula-orange:      #ffb86c;
@@ -38,20 +43,20 @@
 [data-md-color-scheme="dracula"] {
   --md-default-bg-color:               var(--dracula-background);
   --md-default-fg-color:               var(--dracula-foreground);
-  --md-default-fg-color--light:        var(--dracula-comment);
-  --md-default-fg-color--lighter:      #44475a;
-  --md-default-fg-color--lightest:     #383a4a;
+  --md-default-fg-color--light:        var(--dracula-muted);
+  --md-default-fg-color--lighter:      #f8f8f266;
+  --md-default-fg-color--lightest:     #f8f8f233;
 
-  --md-primary-fg-color:               var(--dracula-purple);
-  --md-primary-fg-color--light:        #bd93f9b3;
-  --md-primary-fg-color--dark:         #9d6ff5;
-  --md-primary-bg-color:               var(--dracula-background);
-  --md-primary-bg-color--light:        var(--dracula-current);
+  --md-primary-fg-color:               var(--dracula-surface);
+  --md-primary-fg-color--light:        var(--dracula-surface-raised);
+  --md-primary-fg-color--dark:         var(--dracula-surface-alt);
+  --md-primary-bg-color:               var(--dracula-foreground);
+  --md-primary-bg-color--light:        #f8f8f2b3;
 
   --md-accent-fg-color:                var(--dracula-pink);
   --md-accent-fg-color--transparent:   #ff79c61a;
-  --md-accent-bg-color:                var(--dracula-pink);
-  --md-accent-bg-color--light:         #ff79c61a;
+  --md-accent-bg-color:                var(--dracula-foreground);
+  --md-accent-bg-color--light:         #f8f8f2b3;
 
   --md-typeset-color:                  var(--dracula-foreground);
   --md-typeset-a-color:                var(--dracula-cyan);
@@ -86,11 +91,15 @@
 /* ---------- Header & tabs ---------- */
 
 [data-md-color-scheme="dracula"] .md-header {
-  background-color: #21222c;
+  background-color: var(--dracula-surface);
 }
 
 [data-md-color-scheme="dracula"] .md-tabs {
-  background-color: #191a21;
+  background-color: var(--dracula-surface-alt);
+}
+
+[data-md-color-scheme="dracula"] .md-tabs__link {
+  color: #f8f8f2b3;
 }
 
 [data-md-color-scheme="dracula"] .md-tabs__link--active,
@@ -116,11 +125,11 @@
 /* ---------- Footer ---------- */
 
 [data-md-color-scheme="dracula"] .md-footer {
-  background-color: #21222c;
+  background-color: var(--dracula-surface);
 }
 
 [data-md-color-scheme="dracula"] .md-footer-meta {
-  background-color: #191a21;
+  background-color: var(--dracula-surface-alt);
 }
 
 /* ---------- Search ---------- */
@@ -135,7 +144,7 @@
 }
 
 [data-md-color-scheme="dracula"] .md-search-result__meta {
-  background-color: #21222c;
+  background-color: var(--dracula-surface);
   color: var(--dracula-comment);
 }
 
@@ -147,7 +156,7 @@
 
 [data-md-color-scheme="dracula"] .md-typeset .admonition,
 [data-md-color-scheme="dracula"] .md-typeset details {
-  background-color: #1e1f29;
+  background-color: var(--dracula-surface-alt);
   border-color: var(--dracula-comment);
 }
 
@@ -203,8 +212,8 @@
 }
 
 [data-md-color-scheme="dracula"] .md-typeset table:not([class]) th {
-  background-color: var(--dracula-current);
-  color: var(--dracula-purple);
+  background-color: var(--dracula-surface-border);
+  color: var(--dracula-foreground);
 }
 
 [data-md-color-scheme="dracula"] .md-typeset table:not([class]) tr:hover td {
@@ -305,4 +314,158 @@
 [data-md-color-scheme="dracula"] .md-typeset [type="checkbox"]:checked + .task-list-indicator::before {
   background-color: var(--dracula-green);
   border-color: var(--dracula-green);
+}
+
+/* ---------- Landing pages ---------- */
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-hero,
+[data-md-color-scheme="dracula"] .md-typeset .quid-book-hero {
+  margin: 0 0 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at top right, #bd93f926 0, transparent 38%),
+    linear-gradient(135deg, var(--dracula-surface), var(--dracula-surface-alt));
+  box-shadow: var(--md-shadow-z1);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-hero {
+  padding: 1.8rem;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-hero > :first-child,
+[data-md-color-scheme="dracula"] .md-typeset .quid-book-hero > :first-child {
+  margin-top: 0;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-hero p:last-child,
+[data-md-color-scheme="dracula"] .md-typeset .quid-book-hero p:last-child {
+  margin-bottom: 0;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 1.25rem;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-card-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 1rem 0 0;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-card-chips span {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 999px;
+  background-color: #ffffff0d;
+  color: var(--dracula-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 0.9rem;
+  margin: 1.25rem 0 0;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-meta-item {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.75rem;
+  background-color: #ffffff0d;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-meta-item span {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--dracula-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-meta-item strong {
+  color: var(--dracula-foreground);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .quid-section-intro {
+  margin-top: -0.35rem;
+  margin-bottom: 1rem;
+  color: var(--dracula-muted);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .chapter-grid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.8rem;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .chapter-grid li {
+  margin: 0;
+  background-color: var(--dracula-surface);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.65rem;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .chapter-grid li:hover {
+  border-color: #bd93f980;
+  transform: translateY(-1px);
+  box-shadow: var(--md-shadow-z1);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .chapter-grid li a {
+  display: block;
+  padding: 0.85rem 1rem;
+  color: var(--dracula-foreground);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .chapter-grid li a:hover {
+  color: var(--dracula-cyan);
+}
+
+[data-md-color-scheme="dracula"] .md-typeset .chapter-grid li a:is(:focus, :focus-visible) {
+  outline: 2px solid var(--dracula-purple);
+  outline-offset: -2px;
+  border-radius: 0.65rem;
+}
+
+@media screen and (max-width: 44.9375em) {
+  [data-md-color-scheme="dracula"] .md-typeset .quid-hero,
+  [data-md-color-scheme="dracula"] .md-typeset .quid-book-hero {
+    padding: 1.2rem;
+    border-radius: 0.85rem;
+  }
+
+  [data-md-color-scheme="dracula"] .md-typeset .quid-action-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  [data-md-color-scheme="dracula"] .md-typeset .quid-action-row .md-button {
+    width: 100%;
+    margin: 0;
+    text-align: center;
+  }
+
+  [data-md-color-scheme="dracula"] .md-typeset .chapter-grid ul,
+  [data-md-color-scheme="dracula"] .md-typeset .quid-meta-grid {
+    grid-template-columns: 1fr;
+  }
 }

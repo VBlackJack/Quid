@@ -638,12 +638,15 @@ HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion
 
 | Parametre | Desktop | Server |
 |-----------|---------|--------|
-| `DisableAntiSpyware` | 0 (Defender actif) | 1 (souvent desactive) |
+| `DisableAntiSpyware` (legacy) | Generalement absent ou ignore | Peut apparaitre sur des images anciennes ou avec des integrations AV historiques |
 | `NtfsDisableLastAccessUpdate` | 1 (desactive) | 1 (desactive) |
 | `Start` des services multimedia | 2 (auto) | 4 (desactive) |
 | IE Enhanced Security | Desactive | Active |
 | Pare-feu profil domaine | Actif | Actif avec regles strictes |
 | Telemetrie | Normal | Minimal |
+
+!!! note "Attention aux comparaisons historiques"
+    `DisableAntiSpyware` n'est plus un bon indicateur de configuration par defaut sur les versions modernes de Windows. Sa presence suggere surtout une image legacy, un ancien hardening ou une tentative de sabotage.
 
 ### Server Core : registre minimal
 

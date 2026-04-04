@@ -1290,7 +1290,7 @@ HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU
 | `HKCU\...\Policies\Microsoft\Windows\Explorer` | `NoNewAppAlert` | `REG_DWORD` | `1` | Supprime les notifications de nouvelles applications |
 | `HKLM\...\Policies\Microsoft\Windows\System` | `DisableCMD` | `REG_DWORD` | `1` | Desactive l'invite de commandes |
 | `HKLM\...\Policies\Microsoft\Windows\System` | `DisableRegistryTools` | `REG_DWORD` | `1` | Desactive regedit.exe |
-| `HKLM\...\Policies\Microsoft\Windows Defender` | `DisableAntiSpyware` | `REG_DWORD` | `1` | Desactive Windows Defender (deconseille) |
+| `HKLM\...\Policies\Microsoft\Windows Defender` | `DisableAntiSpyware` | `REG_DWORD` | `1` | Tentative legacy de desactivation Defender ; souvent ignoree ou bloquee sur Windows moderne |
 | `HKLM\...\Policies\Microsoft\Windows\Personalization` | `NoLockScreen` | `REG_DWORD` | `1` | Supprime l'ecran de verrouillage |
 | `HKLM\...\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths` | `\\*\netlogon` | `REG_SZ` | `RequireMutualAuthentication=1` | Durcit les chemins UNC |
 | `HKLM\...\Policies\Microsoft\Windows\CredentialsDelegation` | `AllowDefaultCredentials` | `REG_DWORD` | `0` | Controle la delegation de credentials |

@@ -11,11 +11,56 @@ tags:
 
 # Quid Wiki
 
-Bienvenue sur **Quid Wiki**, une bibliotheque de connaissances techniques organisee sous forme de livres thematiques.
+<div class="quid-hero" markdown>
 
-Chaque livre couvre un domaine en profondeur, du guide debutant a la reference exhaustive.
+**La documentation du registre Windows, organisee en trois parcours de lecture.**
 
----
+Choisissez un livre selon votre niveau, ou entrez directement par votre besoin du moment.
+
+<div class="quid-action-row" markdown>
+
+[Commencer comme debutant](books/registre-pour-les-nuls/01-cest-quoi.md){ .md-button .md-button--primary }
+[Voir les trois livres](#livres-disponibles){ .md-button }
+
+</div>
+
+</div>
+
+## Choisir selon votre besoin
+
+<div class="grid cards" markdown>
+
+-   **Decouvrir le registre sans risque**
+
+    Comprendre les bases, savoir ce qu'on peut modifier et eviter les erreurs classiques.
+
+    [Ouvrir le guide debutant](books/registre-pour-les-nuls/01-cest-quoi.md)
+
+-   **Trouver un point d'entree pour le depannage**
+
+    Aller directement vers les chapitres pratiques pour comprendre un symptome ou valider un tutoriel.
+
+    [Commencer par le depannage](books/registre-pour-les-nuls/09-depannage.md)
+
+-   **Parcourir la reference complete**
+
+    Explorer l'architecture interne, les ruches, les API, les scripts et les sujets avances.
+
+    [Ouvrir la reference exhaustive](books/bible-registre-windows/index.md)
+
+-   **Administrer un parc ou un serveur**
+
+    Acceder rapidement aux scenarios GPO, audit, remoting et roles serveur en environnement entreprise.
+
+    [Ouvrir le parcours administrateur](books/registre-pour-les-admins/01-powershell-remoting.md)
+
+-   **Naviguer par theme**
+
+    Retrouver un sujet transversal comme la securite, l'automatisation, le reseau ou la conformite.
+
+    [Voir l'index thematique](cross-index.md)
+
+</div>
 
 ## Livres disponibles
 
@@ -25,24 +70,57 @@ Chaque livre couvre un domaine en profondeur, du guide debutant a la reference e
 
     ---
 
-    Reference exhaustive de la base de registre Windows : architecture interne, ruches, types de donnees, securite, scripts et depannage avance.
+    Reference exhaustive pour comprendre l'architecture interne, manipuler le registre a grande echelle et naviguer sur les sujets avances.
 
-    [:octicons-arrow-right-24: Commencer la lecture](books/bible-registre-windows/index.md)
+    <div class="quid-card-chips">
+      <span>Intermediaire a avance</span>
+      <span>30 chapitres</span>
+      <span>Reference</span>
+    </div>
+
+    <div class="quid-action-row" markdown>
+
+    [Commencer maintenant](books/bible-registre-windows/01-introduction.md){ .md-button .md-button--primary }
+    [Voir le sommaire](books/bible-registre-windows/index.md){ .md-button }
+
+    </div>
 
 -   :material-book-heart:{ .lg .middle } **La Base de Registre pour les Nuls**
 
     ---
 
-    Guide accessible pour decouvrir la base de registre Windows sans prerequis technique. Apprendre a naviguer, modifier et sauvegarder en toute securite.
+    Guide progressif pour comprendre le registre Windows, modifier avec prudence et evaluer les tutoriels trouves en ligne.
 
-    [:octicons-arrow-right-24: Commencer la lecture](books/registre-pour-les-nuls/index.md)
+    <div class="quid-card-chips">
+      <span>Debutant</span>
+      <span>17 chapitres</span>
+      <span>Apprentissage progressif</span>
+    </div>
+
+    <div class="quid-action-row" markdown>
+
+    [Commencer maintenant](books/registre-pour-les-nuls/01-cest-quoi.md){ .md-button .md-button--primary }
+    [Voir le sommaire](books/registre-pour-les-nuls/index.md){ .md-button }
+
+    </div>
 
 -   :material-book-cog:{ .lg .middle } **Le Registre pour les Administrateurs**
 
     ---
 
-    Cas concrets et cles de registre pour les roles serveur (WSUS, AD, DHCP...) et applications d'entreprise (GlobalProtect, SCCM, Intune...).
+    Cas concrets pour l'administration Windows: remoting, GPO, audit, roles serveur et applications d'entreprise.
 
-    [:octicons-arrow-right-24: Commencer la lecture](books/registre-pour-les-admins/index.md)
+    <div class="quid-card-chips">
+      <span>Admins et infra</span>
+      <span>30 chapitres</span>
+      <span>Cas concrets</span>
+    </div>
+
+    <div class="quid-action-row" markdown>
+
+    [Commencer maintenant](books/registre-pour-les-admins/01-powershell-remoting.md){ .md-button .md-button--primary }
+    [Voir le sommaire](books/registre-pour-les-admins/index.md){ .md-button }
+
+    </div>
 
 </div>

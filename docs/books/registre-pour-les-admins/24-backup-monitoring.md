@@ -9,7 +9,7 @@ tags:
   - siem
 ---
 
-# Backup & monitoring
+# Backup et monitoring
 
 !!! abstract "Ce que vous allez apprendre"
     - Localiser et configurer les cles de registre Veeam Agent et Veeam Backup

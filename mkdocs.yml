@@ -2,6 +2,8 @@ site_name: Quid Wiki
 site_url: https://vblackjack.github.io/Quid/
 site_description: Bibliothèque de connaissances techniques
 site_author: Julien Bombled
+repo_url: https://github.com/VBlackJack/Quid
+repo_name: VBlackJack/Quid
 copyright: Copyright &copy; 2026 Julien Bombled
 
 theme:
@@ -35,6 +37,8 @@ plugins:
   - search:
       lang: fr
   - tags
+  - minify:
+      minify_html: true
 
 markdown_extensions:
   - admonition
@@ -70,11 +74,11 @@ markdown_extensions:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/julienbombled/quid-wiki
+      link: https://github.com/VBlackJack/Quid
 
 nav:
   - Accueil: index.md
-  - La Bible de la Base de Registre:
+  - La Bible de la Base de Registre Windows:
       - books/bible-registre-windows/index.md
       - Introduction: books/bible-registre-windows/01-introduction.md
       - Architecture et structure: books/bible-registre-windows/02-architecture.md
@@ -127,7 +131,7 @@ nav:
       - Mini-projets: books/registre-pour-les-nuls/17-mini-projets.md
   - Le Registre pour les Administrateurs:
       - books/registre-pour-les-admins/index.md
-      - PowerShell Remoting et registre distant: books/registre-pour-les-admins/01-powershell-remoting.md
+      - PowerShell Remoting et le registre a distance: books/registre-pour-les-admins/01-powershell-remoting.md
       - GPO et registre en environnement AD: books/registre-pour-les-admins/02-gpo-registre-ad.md
       - Audit et conformite du registre: books/registre-pour-les-admins/03-audit-conformite.md
       - Deploiement et industrialisation: books/registre-pour-les-admins/04-deploiement.md

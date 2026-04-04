@@ -41,7 +41,8 @@ Comprehensive Windows Registry documentation organized into three books, built w
 ## Local development
 
 ```bash
-pip install mkdocs-material
+pip install -r requirements.txt
+mkdocs build --strict
 mkdocs serve
 ```
 

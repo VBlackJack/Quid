@@ -7,7 +7,7 @@ tags:
   - oma-uri
 ---
 
-# Microsoft Intune / Endpoint Manager
+# Microsoft Intune
 
 !!! abstract "Ce que vous allez apprendre"
     - Comment les politiques OMA-URI ciblent des cles de registre specifiques

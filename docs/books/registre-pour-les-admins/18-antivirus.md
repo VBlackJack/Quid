@@ -77,7 +77,7 @@ Windows Defender Exploit Guard
 
 | Cle de registre | Role |
 |-----------------|------|
-| `...\Windows Defender` | Racine — contient `DisableAntiSpyware` |
+| `...\Windows Defender` | Racine locale de Defender ; les surcharges politiques incluent la valeur legacy `DisableAntiSpyware` |
 | `...\Windows Defender\Real-Time Protection` | Protection en temps reel |
 | `...\Windows Defender\Exclusions` | Exclusions par chemin, processus, extension |
 | `...\Windows Defender\Scan` | Parametres de scan programme |
@@ -96,15 +96,18 @@ $operational = Get-ItemProperty -Path $defPath -ErrorAction SilentlyContinue
 $policy = Get-ItemProperty -Path $polPath -ErrorAction SilentlyContinue
 
 Write-Output "Defender installe       : $(if(Test-Path $defPath){'Oui'}else{'Non'})"
-Write-Output "DisableAntiSpyware (pol): $($policy.DisableAntiSpyware)"
+Write-Output "DisableAntiSpyware (legacy pol): $($policy.DisableAntiSpyware)"
 Write-Output "ProductStatus           : $($operational.ProductStatus)"
 ```
 
 ```title="Resultat attendu"
 Defender installe       : Oui
-DisableAntiSpyware (pol):
+DisableAntiSpyware (legacy pol):
 ProductStatus           : 0
 ```
+
+!!! note "Interpretez `DisableAntiSpyware` avec prudence"
+    La presence de cette valeur est utile pour l'audit et la forensique, mais elle ne suffit plus a conclure que Defender est desactive. Croisez-la toujours avec `Get-MpPreference` ou `Get-MpComputerStatus`.
 
 ### Verifier via la commande native
 
@@ -288,7 +291,7 @@ Quand Tamper Protection est active, ces operations sont bloquees :
 | Desactiver la protection temps reel | `Real-Time Protection\DisableRealtimeMonitoring` |
 | Desactiver la protection cloud | `Spynet\SpyNetReporting` |
 | Modifier les exclusions (via registre direct) | `Exclusions\*` |
-| Desactiver Defender completement | `DisableAntiSpyware` |
+| Tenter une desactivation legacy de Defender | `DisableAntiSpyware` |
 
 ```powershell
 # Attempt to disable real-time protection with Tamper Protection ON
@@ -336,7 +339,8 @@ Source de Tamper Protection : Intune
 !!! info "En resume"
     - Tamper Protection (valeur `5`) empeche les modifications registre Defender, meme par un administrateur
     - La cle `HKLM\SOFTWARE\Microsoft\Windows Defender\Features\TamperProtection` indique l'etat
-    - Meme si l'ecriture registre reussit, Defender ignore les valeurs modifiees quand Tamper Protection est actif
+    - `DisableAntiSpyware` est une valeur legacy : meme si l'ecriture reussit, elle ne prouve pas que Defender est effectivement desactive
+    - Meme si l'ecriture registre reussit, Defender ignore certaines valeurs modifiees quand Tamper Protection est actif
     - La desactivation passe par le portail Microsoft 365 Defender ou les parametres locaux
 
 ---
@@ -730,7 +734,7 @@ ForcePassiveMode (pol): 1
 |--------|-----|-------------|
 | `PassiveMode` | `SOFTWARE\Microsoft\Windows Defender` | `1` = Defender en mode passif |
 | `ForcePassiveMode` | `SOFTWARE\Policies\Microsoft\Windows Defender` | `1` = Forcer le mode passif via politique |
-| `DisableAntiSpyware` | `SOFTWARE\Policies\Microsoft\Windows Defender` | `1` = Desactiver completement Defender |
+| `DisableAntiSpyware` | `SOFTWARE\Policies\Microsoft\Windows Defender` | Valeur legacy a auditer ; ne pas utiliser comme preuve unique de desactivation |
 
 ### Detecter les conflits de pilotes
 

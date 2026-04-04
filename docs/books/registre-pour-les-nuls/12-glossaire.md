@@ -450,7 +450,7 @@ La ruche qui contient la configuration du noyau, des pilotes, des services, et d
 
 **Protection anti-falsification.** Fonctionnalite de Windows Defender (depuis Windows 10 1903) qui empeche les modifications des parametres de securite, meme par un administrateur ou un script.
 
-Par exemple, si un script malveillant tente de mettre `DisableAntiSpyware` a `1` dans `HKLM\SOFTWARE\Policies\Microsoft\Windows Defender`, Tamper Protection bloque la modification silencieusement.
+Par exemple, si un script malveillant tente de mettre `DisableAntiSpyware` a `1` dans `HKLM\SOFTWARE\Policies\Microsoft\Windows Defender`, Tamper Protection bloque ou neutralise la modification. Sur les endpoints modernes, cette valeur est en plus consideree comme legacy et ne suffit plus a desactiver Defender a elle seule.
 
 Les cles protegees incluent la desactivation de Defender, la protection en temps reel, et la protection cloud.
 

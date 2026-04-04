@@ -49,9 +49,9 @@ A chaque demarrage de Windows, le programme malveillant se lance automatiquement
 
 ---
 
-### Technique 2 : desactivation de Windows Defender
+### Technique 2 : tentative de desactivation de Windows Defender
 
-Un malware sophistique commence par **neutraliser l'antivirus** avant de s'installer :
+Un malware sophistique tente souvent de **neutraliser l'antivirus** avant de s'installer :
 
 ```
 HKLM\SOFTWARE\Policies\Microsoft\Windows Defender
@@ -63,11 +63,11 @@ HKLM\SYSTEM\CurrentControlSet\Services\WinDefend
 
 | Modification | Effet |
 |-------------|-------|
-| `DisableAntiSpyware` = `1` | Desactive le moteur anti-spyware |
+| `DisableAntiSpyware` = `1` | Tentative legacy de desactivation de Defender ; sur Windows moderne, c'est surtout un indicateur de sabotage ou de politique obsolete |
 | `Start` = `4` | Empeche le service Defender de demarrer |
 
 !!! danger "Tamper Protection"
-    Depuis Windows 10 version 1903, **Tamper Protection** empeche les modifications de ces cles, meme par un administrateur. Si ces valeurs sont presentes et que vous n'avez pas desactive Tamper Protection vous-meme, c'est un signe de compromission.
+    Depuis Windows 10 version 1903, **Tamper Protection** empeche les modifications directes de ces cles, meme par un administrateur. Sur de nombreux endpoints modernes, `DisableAntiSpyware` est en plus ignoree. Si ces valeurs sont presentes et que vous ne les avez pas configurees vous-meme, traitez-les comme un signe de compromission ou de configuration obsolete.
 
 ---
 
@@ -211,16 +211,16 @@ Autoruns affiche **tous** les emplacements de demarrage, pas seulement les cles 
 ### Via le registre
 
 ```powershell
-# Check if Windows Defender is active
-reg query "HKLM\SOFTWARE\Microsoft\Windows Defender" /v DisableAntiSpyware
+# Check whether the legacy DisableAntiSpyware policy is present
+reg query "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v DisableAntiSpyware
 ```
 
 ```title="Resultat attendu"
 ERREUR : le nom ou la valeur specifie est introuvable.
 ```
 
-!!! tip "L'absence de la valeur est une bonne nouvelle"
-    Si `DisableAntiSpyware` **n'existe pas**, cela signifie que Defender est dans son etat par defaut (actif). Si elle existe et vaut `1`, Defender est desactive.
+!!! tip "L'absence de la valeur est rassurante, mais pas suffisante"
+    Si `DisableAntiSpyware` **n'existe pas**, cela signifie surtout qu'aucune politique legacy suspecte n'est presente. Si elle existe et vaut `1`, considerez cela comme un signal de sabotage ou de configuration obsolete, pas comme une preuve suffisante que Defender est effectivement desactive.
 
 ```powershell
 # Check Tamper Protection status
@@ -256,7 +256,7 @@ IsTamperProtected         : True
 Si l'un de ces trois champs est `False` et que vous n'avez rien desactive, **investiguez immediatement**.
 
 !!! quote "En resume"
-    - Verifiez Defender via le registre (`DisableAntiSpyware` doit etre absent) ou via PowerShell (`Get-MpComputerStatus`).
+    - L'absence de `DisableAntiSpyware` est un bon signe, mais `Get-MpComputerStatus` reste la verification la plus fiable de l'etat reel de Defender.
     - `TamperProtection` a `5` signifie que la protection anti-falsification est active et geree par le systeme (optimal).
 
 ---
@@ -505,7 +505,7 @@ Certaines cles sont protegees par des mecanismes supplementaires :
 | Menace | Technique registre | Comment detecter |
 |--------|-------------------|-----------------|
 | Demarrage automatique | Cles `Run` / `RunOnce` | Gestionnaire des taches, Autoruns |
-| Desactivation antivirus | `DisableAntiSpyware` | `Get-MpComputerStatus` |
+| Desactivation antivirus | `DisableAntiSpyware` (legacy) | `Get-MpComputerStatus` |
 | Composant cache | CLSID dans `HKCR` | Autoruns, analyse antivirus |
 | Redirection de fichiers | Associations dans `HKCR` | Ouverture d'un fichier test |
 | Service malveillant | `HKLM\SYSTEM\Services` | Autoruns, `sc query` |

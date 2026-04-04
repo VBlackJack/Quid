@@ -38,7 +38,7 @@ flowchart LR
     style G fill:#50fa7b,color:#000
 ```
 
-Lundi matin, votre antivirus d'entreprise est desactive sur trois postes. Personne ne sait qui a modifie la cle `DisableAntiSpyware`. Pour que cela ne se reproduise pas, vous devez mettre en place un audit : une SACL (System Access Control List) sur les cles critiques.
+Lundi matin, une valeur legacy suspecte apparait sur trois postes et l'etat de l'antivirus semble anormal. Personne ne sait qui a modifie la cle `DisableAntiSpyware`. Pour que cela ne se reproduise pas, vous devez mettre en place un audit : une SACL (System Access Control List) sur les cles critiques.
 
 ### Qu'est-ce qu'une SACL ?
 
@@ -141,7 +141,7 @@ Ajoutez la cle a surveiller et definissez les entrees d'audit. La GPO appliquera
 
 ## Analyse des evenements de securite du registre
 
-Vos SACL sont en place. Trois jours plus tard, la valeur `DisableAntiSpyware` est de nouveau modifiee sur un poste. Il est temps d'analyser les journaux pour identifier le coupable.
+Vos SACL sont en place. Trois jours plus tard, la valeur `DisableAntiSpyware` est de nouveau modifiee sur un poste. Il est temps d'analyser les journaux pour identifier le coupable et comprendre s'il s'agit d'une tentative de sabotage ou d'une ancienne politique reappliquee.
 
 ### Les Event IDs cles pour le registre
 
@@ -228,7 +228,7 @@ Message      :
     New Value:      0x00000001
 ```
 
-Cet evenement nous dit tout : **admin.dupont** a utilise **regedit.exe** pour changer `DisableAntiSpyware` de `0` a `1` le 1er avril a 14h23.
+Cet evenement nous dit tout : **admin.dupont** a utilise **regedit.exe** pour changer `DisableAntiSpyware` de `0` a `1` le 1er avril a 14h23. Sur Windows moderne, cette modification ne prouve pas a elle seule que Defender a ete effectivement desactive, mais elle constitue un excellent indicateur de tentative de sabotage ou de politique obsolete.
 
 ### Rechercher les tentatives d'acces refusees
 

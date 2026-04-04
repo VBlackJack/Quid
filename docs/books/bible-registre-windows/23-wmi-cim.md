@@ -1206,7 +1206,7 @@ $rules = @(
     @{
         Key      = "SOFTWARE\Policies\Microsoft\Windows Defender"
         Value    = "DisableAntiSpyware"
-        Expected = 0
+        Expected = $null  # modern baseline: the legacy value should be absent
         Type     = "DWord"
     }
 )

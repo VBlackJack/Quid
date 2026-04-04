@@ -226,10 +226,10 @@ Windows Registry Editor Version 5.00
 ```
 
 !!! danger "Ce fichier est DANGEREUX"
-    - `DisableAntiSpyware` = `1` desactive Windows Defender
+    - `DisableAntiSpyware` = `1` tente d'affaiblir Defender via une cle legacy
     - `Start` = `4` empeche le service Defender de demarrer
 
-    Un fichier `.reg` "d'optimisation" qui desactive votre antivirus est **malveillant**.
+    Sur un Windows moderne, `DisableAntiSpyware` peut etre ignoree ou bloquee par Tamper Protection, mais sa presence reste un **signal rouge**. Un fichier `.reg` "d'optimisation" qui cible ces cles est **malveillant**.
 
 Comparez avec un fichier `.reg` inoffensif :
 

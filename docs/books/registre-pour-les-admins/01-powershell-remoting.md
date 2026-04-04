@@ -723,7 +723,7 @@ The term 'Remove-Item' is not recognized as the name of a cmdlet...
 
 ## Scenario reel : deployer un correctif de registre sur 200 postes
 
-Votre equipe securite a identifie que la valeur `DisableAntiSpyware` est presente sur certains postes, desactivant Windows Defender. Vous devez auditer les 200 postes du parc, corriger les machines non conformes et generer un rapport.
+Votre equipe securite a identifie que la valeur legacy `DisableAntiSpyware` est presente sur certains postes. Sur Windows moderne, cette valeur ne prouve pas a elle seule que Defender est desactive, mais elle reste un signal de sabotage ou de politique obsolete. Vous devez auditer les 200 postes du parc, nettoyer les machines suspectes et generer un rapport.
 
 ### Etape 1 : Preparer la liste des machines
 
@@ -743,74 +743,89 @@ Machines found: 203
 ### Etape 2 : Auditer l'etat actuel
 
 ```powershell
-# Audit the DisableAntiSpyware value on all workstations
+# Audit the legacy DisableAntiSpyware policy and collect the effective Defender state
 $auditResults = Invoke-Command -ComputerName $computers -ScriptBlock {
     $path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender"
-    $value = Get-ItemProperty -Path $path -Name "DisableAntiSpyware" -ErrorAction SilentlyContinue
+    $policy = Get-ItemProperty -Path $path -Name "DisableAntiSpyware" -ErrorAction SilentlyContinue
+    $mpStatus = Get-MpComputerStatus -ErrorAction SilentlyContinue
+
+    $reviewReason = if ($null -ne $policy -and $policy.DisableAntiSpyware -eq 1) {
+        "LegacyPolicy"
+    } elseif ($null -eq $mpStatus) {
+        "NoMpStatus"
+    } else {
+        "OK"
+    }
 
     [PSCustomObject]@{
-        Computer          = $env:COMPUTERNAME
-        KeyExists         = (Test-Path $path)
-        ValuePresent      = ($null -ne $value)
-        DisableAntiSpyware = if ($value) { $value.DisableAntiSpyware } else { "N/A" }
-        DefenderStatus    = (Get-Service WinDefend -ErrorAction SilentlyContinue).Status
+        Computer           = $env:COMPUTERNAME
+        DisableAntiSpyware = if ($null -ne $policy) { $policy.DisableAntiSpyware } else { "N/A" }
+        AntivirusEnabled   = if ($null -ne $mpStatus) { $mpStatus.AntivirusEnabled } else { "Unknown" }
+        RealTimeProtection = if ($null -ne $mpStatus) { $mpStatus.RealTimeProtectionEnabled } else { "Unknown" }
+        IsTamperProtected  = if ($null -ne $mpStatus) { $mpStatus.IsTamperProtected } else { "Unknown" }
+        ReviewReason       = $reviewReason
     }
 } -ThrottleLimit 50 -ErrorAction SilentlyContinue -ErrorVariable auditErrors
 
 # Summary
-$compliant = $auditResults | Where-Object { $_.DisableAntiSpyware -eq "N/A" -or $_.DisableAntiSpyware -eq 0 }
-$nonCompliant = $auditResults | Where-Object { $_.DisableAntiSpyware -eq 1 }
+$compliant = $auditResults | Where-Object { $_.ReviewReason -eq "OK" }
+$needsReview = $auditResults | Where-Object { $_.ReviewReason -ne "OK" }
 $unreachable = $auditErrors.Count
 
-Write-Host "Compliant    : $($compliant.Count)"
-Write-Host "Non-compliant: $($nonCompliant.Count)"
-Write-Host "Unreachable  : $unreachable"
+Write-Host "Compliant   : $($compliant.Count)"
+Write-Host "Needs review: $($needsReview.Count)"
+Write-Host "Unreachable : $unreachable"
 ```
 
 ```title="Resultat attendu"
-Compliant    : 156
-Non-compliant: 38
-Unreachable  : 9
+Compliant   : 156
+Needs review: 38
+Unreachable : 9
 ```
 
 ### Etape 3 : Appliquer le correctif
 
 ```powershell
-# Fix non-compliant machines by removing the rogue value
-$fixTargets = $nonCompliant | Select-Object -ExpandProperty Computer
+# Remove the rogue legacy value on suspicious machines
+$fixTargets = $auditResults |
+    Where-Object { $_.ReviewReason -eq "LegacyPolicy" } |
+    Select-Object -ExpandProperty Computer
 
 $fixResults = Invoke-Command -ComputerName $fixTargets -ScriptBlock {
     try {
         $path = "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender"
 
-        # Remove the DisableAntiSpyware value
-        Remove-ItemProperty -Path $path -Name "DisableAntiSpyware" -Force -ErrorAction Stop
+        # Remove the legacy DisableAntiSpyware value if present
+        if ($null -ne (Get-ItemProperty -Path $path -Name "DisableAntiSpyware" -ErrorAction SilentlyContinue)) {
+            Remove-ItemProperty -Path $path -Name "DisableAntiSpyware" -Force -ErrorAction Stop
+        }
 
-        # Restart Windows Defender service
-        Restart-Service WinDefend -Force -ErrorAction Stop
+        $mpStatus = Get-MpComputerStatus -ErrorAction SilentlyContinue
 
         [PSCustomObject]@{
-            Computer = $env:COMPUTERNAME
-            Status   = "Fixed"
-            Defender = (Get-Service WinDefend).Status
+            Computer          = $env:COMPUTERNAME
+            Status            = "PolicyRemoved"
+            AntivirusEnabled  = if ($null -ne $mpStatus) { $mpStatus.AntivirusEnabled } else { "Unknown" }
+            IsTamperProtected = if ($null -ne $mpStatus) { $mpStatus.IsTamperProtected } else { "Unknown" }
         }
     } catch {
         [PSCustomObject]@{
-            Computer = $env:COMPUTERNAME
-            Status   = "Error"
-            Defender = $_.Exception.Message
+            Computer          = $env:COMPUTERNAME
+            Status            = "Error"
+            AntivirusEnabled  = "Unknown"
+            IsTamperProtected = $_.Exception.Message
         }
     }
 } -ThrottleLimit 50 -ErrorAction SilentlyContinue
 ```
 
 ```title="Resultat attendu"
-Computer      Status Defender
---------      ------ --------
-PC-COMPTA-02  Fixed  Running
-PC-COMPTA-05  Fixed  Running
-PC-RH-01      Fixed  Running
-PC-RH-03      Fixed  Running
+Computer      Status         AntivirusEnabled IsTamperProtected
+--------      ------         ---------------- -----------------
+PC-COMPTA-02  PolicyRemoved  True             True
+PC-COMPTA-05  PolicyRemoved  True             True
+PC-RH-01      PolicyRemoved  True             True
+PC-RH-03      PolicyRemoved  True             True
 ...
 ```
 
@@ -826,18 +841,23 @@ $fullReport = @()
 # Add successful audits
 $fullReport += $auditResults | Select-Object Computer,
     @{N="Status";E={
-        if ($_.DisableAntiSpyware -eq 1) { "Non-Compliant" }
-        else { "Compliant" }
+        switch ($_.ReviewReason) {
+            "LegacyPolicy" { "LegacyPolicy" }
+            "NoMpStatus" { "NoMpStatus" }
+            default { "Compliant" }
+        }
     }},
-    DisableAntiSpyware, DefenderStatus
+    DisableAntiSpyware, AntivirusEnabled, RealTimeProtection, IsTamperProtected
 
 # Add unreachable machines
 $fullReport += $auditErrors | ForEach-Object {
     [PSCustomObject]@{
-        Computer           = $_.TargetObject
-        Status             = "Unreachable"
-        DisableAntiSpyware = "Unknown"
-        DefenderStatus     = "Unknown"
+        Computer            = $_.TargetObject
+        Status              = "Unreachable"
+        DisableAntiSpyware  = "Unknown"
+        AntivirusEnabled    = "Unknown"
+        RealTimeProtection  = "Unknown"
+        IsTamperProtected   = "Unknown"
     }
 }
 
@@ -856,7 +876,7 @@ Report saved: C:\Admin\Reports\defender-audit-20260404-143022.csv
 Name           Count
 ----           -----
 Compliant        156
-Non-Compliant     38
+LegacyPolicy      38
 Unreachable        9
 ```
 
@@ -868,6 +888,7 @@ Unreachable        9
 
 !!! info "En resume"
     - Un deploiement massif suit quatre etapes : inventaire, audit, correction, rapport
+    - `DisableAntiSpyware` doit etre traitee comme une politique legacy suspecte, puis recoupee avec `Get-MpComputerStatus`
     - `-ThrottleLimit` et `-ErrorVariable` sont essentiels pour les operations a grande echelle
     - Testez toujours sur un echantillon avant de deployer sur le parc complet
     - Generez systematiquement un rapport CSV pour la tracabilite

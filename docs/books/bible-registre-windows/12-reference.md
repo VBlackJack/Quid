@@ -434,10 +434,10 @@ HKLM\SOFTWARE\Policies\Microsoft\Windows Defender
 
 | Valeur | Type | Description |
 |--------|------|-------------|
-| `DisableAntiSpyware` | REG_DWORD | `1` = desactiver Windows Defender |
+| `DisableAntiSpyware` | REG_DWORD | Valeur legacy historiquement utilisee pour desactiver Defender ; a surveiller, mais non fiable sur les plateformes modernes |
 
 !!! danger "Cle surveillee par la protection anti-sabotage"
-    Desactiver Windows Defender via le registre expose le systeme aux menaces. Cette cle est souvent exploitee par les malwares et fait l'objet d'une surveillance par la **protection anti-sabotage** (*Tamper Protection*). Sur les versions recentes de Windows, la modification de cette cle est bloquee si Tamper Protection est active.
+    Cette cle est souvent exploitee par les malwares, mais elle doit etre lue comme un **indicateur** de sabotage ou de configuration obsolete, pas comme une preuve suffisante que Defender est desactive. Sur les versions recentes de Windows, Tamper Protection la bloque souvent et Microsoft la traite comme un mecanisme legacy sur de nombreux endpoints modernes.
 
 ### Strategie de mots de passe
 
