@@ -43,6 +43,8 @@
 [data-md-color-scheme="dracula"] {
   --md-default-bg-color:               var(--dracula-background);
   --md-default-fg-color:               var(--dracula-foreground);
+  --md-admonition-fg-color:            var(--dracula-foreground);
+  --md-admonition-bg-color:            var(--dracula-surface-alt);
   --md-default-fg-color--light:        var(--dracula-muted);
   --md-default-fg-color--lighter:      #f8f8f266;
   --md-default-fg-color--lightest:     #f8f8f233;
