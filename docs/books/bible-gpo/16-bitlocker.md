@@ -106,6 +106,20 @@ Le paramètre **"Choose drive encryption method and cipher strength"** contrôle
 | XTS-AES 128 bits | `6` | Windows 10 1511 | Volumes fixes, bon équilibre perf/sécurité |
 | XTS-AES 256 bits | `7` | Windows 10 1511 | Volumes OS et fixes, recommandé ANSSI |
 
+!!! info "Windows 11 : chiffrement par défaut"
+    Depuis Windows 11, le chiffrement automatique des nouveaux volumes utilise
+    **XTS-AES-128** (contre AES-CBC-128 sur Windows 10 en mode compatible).
+
+    Pour forcer XTS-AES-256 via GPO :
+
+    - Chemin : `Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption`
+    - Paramètre : **Choose drive encryption method and cipher strength (Windows 10 [Version 1511] and later)**
+    - Valeur : `XTS-AES 256-bit` pour les lecteurs du système d'exploitation
+
+    !!! warning "Compatibilité"
+        XTS-AES n'est pas compatible avec les versions Windows antérieures à 10 1511.
+        Sur les environnements mixtes, évaluer AES-CBC-256 pour les lecteurs amovibles.
+
 !!! warning "AES-CBC sur les volumes amovibles"
     XTS-AES **n'est pas compatible** avec les volumes amovibles destinés à être lus sur des systèmes Windows 7 ou 8.1. Pour les clés USB partagées avec des systèmes anciens, conserver AES-CBC 256 bits sur les volumes amovibles. Configurer XTS-AES uniquement pour les volumes OS et les disques fixes.
 

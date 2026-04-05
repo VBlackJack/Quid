@@ -82,6 +82,12 @@ Chaque sous-cle est nommee avec le GUID de la CSE. Elle contient un ensemble de 
 !!! info "ProcessGroupPolicy vs ProcessGroupPolicyEx"
     `ProcessGroupPolicyEx` est l'API introduite avec Windows Vista. Elle ajoute des parametres supplementaires : un handle de jeton de securite, des flags etendus, et un pointeur vers une structure de contexte. Quand les deux sont definis, `gpsvc` utilise systematiquement `ProcessGroupPolicyEx`. L'ancienne API `ProcessGroupPolicy` n'est maintenue que pour la compatibilite avec les CSE tierces pre-Vista.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Valeur`, `Type`, `Description`
+    - l'artefact technique à savoir relire sans chercher : `(Default)`
+    - le second repère technique à retenir avant de continuer : `DllName`
+
 ### :material-powershell: Lister toutes les CSE enregistrees
 
 ```powershell title="Lister toutes les CSE avec leur configuration"
@@ -111,6 +117,12 @@ GUID                                   Name                     DLL             
 
 !!! warning "Valeur absente vs valeur à 0"
     Une valeur `NoBackgroundPolicy` absente du registre est equivalente a `0` (la CSE peut etre appelee en arriere-plan). Ne confondez pas absence et desactivation. Verifiez toujours avec `Get-ItemProperty` plutot qu'avec un simple `reg query`.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Lister toutes les CSE enregistrees**
+    - l'artefact technique à savoir relire sans chercher : `NoBackgroundPolicy`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$cseKey = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions"`
 
 !!! quote "En résumé"
     Chaque CSE est definie par une sous-cle GUID sous `GPExtensions`. Les valeurs `NoBackgroundPolicy`, `NoSlowLink` et `NoGPOListChanges` sont les trois leviers qui controlent dans quelles conditions `gpsvc` invoquera ou sautera la CSE. La connaitre, c'est comprendre pourquoi un parametre s'applique — ou ne s'applique pas.
@@ -196,6 +208,12 @@ Plusieurs CSE critiques ne s'executent pas en background :
 !!! warning "Consequence pour les tests en production"
     Modifier une GPO de securite ou de redirection de dossiers ne prend effet qu'au prochain demarrage machine ou ouverture de session. Un `gpupdate /force` en session active applique uniquement les CSE avec `NoBackgroundPolicy = 0`. Pour les autres, seul un `gpupdate /force /boot` ou un `gpupdate /force /logoff` declenche un vrai foreground.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `CSE`, ``NoBackgroundPolicy``, `Comportement en arriere-plan`
+    - l'artefact technique à savoir relire sans chercher : `NoBackgroundPolicy`
+    - le second repère technique à retenir avant de continuer : `0`
+
 ### :material-skip-next: `NoGPOListChanges` : l'optimisation cle
 
 `NoGPOListChanges = 1` indique a `gpsvc` de sauter completement la CSE si la liste des GPO applicables est identique a celle du dernier cycle de traitement.
@@ -218,6 +236,12 @@ NoGPOListChanges MaxNoGPOListChangesInterval
 
 !!! info "960 minutes = 16 heures"
     La valeur `960` signifie que meme si la liste de GPO n'a pas change, la CSE Security reapplique les parametres de securite au maximum toutes les 16 heures. C'est le mecanisme qui garantit que les parametres de securite ne restent pas indefiniment non appliques sur des machines qui ne redemarrent pas souvent.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **`NoGPOListChanges` : l'optimisation cle**
+    - l'artefact technique à savoir relire sans chercher : `NoGPOListChanges = 1`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$securityCSE = "{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"`
 
 !!! quote "En résumé"
     Le cycle de vie d'une CSE est entierement pilote par des conditions cumulatives. Les flags `NoBackgroundPolicy` et `NoGPOListChanges` sont les deux principales causes de "pourquoi mon parametre n'est pas applique apres un gpupdate". Les connaitre elimine la majorite des incidents de premier niveau.
@@ -293,6 +317,12 @@ En interne, `gpprefcl.dll` fonctionne comme un **moteur de distribution**. Elle 
 | Power Options | `Machine\Preferences\PowerOptions\` |
 | Network Options | `Machine\Preferences\NetworkOptions\` |
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Categorie`, `Chemin SYSVOL relatif`
+    - l'artefact technique à savoir relire sans chercher : `Machine\Preferences\Registry\`
+    - le second repère technique à retenir avant de continuer : `Machine\Preferences\Files\`
+
 ### :material-account: Categories utilisateur (User Configuration)
 
 | Categorie | Chemin SYSVOL relatif |
@@ -312,6 +342,12 @@ En interne, `gpprefcl.dll` fonctionne comme un **moteur de distribution**. Elle 
 
 !!! info "Format XML des preferences"
     Chaque fichier de preference est un document XML valide. Le nom du fichier correspond a la categorie (ex. `Registry.xml`, `Drives.xml`). `gpprefcl.dll` parse ces fichiers et applique chaque element selon son attribut `action` : `C` (Create), `R` (Replace), `U` (Update), `D` (Delete) — le modele CRUD de GPP.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Categorie`, `Chemin SYSVOL relatif`
+    - l'artefact technique à savoir relire sans chercher : `User\Preferences\Registry\`
+    - le second repère technique à retenir avant de continuer : `User\Preferences\Files\`
 
 ### :material-filter: Item-Level Targeting et gpprefcl.dll
 
@@ -348,6 +384,12 @@ Le log `Microsoft-Windows-GroupPolicy/Operational` est la source principale de t
 !!! info "Event 4016 / 4017 : la paire de mesure"
     Chaque CSE invoquee genere un Event 4016 au debut et un Event 4017 a la fin. La duree en millisecondes dans l'Event 4017 est la mesure la plus precise disponible pour identifier les CSE qui ralentissent le demarrage ou l'ouverture de session.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Event ID`, `Source / Log`, `Signification`
+    - l'artefact technique à savoir relire sans chercher : `NoGPOListChanges`
+    - le contrôle terrain à effectuer avant de passer à la suite de **Table des Event IDs cles**
+
 ### :material-powershell: Identifier les CSE les plus lentes
 
 ```powershell title="Top 10 des CSE par durée de traitement"
@@ -377,6 +419,12 @@ TimeCreated           Extension                         Ms
 2026-04-05 08:12:27   Scripts                             89
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Identifier les CSE les plus lentes**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Identifier les CSE les plus lentes**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-WinEvent -LogName "Microsoft-Windows-GroupPolicy/Operational" |`
+
 ### :material-powershell: Detecter les erreurs de CSE
 
 ```powershell title="CSE en erreur sur les dernières 24 heures"
@@ -396,6 +444,12 @@ Message     : The user 'Drive Maps' preference item in the 'MyGPO {GUID}' Group 
 
 !!! warning "Erreurs supprimees dans le log"
     Par defaut, les erreurs de traitement des preferences (`gpprefcl.dll`) sont journalisees mais n'interrompent pas le traitement des autres elements. Le message "This error was suppressed" signifie que la CSE a continue apres l'echec. Ce comportement est configurable via la GPO **Computer Configuration > Administrative Templates > System > Group Policy > Configure registry policy processing**.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Detecter les erreurs de CSE**
+    - l'artefact technique à savoir relire sans chercher : `gpprefcl.dll`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$since = (Get-Date).AddHours(-24)`
 
 !!! quote "En résumé"
     Le log GP Operational est l'outil de diagnostic numero un pour les CSE. Les Event IDs 4016/4017 permettent de mesurer avec precision le temps de traitement de chaque extension. L'Event 5320 confirme qu'une CSE a ete skippee intentionnellement. L'Event 7016 signale une defaillance qui peut necessite un correctif ou une intervention.
@@ -445,6 +499,12 @@ Write-Host "CSE registered with GUID: $guid"
 CSE registered with GUID: {A1B2C3D4-E5F6-7890-ABCD-EF1234567890}
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Enregistrement d'une CSE personnalisee**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Enregistrement d'une CSE personnalisee**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$guid = "{$(New-Guid).ToString().ToUpper()}"`
+
 ### :material-alert: Pieges courants lors du developpement
 
 **Piege 1 : GUID en collision.** Generer un GUID avec `New-Guid` ou `uuidgen.exe`. Ne jamais reutiliser un GUID existant — cela remplacerait silencieusement une CSE systeme.
@@ -483,6 +543,12 @@ $gpc.Properties["gPCMachineExtensionNames"].Value
 
 Chaque paire `[{CSE-GUID}{Tool-GUID}]` indique qu'une CSE et l'outil de gestion correspondant sont actifs pour cette GPO.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Verifier que le GUID est bien dans `gPCMachineExtensionNames`**
+    - l'artefact technique à savoir relire sans chercher : `[{CSE-GUID}{Tool-GUID}]`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$gpoGuid = "{GPO-GUID-HERE}"`
+
 ### :material-numeric-2-circle: Verifier les flags de la CSE locale
 
 ```powershell title="Inspecter les flags d'une CSE specifique"
@@ -491,6 +557,12 @@ $keyPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtens
 Get-ItemProperty $keyPath |
     Select-Object '(default)', DllName, NoBackgroundPolicy, NoSlowLink, NoGPOListChanges, MaxNoGPOListChangesInterval
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Verifier les flags de la CSE locale**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Verifier les flags de la CSE locale**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$cseGuid = "{827D319E-6EAC-11D2-A4EA-00C04F79F83A}" # Security CSE`
 
 ### :material-numeric-3-circle: Lire le log GP Operational en temps reel
 
@@ -501,6 +573,12 @@ Get-WinEvent -LogName "Microsoft-Windows-GroupPolicy/Operational" -MaxEvents 50 
     Select-Object TimeCreated, Id, Message |
     Format-List
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Lire le log GP Operational en temps reel**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Lire le log GP Operational en temps reel**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-WinEvent -LogName "Microsoft-Windows-GroupPolicy/Operational" -MaxEvents 50 |`
 
 ### :material-numeric-4-circle: Forcer un traitement foreground et capturer les logs
 
@@ -522,6 +600,12 @@ Get-WinEvent -LogName "Microsoft-Windows-GroupPolicy/Operational" |
 
 !!! info "gpupdate /force et NoBackgroundPolicy"
     `gpupdate /force` simule un traitement background force. Il ignore le cache de version GPO (`/force`) mais respecte toujours `NoBackgroundPolicy`. Les CSE avec `NoBackgroundPolicy = 1` ne seront pas appelees meme avec `/force`. Seul un redemarrage ou une deconnexion/reconnexion declenche un veritable foreground.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Forcer un traitement foreground et capturer les logs**
+    - l'artefact technique à savoir relire sans chercher : `gpupdate /force`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `wevtutil cl "Microsoft-Windows-GroupPolicy/Operational"`
 
 !!! quote "En résumé"
     La methodologie de diagnostic suit quatre etapes : verifier l'attribut AD, inspecter les flags locaux, lire le log operationnel, puis forcer un cycle et capturer. Dans plus de 80 % des cas, la cause est soit un GUID absent de `gPCMachineExtensionNames`, soit un flag `NoBackgroundPolicy = 1` sur une CSE qu'on espere voir s'executer lors d'un `gpupdate`.
@@ -574,6 +658,12 @@ Le format binaire `Registry.pol` est documente publiquement. Chaque entree conti
     SZ:http://wsus.corp.example.com:8530
     ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Champ`, `Description`
+    - l'artefact technique à savoir relire sans chercher : `Registry.pol`
+    - le second repère technique à retenir avant de continuer : `Software\Policies\Microsoft\Windows\...`
+
 ### :material-delete: Tatouage de registre : le probleme des valeurs orphelines
 
 Quand un parametre ADMX est defini dans une GPO puis supprime (passe a "Not Configured"), la valeur de registre correspondante devrait etre effacee. Mais ce n'est pas toujours le cas.
@@ -607,6 +697,12 @@ WUStatusServer             : http://wsus.corp.example.com:8530
 UseWUServer                : 1
 DisableWindowsUpdateAccess : 0
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Comparer le contenu de `Registry.pol` et l'etat reel du registre**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Comparer le contenu de `Registry.pol` et l'etat reel du registre**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$policyKey = "HKLM:\Software\Policies\Microsoft\Windows\WindowsUpdate"`
 
 ### :material-clock-fast: Performance de la CSE Registry
 
@@ -647,6 +743,12 @@ Le seuil par defaut est de **500 Kbps**. En dessous de ce seuil, `gpsvc` conside
 !!! info "Modifier le seuil de lien lent"
     Le seuil de 500 Kbps est configurable via la GPO **Computer Configuration > Administrative Templates > System > Group Policy > Configure Group Policy slow link detection**. Sur des environnements WAN avec des liens de 1 Mbps mais avec une forte latence, il peut etre pertinent d'ajuster ce seuil.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Condition`, `Seuil`, `Consequence pour les CSE avec NoSlowLink = 1`
+    - l'artefact technique à savoir relire sans chercher : `NoSlowLink = 1`
+    - le contrôle terrain à effectuer avant de passer à la suite de **Seuils et comportements selon la vitesse**
+
 ### :material-alert: Lien lent et Security CSE
 
 La CSE Security a `NoSlowLink = 1`. Sur un lien lent, les parametres de securite ne sont pas reappliques. Pour les environnements avec des clients mobiles ou des sites distants avec des liaisons ADSL de secours, c'est un point d'attention critique.
@@ -670,6 +772,12 @@ TimeCreated           Id    Speed
 
 !!! warning "VPN split-tunnel et faux lien lent"
     Sur un VPN en split-tunnel, le trafic AD peut passer par un tunnel avec une bande passante mesuree inferieure a 500 Kbps, meme si la connexion internet sous-jacente est rapide. `gpsvc` detectera un "lien lent" et sautera les CSE Security et Scripts. C'est un probleme connu avec GlobalProtect et certaines configurations Cisco AnyConnect. La solution est d'augmenter le seuil ou de forcer le routing AD hors du tunnel.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Lien lent et Security CSE**
+    - l'artefact technique à savoir relire sans chercher : `NoSlowLink = 1`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-WinEvent -LogName "Microsoft-Windows-GroupPolicy/Operational" |`
 
 !!! quote "En résumé"
     La detection de lien lent est un mecanisme de protection contre la degradation de l'experience utilisateur sur des connexions de mauvaise qualite. Son effet de bord principal est le saut des CSE critiques (Security, Scripts) sur les clients distants ou VPN. La supervision des Event IDs 5314/5315 dans les logs operationnels permet de detecter les machines concernees.
@@ -697,6 +805,12 @@ Certaines CSE ont des dependances implicites sur d'autres. L'architecture n'impo
 !!! warning "Dependance non garantie"
     L'ordre d'execution reel depend de l'ordre des GUID dans `gPCMachineExtensionNames`, qui est determine par la GPMC lors de l'ecriture. Microsoft ne garantit pas un ordre specifique entre CSE independantes. Pour les dependances critiques, le seul mecanisme fiable est de separer les parametres dans des GPO differentes avec des priorites d'application distinctes (LSDOU + ordre de liaison).
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `CSE dependante`, `Depend de`, `Raison`
+    - l'artefact technique à savoir relire sans chercher : `gPCMachineExtensionNames`
+    - le contrôle terrain à effectuer avant de passer à la suite de **Dependances entre CSE**
+
 !!! quote "En résumé"
     L'ordre d'execution des CSE est deterministe mais non configurable directement. Si une dependance entre CSE pose probleme en production, la solution architecturale est de reorganiser les parametres dans des GPO separees dont l'ordre d'application est controle par la priorite de liaison.
 
@@ -721,6 +835,12 @@ La CSE Security (`{827D319E-6EAC-11D2-A4EA-00C04F79F83A}`) est la plus complexe 
 | File System | ACL de dossiers et fichiers |
 | User Rights Assignment | Attribution de privileges systeme |
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Categorie`, `Description`
+    - l'artefact technique à savoir relire sans chercher : `scecli.dll`
+    - le second repère technique à retenir avant de continuer : `GptTmpl.inf`
+
 ### :material-refresh: Le mecanisme de reapplication forcee
 
 La CSE Security a une particularite unique dans l'ecosysteme GPO : elle reapplique les parametres periodiquement meme si rien n'a change, grace a `MaxNoGPOListChangesInterval = 960` (16 heures).
@@ -736,6 +856,12 @@ Ce mecanisme existe parce que les parametres de securite sont la cible d'attaque
     # To truly force Security CSE in current session, use:
     secedit /configure /cfg %windir%\inf\defltbase.inf /db defltbase.sdb /verbose
     ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Le mecanisme de reapplication forcee**
+    - l'artefact technique à savoir relire sans chercher : `MaxNoGPOListChangesInterval = 960`
+    - le second repère technique à retenir avant de continuer : `SYSTEM`
 
 ### :material-account-group: Restricted Groups : le pieges des groupes imbriques
 
@@ -756,6 +882,12 @@ if (Test-Path $gptPath) {
 
 !!! warning "Restricted Groups et les comptes de service"
     Si un compte de service doit etre membre d'un groupe local (ex. `Backup Operators`) sur certaines machines uniquement, il ne doit pas etre gere via Restricted Groups dans une GPO de large scope. Utiliser la GPO de Preferences (Local Users and Groups) avec ILT cible, qui utilise le mode `Update` au lieu d'`Overwrite`.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Restricted Groups : le pieges des groupes imbriques**
+    - l'artefact technique à savoir relire sans chercher : `scecli.dll`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$gpoGuid = "GPO-GUID-HERE"`
 
 !!! quote "En résumé"
     `scecli.dll` est la CSE avec le plus grand impact sur la posture de securite d'un parc. Sa reapplication periodique est une fonctionnalite de securite, pas un bug. La categorie Restricted Groups est particulierement a surveiller en production : elle peut silencieusement supprimer des membres de groupes locaux ajoutes manuellement ou par d'autres outils de provisioning.
@@ -785,6 +917,12 @@ Start-Process "$env:TEMP\gpreport.html"
 | `gpupdate /target:computer` | Limite au contexte machine uniquement |
 | `gpupdate /target:user` | Limite au contexte utilisateur uniquement |
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Commande`, `Effet`
+    - l'artefact technique à savoir relire sans chercher : `gpresult`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `gpresult /H "$env:TEMP\gpreport.html" /F`
+
 ### :material-application: LGPO.exe : l'outil de reference avance
 
 LGPO.exe (Microsoft Security Compliance Toolkit) est l'outil incontournable pour :
@@ -801,6 +939,12 @@ LGPO.exe (Microsoft Security Compliance Toolkit) est l'outil incontournable pour
 & LGPO.exe /parse /u "$env:SystemRoot\System32\GroupPolicy\User\Registry.pol"   > user_policy.txt
 Write-Host "Export complete: machine_policy.txt and user_policy.txt"
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **LGPO.exe : l'outil de reference avance**
+    - l'artefact technique à savoir relire sans chercher : `Registry.pol`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `& LGPO.exe /parse /m "$env:SystemRoot\System32\GroupPolicy\Machine\Registry.pol" > machine_polic...`
 
 ### :material-microsoft-windows: GPO Diagnostic avec PowerShell natif
 
@@ -845,6 +989,12 @@ GUID                                   Name                     NoBackground NoS
 {827D319E-6EAC-11D2-A4EA-00C04F79F83A} Security                         True       True 2026-04-05 08:01:12      1204
 {35378EAC-683F-11D2-A89A-00C04FBBCFA2} Registry                        False      False 2026-04-05 08:12:28       312
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **GPO Diagnostic avec PowerShell natif**
+    - l'artefact technique à savoir relire sans chercher : `gpresult /H`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$cseKey = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions"`
 
 !!! quote "En résumé"
     `gpresult /H` donne la vue GPO. Le log GP Operational avec les Event IDs 4016/4017 donne la vue CSE. LGPO.exe donne la vue fichier (`Registry.pol`). La maitrise de ces trois outils couvre l'integralite des scenarios de diagnostic liee aux CSE en production.

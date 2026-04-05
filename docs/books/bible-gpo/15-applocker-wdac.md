@@ -55,6 +55,12 @@ AppLocker organise ses règles en collections distinctes. Chaque collection cont
 !!! warning "DLL Rules désactivées par défaut"
     La collection DLL Rules est désactivée par défaut dans la GPMC. L'activer a un impact significatif sur les performances : chaque chargement de DLL déclenche une évaluation. Ne l'activer que si le périmètre de sécurité l'exige et après avoir mesuré l'impact en audit.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Collection`, `Extensions ciblées`, `Journal AppLocker`
+    - l'artefact technique à savoir relire sans chercher : `.exe`
+    - le second repère technique à retenir avant de continuer : `.com`
+
 ### :material-account-check: Évaluation SID : qui est concerné ?
 
 AppLocker est une technologie **user-space**. Chaque règle peut cibler :
@@ -89,6 +95,12 @@ AppLocker est implémenté comme une Client-Side Extension. Sa CSE possède un G
 !!! info "AppLocker et le service AppIDSvc"
     AppLocker ne fonctionne pas sans le service **Application Identity** (`AppIDSvc`). Ce service est désactivé par défaut. Il doit être configuré en **Automatic** via GPO avant tout déploiement de règles. Un poste sans ce service en cours d'exécution ignore silencieusement toutes les règles AppLocker.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Attribut`, `Valeur`
+    - l'artefact technique à savoir relire sans chercher : `GPExtensions`
+    - le second repère technique à retenir avant de continuer : `{D02B1F72-3407-48AE-BA88-E8213C6761F1}`
+
 ### :material-folder-network: Emplacement des règles dans la GPO
 
 Les règles AppLocker sont stockées dans la GPO sous :
@@ -109,6 +121,12 @@ Dans SYSVOL, les données XML correspondantes se trouvent dans :
 ```
 
 Chaque collection génère un fichier XML séparé : `Exe.xml`, `Msi.xml`, `Script.xml`, `Appx.xml`.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Emplacement des règles dans la GPO**
+    - l'artefact technique à savoir relire sans chercher : `Exe.xml`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Computer Configuration`
 
 ### :material-test-tube: Mode Audit vs mode Enforce
 
@@ -146,6 +164,12 @@ AppLocker supporte deux modes opérationnels configurables par collection indép
 ```
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Exemple de règle Publisher en XML**
+    - l'artefact technique à savoir relire sans chercher : `{D02B1F72-3407-48AE-BA88-E8213C6761F1}`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `<FilePublisherRule Id="a9e18c21-ff8f-43cf-b9fc-db40eed693ba"`
+
 !!! quote "En résumé"
     La CSE AppLocker (`{D02B1F72-3407-48AE-BA88-E8213C6761F1}`) requiert le service `AppIDSvc` en état `Running`. Les règles sont stockées en XML dans SYSVOL. Chaque collection peut être configurée indépendamment en mode Audit ou Enforce. Une collection configurée sans aucune règle Allow bloque tout.
 
@@ -169,6 +193,12 @@ Les journaux AppLocker se trouvent sous `Applications and Services Logs\Microsof
 | 8021 | Packaged app-Execution | App Store aurait été bloquée | Audit |
 | 8022 | Packaged app-Execution | App Store bloquée | Enforce |
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Event ID`, `Journal`, `Signification`
+    - l'artefact technique à savoir relire sans chercher : `Applications and Services Logs\Microsoft\Windows\AppLocker\`
+    - le contrôle terrain à effectuer avant de passer à la suite de **Table des Event IDs**
+
 ### :material-powershell: Extraction PowerShell des événements de blocage
 
 ```powershell title="Collecter les blocages AppLocker en mode Audit (Event 8003)"
@@ -190,6 +220,12 @@ TimeCreated           User                FilePath                              
 2026-04-04 07:15:43   CORP\mbrown         C:\Temp\PuTTY.exe                     (Default Rule)
 ```
 
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Extraction PowerShell des événements de blocage**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Extraction PowerShell des événements de blocage**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-WinEvent -LogName 'Microsoft-Windows-AppLocker/EXE and DLL' |`
 
 !!! quote "En résumé"
     - Les journaux AppLocker se trouvent sous Applications and Services Logs\Microsoft\Windows\AppLocker\.
@@ -216,6 +252,12 @@ WDAC évalue chaque binaire **avant** que le noyau l'exécute ou charge la DLL. 
 | OS minimum | Windows 7 / Server 2008 R2 | Windows 10 1903 / Server 2019 |
 | Support BYOD / MDM | Limité | Natif via Intune |
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Dimension`, `AppLocker`, `WDAC`
+    - l'artefact technique à savoir relire sans chercher : `ci.dll`
+    - le second repère technique à retenir avant de continuer : `.p7b`
+
 ### :material-file-lock: La politique WDAC : XML → .p7b
 
 Une politique WDAC commence toujours sous forme de fichier XML. Ce fichier définit les niveaux de confiance, les signataires autorisés, les options de politique et les règles de fichiers.
@@ -240,6 +282,12 @@ title="Résultat attendu"
 [*] Binary policy written: C:\Policies\SIPolicy.p7b (47 KB)
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **La politique WDAC : XML → .p7b**
+    - l'artefact technique à savoir relire sans chercher : `.p7b`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `New-CIPolicy -Level Publisher -Fallback Hash ``
+
 ### :material-layers-triple: Niveaux de confiance (Trust Levels)
 
 WDAC évalue les fichiers selon une hiérarchie de signataires. Le paramètre `-Level` de `New-CIPolicy` définit le niveau de granularité des règles générées.
@@ -257,6 +305,12 @@ WDAC évalue les fichiers selon une hiérarchie de signataires. Le paramètre `-
 !!! info "Microsoft Recommended Block Rules"
     Microsoft publie et maintient une liste de règles de blocage (`WDAC Recommended Block Rules`) couvrant les LOLBins (Living-Off-the-Land Binaries) connus pour être abusés : `mshta.exe`, `wscript.exe`, `cscript.exe`, `regsvr32.exe`, etc. Ces règles doivent être intégrées à toute politique de base. La liste est disponible dans la documentation Microsoft Security Baselines.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Niveau`, `Description`, `Maintenabilité`
+    - l'artefact technique à savoir relire sans chercher : `-Level`
+    - le second repère technique à retenir avant de continuer : `New-CIPolicy`
+
 ### :material-options: Options de politique importantes
 
 Les options de politique WDAC se configurent dans le XML via la balise `<Rule>`. Les plus importantes en production :
@@ -271,6 +325,12 @@ Les options de politique WDAC se configurent dans le XML via la balise `<Rule>`.
 
 !!! warning "Option 6 : jamais en production"
     L'option 6 (`Unsigned System Integrity Policy`) permet de déployer des politiques WDAC non signées. Elle est indispensable en phase de test, mais doit être supprimée avant le passage en production. Une politique non signée peut être remplacée par un attaquant ayant accès au répertoire de déploiement.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Option ID`, `Nom`, `Effet`
+    - l'artefact technique à savoir relire sans chercher : `<Rule>`
+    - le second repère technique à retenir avant de continuer : `Unsigned System Integrity Policy`
 
 ### :material-antenna: Mode Audit vs mode Enforce dans WDAC
 
@@ -317,6 +377,12 @@ Le chemin UNC configuré pointe vers le `.p7b` dans SYSVOL :
     `C:\Windows\System32\CodeIntegrity\SIPolicy.p7b`
     C'est depuis ce chemin que `ci.dll` charge la politique au démarrage suivant.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Emplacement dans SYSVOL**
+    - l'artefact technique à savoir relire sans chercher : `.p7b`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Computer Configuration`
+
 ### :material-refresh: Prise d'effet de la politique
 
 Contrairement à AppLocker, **WDAC ne prend pas effet immédiatement** après l'application de la GPO. La politique est copiée au `gpupdate /force`, mais elle n'est activée qu'au **prochain redémarrage** (pour les politiques de démarrage) ou lors du prochain chargement de code (pour certains composants).
@@ -326,6 +392,12 @@ Contrairement à AppLocker, **WDAC ne prend pas effet immédiatement** après l'
 Get-CIPolicy -BinaryFilePath C:\Windows\System32\CodeIntegrity\SIPolicy.p7b |
     Select-Object PolicyName, PolicyID, PolicyVersion, Rules
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Prise d'effet de la politique**
+    - l'artefact technique à savoir relire sans chercher : `gpupdate /force`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-CIPolicy -BinaryFilePath C:\Windows\System32\CodeIntegrity\SIPolicy.p7b |`
 
 ### :material-cloud-sync: Déploiement via MDM (Intune) vs GPO
 
@@ -342,6 +414,12 @@ Pour les environnements hybrides ou cloud-first, WDAC peut être déployé via I
 !!! info "Windows 10 1903+ : politiques multiples"
     À partir de Windows 10 1903, WDAC supporte le déploiement de **plusieurs politiques simultanées**, chacune identifiée par un GUID. Ce mécanisme est natif avec MDM mais nécessite une configuration spécifique en GPO (plusieurs fichiers `.p7b` dans `CodeIntegrity\CiPolicies\Active\`).
 
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Critère`, `Déploiement GPO`, `Déploiement Intune/MDM`
+    - l'artefact technique à savoir relire sans chercher : `./Device/Vendor/MSFT/ApplicationControl`
+    - le second repère technique à retenir avant de continuer : `.p7b`
 
 !!! quote "En résumé"
     - Le paramètre GPO se trouve dans.
@@ -435,6 +513,12 @@ title="Résultat attendu"
 [*] Output: C:\Migration\WdacFromAppLocker.xml
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **L'outil ConvertFrom-CIPolicy**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **L'outil ConvertFrom-CIPolicy**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-AppLockerPolicy -Effective -Xml | Out-File "C:\Migration\AppLockerPolicy.xml"`
+
 ### :material-alert-circle: Correspondances imparfaites
 
 La conversion n'est pas bijective. Certains types de règles AppLocker n'ont pas d'équivalent direct dans WDAC.
@@ -463,6 +547,12 @@ La conversion n'est pas bijective. Certains types de règles AppLocker n'ont pas
 | 9 | Désactiver AppLocker progressivement | Service `AppIDSvc` en Manual |
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Étape`, `Action`, `Validation`
+    - l'artefact technique à savoir relire sans chercher : `Get-AppLockerPolicy -Effective -Xml`
+    - le second repère technique à retenir avant de continuer : `ConvertFrom-AppLockerPolicy`
+
 !!! quote "En résumé"
     La migration AppLocker → WDAC n'est pas une conversion automatique transparente. `ConvertFrom-AppLockerPolicy` génère un XML WDAC de départ, mais les règles Publisher avec plages de versions, les règles Path et les règles SID-based nécessitent une révision manuelle. La phase Audit post-migration est non négociable avant tout passage en Enforce.
 
@@ -504,6 +594,12 @@ Le Managed Installer repose sur deux mécanismes complémentaires.
 </FilePublisherRule>
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Fonctionnement technique**
+    - l'artefact technique à savoir relire sans chercher : `ManagedInstaller`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `<FilePublisherRule Id="6cc9a840-b0fd-4f86-aca7-8424a22b4b37"`
+
 ### :material-shield-alert: Limites du Managed Installer
 
 **L'EA est héritable mais pas infalsifiable** — Un attaquant qui peut écrire via `ccmexec.exe` peut potentiellement faire autoriser un binaire malveillant. Le Managed Installer ne remplace pas une bonne hygiène de sécurité sur l'agent SCCM.
@@ -536,6 +632,12 @@ Le journal WDAC se trouve sous `Applications and Services Logs\Microsoft\Windows
 | 3033 | Code Integrity blocked driver | Enforce | Driver non signé WHQL |
 | 3034 | Code Integrity blocked driver (Audit) | Audit | Driver non signé WHQL |
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Event ID`, `Signification`, `Mode`
+    - l'artefact technique à savoir relire sans chercher : `Applications and Services Logs\Microsoft\Windows\CodeIntegrity\Operational`
+    - le contrôle terrain à effectuer avant de passer à la suite de **Table des Event IDs**
+
 ### :material-powershell: Exploitation PowerShell des événements WDAC
 
 ```powershell title="Analyser les événements WDAC Audit (Event 3076) — top 20 fichiers"
@@ -567,6 +669,12 @@ Count  Name
    12  C:\Program Files (x86)\Legacy\legacy.dll
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Exploitation PowerShell des événements WDAC**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Exploitation PowerShell des événements WDAC**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$Events = Get-WinEvent -LogName 'Microsoft-Windows-CodeIntegrity/Operational' |`
+
 ### :material-script-text-outline: Générer des règles depuis les événements Audit
 
 ```powershell title="Générer une politique WDAC depuis les événements Audit"
@@ -586,6 +694,12 @@ title="Résultat attendu"
 ```
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Générer des règles depuis les événements Audit**
+    - l'artefact technique à savoir relire sans chercher : `CodeIntegrity/Operational`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `New-CIPolicy -Audit -Level FilePublisher -Fallback Publisher ``
+
 !!! quote "En résumé"
     Les Event IDs WDAC critiques sont 3076 (audit) et 3077 (blocage) dans `CodeIntegrity/Operational`. `New-CIPolicy -Audit` permet de générer automatiquement des règles depuis le journal d'audit. Cette approche est le workflow standard pour couvrir l'existant avant de passer en Enforce.
 

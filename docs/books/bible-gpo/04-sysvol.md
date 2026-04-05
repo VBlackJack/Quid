@@ -77,6 +77,12 @@ L'arborescence ci-dessous représente un déploiement standard avec un domaine `
 Chaque GPO possède **son propre sous-dossier** dans `Policies\`, nommé par son GUID. Ce GUID est identique à celui du GPC stocké dans Active Directory.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Arborescence complète**
+    - l'artefact technique à savoir relire sans chercher : `contoso.local`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `%SystemRoot%\SYSVOL\`
+
 ### GUIDs des GPO intégrées
 
 Deux GPO existent dans tout domaine Active Directory depuis la création. Leurs GUIDs sont **fixes** et identiques dans tous les domaines :
@@ -92,6 +98,12 @@ Ces GUIDs étant connus, des outils d'audit et des scripts peuvent les cibler di
     La bonne pratique est de ne **jamais modifier** la Default Domain Policy ni la Default Domain Controllers Policy. Créer des GPO dédiées à la place. En cas de corruption, la restauration d'une GPO par défaut est complexe (utiliser `dcgpofix.exe` en dernier recours).
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `GUID`, `GPO`
+    - l'artefact technique à savoir relire sans chercher : `{31B2F340-016D-11D2-945F-00C04FB984F9}`
+    - le second repère technique à retenir avant de continuer : `{6AC1786C-016F-11D2-945F-00C04fB984F9}`
+
 ### Rôle du dossier `staging`
 
 Le dossier `staging\` est utilisé par DFS-R comme **zone de transit**. Les fichiers modifiés y sont copiés avant d'être envoyés aux partenaires de réplication.
@@ -132,6 +144,12 @@ Le fichier contient typiquement deux clés. `displayName` est le nom lisible de 
     `Version` est un entier 32 bits non signé. Il encode **deux compteurs indépendants** dans un seul entier, via une convention de mots haut et bas.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Format du fichier**
+    - l'artefact technique à savoir relire sans chercher : `displayName`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `[General]`
+
 ### Encodage du numéro de version
 
 L'entier 32 bits est divisé en deux mots de 16 bits :
@@ -156,6 +174,12 @@ Lorsqu'on modifie uniquement la configuration ordinateur d'une GPO, seul le mot 
     Les CSE Machine et User sont traités indépendamment. Un client qui ne traite que la configuration utilisateur (ex. : traitement en arrière-plan utilisateur) peut ignorer un changement de version du mot bas si le mot haut n'a pas changé.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Bits`, `Mot`, `Signification`
+    - l'artefact technique à savoir relire sans chercher : `Version=131073`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `131073 en hexadécimal = 0x00020001`
+
 ### PowerShell : décoder les versions de toutes les GPO
 
 ```powershell title="Résultat attendu"
@@ -187,6 +211,12 @@ Get-ChildItem $sysvolPolicies -Filter "GPT.INI" -Recurse | ForEach-Object {
 ```
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **PowerShell : décoder les versions de toutes les GPO**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **PowerShell : décoder les versions de toutes les GPO**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$sysvolPolicies = "\\$env:USERDNSDOMAIN\SYSVOL\$env:USERDNSDOMAIN\Policies"`
+
 ### Comparer GPT.INI avec l'attribut AD versionNumber
 
 Une divergence entre `GPT.INI` et l'attribut `versionNumber` du GPC dans AD indique une réplication partielle (SYSVOL ou AD en retard).
@@ -234,6 +264,12 @@ Get-ADObject -SearchBase $gpoPoliciesOU -Filter { ObjectClass -eq "groupPolicyCo
     Si la même GPO apparaît systématiquement désynchronisée après plusieurs cycles de réplication (>30 min), ce n'est pas un simple retard. Vérifier l'état de réplication DFS-R et l'état de réplication AD entre les DCs concernés.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Comparer GPT.INI avec l'attribut AD versionNumber**
+    - l'artefact technique à savoir relire sans chercher : `GPT.INI`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Import-Module GroupPolicy`
+
 !!! quote "En résumé"
     `GPT.INI` contient un entier 32 bits qui encode deux compteurs de version indépendants : machine (bits 0-15) et utilisateur (bits 16-31). Ce numéro doit être identique à l'attribut `versionNumber` du GPC dans AD. Une divergence persistante signale une réplication défaillante.
 
@@ -292,6 +328,12 @@ La transition entre états est commandée depuis le **PDC Emulator**. Elle se pr
     Attendre que **tous** les DCs aient atteint l'état courant avant de passer à l'état suivant. Avancer trop vite avec un DC hors ligne peut créer une situation où DFS-R est autoritaire mais un DC est encore sur FRS.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `État`, `Valeur`, `Description`
+    - l'artefact technique à savoir relire sans chercher : `dfsrmig.exe`
+    - le second repère technique à retenir avant de continuer : `START`
+
 ### Procédure de migration
 
 ```powershell title="Résultat attendu"
@@ -348,6 +390,12 @@ dfsrmig /setglobalstate 3
     `dfsrmig /setglobalstate 3` est irréversible. Une fois à l'état ELIMINATED, FRS ne peut pas être réactivé sans une intervention lourde (restauration depuis sauvegarde ou réinitialisation SYSVOL). Vérifier l'état de tous les DCs avec `dfsrmig /getmigrationstate` avant d'avancer.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Procédure de migration**
+    - l'artefact technique à savoir relire sans chercher : `dfsrmig /setglobalstate 3`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-ADDomainController -Filter * | ForEach-Object {`
+
 ### Vérifier que DFS-R est bien actif
 
 ```powershell title="Résultat attendu"
@@ -366,6 +414,12 @@ Get-WmiObject -Namespace "root\MicrosoftDFS" -Class "DfsrReplicationGroupConfig"
 ```
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Vérifier que DFS-R est bien actif**
+    - l'artefact technique à savoir relire sans chercher : `dfsrmig.exe`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-WmiObject -Namespace "root\MicrosoftDFS" -Class "DfsrReplicationGroupConfig" |`
+
 !!! quote "En résumé"
     FRS est supprimé dans Server 2022. La migration vers DFS-R est obligatoire et se fait en 4 états via `dfsrmig.exe`. Ne jamais avancer d'un état avant que tous les DCs aient atteint l'état précédent. DFS-R offre la compression différentielle, le throttling et une surveillance exploitable.
 
@@ -405,6 +459,12 @@ sequenceDiagram
 La GPMC écrit **toujours** sur le PDC Emulator. Si le PDC Emulator est inaccessible, toute tentative de modification d'une GPO échoue avec le message : *"The domain specified is not available."*
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Flux de réplication DFS-R**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Flux de réplication DFS-R**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `sequenceDiagram`
+
 ### IDs d'événements critiques
 
 Ces événements doivent être surveillés sur tous les DCs, idéalement via un SIEM ou un collecteur d'événements centralisé (WEC).
@@ -425,6 +485,12 @@ Ces événements doivent être surveillés sur tous les DCs, idéalement via un 
     **1030** : le DC ne peut pas accéder à son propre SYSVOL local — problème local (service DFSR arrêté, NTFS corrompu). **1058** : le DC peut accéder à son propre SYSVOL mais pas à celui d'un autre DC — problème réseau ou de permissions.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Event ID`, `Journal`, `Source`
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **IDs d'événements critiques**
+    - le contrôle terrain à effectuer avant de passer à la suite de **IDs d'événements critiques**
+
 ### Vérifier l'accessibilité de SYSVOL sur tous les DCs
 
 ```powershell title="Résultat attendu"
@@ -453,6 +519,12 @@ Get-ADDomainController -Filter * | ForEach-Object {
 ```
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Vérifier l'accessibilité de SYSVOL sur tous les DCs**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Vérifier l'accessibilité de SYSVOL sur tous les DCs**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-ADDomainController -Filter * | ForEach-Object {`
+
 ### Vérifier le backlog DFS-R entre deux DCs
 
 Le backlog DFS-R indique le nombre de fichiers en attente de réplication entre deux membres.
@@ -480,6 +552,12 @@ dfsrdiag backlog /RGName:"$rgName" /RFName:"$rfName" `
 Un backlog de 0 est la cible. Un backlog persistant supérieur à quelques dizaines de fichiers mérite une investigation.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Vérifier le backlog DFS-R entre deux DCs**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Vérifier le backlog DFS-R entre deux DCs**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$rgName = "Domain System Volume"`
+
 ### Vérifier l'accessibilité des GPT.INI pour toutes les GPO
 
 Ce script détecte les GPO dont le fichier `GPT.INI` est inaccessible depuis la machine courante.
@@ -509,6 +587,12 @@ Get-GPO -All | ForEach-Object {
 ```
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Vérifier l'accessibilité des GPT.INI pour toutes les GPO**
+    - l'artefact technique à savoir relire sans chercher : `GPT.INI`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-GPO -All | ForEach-Object {`
+
 ### Forcer une synchronisation DFS-R
 
 Si un DC est en retard sur la réplication SYSVOL, il est possible de déclencher une synchronisation forcée.
@@ -538,6 +622,12 @@ Invoke-Command -ComputerName DC02 -ScriptBlock {
     Redémarrer le service DFSR sur un DC le rend temporairement indisponible pour les clients de ce site. Les clients basculent sur d'autres DCs via la découverte de site DNS. Planifier toute intervention en dehors des heures de bureau.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Forcer une synchronisation DFS-R**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Forcer une synchronisation DFS-R**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Invoke-Command -ComputerName DC02 -ScriptBlock {`
+
 !!! quote "En résumé"
     La GPMC écrit toujours sur le PDC Emulator. Le backlog DFS-R mesure le retard de réplication. Les événements 1058/1030 signalent des problèmes d'accès SYSVOL. L'événement 5014 confirme qu'un DC est opérationnel après réplication. Surveiller ces événements de façon centralisée.
 
@@ -570,6 +660,12 @@ L'entrée `Authenticated Users` avec **Lecture et exécution** est absolument cr
     `Domain Users` n'inclut pas les comptes ordinateurs. Remplacer `Authenticated Users` par `Domain Users` empêche tous les ordinateurs de lire les GPO au démarrage. Cette erreur est fréquente lors de durcissements de sécurité mal maîtrisés.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Principal`, `Permissions`, `Portée`
+    - l'artefact technique à savoir relire sans chercher : `SYSTEM`
+    - le second repère technique à retenir avant de continuer : `Domain Admins`
+
 ### Vérifier les ACL du dossier Policies
 
 ```powershell title="Résultat attendu"
@@ -594,6 +690,12 @@ $sysvolPolicies = "\\$env:USERDNSDOMAIN\SYSVOL\$env:USERDNSDOMAIN\Policies"
 ```
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Vérifier les ACL du dossier Policies**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Vérifier les ACL du dossier Policies**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$sysvolPolicies = "\\$env:USERDNSDOMAIN\SYSVOL\$env:USERDNSDOMAIN\Policies"`
+
 ### Vérifier les ACL sur un dossier GPO spécifique
 
 ```powershell title="Résultat attendu"
@@ -616,6 +718,12 @@ $gpoPath  = "\\$env:USERDNSDOMAIN\SYSVOL\$env:USERDNSDOMAIN\Policies\$gpoGuid"
 ```
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Vérifier les ACL sur un dossier GPO spécifique**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Vérifier les ACL sur un dossier GPO spécifique**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$gpoGuid = "{31B2F340-016D-11D2-945F-00C04FB984F9}" # Default Domain Policy`
+
 ### Restaurer les permissions SYSVOL par défaut
 
 Si les ACL SYSVOL ont été corrompues, `secedit.exe` et une réinitialisationde la sécurité peuvent les restaurer, mais la méthode la plus sûre est d'utiliser l'autorité du PDC Emulator comme source de vérité.
@@ -643,6 +751,12 @@ Write-Output "ACL reset complete. Verify with (Get-Acl).Access after propagation
     Réinitialiser les ACL SYSVOL sur un DC actif est une opération à haut risque. La faire en dehors des heures d'utilisation, valider sur un DC de test d'abord, et s'assurer d'avoir une sauvegarde de l'état du système (VSS ou sauvegarde complète DC).
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Restaurer les permissions SYSVOL par défaut**
+    - l'artefact technique à savoir relire sans chercher : `secedit.exe`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$sysvolRoot = "$env:SystemRoot\SYSVOL\sysvol\$env:USERDNSDOMAIN"`
+
 !!! quote "En résumé"
     Les permissions NTFS sur SYSVOL sont fonctionnelles, pas seulement sécuritaires. `Authenticated Users` avec Lecture est obligatoire pour que les ordinateurs lisent les GPT au démarrage. Ne jamais le remplacer par `Domain Users`. Vérifier régulièrement avec `Get-Acl` ou un outil d'audit des ACL.
 
@@ -703,6 +817,12 @@ if ($orphans.Count -eq 0) {
     Avant de supprimer un dossier GPT orphelin, confirmer qu'il n'est pas référencé par un lien GPO dans une OU (attribut `gPLink` dans AD). Un dossier SYSVOL peut sembler orphelin si la recherche AD est incomplète (domaines de confiance, partitions de nommage non standard).
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **GPT orphelin : dossier SYSVOL sans GPC dans AD**
+    - l'artefact technique à savoir relire sans chercher : `SYSVOL\Policies\`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$domain = $env:USERDNSDOMAIN`
+
 ### GPC orphelin : objet AD sans GPT dans SYSVOL
 
 L'inverse est également possible : un GPC existe dans AD mais son dossier GPT correspondant est absent de SYSVOL.
@@ -743,6 +863,12 @@ Get-ADObject -SearchBase $gpoPoliciesOU `
 ```
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **GPC orphelin : objet AD sans GPT dans SYSVOL**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **GPC orphelin : objet AD sans GPT dans SYSVOL**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$domain = $env:USERDNSDOMAIN`
+
 ### PDC Emulator inaccessible : impact sur GPMC
 
 La GPMC se connecte **toujours** au PDC Emulator pour lire et écrire les GPO. Si le PDC Emulator est inaccessible, toutes les modifications de GPO échouent.
@@ -778,6 +904,12 @@ Test-Path "\\$pdcEmulator\SYSVOL"
     Si le PDC Emulator est en panne prolongée, il est possible de saisir le rôle FSMO sur un autre DC avec `Move-ADDirectoryServerOperationMasterRole`. Cette opération doit être documentée et autorisée — elle ne se fait pas à la légère.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **PDC Emulator inaccessible : impact sur GPMC**
+    - l'artefact technique à savoir relire sans chercher : `Move-ADDirectoryServerOperationMasterRole`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$pdcEmulator = (Get-ADDomain).PDCEmulator`
+
 ### Réinitialisation d'un SYSVOL non autoritaire
 
 Lors de la restauration d'un DC depuis sauvegarde ou après une corruption DFS-R, il peut être nécessaire de marquer un DC comme **autoritaire** (authoritative restore de SYSVOL). Cela force les autres DCs à se synchroniser depuis ce DC.
@@ -809,6 +941,12 @@ Write-Output "DC marked as authoritative. Monitor Event ID 5014 for completion."
     Une restauration autoritaire SYSVOL écrase le SYSVOL de tous les DCs partenaires avec le contenu de la source autoritaire. Si la source autoritaire est elle-même corrompue ou incomplète, les dommages se propagent à tout le domaine. Valider le contenu du SYSVOL source avant de déclencher la réplication autoritaire.
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Réinitialisation d'un SYSVOL non autoritaire**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Réinitialisation d'un SYSVOL non autoritaire**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Stop-Service DFSR`
+
 !!! quote "En résumé"
     Les trois problèmes les plus fréquents sont : GPT orphelins (dossiers sans GPC), GPC orphelins (objets AD sans dossier SYSVOL), et PDC Emulator inaccessible bloquant GPMC. Les GPT orphelins sont détectables par comparaison des GUIDs entre SYSVOL et AD. La restauration autoritaire est le dernier recours en cas de corruption totale.
 
@@ -859,6 +997,12 @@ Get-ADDomainController -Filter * | ForEach-Object {
 ```
 
 ---
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Vérifier SysvolReady sur tous les DCs**
+    - l'artefact technique à savoir relire sans chercher : `SysvolReady`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-ADDomainController -Filter * | ForEach-Object {`
+
 !!! quote "En résumé"
     La clé `SysvolReady` sous Netlogon est le signal que le DC émet pour indiquer qu'il est prêt à servir les GPO. La taille de la zone de staging DFS-R (défaut 4 Go) est configurable et doit être augmentée sur les domaines avec de nombreuses GPO ou des scripts volumineux.
 

@@ -39,6 +39,12 @@ HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\
   {942A8E4F-A261-11D1-A760-00C04FB9603F}
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **GUID et enregistrement**
+    - l'artefact technique à savoir relire sans chercher : `appmgmts.dll`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `{942A8E4F-A261-11D1-A760-00C04FB9603F}`
+
 ### :material-table: Valeurs de registre de la CSE
 
 | Valeur | Contenu typique | Signification |
@@ -53,6 +59,12 @@ HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\
 
 !!! info "NoBackgroundPolicy = 1"
     La valeur `NoBackgroundPolicy = 1` est non-négociable : le déploiement MSI nécessite un accès au réseau, à SYSVOL, et potentiellement à un partage de source. Il ne peut pas s'exécuter de manière fiable pendant une session ouverte, en tâche de fond.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Valeur`, `Contenu typique`, `Signification`
+    - l'artefact technique à savoir relire sans chercher : `(Default)`
+    - le second repère technique à retenir avant de continuer : `Software Installation`
 
 ### :material-file-code: Le fichier `psmt.xml` dans le GPT
 
@@ -82,6 +94,12 @@ Ce fichier XML est le manifeste que la CSE lit pour connaître la liste des pack
 !!! warning "psmt.xml est géré exclusivement par la GPMC"
     Ne modifiez jamais `psmt.xml` manuellement. La GPMC maintient la cohérence entre ce fichier, les attributs `gPCMachineExtensionNames` dans l'objet AD, et les données stockées dans AD (pour les packages assignés aux utilisateurs). Une modification manuelle peut rendre la GPO silencieusement non fonctionnelle.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Le fichier `psmt.xml` dans le GPT**
+    - l'artefact technique à savoir relire sans chercher : `psmt.xml`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `\\<domain>\SYSVOL\<domain>\Policies\{GPO-GUID}\`
+
 ### :material-database: La clé de registre AppMgmt
 
 Lors de l'application des packages, la CSE écrit les données dans :
@@ -104,6 +122,12 @@ HKLM\...\AppMgmt\
 
 !!! info "Diagnostic par AppMgmt"
     La clé `AppMgmt` est votre premier point de vérification lors d'un incident. Si un package est absent de cette clé sur un poste ciblé, la CSE n'a pas traité la GPO — problème de portée, de filtrage, ou de connectivité à SYSVOL. Si la clé est présente mais le package absent des programmes installés, l'installation elle-même a échoué (consultez le journal `Application` pour les Event ID `1022`, `1023`, `1024`).
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **La clé de registre AppMgmt**
+    - l'artefact technique à savoir relire sans chercher : `AppMgmt`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\AppMgmt\`
 
 ### :material-console-line: Exemple terrain : audit rapide d'un package assigné
 
@@ -130,6 +154,12 @@ Exemple de lecture :
 
 Cette corrélation entre `AppMgmt` et `Uninstall` évite de confondre un problème de ciblage GPO avec un échec propre à Windows Installer.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Exemple terrain : audit rapide d'un package assigné**
+    - l'artefact technique à savoir relire sans chercher : `7-Zip 23.01`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$productCode = '{23170F69-40C1-2702-2301-000001000000}'`
+
 ### :material-table: GUIDs complémentaires
 
 | GUID | CSE associée | Rôle |
@@ -141,6 +171,12 @@ Cette corrélation entre `AppMgmt` et `Uninstall` évite de confondre un problè
 | `{B1BE8D72-6EAC-11D2-A4EA-00C04F79F83A}` | EFS Recovery | Politiques de chiffrement EFS |
 | `{25537523-E2DC-11D2-A6E8-00C04FB997CB}` | Folder Redirection | Redirection de dossiers |
 | `{7B849A69-220F-451E-B3FE-2CB811AF94AE}` | Internet Explorer Maint. | Paramètres IE (obsolète) |
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `GUID`, `CSE associée`, `Rôle`
+    - l'artefact technique à savoir relire sans chercher : `{942A8E4F-A261-11D1-A760-00C04FB9603F}`
+    - le second repère technique à retenir avant de continuer : `{35378EAC-683F-11D2-A89A-00C04FBBCFA2}`
 
 !!! quote "En résumé"
     - La CSE Software Installation (`appmgmts.dll`) est invoquée uniquement au premier plan, jamais en arrière-plan.
@@ -163,6 +199,12 @@ La commande MSI sous-jacente est équivalente à :
 ```bat title="Commande d'installation déclenchée par la CSE (Computer)"
 msiexec /i "\\server\share\package.msi" /qn TRANSFORMS="\\server\share\package.mst" ALLUSERS=1
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Assigned to Computer**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Assigned to Computer**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `msiexec /i "\\server\share\package.msi" /qn TRANSFORMS="\\server\share\package.mst" ALLUSERS=1`
 
 ### :material-account: Assigned to User
 
@@ -197,6 +239,12 @@ Ce mode ne supporte pas les packages MSI pour des raisons de compatibilité. Pou
 | **MSI uniquement** | Oui | Oui | Non (ZAP aussi) |
 | **Nomades hors réseau** | Risqué (source MSI) | Risqué (activation) | N/A |
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Critère`, `Assigned to Computer`, `Assigned to User`
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Tableau comparatif des modes**
+    - le contrôle terrain à effectuer avant de passer à la suite de **Tableau comparatif des modes**
+
 ### :material-chart-timeline: Cycle de vie d'une installation MSI par GPO
 
 ```mermaid
@@ -226,6 +274,12 @@ flowchart TD
     S -- Non --> T([Aucune action])
     S -- Oui --> P
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Cycle de vie d'une installation MSI par GPO**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Cycle de vie d'une installation MSI par GPO**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `flowchart TD`
 
 !!! quote "En résumé"
     - Assigned to Computer : installation silencieuse au démarrage, recommandé pour l'infrastructure.
@@ -278,6 +332,12 @@ Les sections reconnues sont :
 !!! info "SetupCommand et UNC"
     Le chemin dans `SetupCommand` doit être un chemin UNC accessible depuis le contexte utilisateur au moment de l'installation. Les variables d'environnement ne sont pas interprétées dans les fichiers ZAP.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Section / Clé`, `Description`
+    - l'artefact technique à savoir relire sans chercher : `[Application]`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `[Application]`
+
 ### :material-publish: Déployer un fichier ZAP
 
 Dans la GPMC, la procédure est identique à un package MSI :
@@ -291,6 +351,12 @@ User Configuration
 ```
 
 Sélectionnez le fichier `.zap` dans le dialogue. La GPMC force automatiquement le mode **Published** — les modes Assigned ne sont pas proposés.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Déployer un fichier ZAP**
+    - l'artefact technique à savoir relire sans chercher : `.zap`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `User Configuration`
 
 !!! quote "En résumé"
     - ZAP est un fichier `.ini` décrivant un setup non-MSI, publiable via Software Installation GPO.
@@ -341,6 +407,12 @@ MSI (s) (A0:C4) [10:32:14:443]: TRANSFORMS property is now: C:\test\package.mst
 MSI (s) (A0:C4) [10:32:14:445]: PROPERTY CHANGE: Adding INSTALLDIR property. Its value is 'D:\Apps\VendorApp\'
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Créer un transform avec Orca**
+    - l'artefact technique à savoir relire sans chercher : `msiexec /a`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `msiexec /a "\\server\share\package.msi" TARGETDIR="C:\MSI_Extract" /qn`
+
 ### :material-connection: Associer un transform dans la GPO
 
 Dans la GPMC, lors de l'ajout d'un package :
@@ -360,6 +432,12 @@ Le chemin est stocké dans `psmt.xml` dans la propriété `transformList`. Il pe
 
 !!! warning "Ordre des transforms : irréversible"
     Plusieurs transforms appliqués séquentiellement peuvent se contrarier. Si Transform A change `INSTALLDIR` et Transform B remet la valeur d'origine, le résultat final dépend de l'ordre. Testez systématiquement la combinaison complète avant déploiement en production.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Associer un transform dans la GPO**
+    - l'artefact technique à savoir relire sans chercher : `.mst`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Software Installation → New → Package...`
 
 !!! quote "En résumé"
     - Un transform `.mst` est une base de données différentielle appliquée au MSI au moment de l'installation — le MSI d'origine n'est pas modifié.
@@ -381,6 +459,12 @@ Chaque package MSI est identifié par deux GUIDs distincts :
 | `UpgradeCode` | Identifie la "famille" du produit — constant entre les versions d'un même éditeur |
 
 Le `ProductCode` est la clé utilisée par `AppMgmt` et par le moteur Windows Installer pour identifier un package installé. Une montée de version qui change le `ProductCode` est traitée comme un **nouveau produit** par Windows Installer si la table `Upgrades` ne le spécifie pas explicitement.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `GUID`, `Rôle`
+    - l'artefact technique à savoir relire sans chercher : `ProductCode`
+    - le second repère technique à retenir avant de continuer : `UpgradeCode`
 
 ### :material-arrow-up-circle: Déclarer un Upgrade dans la GPO
 
@@ -412,6 +496,12 @@ Source: MsiInstaller  EventID: 1033
 Product: 7-Zip 24.00 -- Installation completed successfully.
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Déclarer un Upgrade dans la GPO**
+    - l'artefact technique à savoir relire sans chercher : `ProductCode`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Software Installation → [nouveau package] → clic droit → Properties`
+
 ### :material-refresh: Redéploiement forcé
 
 Le **redéploiement** force la réinstallation d'un package dont le `ProductCode` n'a pas changé — utile pour rétablir un package corrompu ou pour propager une mise à jour mineure (correctif).
@@ -431,6 +521,12 @@ msiexec /i "\\server\share\package.msi" TRANSFORMS="..." REINSTALL=ALL REINSTALL
 !!! warning "Redéploiement ≠ mise à jour silencieuse"
     Le redéploiement retraite l'ensemble du package. Sur des environnements avec des centaines de machines, un redéploiement non planifié peut générer une charge réseau significative sur SYSVOL. Planifiez le redéploiement en dehors des heures de pic et assurez-vous que la source MSI est hébergée sur un partage dédié, pas directement sur SYSVOL.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Redéploiement forcé**
+    - l'artefact technique à savoir relire sans chercher : `ProductCode`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Software Installation → [package] → clic droit → "All Tasks" → "Redeploy application"`
+
 ### :material-table: Scénarios de gestion de version
 
 | Scénario | Mécanisme | Déclencheur |
@@ -442,6 +538,12 @@ msiexec /i "\\server\share\package.msi" TRANSFORMS="..." REINSTALL=ALL REINSTALL
 
 !!! info "Absence du package des programmes installés"
     Si un package doit être désinstallé (GPO retirée, upgrade), la CSE vérifie la présence du `ProductCode` dans la base de données Windows Installer locale (`HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\`). Si la clé est absente (package déjà désinstallé manuellement), la CSE ne produit pas d'erreur — elle considère l'état cible comme atteint.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Scénario`, `Mécanisme`, `Déclencheur`
+    - l'artefact technique à savoir relire sans chercher : `ProductCode`
+    - le second repère technique à retenir avant de continuer : `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\`
 
 !!! quote "En résumé"
     - `ProductCode` identifie une version précise — il doit être déclaré dans la table Upgrades pour orchestrer une transition propre entre versions.
@@ -485,6 +587,12 @@ Il n'existe aucun tableau de bord central nativement intégré à la GPMC.
 | **Désinstallation fiable** | MSI uniquement | Oui | Oui |
 | **Séquencement de dépendances** | Non | Oui | Oui |
 | **Coût d'infrastructure** | Aucun | Élevé (SQL, IIS, DP...) | Licences M365 |
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Critère`, `Software Installation GPO`, `SCCM / MECM`
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Comparatif avec les alternatives modernes**
+    - le contrôle terrain à effectuer avant de passer à la suite de **Comparatif avec les alternatives modernes**
 
 ### :material-check-circle-outline: Cas où Software Installation GPO reste pertinent
 

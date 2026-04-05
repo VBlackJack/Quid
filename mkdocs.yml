@@ -250,6 +250,8 @@ nav:
       - Automatisation et CI/CD pour les GPO: books/gpo-pour-les-admins/23-automation-cicd.md
       - Securite des GPO elles-memes: books/gpo-pour-les-admins/24-securite-gpo.md
       - "Zero Trust et GPO : le futur de la configuration": books/gpo-pour-les-admins/25-zero-trust.md
+      - "26 - OSD / MDT / WDS": books/gpo-pour-les-admins/26-osd-mdt-wds.md
+      - "27 - PrintNightmare & Print Spooler": books/gpo-pour-les-admins/27-printnightmare-hardening.md
   - Reference rapide:
       - reference/index.md
       - Cheat Sheet GPO: reference/gpo-cheatsheet.md

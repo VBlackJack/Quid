@@ -80,6 +80,12 @@ BUILTIN\SYSTEM           GpoApply        False
 
 La valeur `GpoApply` correspond à la permission "Apply Group Policy". La valeur `GpoRead` correspond à Read seul.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Via les cmdlets GroupPolicy**
+    - l'artefact technique à savoir relire sans chercher : `GroupPolicy`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-GPPermissions -Name "CFG-Postes-EnvironnementBureau" -All |`
+
 ### :material-code-json: Via les ACL AD brutes
 
 Pour obtenir le GUID de la permission et l'ACL complète :
@@ -107,6 +113,12 @@ BUILTIN\SYSTEM                  ExtendedRight             Allow
 
 !!! info "ExtendedRight = Apply Group Policy"
     Dans la DACL AD brute, la permission "Apply Group Policy" apparaît comme `ExtendedRight`. Son GUID spécifique — `edacfd8f-ffb3-11d1-b41d-00a0c968f939` — est encodé dans le champ `ObjectType` de l'ACE, visible uniquement avec `$acl.Access | Where-Object { $_.ObjectType -eq 'edacfd8f-ffb3-11d1-b41d-00a0c968f939' }`.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Via les ACL AD brutes**
+    - l'artefact technique à savoir relire sans chercher : `ExtendedRight`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$gpo = Get-GPO -Name "CFG-Postes-EnvironnementBureau"`
 
 !!! quote "En résumé"
     `Get-GPPermissions` est la méthode rapide pour le quotidien. `Get-Acl` sur le chemin AD donne accès aux GUIDs bruts, utile pour les audits et l'automatisation avancée.
@@ -143,6 +155,12 @@ Avant de modifier le filtrage de sécurité d'une GPO, identifiez ce qu'elle con
 | Les deux sections | Utiliser deux groupes distincts — un pour les ordinateurs, un pour les utilisateurs |
 
 La meilleure pratique est de **désactiver la section inutilisée** dans les propriétés de la GPO. Une GPO "Computer only" avec la section User Configuration désactivée est plus claire et plus performante.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Contenu de la GPO`, `Action recommandée`
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **La règle des trois cas**
+    - le contrôle terrain à effectuer avant de passer à la suite de **La règle des trois cas**
 
 ### :material-powershell: Corriger le filtrage en PowerShell
 
@@ -187,6 +205,12 @@ Get-GPO -All | ForEach-Object {
     }
 } | Format-Table -AutoSize
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Corriger le filtrage en PowerShell**
+    - l'artefact technique à savoir relire sans chercher : `GpoRead`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Set-GPPermissions -Name "CFG-Postes-EnvironnementBureau" ``
 
 !!! quote "En résumé"
     Supprimer Authenticated Users du filtrage sans ajouter un groupe d'ordinateurs casse le traitement Computer Configuration. Vérifiez toujours le contenu de la GPO avant de modifier son filtrage. Conservez au minimum GpoRead pour Authenticated Users pour préserver la visibilité dans GPMC.
@@ -247,6 +271,12 @@ Write-Host "DENY ACE added for GRP-Admins-IT on $($gpo.DisplayName)"
 !!! warning "DENY et comptes SYSTEM"
     Ne jamais ajouter un DENY qui affecte `SYSTEM` ou `Domain Controllers`. Ces comptes ont besoin d'accéder aux GPO pour le traitement background des politiques de sécurité. Un DENY mal ciblé peut bloquer le traitement sur tous les contrôleurs de domaine.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Limites de Set-GPPermissions avec DENY**
+    - l'artefact technique à savoir relire sans chercher : `Set-GPPermissions`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$applyGpGuid = [Guid]"edacfd8f-ffb3-11d1-b41d-00a0c968f939"`
+
 !!! quote "En résumé"
     Le DENY est un outil chirurgical pour les exclusions. Il prend la priorité sur tous les Allow, y compris les héritages de groupe. L'API .NET est nécessaire pour le scripting car Set-GPPermissions ne gère pas les ACE DENY. Utilisez cette technique avec parcimonie et documentez chaque DENY explicitement.
 
@@ -265,6 +295,12 @@ CN=SOM,CN=WMIPolicy,CN=System,DC=contoso,DC=local
 Chaque filtre contient une ou plusieurs requêtes **WQL** (WMI Query Language). Une GPO peut être associée à au plus **un** filtre WMI.
 
 L'association est stockée dans l'attribut `gPCWQLFilter` de l'objet GPO. Sa valeur est un chemin LDAP vers l'objet `msWMI-Som`.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Qu'est-ce qu'un filtre WMI ?**
+    - l'artefact technique à savoir relire sans chercher : `msWMI-Som`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `CN=SOM,CN=WMIPolicy,CN=System,DC=contoso,DC=local`
 
 ### :material-play-network: Le processus d'évaluation
 
@@ -301,6 +337,12 @@ flowchart TD
     style F fill:#27ae60,color:#fff
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Diagramme de décision**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Diagramme de décision**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `flowchart TD`
+
 !!! quote "En résumé"
     Un filtre WMI est un objet AD distinct qui contient une requête WQL. L'évaluation est entièrement côté client. Un résultat vide ou une erreur WMI bloque l'application de la GPO. Le DC est transparent à ce processus.
 
@@ -324,6 +366,12 @@ flowchart TD
 | Langue du système | `root\CIMv2` | `SELECT * FROM Win32_OperatingSystem WHERE MUILanguages = "fr-FR"` |
 | Membre d'un domaine DNS spécifique | `root\CIMv2` | `SELECT * FROM Win32_NTDomain WHERE DnsForestName = "contoso.local"` |
 | Batterie présente | `root\CIMv2` | `SELECT * FROM Win32_Battery WHERE BatteryStatus > 0` |
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Cas d'usage`, `Namespace`, `Requête WQL`
+    - l'artefact technique à savoir relire sans chercher : `root\CIMv2`
+    - le second repère technique à retenir avant de continuer : `SELECT * FROM Win32_OperatingSystem WHERE Version >= "10.0.22000"`
 
 ### :material-code-tags: Tester une requête WQL localement
 
@@ -352,6 +400,12 @@ Caption                          Version
 Microsoft Windows 11 Professionnel 10.0.22631
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Tester une requête WQL localement**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Tester une requête WQL localement**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$namespace = "root\CIMv2"`
+
 ### :material-alert: Win32_Product : la requête interdite
 
 `Win32_Product` est une classe WMI qui liste les logiciels installés. Elle semble parfaite pour filtrer sur la présence d'une application.
@@ -373,6 +427,12 @@ $query2 = "SELECT * FROM Win32_OperatingSystem" # placeholder — use ILT for re
 # Note: for registry-based software detection, prefer Item-Level Targeting (Ch. 12)
 # over WMI filters — ILT can query registry keys directly without performance impact
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Win32_Product : la requête interdite**
+    - l'artefact technique à savoir relire sans chercher : `Win32_Product`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$query1 = "SELECT * FROM Win32_InstalledWin32Program WHERE Name LIKE '%Microsoft 365%'"`
 
 !!! quote "En résumé"
     Les requêtes WQL couvrent un large spectre : version OS, type de machine, matériel, langue, domaine. N'utilisez jamais `Win32_Product` — le coût en performance est prohibitif. Testez toujours votre requête localement avant de créer le filtre en production.
@@ -448,6 +508,12 @@ $filterId = New-GPWmiFilter `
     -Query       "SELECT * FROM Win32_OperatingSystem WHERE Version >= '10.0.22000'"
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Fonction de création via l'API AD**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Fonction de création via l'API AD**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `function New-GPWmiFilter {`
+
 ### :material-link: Associer le filtre à une GPO
 
 ```powershell title="Associer un filtre WMI à une GPO existante"
@@ -497,6 +563,12 @@ WMI filter 'WMI - Windows 11 Only' linked to GPO 'CFG-Win11-OptimisationsUI'
 !!! warning "Supprimer l'association d'un filtre WMI"
     Pour dissocier un filtre WMI d'une GPO, utilisez `Set-ADObject -Identity $gpoDN -Clear gPCWQLFilter`. Ne supprimez jamais l'objet `msWMI-Som` tant qu'une GPO y fait référence — la GPO deviendrait en état d'erreur et serait ignorée par tous les clients.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Associer le filtre à une GPO**
+    - l'artefact technique à savoir relire sans chercher : `"$domain\SOM\$($filter.Name)`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `function Set-GPWmiFilterLink {`
+
 !!! quote "En résumé"
     La création de filtres WMI requiert l'API AD directement. Le format `msWMI-Parm2` est strict. L'association GPO ↔ filtre se fait via l'attribut `gPCWQLFilter` de l'objet GPO. Documentez chaque filtre créé : GPMC les affiche mais ne donne pas toujours le contexte métier de leur existence.
 
@@ -516,6 +588,12 @@ WMI filter 'WMI - Windows 11 Only' linked to GPO 'CFG-Win11-OptimisationsUI'
 | Event log succès/échec | Event 5313 (refus) | Events 5320 (résultat) et 5321 (erreur) |
 | Impact bande passante | Réduit — GPO non envoyée si ACL refusée | Aucune économie — GPO envoyée avant évaluation |
 | Adapté pour | Cibler un sous-ensemble d'utilisateurs ou d'ordinateurs | Cibler une configuration matérielle ou logicielle |
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Critère`, `Filtrage de sécurité`, `Filtre WMI`
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Tableau comparatif**
+    - le contrôle terrain à effectuer avant de passer à la suite de **Tableau comparatif**
 
 ### :material-strategy: Quand utiliser quoi
 
@@ -553,6 +631,12 @@ WMI filter 'WMI - Windows 11 Only' linked to GPO 'CFG-Win11-OptimisationsUI'
 | 5312 | GP Operational | Liste des GPO applicables récupérée avec succès | Contexte normal — utile pour corréler avec 5313 |
 | 5314 | GP Operational | GPO ignorée en raison d'un filtre WMI — résultat FALSE | Complément de 5320 |
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Event ID`, `Journal`, `Signification`
+    - l'artefact technique à savoir relire sans chercher : `winmgmt`
+    - le contrôle terrain à effectuer avant de passer à la suite de **Tableau des Event IDs**
+
 ### :material-powershell: Interroger le journal opérationnel
 
 ```powershell title="Trouver les GPO refusées par filtrage de sécurité ou WMI"
@@ -581,6 +665,12 @@ TimeCreated           Id   Summary
 2024-11-15 08:32:16   5320 WMI filter evaluation was successful. Result: TRUE.  | Filter: WMI - Portables Only
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Interroger le journal opérationnel**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Interroger le journal opérationnel**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Get-WinEvent -LogName "Microsoft-Windows-GroupPolicy/Operational" ``
+
 ### :material-tools: Vérifier l'état des filtres WMI sur un domaine
 
 ```powershell title="Lister tous les filtres WMI du domaine avec leurs requêtes"
@@ -603,6 +693,12 @@ Get-ADObject -SearchBase $wmiFilterPath `
     Format-Table -AutoSize -Wrap
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Vérifier l'état des filtres WMI sur un domaine**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Vérifier l'état des filtres WMI sur un domaine**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$domain = (Get-ADDomain).DistinguishedName`
+
 ### :material-file-chart: gpresult : voir le filtrage dans le rapport HTML
 
 La commande `gpresult` capture l'état du traitement GPO sur une machine, y compris les GPO refusées et la raison :
@@ -621,6 +717,12 @@ gpresult /r | Select-String -Pattern "Denied|Filtered|WMI" -Context 1,1
 
 !!! info "Section « GPOs inapplicables » dans gpresult"
     Le rapport HTML de `gpresult` contient une section "GPO(s) not applied because they were filtered out". Chaque entrée précise la raison : "Inaccessible (Access Denied)" pour un refus ACL, ou "Denied (WMI Filter)" pour un filtre WMI évalué à FALSE.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **gpresult : voir le filtrage dans le rapport HTML**
+    - l'artefact technique à savoir relire sans chercher : `gpresult`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `gpresult /h "$env:TEMP\gpreport.html" /f`
 
 !!! quote "En résumé"
     Les Event IDs 5313 (ACL refusée), 5320 (résultat WMI) et 5321 (erreur WMI) sont vos premiers alliés pour diagnostiquer un problème de filtrage. `gpresult /h` donne le tableau de bord complet du traitement GPO sur un poste, avec la liste des GPO refusées et leur motif.
@@ -660,6 +762,12 @@ Write-Host "Pilot filtering configured. Link the GPO to the OU when ready."
 
 Pour passer en production : remplacer `GRP-Postes-Pilotes-GPO-X` par `Authenticated Users` en `GpoApply` via `Set-GPPermissions`.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Recette 1 — Déploiement progressif (pilote → production)**
+    - l'artefact technique à savoir relire sans chercher : `GRP-Postes-Pilotes-GPO-X`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `New-ADGroup -Name "GRP-Postes-Pilotes-GPO-X" ``
+
 ### :material-recipe: Recette 2 — GPO par OS avec filtre WMI
 
 Objectif : maintenir deux versions d'une GPO — une pour Windows 10, une pour Windows 11.
@@ -682,6 +790,12 @@ Set-GPWmiFilterLink -GPOName "CFG-Win11-ParametresUI" -WmiFilterName "WMI - Wind
 
 Write-Host "WMI filters created and linked. Both GPOs can be linked to the same OU."
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Recette 2 — GPO par OS avec filtre WMI**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Recette 2 — GPO par OS avec filtre WMI**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$win10Guid = New-GPWmiFilter ``
 
 ### :material-recipe: Recette 3 — Audit complet du filtrage sur un domaine
 
@@ -725,6 +839,12 @@ Get-GPO -All | Sort-Object DisplayName | ForEach-Object {
     }
 } | Format-Table -AutoSize -Wrap
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Recette 3 — Audit complet du filtrage sur un domaine**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Recette 3 — Audit complet du filtrage sur un domaine**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$domain = (Get-ADDomain).DistinguishedName`
 
 !!! quote "En résumé"
     Les recettes opérationnelles couvrent les cas les plus fréquents : déploiement progressif via groupes pilotes, ciblage par OS avec filtres WMI, et audit complet du domaine. Combinez filtrage de sécurité (pour l'audience) et filtre WMI (pour le contexte) pour un ciblage précis sans prolifération de GPO.

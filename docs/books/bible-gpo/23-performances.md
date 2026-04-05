@@ -37,6 +37,12 @@ Chaque cycle de traitement complet produit une séquence d'événements traçabl
 !!! info "Foreground vs background"
     Les IDs 4001/5016 couvrent le cycle foreground (démarrage machine ou ouverture de session). Le cycle background génère des événements distincts mais avec la même logique de paires début/fin par CSE.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Event ID`, `Signification`, `Données utiles`
+    - l'artefact technique à savoir relire sans chercher : `Microsoft-Windows-GroupPolicy/Operational`
+    - le contrôle terrain à effectuer avant de passer à la suite de **Les Event IDs essentiels**
+
 ### :material-timer: Calculer le temps par CSE en PowerShell
 
 Le script suivant parse le journal opérationnel et calcule le temps de traitement de chaque CSE pour le dernier cycle foreground utilisateur.
@@ -96,6 +102,12 @@ Security                                   2026-04-05 08:14:16      512
 Scripts                                    2026-04-05 08:14:31      234
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Calculer le temps par CSE en PowerShell**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Calculer le temps par CSE en PowerShell**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$logName = 'Microsoft-Windows-GroupPolicy/Operational'`
+
 ### :material-speedometer: Valeurs normales et seuils d'alerte
 
 Un cycle foreground sain sur un réseau LAN avec 20 à 40 GPO typiques produit les valeurs suivantes :
@@ -109,6 +121,12 @@ Un cycle foreground sain sur un réseau LAN avec 20 à 40 GPO typiques produit l
 
 !!! warning "L'impact sur l'expérience utilisateur"
     En mode synchrone (`SyncForegroundPolicy = 1`), chaque seconde de traitement GPO retarde directement l'affichage du bureau. Un logon à 45 secondes est perceptible et génère des tickets support. Au-delà de 60 secondes, les utilisateurs supposent une panne.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Indicateur`, `Valeur normale`, `Seuil d'investigation`
+    - l'artefact technique à savoir relire sans chercher : `SyncForegroundPolicy = 1`
+    - le contrôle terrain à effectuer avant de passer à la suite de **Valeurs normales et seuils d'alerte**
 
 ### :material-network: Trafic LDAP généré par l'énumération des GPO
 
@@ -140,6 +158,12 @@ Avec 100 GPO liées sur le chemin d'une OU, l'étape 2 seule peut générer 100 
 | 3 | **Scripts de logon synchrones** | Bloque le bureau pendant toute la durée du script | Event 4016/4017 sur CSE Scripts avec durée > 5 s | Passer en asynchrone, ou migrer vers une tâche planifiée ou un package PSADT |
 | 4 | **Folder Redirection sur lien lent** | +10 à +60 s si le serveur de fichiers est distant ou saturé | Event 4016/4017 sur CSE Folder Redirection ; Event 5016 indiquant une détection de lien lent | Configurer la politique de lien lent pour ignorer Folder Redirection sous 500 Kbps |
 | 5 | **Trop de GPO liées** (100+) | +5 à +20 s en énumération LDAP pure | Comptage avec `Get-GPInheritance` ; corrélation avec la durée pré-CSE dans Event 4001→4016 | Consolider, supprimer les GPO vides, déplacer les GPO hors de scope |
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `#`, `Problème`, `Impact`
+    - l'artefact technique à savoir relire sans chercher : `{00000000-0000-0000-0000-000000000000}`
+    - le second repère technique à retenir avant de continuer : `Get-GPInheritance`
 
 ### :material-filter-variant: 1. Les filtres WMI — coût côté client
 
@@ -195,6 +219,12 @@ Count
 
 87 GPO sur le chemin signifie 87 lectures GPC au minimum. Sur un DC distant avec 10 ms de latence, c'est 870 ms de pure latence LDAP avant que la première CSE soit appelée.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **5. Trop de GPO liées**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **5. Trop de GPO liées**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$ou = 'OU=Workstations,OU=Paris,DC=corp,DC=contoso,DC=com'`
+
 !!! quote "En résumé"
     - Les filtres WMI sont les plus coûteux car non mis en cache et évalués à chaque cycle
     - L'ILT LDAP multiplie les requêtes AD proportionnellement au nombre d'items ciblés
@@ -225,6 +255,12 @@ Les valeurs suivantes sont des ordres de grandeur mesurés sur un environnement 
 
 !!! info "Ces valeurs varient avec la latence DC"
     Sur un site avec 50 ms de latence vers le DC, multiplier les durées ci-dessus par 5. 200 GPO sur un lien distant = 5 secondes d'énumération pure, avant toute CSE.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Nombre de GPO sur le chemin`, `Durée d'énumération LDAP estimée`, `Commentaire`
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Impact mesuré du nombre de GPO**
+    - le contrôle terrain à effectuer avant de passer à la suite de **Impact mesuré du nombre de GPO**
 
 ### :material-check-all: Quand consolider
 
@@ -270,6 +306,12 @@ Lorsque cette valeur est à `1`, la CSE n'est appelée en background que si une 
 
 Pour les détails sur les valeurs de registre des CSE, voir [Chapitre 03 — Client-Side Extensions en profondeur](03-cse.md).
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **NoGPOListChanges**
+    - l'artefact technique à savoir relire sans chercher : `NoGPOListChanges`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\{GUID-CSE}`
+
 ### :material-run-fast: EnableAsynchronousProcessing
 
 Certaines CSE supportent un traitement asynchrone en foreground. Elles traitent leurs paramètres en parallèle du reste du cycle, sans bloquer l'affichage du bureau.
@@ -283,6 +325,12 @@ Computer Configuration > Policies > Administrative Templates > System > Group Po
     ☑ Process even if the Group Policy objects have not changed
     ☑ Do not apply during periodic background processing
 ```
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **EnableAsynchronousProcessing**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **EnableAsynchronousProcessing**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `Computer Configuration > Policies > Administrative Templates > System > Group Policy`
 
 ### :material-table-check: Support des flags par CSE
 
@@ -301,6 +349,12 @@ Computer Configuration > Policies > Administrative Templates > System > Group Po
 
 !!! info "Règle générale"
     Les CSE qui modifient la posture de sécurité (Security, Software Installation, Applocker) sont toujours synchrones. Les CSE de confort (Drive Maps, Printers, GPP Registry) sont généralement asynchronisables.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `CSE`, `NoGPOListChanges`, `Asynchrone supporté`
+    - l'artefact technique à savoir relire sans chercher : `{35378EAC...}`
+    - le second repère technique à retenir avant de continuer : `{827D319E...}`
 
 !!! quote "En résumé"
     - `NoGPOListChanges = 1` évite d'appeler une CSE si aucune GPO n'a changé — c'est l'optimisation background la plus efficace
@@ -340,6 +394,12 @@ C:\Windows\System32\GroupPolicy\
 
 Le cache utilisateur est sous `%SystemRoot%\System32\GroupPolicyUsers\{SID}\` avec la même structure.
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Emplacement et structure**
+    - l'artefact technique à savoir relire sans chercher : `%SystemRoot%\System32\GroupPolicyUsers\{SID}\`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `%SystemRoot%\System32\GroupPolicy\`
+
 ### :material-shield-check: Fraîcheur du cache et repli SYSVOL
 
 `gpsvc` compare la version locale (stockée dans le cache) avec la version lue depuis le GPC dans Active Directory. Si les versions correspondent, certaines CSE peuvent utiliser le cache sans télécharger à nouveau depuis SYSVOL.
@@ -371,6 +431,12 @@ gpupdate.exe /force /boot
 
 !!! info "Différence entre /force et invalidation du cache"
     `gpupdate /force` force le retraitement de toutes les CSE même si les versions n'ont pas changé. L'invalidation du cache force en plus le re-téléchargement des fichiers depuis SYSVOL. Les deux opérations sont distinctes et complémentaires.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Forcer l'invalidation du cache**
+    - l'artefact technique à savoir relire sans chercher : `gpsvc`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$machineGPKey = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\State\Machine'`
 
 ### :material-ruler: Considérations de taille
 
@@ -507,6 +573,12 @@ Timestamp             TotalSeconds GPOCount Status
 2026-04-01 08:58:44            8.9       41 OK
 ```
 
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Dashboard de temps de logon avec Get-WinEvent**
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Dashboard de temps de logon avec Get-WinEvent**
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `param(`
+
 ### :material-bell-alert: Seuils d'alerte opérationnels
 
 | Métrique | OK | WARNING | CRITICAL |
@@ -515,6 +587,12 @@ Timestamp             TotalSeconds GPOCount Status
 | Durée d'une CSE individuelle | < 2 s | 2 – 5 s | > 5 s |
 | Nombre de GPO sur le chemin | < 50 | 50 – 100 | > 100 |
 | Taille cache GPO local | < 50 Mo | 50 – 200 Mo | > 200 Mo |
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - les repères de lecture du tableau précédent : `Métrique`, `OK`, `WARNING`
+    - la valeur, le GUID ou le paramètre qui change réellement le résultat dans **Seuils d'alerte opérationnels**
+    - le contrôle terrain à effectuer avant de passer à la suite de **Seuils d'alerte opérationnels**
 
 ### :material-magnify: Procédure d'investigation d'un logon lent
 
@@ -543,6 +621,12 @@ $endEvents | ForEach-Object {
 
 !!! info "Corrélation avec le chapitre sur le traitement"
     La détection de lien lent (Event 5017 avec indication `SlowLink`) modifie le comportement de plusieurs CSE. Voir [Chapitre 07 — Traitement des stratégies : cycle et modes](07-traitement.md) pour la logique complète de détection de lien lent.
+
+!!! check "Point de contrôle"
+    Avant de continuer, vérifiez que vous avez bien compris :
+    - le but précis de cette sous-section : **Procédure d'investigation d'un logon lent**
+    - l'artefact technique à savoir relire sans chercher : `Get-GPO -All | Where-Object { $_.WmiFilter -ne $null }`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `$logName = 'Microsoft-Windows-GroupPolicy/Operational'`
 
 !!! quote "En résumé"
     - Le seuil d'alerte opérationnel pour le temps foreground total est 30 secondes (Event 5016)

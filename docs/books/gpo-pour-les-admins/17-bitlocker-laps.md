@@ -398,6 +398,18 @@ Windows LAPS est une réécriture complète, intégrée directement dans Windows
 
 Il n'y a plus de MSI à déployer. Le CSE (Client-Side Extension) est natif dans l'OS. La configuration se fait entièrement via GPO ou MDM Policy CSP.
 
+!!! info "Prérequis LAPS v2 par OS"
+    | Système | Prérequis | Natif |
+    |---|---|---|
+    | Windows Server 2022 | KB5025175 (avril 2023) ou ultérieur | Oui (post-patch) |
+    | Windows Server 2019 | KB5025172 (avril 2023) ou ultérieur | Oui (post-patch) |
+    | Windows 11 21H2+ | Intégré depuis 22H2 | Oui |
+    | Windows 10 20H2+ | KB5025221 (avril 2023) ou ultérieur | Oui (post-patch) |
+
+    Sur **Windows Server 2022**, LAPS v2 (Windows LAPS) est disponible nativement
+    après l'installation des mises à jour d'avril 2023. Aucun agent MSI supplémentaire
+    n'est requis, contrairement à LAPS v1 (AdmPwd.exe).
+
 ### :material-database-cog: Extension du schéma AD pour LAPS v2
 
 Même si le client est intégré, le schéma AD doit être étendu pour les nouveaux attributs. Cette opération est distincte de celle de LAPS v1 — les deux extensions coexistent.
