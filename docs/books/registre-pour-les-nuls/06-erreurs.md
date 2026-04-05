@@ -14,6 +14,40 @@ tags:
 
 ---
 
+## Zones vertes et zones rouges
+
+Toutes les zones du registre ne présentent pas le même niveau de risque.
+
+Certaines ressemblent à un carnet de réglages personnels. D'autres sont plutôt le tableau électrique de la maison : on évite d'y toucher "pour voir".
+
+| Zone | Niveau de risque | Pourquoi |
+|------|------------------|----------|
+| `HKCU\Software\` | 🟢 Faible | Vos réglages personnels, n'affecte que votre compte |
+| `HKCU\Control Panel\` | 🟢 Faible | Apparence, accessibilité — réversible facilement |
+| `HKLM\SOFTWARE\` | 🟡 Modéré | Logiciels machine — nécessite admin, impact sur tous |
+| `HKLM\SYSTEM\` | 🔴 Élevé | Services, drivers, démarrage — erreur = PC qui ne boot plus |
+| `HKLM\SAM` / `HKLM\SECURITY` | 🔴 Critique | Comptes et politiques — réservé SYSTEM |
+
+Repere simple :
+
+- `HKCU` = "mes reglages a moi"
+- `HKLM` = "les reglages de la machine"
+- plus vous vous rapprochez de `SYSTEM`, plus le risque augmente
+
+Si vous voyez `Software`, vous etes souvent dans la partie "applications et preferences".
+
+Si vous voyez `SYSTEM`, `SAM` ou `SECURITY`, vous etes plutot dans les organes vitaux.
+
+!!! tip "Règle pratique"
+    Si vous débutez, limitez vos expérimentations à `HKCU`. Si quelque chose tourne mal, seul votre profil est impacté — pas les autres utilisateurs, pas le démarrage du PC.
+
+!!! quote "En résumé"
+    - Les zones sous `HKCU` sont les plus sûres pour apprendre et tester.
+    - Les zones sous `HKLM` peuvent affecter tous les utilisateurs, et certaines peuvent empêcher Windows de démarrer.
+    - Si vous hésitez, restez dans `HKCU` : c'est votre zone d'entraînement.
+
+---
+
 ## Erreur n°1 : modifier sans sauvegarder
 
 C'est l'erreur la plus frequente et la plus couteuse.
@@ -109,6 +143,47 @@ Des fichiers `.reg` circulent sur Internet avec des promesses allechantes :
 
 ---
 
+## Erreur n°4bis : ne pas comprendre ce qu'un GUID contient
+
+Un GUID comme `{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}` peut donner l'impression d'un charabia sans importance.
+
+En realite, ce n'est pas un dechet. C'est souvent l'identifiant d'un composant precis de Windows : un objet COM, une extension du menu contextuel, ou encore un gestionnaire de fichiers.
+
+Pensez a un GUID comme a une plaque d'immatriculation. Le numero ne raconte pas toute l'histoire, mais il permet d'identifier exactement l'objet concerne.
+
+Avant d'en supprimer un, prenez l'habitude de verifier :
+
+1. Copier le GUID exactement, accolades comprises
+2. Le rechercher en ligne **entre guillemets** pour comprendre a quoi il sert
+3. Ouvrir la cle et regarder son contenu
+4. Si vous voyez une sous-cle `InprocServer32` ou `LocalServer32` pointant vers un vrai fichier `.dll` ou `.exe`, il y a de fortes chances que la cle soit legitime
+
+| Ce que vous observez | Ce que cela suggere |
+|----------------------|---------------------|
+| `InprocServer32` avec un chemin vers une DLL | Souvent un composant charge dans un autre programme |
+| `LocalServer32` avec un chemin vers un EXE | Souvent un programme lance separement |
+| Un nom de logiciel connu dans les sous-cles | La cle appartient probablement a ce logiciel |
+| Une cle vide sans contexte | Prudence : cherchez avant d'en conclure qu'elle est inutile |
+
+Le but n'est pas de memoriser tous les GUID de Windows.
+
+Le bon reflexe, c'est surtout de comprendre qu'un nom bizarre n'est pas une preuve d'inutilite.
+
+!!! tip "Un GUID inconnu n'est jamais une invitation a supprimer. C'est une invitation a chercher."
+    Quand un identifiant vous semble obscur, votre premier reflexe doit etre l'enquete, pas le menage.
+
+!!! example "Exemple concret"
+    La cle `{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}` est le GUID classique utilise pour restaurer le menu contextuel classique de Windows 11 dans le chapitre 4.
+
+    Vu de loin, elle ressemble a une suite de caracteres absurde. En pratique, elle correspond a un comportement bien precis de l'interface.
+
+!!! quote "En resume"
+    - Un GUID n'est pas du "bruit" : il identifie souvent un composant reel de Windows ou d'un logiciel.
+    - Avant de supprimer une cle avec GUID, cherchez-la en ligne et inspectez ses sous-cles.
+    - La presence de `InprocServer32` ou `LocalServer32` est souvent un bon indice qu'il s'agit d'une cle legitime.
+
+---
+
 ## Erreur n°5 : toucher a HKLM\SYSTEM sans savoir
 
 La ruche `SYSTEM` contient la **configuration de demarrage** de Windows. Une mauvaise modification ici peut empecher votre PC de demarrer.
@@ -153,6 +228,60 @@ graph LR
 !!! quote "En resume"
     - `HKCU` = vos reglages personnels (un seul utilisateur), `HKLM` = reglages machine (tous les utilisateurs). Modifier le mauvais peut avoir des effets inattendus.
     - Verifiez toujours les **deux premiers mots** du chemin avant de modifier quoi que ce soit.
+
+---
+
+## Erreur n°6bis : la virtualisation UAC vous induit en erreur
+
+Voici un piege tres deroutant : vous pensez modifier la partie "machine" du registre, mais Windows peut parfois envoyer votre changement ailleurs.
+
+Quand une application lancee sans droits administrateur essaie d'ecrire dans `HKLM\SOFTWARE`, Windows peut rediriger l'ecriture vers :
+
+```text
+HKCU\Software\Classes\VirtualStore\MACHINE\SOFTWARE\...
+```
+
+Autrement dit, vous croyez modifier l'armoire commune de l'immeuble, alors que Windows vous donne en realite une petite copie dans votre appartement.
+
+Le symptome typique est tres trompeur :
+
+- vous modifiez une valeur dans `HKLM`
+- cela semble fonctionner dans votre session
+- mais le vrai `HKLM` n'a pas change
+- un autre utilisateur du meme PC ou une session admin ne voit pas la modification
+
+Vous avez alors l'impression que Windows vous contredit :
+
+- "je vois bien la valeur"
+- "pourquoi elle n'existe pas ailleurs ?"
+- "est-ce que Regedit ment ?"
+
+En pratique, ce n'est pas Regedit qui ment. C'est la redirection qui brouille les pistes.
+
+!!! example "Scenario classique"
+    Vous ouvrez Regedit en tant qu'utilisateur standard et vous creez une valeur dans `HKLM\SOFTWARE\MonApp`.
+
+    Vous fermez puis rouvrez Regedit : la valeur semble etre la. Pourtant, si un autre utilisateur ouvre la meme cle, ou si vous revenez avec une session administrateur, la modification n'apparait pas au meme endroit.
+
+    Ce que vous voyez est parfois la copie redirigee dans `VirtualStore`, pas la vraie valeur machine.
+
+!!! warning "Si vous modifiez HKLM mais que le changement semble 'disparaitre' pour d'autres utilisateurs, verifiez d'abord dans `HKCU\Software\Classes\VirtualStore\MACHINE\SOFTWARE`."
+    C'est souvent le premier endroit a controler avant de conclure que Windows "a ignore" votre changement.
+
+!!! tip "Pour eviter ce piege, lancez toujours Regedit en tant qu'administrateur quand vous devez modifier HKLM."
+    Si la cle commence par `HKLM`, prenez l'habitude de verifier vos droits avant toute modification.
+
+Petite checklist si vous avez un doute :
+
+1. Est-ce que la cle commence par `HKLM` ?
+2. Est-ce que Regedit n'etait pas lance en administrateur ?
+3. Est-ce qu'un autre compte utilisateur ne voit pas la meme valeur ?
+4. Est-ce qu'une copie existe dans `VirtualStore` ?
+
+!!! quote "En resume"
+    - Une application sans droits admin peut voir ses ecritures vers `HKLM\SOFTWARE` redirigees vers `VirtualStore`.
+    - Le changement peut sembler reussi dans votre session alors que le vrai `HKLM` n'a pas bouge.
+    - Pour les modifications dans `HKLM`, ouvrez toujours Regedit en mode administrateur.
 
 ---
 
@@ -236,10 +365,30 @@ C'est le scenario le plus stressant, mais il existe des solutions.
 !!! warning "Prevenir plutot que guerir"
     C'est exactement pour eviter ce scenario qu'on cree un **point de restauration** (methode 2 du chapitre 5) avant toute modification risquee.
 
+---
+
+### Cas 4 : un logiciel ne se lance plus apres modification
+
+Vous avez modifie une cle liee a une application precise, et maintenant elle plante au demarrage ou affiche un message d'erreur.
+
+!!! example "Marche a suivre"
+    1. Identifier la cle que vous avez modifiee (aidez-vous de vos notes ou du nom du fichier `.reg` exporte)
+    2. Double-cliquer sur le fichier `.reg` de sauvegarde pour restaurer la cle
+    3. Si l'application ne se lance toujours pas : ouvrir l'Observateur d'evenements avec ++win+r++, taper `eventvwr.msc`, puis aller dans **Journaux Windows** > **Application** pour chercher les erreurs qui correspondent au nom du logiciel
+    4. Noter le message exact et le rechercher en ligne avant de faire quoi que ce soit d'autre
+
+Souvent, l'erreur mentionne un module `.dll`, un chemin manquant, ou un nom d'application.
+
+Ce petit detail peut vous faire gagner beaucoup de temps, parce qu'il transforme un "ca ne marche plus" tres vague en piste concrete.
+
+!!! tip "L'Observateur d'evenements est votre allié dans ce cas : il indique souvent precisement quel fichier ou quelle cle l'application ne trouve plus."
+    C'est un peu la boite noire du logiciel. Quand un programme tombe, c'est souvent la qu'on trouve le premier indice utile.
+
 !!! quote "En resume"
     - Si le PC fonctionne encore : importez votre fichier `.reg` de sauvegarde et redemarrez.
     - Si le PC demarre mais avec des problemes : annulez la modification dans Regedit ou importez la sauvegarde.
     - Si le PC ne demarre plus : utilisez le mode recuperation et la restauration du systeme.
+    - Si un logiciel precis ne se lance plus : restaurez la cle concernee, puis consultez l'Observateur d'evenements avant toute autre action.
 
 ---
 

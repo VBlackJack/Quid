@@ -12,6 +12,7 @@ tags:
     - Comment creer une nouvelle valeur ou une nouvelle cle
     - Comment supprimer une valeur ou une cle
     - 5 modifications utiles que vous pouvez faire tout de suite
+    - 5 autres modifications utiles pour arriver a 10 exemples concrets
     - Quand faut-il redemarrer apres un changement
 
 !!! warning "Avant toute chose : sauvegardez !"
@@ -123,6 +124,34 @@ C'est comme creer un nouveau dossier dans l'explorateur de fichiers.
 
 ---
 
+## Renommer une valeur ou une cle
+
+Regedit n'a pas de gros bouton "Renommer", mais la fonction existe bien.
+
+C'est le meme principe que dans l'Explorateur : on clique sur l'element, puis on change son nom directement.
+
+### Renommer une valeur
+
+1. **Clic droit** sur la valeur > **Renommer**
+2. Taper le nouveau nom
+3. Appuyer sur ++enter++
+
+### Renommer une cle
+
+1. **Clic droit** sur la cle dans le panneau gauche > **Renommer**
+2. Taper le nouveau nom
+3. Appuyer sur ++enter++
+
+!!! warning "Renommer une cle systeme peut casser les references qui pointent vers elle par son ancien nom. Reservez cette operation aux cles que vous avez creees vous-meme."
+    Si un programme attend exactement l'ancien nom, il ne retrouvera plus la cle. C'est comme changer le nom d'une rue sans prevenir le GPS.
+
+!!! quote "En resume"
+    - Pour renommer une valeur ou une cle, utilisez simplement **Clic droit > Renommer**.
+    - Renommer une cle est une operation plus sensible que renommer une valeur.
+    - Limitez cette manipulation aux cles que vous comprenez ou que vous avez creees vous-meme.
+
+---
+
 ## Supprimer une valeur ou une cle
 
 | Quoi | Comment |
@@ -141,9 +170,37 @@ C'est comme creer un nouveau dossier dans l'explorateur de fichiers.
 
 ---
 
-## 5 modifications utiles au quotidien
+## Modifier un REG_EXPAND_SZ ou un REG_MULTI_SZ
 
-Voici 5 modifications concretes que vous pouvez essayer des maintenant. Pour chacune :
+Ces deux noms font un peu peur au debut, mais ils restent simples quand on les ramene a des exemples concrets.
+
+### REG_EXPAND_SZ : texte avec variable d'environnement
+
+- Cela ressemble souvent a `%USERPROFILE%\Documents`
+- Vous le modifiez exactement comme un `REG_SZ` : **double-clic**, puis changement du texte
+- La partie `%VARIABLE%` est remplacee par Windows au moment de l'utilisation
+- Exemple : si vous voyez `%SystemRoot%\system32\cmd.exe`, Windows remplace `%SystemRoot%` par `C:\Windows`
+
+### REG_MULTI_SZ : texte multi-lignes
+
+- Ce type contient plusieurs lignes de texte empilees
+- Quand vous double-cliquez dessus, une fenetre multi-lignes s'ouvre
+- Chaque ligne represente une entree distincte dans la liste
+- Pour ajouter une ligne, appuyez sur ++enter++ a la fin de la derniere, puis tapez la nouvelle entree
+
+!!! tip "Pour les debutants, REG_EXPAND_SZ se modifie exactement comme du texte normal. Laissez les `%VARIABLE%` tels quels sauf si vous savez exactement ce que vous changez."
+    Si vous remplacez une variable d'environnement par un chemin incorrect, Windows risque de ne plus retrouver le bon dossier ou le bon programme.
+
+!!! quote "En resume"
+    - `REG_EXPAND_SZ` est du texte normal avec des variables comme `%USERPROFILE%` ou `%SystemRoot%`.
+    - `REG_MULTI_SZ` contient plusieurs lignes, une entree par ligne.
+    - Dans les deux cas, prenez le reflexe de modifier le minimum necessaire et de laisser intact ce que vous ne comprenez pas encore.
+
+---
+
+## 10 modifications utiles au quotidien
+
+Voici 10 modifications concretes que vous pouvez essayer. Pour chacune :
 
 1. Sauvegardez la cle (clic droit > Exporter)
 2. Faites la modification
@@ -289,8 +346,147 @@ Windows 11 a remplace le menu du clic droit par une version simplifiee. Pour ret
 
     Pour annuler : supprimez la cle `{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}` et redemarrez.
 
+---
+
+### 6. Desactiver l'ecran de verrouillage
+
+Sur un PC fixe ou un ordinateur utilise uniquement a la maison, l'ecran de verrouillage peut sembler etre une etape de plus avant l'ecran de connexion.
+
+!!! example "Essayez vous-meme"
+    **Cle** :
+    ```
+    HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization
+    ```
+
+    Si la cle `Personalization` n'existe pas, creez-la d'abord.
+
+    **Modification** :
+
+    | Valeur | Type | Donnees | Effet |
+    |--------|:----:|:-------:|-------|
+    | `NoLockScreen` | REG_DWORD | `1` | Windows saute l'ecran de verrouillage et va directement vers l'ecran de connexion |
+
+    ```title="Resultat attendu"
+
+    au demarrage ou a la sortie de veille, vous voyez directement l'ecran de connexion.
+
+    ```
+
+    Pour annuler : remettre la valeur a `0` ou supprimer la valeur.
+
+!!! note "Necessite des droits administrateur (HKLM)."
+
+---
+
+### 7. Afficher les fichiers caches
+
+Tres pratique quand vous suivez un tutoriel et qu'un dossier "a disparu" alors qu'il est simplement masque par Windows.
+
+!!! example "Essayez vous-meme"
+    **Cle** :
+    ```
+    HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+    ```
+
+    **Modification** :
+
+    | Valeur | Type | Donnees | Effet |
+    |--------|:----:|:-------:|-------|
+    | `Hidden` | REG_DWORD | `1` | Les fichiers et dossiers caches deviennent visibles dans l'Explorateur |
+
+    ```title="Resultat attendu"
+
+    les dossiers habituellement invisibles apparaissent avec une icone un peu plus discrete.
+
+    ```
+
+    Pour annuler : remettre la valeur a `2`.
+
+---
+
+### 8. Desactiver les suggestions de recherche dans le menu Demarrer
+
+Si vous voulez que la recherche du menu Demarrer se concentre sur votre PC, ce reglage supprime les suggestions web quand vous tapez.
+
+!!! example "Essayez vous-meme"
+    **Cle** :
+    ```
+    HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Explorer
+    ```
+
+    Si la cle `Explorer` n'existe pas, creez-la d'abord.
+
+    **Modification** :
+
+    | Valeur | Type | Donnees | Effet |
+    |--------|:----:|:-------:|-------|
+    | `DisableSearchBoxSuggestions` | REG_DWORD | `1` | Plus de suggestions web lorsque vous tapez dans le menu Demarrer |
+
+    ```title="Resultat attendu"
+
+    la recherche du menu Demarrer devient plus sobre et moins chargee en propositions venues du web.
+
+    ```
+
+    Pour annuler : supprimer la valeur ou la remettre a `0`.
+
+---
+
+### 9. Accelerer le menu de demarrage (reduire le delai)
+
+Windows attend un petit instant avant d'afficher certains menus. Ce delai est discret, mais on le ressent vite quand on aime que tout s'ouvre immediatement.
+
+!!! example "Essayez vous-meme"
+    **Cle** :
+    ```
+    HKEY_CURRENT_USER\Control Panel\Desktop
+    ```
+
+    **Modification** :
+
+    | Valeur | Type | Donnees | Effet |
+    |--------|:----:|:-------:|-------|
+    | `MenuShowDelay` | REG_SZ | `0` | Les menus apparaissent instantanement au lieu d'attendre environ 400 ms |
+
+    ```title="Resultat attendu"
+
+    les menus s'affichent presque sans delai quand vous les ouvrez.
+
+    ```
+
+    Pour annuler : remettre la valeur a `400`.
+
+---
+
+### 10. Desactiver le son de demarrage Windows
+
+Utile si vous allumez souvent votre PC tot le matin, en reunion, ou dans une piece silencieuse.
+
+!!! example "Essayez vous-meme"
+    **Cle** :
+    ```
+    HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation
+    ```
+
+    **Modification** :
+
+    | Valeur | Type | Donnees | Effet |
+    |--------|:----:|:-------:|-------|
+    | `DisableStartupSound` | REG_DWORD | `1` | Le son de demarrage Windows ne joue plus |
+
+    ```title="Resultat attendu"
+
+    au prochain demarrage, Windows reste silencieux.
+
+    ```
+
+    Pour annuler : remettre la valeur a `0`.
+
+!!! note "Necessite des droits administrateur (HKLM)."
+
 !!! quote "En resume"
     - Cinq modifications utiles a tester : afficher les extensions, ouvrir l'Explorateur sur "Ce PC", activer le theme sombre, desactiver les animations, restaurer le menu contextuel classique.
+    - Cinq autres modifications utiles : desactiver l'ecran de verrouillage, afficher les fichiers caches, couper les suggestions de recherche, accelerer l'affichage des menus, desactiver le son de demarrage.
     - Pour chaque modification, **sauvegardez d'abord** (clic droit > Exporter), puis faites le changement et verifiez le resultat.
 
 ---

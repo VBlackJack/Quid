@@ -255,6 +255,28 @@ nav:
       - "28 - Windows Hello for Business": books/gpo-pour-les-admins/28-whfb.md
       - "29 - FSLogix et GPO": books/gpo-pour-les-admins/29-fslogix.md
       - "30 - Secured-Core PC": books/gpo-pour-les-admins/30-secured-core.md
+  - Hardening Windows — Registre & GPO:
+      - books/hardening-windows/index.md
+      - Philosophie du hardening: books/hardening-windows/01-philosophie.md
+      - "Baselines : CIS, STIG, ANSSI, Microsoft": books/hardening-windows/02-baselines.md
+      - Credential protection: books/hardening-windows/03-credential-protection.md
+      - UAC et privileges: books/hardening-windows/04-uac-privileges.md
+      - SMB hardening: books/hardening-windows/05-smb-hardening.md
+      - RDP hardening: books/hardening-windows/06-rdp-hardening.md
+      - AppLocker et WDAC: books/hardening-windows/07-applocker-wdac.md
+      - Attack Surface Reduction (ASR): books/hardening-windows/08-asr-rules.md
+      - Audit policies et Event Log: books/hardening-windows/09-audit-eventlog.md
+      - PowerShell Constrained Language Mode: books/hardening-windows/10-powershell-clm.md
+      - LAPS et comptes locaux: books/hardening-windows/11-laps-comptes-locaux.md
+      - BitLocker via GPO/registre: books/hardening-windows/12-bitlocker.md
+      - Windows Firewall: books/hardening-windows/13-firewall.md
+      - Windows Hello for Business: books/hardening-windows/14-whfb.md
+      - Secured-Core PC: books/hardening-windows/15-secured-core.md
+      - Defender et antivirus via GPO: books/hardening-windows/16-defender-antivirus.md
+      - "Reseau : LLMNR, NBT-NS, DoH": books/hardening-windows/17-reseau-llmnr-doh.md
+      - Checklist hardening par niveau: books/hardening-windows/18-checklist-niveaux.md
+      - Audit de conformite et RSoP: books/hardening-windows/19-audit-conformite.md
+      - Maintien dans le temps: books/hardening-windows/20-maintien-temps.md
   - Reference rapide:
       - reference/index.md
       - Cheat Sheet GPO: reference/gpo-cheatsheet.md
