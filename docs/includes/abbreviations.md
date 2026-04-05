@@ -61,3 +61,19 @@
 *[NFS]: Network File System — protocole de partage de fichiers reseau
 *[DNS]: Domain Name System — systeme de resolution de noms de domaine
 *[DHCP]: Dynamic Host Configuration Protocol — protocole d'attribution automatique d'adresses IP
+
+<!-- Group Policy internals -->
+*[GPMC]: Group Policy Management Console — console de gestion des strategies de groupe
+*[AGPM]: Advanced Group Policy Management — gestion avancee des GPO avec versioning et approbation
+*[CSE]: Client-Side Extension — extension cote client qui applique un type de strategie
+*[LSDOU]: Local, Site, Domain, OU — ordre d'application des strategies de groupe
+*[GPP]: Group Policy Preferences — preferences de strategie de groupe (non-tatouantes)
+*[ILT]: Item-Level Targeting — ciblage par element dans les preferences GPO
+*[MLGPO]: Multiple Local Group Policy Objects — strategies de groupe locales multiples
+*[SYSVOL]: System Volume — partage reseau AD contenant les scripts et fichiers de strategie
+*[WDAC]: Windows Defender Application Control — controle d'applications Windows Defender
+*[PKI]: Public Key Infrastructure — infrastructure a cles publiques
+*[FSLogix]: FSLogix — solution Microsoft de gestion de profils et conteneurs d'applications
+*[UPD]: User Profile Disk — disque de profil utilisateur pour les sessions RDS
+*[RSAT]: Remote Server Administration Tools — outils d'administration de serveur a distance
+*[WUfB]: Windows Update for Business — service de mise a jour Windows pour les entreprises

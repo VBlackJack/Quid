@@ -1,5 +1,5 @@
 ---
-description: "Quid Wiki — documentation technique exhaustive sur la base de registre Windows. Trois livres couvrant du debutant a l'expert, avec 77 chapitres et 144 diagrammes."
+description: "Quid Wiki — documentation technique exhaustive sur la base de registre Windows et les strategies de groupe. Six livres couvrant du debutant a l'expert."
 hide:
   - navigation
   - toc
@@ -14,9 +14,9 @@ tags:
 
 <div class="quid-hero" markdown>
 
-**La documentation du registre Windows, organisee en trois parcours de lecture.**
+**La bibliotheque technique Windows, organisee en parcours de lecture.**
 
-Choisissez un livre selon votre niveau, ou entrez directement par votre besoin du moment.
+Registre Windows, strategies de groupe : choisissez un livre selon votre niveau, ou entrez directement par votre besoin du moment.
 
 <div class="quid-action-row" markdown>
 
@@ -121,6 +121,63 @@ Choisissez un livre selon votre niveau, ou entrez directement par votre besoin d
 
     [Commencer maintenant](books/registre-pour-les-admins/01-powershell-remoting.md){ .md-button .md-button--primary }
     [Voir le sommaire](books/registre-pour-les-admins/index.md){ .md-button }
+
+    </div>
+
+-   :material-shield-lock:{ .lg .middle } **La Bible des Strategies de Groupe**
+
+    ---
+
+    Reference exhaustive pour comprendre l'architecture interne des GPO, les CSE, ADMX, SYSVOL, le filtrage, les baselines et la convergence MDM.
+
+    <div class="quid-card-chips">
+      <span>Intermediaire a avance</span>
+      <span>25 chapitres</span>
+      <span>Reference</span>
+    </div>
+
+    <div class="quid-action-row" markdown>
+
+    [Commencer maintenant](books/bible-gpo/01-introduction.md){ .md-button .md-button--primary }
+    [Voir le sommaire](books/bible-gpo/index.md){ .md-button }
+
+    </div>
+
+-   :material-shield-star:{ .lg .middle } **Les GPO pour les Nuls**
+
+    ---
+
+    Guide progressif pour comprendre les strategies de groupe, utiliser gpedit et GPMC, et deployer ses premiers parametres.
+
+    <div class="quid-card-chips">
+      <span>Debutant</span>
+      <span>15 chapitres</span>
+      <span>Apprentissage progressif</span>
+    </div>
+
+    <div class="quid-action-row" markdown>
+
+    [Commencer maintenant](books/gpo-pour-les-nuls/01-cest-quoi.md){ .md-button .md-button--primary }
+    [Voir le sommaire](books/gpo-pour-les-nuls/index.md){ .md-button }
+
+    </div>
+
+-   :material-shield-account:{ .lg .middle } **Les GPO pour les Administrateurs**
+
+    ---
+
+    Cas concrets pour l'administration GPO en entreprise : Office 365, navigateurs, Intune, SCCM, securite endpoint et automatisation.
+
+    <div class="quid-card-chips">
+      <span>Admins et infra</span>
+      <span>25 chapitres</span>
+      <span>Cas concrets</span>
+    </div>
+
+    <div class="quid-action-row" markdown>
+
+    [Commencer maintenant](books/gpo-pour-les-admins/01-architecture-entreprise.md){ .md-button .md-button--primary }
+    [Voir le sommaire](books/gpo-pour-les-admins/index.md){ .md-button }
 
     </div>
 

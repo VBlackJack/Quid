@@ -177,4 +177,75 @@ nav:
       - Adobe et Java: books/registre-pour-les-admins/28-adobe-java.md
       - Compliance (HIPAA, PCI-DSS, SOC 2): books/registre-pour-les-admins/29-compliance.md
       - Zero Trust et VDI: books/registre-pour-les-admins/30-zero-trust.md
+  - La Bible des Strategies de Groupe:
+      - books/bible-gpo/index.md
+      - Introduction et histoire: books/bible-gpo/01-introduction.md
+      - Architecture et composants internes: books/bible-gpo/02-architecture.md
+      - Client-Side Extensions (CSE): books/bible-gpo/03-cse.md
+      - "SYSVOL : replication et structure": books/bible-gpo/04-sysvol.md
+      - "Modeles d'administration (ADMX/ADML)": books/bible-gpo/05-admx-adml.md
+      - Le format registry.pol: books/bible-gpo/06-registry-pol.md
+      - "Traitement des strategies : cycle et modes": books/bible-gpo/07-traitement.md
+      - Heritage et ordre d'application (LSDOU): books/bible-gpo/08-heritage-lsdou.md
+      - Filtrage de securite et filtrage WMI: books/bible-gpo/09-filtrage.md
+      - "Loopback Processing : modes et cas d'usage": books/bible-gpo/10-loopback.md
+      - Preferences de strategie de groupe (GPP): books/bible-gpo/11-preferences-gpp.md
+      - Item-Level Targeting avance: books/bible-gpo/12-ilt.md
+      - Strategies de securite: books/bible-gpo/13-securite-strategies.md
+      - Windows Firewall via GPO: books/bible-gpo/14-firewall.md
+      - AppLocker et WDAC: books/bible-gpo/15-applocker-wdac.md
+      - BitLocker via GPO: books/bible-gpo/16-bitlocker.md
+      - Deploiement de logiciels (.msi): books/bible-gpo/17-deploiement-msi.md
+      - Scripts et planification via GPO: books/bible-gpo/18-scripts.md
+      - Redirection de dossiers et profils: books/bible-gpo/19-redirection-profils.md
+      - Resultats de strategie (RSoP) et diagnostic: books/bible-gpo/20-rsop-diagnostic.md
+      - LGPO et strategies locales multiples: books/bible-gpo/21-lgpo.md
+      - Baselines de securite (CIS, STIG, Microsoft): books/bible-gpo/22-baselines.md
+      - Performances et optimisation des GPO: books/bible-gpo/23-performances.md
+      - Evolution a travers les versions Windows: books/bible-gpo/24-versions.md
+      - "GPO et MDM : convergence et coexistence": books/bible-gpo/25-mdm-convergence.md
+  - Les GPO pour les Nuls:
+      - books/gpo-pour-les-nuls/index.md
+      - "C'est quoi une strategie de groupe ?": books/gpo-pour-les-nuls/01-cest-quoi.md
+      - "L'editeur de strategies locales (gpedit.msc)": books/gpo-pour-les-nuls/02-gpedit.md
+      - 10 modifications utiles avec gpedit: books/gpo-pour-les-nuls/03-modifications-utiles.md
+      - "La console GPMC : premiers pas": books/gpo-pour-les-nuls/04-gpmc-premiers-pas.md
+      - Creer et lier sa premiere GPO: books/gpo-pour-les-nuls/05-premiere-gpo.md
+      - "Comprendre l'heritage et l'ordre d'application": books/gpo-pour-les-nuls/06-heritage.md
+      - Les parametres de securite essentiels: books/gpo-pour-les-nuls/07-securite-base.md
+      - Gerer le bureau et le menu Demarrer: books/gpo-pour-les-nuls/08-bureau-demarrer.md
+      - Configurer Windows Update par GPO: books/gpo-pour-les-nuls/09-windows-update.md
+      - Les preferences de registre par GPO: books/gpo-pour-les-nuls/10-preferences.md
+      - Sauvegarder avant de toucher: books/gpo-pour-les-nuls/11-sauvegarde.md
+      - Mon premier diagnostic GPO: books/gpo-pour-les-nuls/12-diagnostic.md
+      - Les erreurs classiques a eviter: books/gpo-pour-les-nuls/13-erreurs.md
+      - GPO et Windows 11: books/gpo-pour-les-nuls/14-windows11.md
+      - Mini-projets GPO: books/gpo-pour-les-nuls/15-mini-projets.md
+  - Les GPO pour les Administrateurs:
+      - books/gpo-pour-les-admins/index.md
+      - "Concevoir une architecture GPO d'entreprise": books/gpo-pour-les-admins/01-architecture-entreprise.md
+      - Gouvernance et delegation des GPO: books/gpo-pour-les-admins/02-gouvernance.md
+      - PowerShell GroupPolicy module: books/gpo-pour-les-admins/03-powershell-gpo.md
+      - Central Store et gestion des ADMX: books/gpo-pour-les-admins/04-central-store.md
+      - "Sauvegarde, restauration et migration": books/gpo-pour-les-admins/05-backup-migration.md
+      - Audit et conformite des GPO: books/gpo-pour-les-admins/06-audit-conformite.md
+      - GPO multi-sites et multi-forets: books/gpo-pour-les-admins/07-multi-sites.md
+      - Microsoft 365 Apps (Office) via GPO: books/gpo-pour-les-admins/08-m365-office.md
+      - "Navigateurs (Edge, Chrome, Firefox) via GPO": books/gpo-pour-les-admins/09-navigateurs.md
+      - Windows Update for Business via GPO: books/gpo-pour-les-admins/10-windows-update.md
+      - Remote Desktop Services via GPO: books/gpo-pour-les-admins/11-rds.md
+      - "Gestion du bureau et de l'energie": books/gpo-pour-les-admins/12-bureau-energie.md
+      - "Imprimantes, lecteurs et ressources partagees": books/gpo-pour-les-admins/13-imprimantes-lecteurs.md
+      - Securite endpoint via GPO: books/gpo-pour-les-admins/14-securite-endpoint.md
+      - Certificats et PKI via GPO: books/gpo-pour-les-admins/15-certificats-pki.md
+      - "Wi-Fi, VPN et 802.1X via GPO": books/gpo-pour-les-admins/16-wifi-vpn.md
+      - BitLocker et LAPS via GPO: books/gpo-pour-les-admins/17-bitlocker-laps.md
+      - Azure AD Hybrid Join et GPO cloud: books/gpo-pour-les-admins/18-azure-ad-hybrid.md
+      - Migration GPO vers Intune: books/gpo-pour-les-admins/19-migration-intune.md
+      - GPO et SCCM/MECM en coexistence: books/gpo-pour-les-admins/20-sccm-mecm.md
+      - "Applications tierces (Adobe, Java, 7-Zip)": books/gpo-pour-les-admins/21-apps-tierces.md
+      - "Depannage de terrain : 15 cas reels": books/gpo-pour-les-admins/22-depannage-terrain.md
+      - Automatisation et CI/CD pour les GPO: books/gpo-pour-les-admins/23-automation-cicd.md
+      - Securite des GPO elles-memes: books/gpo-pour-les-admins/24-securite-gpo.md
+      - "Zero Trust et GPO : le futur de la configuration": books/gpo-pour-les-admins/25-zero-trust.md
   - Index thematique: cross-index.md
