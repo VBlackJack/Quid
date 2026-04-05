@@ -399,6 +399,34 @@ $results | Format-Table -AutoSize
 $results | Export-Csv -Path "C:\GPO_Export\ConflictCheck_$(Get-Date -Format 'yyyyMMdd').csv" -NoTypeInformation
 ```
 
+### Matrice de décision : GPP vs Intune CSP vs GPO
+
+:material-compare-horizontal:
+
+Le choix entre GPP, GPO et Intune CSP dépend du contexte de jonction et de l'objectif de gestion.
+
+| Critère | GPO classique | GPP (Group Policy Preferences) | Intune / CSP |
+|---|---|---|---|
+| Jonction requise | AD on-prem | AD on-prem | Azure AD / Hybrid |
+| Révocation au désalignement | Oui (tattoo = Non) | Non (tattoo = Oui) | Oui |
+| Scope | Ordi ou User | Ordi ou User | User ou Device |
+| Ciblage granulaire | WMI Filter | Item-Level Targeting | Assignments + Filters |
+| Settings complexes (XML, JSON) | Limité | Limité | Oui (OMA-URI) |
+| Reporting centralisé | Non (gpresult local) | Non | Oui (Intune portal) |
+| Hors réseau AD | Non | Non | Oui |
+| Coexistence possible | — | Oui avec GPO | Oui avec GPO (ADMX-backed) |
+
+!!! info "Règle de priorité en cas de conflit"
+    En Hybrid Join, si un paramètre est défini à la fois par GPO et par Intune CSP,
+    c'est le **dernier écrit** qui gagne — il n'y a pas de hiérarchie formelle entre
+    les deux systèmes. La solution : ne pas dupliquer les paramètres entre GPO et Intune.
+    Définir une frontière claire : GPO pour l'on-prem, Intune pour le cloud-native.
+
+!!! tip "Migrer GPP → Intune"
+    Pour migrer des GPP vers Intune, utiliser **Group Policy Analytics** dans le
+    portail Intune (`Devices > Group Policy Analytics`) : il analyse les GPO existantes
+    et indique quels paramètres ont un équivalent CSP direct.
+
 !!! quote "En résumé"
     - Sur Hybrid Join, `gpsvc` continue d'appliquer les GPO normalement — l'enrôlement MDM ne les désactive pas
     - Le workload switching bascule l'autorité domaine par domaine — ce n'est pas tout ou rien
