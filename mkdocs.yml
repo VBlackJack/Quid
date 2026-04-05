@@ -21,10 +21,17 @@ theme:
     - navigation.indexes
     - navigation.top
     - navigation.footer
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.path
+    - header.autohide
     - search.highlight
     - search.suggest
     - content.code.copy
     - content.code.annotate
+    - content.tabs.link
+    - content.tooltips
     - toc.follow
   icon:
     logo: material/bookshelf
@@ -37,10 +44,13 @@ plugins:
   - search:
       lang: fr
   - tags
+  - social
+  - privacy
   - minify:
       minify_html: true
 
 markdown_extensions:
+  - abbr
   - admonition
   - pymdownx.details
   - pymdownx.superfences:
@@ -59,6 +69,12 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.keys
   - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.caret
+  - pymdownx.tilde
+  - pymdownx.snippets:
+      auto_append:
+        - docs/includes/abbreviations.md
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg

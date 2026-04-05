@@ -1,4 +1,5 @@
 ---
+description: "Quid Wiki — documentation technique exhaustive sur la base de registre Windows. Trois livres couvrant du debutant a l'expert, avec 77 chapitres et 144 diagrammes."
 hide:
   - navigation
   - toc

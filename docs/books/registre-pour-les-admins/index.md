@@ -1,4 +1,5 @@
 ---
+description: "Guide pratique du registre Windows pour administrateurs systemes : roles serveur, GPO, Intune, SCCM, GlobalProtect, Citrix, VMware et conformite entreprise."
 tags:
   - registre
   - administration

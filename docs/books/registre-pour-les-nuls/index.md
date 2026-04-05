@@ -1,4 +1,5 @@
 ---
+description: "Guide debutant pour comprendre et utiliser la base de registre Windows sans prerequis technique. Regedit, fichiers .reg, sauvegarde, depannage et mini-projets."
 tags:
   - registre
   - débutant

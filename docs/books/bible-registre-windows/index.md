@@ -1,4 +1,5 @@
 ---
+description: "Reference exhaustive sur la base de registre Windows : architecture, ruches, securite, forensique, GPO, WMI, API Win32 et cles non documentees en 30 chapitres."
 tags:
   - registre
   - windows
