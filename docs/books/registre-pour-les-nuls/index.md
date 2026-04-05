@@ -8,124 +8,73 @@ tags:
 
 # La Base de Registre pour les Nuls
 
-> Pas de panique. On va y aller doucement.
+Le registre Windows explique simplement, avec les bons reflexes avant les premieres modifications.
+L'objectif n'est pas de memoriser des cles, mais de comprendre ce que vous faites et pourquoi.
 
-<div class="quid-book-hero" markdown>
+---
 
-Ce livre est destine a toute personne curieuse de comprendre ce qu'est la base de registre Windows, meme sans aucune connaissance technique prealable. Que vous soyez un utilisateur souhaitant personnaliser son PC ou simplement comprendre ce que fait un tutoriel trouve en ligne, ce guide est fait pour vous.
+## A qui s'adresse ce livre ?
 
-<div class="quid-meta-grid">
-  <div class="quid-meta-item">
-    <span>Public</span>
-    <strong>Debutants complets et curieux du registre</strong>
-  </div>
-  <div class="quid-meta-item">
-    <span>Niveau</span>
-    <strong>Aucun prerequis technique</strong>
-  </div>
-  <div class="quid-meta-item">
-    <span>Lecture ideale</span>
-    <strong>Dans l'ordre, chapitre apres chapitre</strong>
-  </div>
-  <div class="quid-meta-item">
-    <span>Point d'entree</span>
-    <strong>Chapitre 1, puis chapitre 5 avant toute modification</strong>
-  </div>
-</div>
+Ce livre vise les debutants complets, les utilisateurs avances prudents et les techniciens qui commencent a lire des tutoriels de registre sans savoir distinguer le bon du risqué. Aucun prerequis PowerShell ou administration systeme n'est necessaire : Regedit, la structure des ruches et les sauvegardes sont introduits depuis la base.
 
-<div class="quid-action-row" markdown>
+## Ce que vous allez maitriser
 
-[Commencer par le chapitre 1](01-cest-quoi.md){ .md-button .md-button--primary }
-[Voir l'index thematique](../../cross-index.md){ .md-button }
+- Identifier les ruches principales et comprendre a quoi elles servent
+- Ouvrir Regedit, naviguer proprement et retrouver une cle ou une valeur
+- Modifier des valeurs simples en limitant le risque de casse
+- Sauvegarder avant changement et restaurer en cas d'erreur
+- Lire un fichier `.reg` et repérer les signaux rouges
+- Faire un premier diagnostic quand une modification ne produit pas l'effet attendu
+- Passer de Regedit a PowerShell sur les cas les plus simples
 
-</div>
+## Parcours de lecture suggere
 
-</div>
+### Debutant complet
 
-## Aller directement au bon chapitre
+Chapitres recommandes dans l'ordre :
 
-<div class="grid cards" markdown>
+1. [01. C'est quoi la base de registre ?](01-cest-quoi.md)
+2. [02. Premiers pas avec Regedit](02-premiers-pas.md)
+3. [03. Comprendre la structure](03-structure.md)
+4. [05. Sauvegarder avant de toucher](05-sauvegarde.md)
+5. [06. Les erreurs a eviter](06-erreurs.md)
+6. [08. Comprendre les fichiers .reg](08-fichiers-reg.md)
+7. [09. Mon premier depannage](09-depannage.md)
 
--   **Premiere decouverte**
+### Lecture ciblee par besoin
 
-    Pour comprendre a quoi sert le registre, comment il est organise et comment ouvrir Regedit sans se perdre.
+| Je veux... | Aller au chapitre |
+|------------|-------------------|
+| Comprendre enfin ce qu'est le registre | [01 - C'est quoi la base de registre ?](01-cest-quoi.md) |
+| Ouvrir Regedit sans peur | [02 - Premiers pas avec Regedit](02-premiers-pas.md) |
+| Comprendre les branches HKLM, HKCU et compagnie | [03 - Comprendre la structure](03-structure.md) |
+| Faire une petite modification utile | [04 - Modifications simples et utiles](04-modifications.md) |
+| Sauvegarder avant tout changement | [05 - Sauvegarder avant de toucher](05-sauvegarde.md) |
+| Evaluer un fichier ou un tuto trouve en ligne | [08 - Comprendre les fichiers .reg](08-fichiers-reg.md) et [10 - Evaluer les tutoriels en ligne](10-evaluer-tutos.md) |
+| Comprendre le lien entre registre et GPO | [14 - Strategies de groupe pour debutants](14-gpo-debutant.md) |
+| Faire mes premiers scripts simples | [13 - PowerShell et le registre : les bases](13-powershell-bases.md) |
 
-    [Ouvrir le chapitre 1](01-cest-quoi.md)
+## Tous les chapitres
 
--   **Modifier sans risque**
+| # | Chapitre | Theme |
+|---|----------|-------|
+| 01 | [C'est quoi la base de registre ?](01-cest-quoi.md) | Fondamentaux |
+| 02 | [Premiers pas avec Regedit](02-premiers-pas.md) | Outil graphique |
+| 03 | [Comprendre la structure](03-structure.md) | Ruches |
+| 04 | [Modifications simples et utiles](04-modifications.md) | Premiers usages |
+| 05 | [Sauvegarder avant de toucher](05-sauvegarde.md) | Sauvegarde |
+| 06 | [Les erreurs a eviter](06-erreurs.md) | Hygiene |
+| 07 | [Astuces pratiques](07-astuces.md) | Quotidien |
+| 08 | [Comprendre les fichiers .reg](08-fichiers-reg.md) | Import/export |
+| 09 | [Mon premier depannage](09-depannage.md) | Diagnostic |
+| 10 | [Evaluer les tutoriels en ligne](10-evaluer-tutos.md) | Esprit critique |
+| 11 | [Le registre et la securite](11-securite.md) | Securite |
+| 12 | [Glossaire illustre](12-glossaire.md) | Vocabulaire |
+| 13 | [PowerShell et le registre : les bases](13-powershell-bases.md) | Automatisation |
+| 14 | [Strategies de groupe pour debutants](14-gpo-debutant.md) | GPO |
+| 15 | [Le registre et Windows 11](15-windows11.md) | Compatibilite |
+| 16 | [Parametres Windows vs Registre](16-parametres-registre.md) | Mapping |
+| 17 | [Mini-projets : votre boite a outils](17-mini-projets.md) | Pratique |
 
-    Pour retenir la regle d'or, sauvegarder avant toute modification et eviter les erreurs classiques.
-
-    [Ouvrir le chapitre 5](05-sauvegarde.md)
-
--   **Comprendre un tutoriel trouve en ligne**
-
-    Pour apprendre a evaluer un fichier `.reg`, verifier un conseil et identifier les signaux rouges.
-
-    [Ouvrir le chapitre 10](10-evaluer-tutos.md)
-
-</div>
-
-## Parcours du livre
-
-### Premiers pas
-
-<p class="quid-section-intro">Les bases absolues pour comprendre ce qu'est le registre, l'ouvrir et s'y reperer sans stress.</p>
-
-<div class="chapter-grid" markdown>
-
-- [01. C'est quoi la base de registre ?](01-cest-quoi.md)
-- [02. Premiers pas avec Regedit](02-premiers-pas.md)
-- [03. Comprendre la structure](03-structure.md)
-
-</div>
-
-### Passer a l'action
-
-<p class="quid-section-intro">Les premiers gestes utiles a retenir avant toute modification sur une machine reelle.</p>
-
-<div class="chapter-grid" markdown>
-
-- [04. Modifications simples et utiles](04-modifications.md)
-- [05. Sauvegarder avant de toucher](05-sauvegarde.md)
-- [06. Les erreurs a eviter](06-erreurs.md)
-- [07. Astuces pratiques](07-astuces.md)
-
-</div>
-
-### Aller plus loin
-
-<p class="quid-section-intro">Les notions qui rendent vraiment autonome face aux fichiers `.reg`, aux tutoriels et aux premiers incidents.</p>
-
-<div class="chapter-grid" markdown>
-
-- [08. Comprendre les fichiers .reg](08-fichiers-reg.md)
-- [09. Mon premier depannage](09-depannage.md)
-- [10. Evaluer les tutoriels en ligne](10-evaluer-tutos.md)
-- [11. Le registre et la securite](11-securite.md)
-- [12. Glossaire illustre](12-glossaire.md)
-
-</div>
-
-### Aller encore plus loin
-
-<p class="quid-section-intro">Les chapitres de transition pour passer du niveau debutant vers une pratique plus outillee.</p>
-
-<div class="chapter-grid" markdown>
-
-- [13. PowerShell et le registre](13-powershell-bases.md)
-- [14. Strategies de groupe pour debutants](14-gpo-debutant.md)
-- [15. Le registre et Windows 11](15-windows11.md)
-- [16. Parametres Windows vs Registre](16-parametres-registre.md)
-- [17. Mini-projets : votre boite a outils](17-mini-projets.md)
-
-</div>
-
-## Avant toute modification
-
-!!! warning "La regle d'or"
-    **Toujours sauvegarder avant de modifier quoi que ce soit.** Le chapitre 5 explique comment faire. Si vous ne devez retenir qu'une seule chose avant de poursuivre, retenez celle-ci.
-
-## Envie d'aller plus loin ?
-
-Pour une exploration en profondeur de l'architecture interne, des scripts avances et du depannage, consultez [La Bible de la Base de Registre Windows](../bible-registre-windows/index.md). Pour des cas concrets orientes administration systeme (WSUS, AD, GlobalProtect...), consultez [Le Registre pour les Administrateurs](../registre-pour-les-admins/index.md).
+!!! tip "Par ou commencer ?"
+    Lisez 1, 2 et 3 pour poser le decor, ne sautez jamais le chapitre 5 avant une premiere vraie modification, puis gardez 8 et 10 sous la main des qu'un fichier `.reg` ou un tuto circule dans l'equipe.

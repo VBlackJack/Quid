@@ -28,6 +28,7 @@ theme:
     - header.autohide
     - search.highlight
     - search.suggest
+    - search.share
     - content.code.copy
     - content.code.annotate
     - content.tabs.link
@@ -43,6 +44,7 @@ extra_css:
 plugins:
   - search:
       lang: fr
+      separator: '[\s\-\.]+'
   - tags
   - social
   - privacy
@@ -248,4 +250,12 @@ nav:
       - Automatisation et CI/CD pour les GPO: books/gpo-pour-les-admins/23-automation-cicd.md
       - Securite des GPO elles-memes: books/gpo-pour-les-admins/24-securite-gpo.md
       - "Zero Trust et GPO : le futur de la configuration": books/gpo-pour-les-admins/25-zero-trust.md
+  - Reference rapide:
+      - reference/index.md
+      - Cheat Sheet GPO: reference/gpo-cheatsheet.md
+      - Cheat Sheet Registre: reference/registre-cheatsheet.md
+      - Event IDs: reference/event-ids.md
+      - Boite a outils: reference/outils.md
+  - Lab pratique:
+      - lab/index.md
   - Index thematique: cross-index.md

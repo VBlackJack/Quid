@@ -8,124 +8,71 @@ tags:
 
 # Les GPO pour les Nuls
 
-> Pas besoin d'etre admin systeme pour comprendre les strategies de groupe.
+Comprendre les GPO sans jargon, sans prerequis et sans casser son poste.
+Vous partez de zero, puis vous montez progressivement jusqu'au premier vrai diagnostic.
 
-<div class="quid-book-hero" markdown>
+---
 
-Ce livre est destine a toute personne souhaitant comprendre ce que sont les strategies de groupe Windows (GPO), comment elles fonctionnent et comment les utiliser au quotidien. Que vous soyez technicien debutant, utilisateur avance curieux ou etudiant en informatique, ce guide vous accompagne pas a pas sans prerequis technique.
+## A qui s'adresse ce livre ?
 
-<div class="quid-meta-grid">
-  <div class="quid-meta-item">
-    <span>Public</span>
-    <strong>Debutants et techniciens en formation</strong>
-  </div>
-  <div class="quid-meta-item">
-    <span>Niveau</span>
-    <strong>Aucun prerequis technique</strong>
-  </div>
-  <div class="quid-meta-item">
-    <span>Lecture ideale</span>
-    <strong>Dans l'ordre, chapitre apres chapitre</strong>
-  </div>
-  <div class="quid-meta-item">
-    <span>Point d'entree</span>
-    <strong>Chapitre 1, puis chapitre 11 avant toute modification</strong>
-  </div>
-</div>
+Ce livre s'adresse aux debutants complets, aux techniciens en formation et aux curieux qui voient passer le mot "GPO" sans savoir par ou commencer. Aucun prerequis Active Directory n'est necessaire : les outils, le vocabulaire et les bons reflexes sont introduits pas a pas.
 
-<div class="quid-action-row" markdown>
+## Ce que vous allez maitriser
 
-[Commencer par le chapitre 1](01-cest-quoi.md){ .md-button .md-button--primary }
-[Voir l'index thematique](../../cross-index.md){ .md-button }
+- Reconnaitre le role d'une GPO locale ou de domaine dans Windows
+- Ouvrir et utiliser `gpedit.msc` et `gpmc.msc` sans se perdre
+- Creer, lier et tester une premiere GPO en environnement AD
+- Comprendre l'heritage, la priorite et les effets de bord les plus courants
+- Appliquer des reglages concrets sur la securite, le bureau et Windows Update
+- Sauvegarder avant modification et revenir en arriere proprement
+- Lire les premiers indices de diagnostic avec `gpresult` et l'Observateur d'evenements
 
-</div>
+## Parcours de lecture suggere
 
-</div>
+### Debutant complet
 
-## Aller directement au bon chapitre
+Chapitres recommandes dans l'ordre :
 
-<div class="grid cards" markdown>
+1. [01. C'est quoi une strategie de groupe ?](01-cest-quoi.md)
+2. [02. L'editeur de strategies locales (gpedit.msc)](02-gpedit.md)
+3. [04. La console GPMC : premiers pas](04-gpmc-premiers-pas.md)
+4. [05. Creer et lier sa premiere GPO](05-premiere-gpo.md)
+5. [07. Les parametres de securite essentiels](07-securite-base.md)
+6. [11. Sauvegarder avant de toucher](11-sauvegarde.md)
+7. [12. Mon premier diagnostic GPO](12-diagnostic.md)
 
--   **Premiere decouverte**
+### Lecture ciblee par besoin
 
-    Pour comprendre ce qu'est une GPO, a quoi ca sert et comment ouvrir les bons outils sans se perdre.
+| Je veux... | Aller au chapitre |
+|------------|-------------------|
+| Comprendre enfin ce qu'est une GPO | [01 - C'est quoi une strategie de groupe ?](01-cest-quoi.md) |
+| Modifier un poste local sans domaine AD | [02 - L'editeur de strategies locales](02-gpedit.md) |
+| Faire mes premiers reglages utiles | [03 - 10 modifications utiles avec gpedit](03-modifications-utiles.md) |
+| Creer ma premiere GPO de domaine | [05 - Creer et lier sa premiere GPO](05-premiere-gpo.md) |
+| Comprendre qui gagne entre plusieurs GPO | [06 - Comprendre l'heritage et l'ordre d'application](06-heritage.md) |
+| Durcir rapidement un poste Windows | [07 - Les parametres de securite essentiels](07-securite-base.md) |
+| Configurer Windows Update proprement | [09 - Configurer Windows Update par GPO](09-windows-update.md) |
+| Savoir pourquoi une GPO ne s'applique pas | [12 - Mon premier diagnostic GPO](12-diagnostic.md) |
 
-    [Ouvrir le chapitre 1](01-cest-quoi.md)
+## Tous les chapitres
 
--   **Passer a l'action**
+| # | Chapitre | Theme |
+|---|----------|-------|
+| 01 | [C'est quoi une strategie de groupe ?](01-cest-quoi.md) | Fondamentaux |
+| 02 | [L'editeur de strategies locales (gpedit.msc)](02-gpedit.md) | Outils locaux |
+| 03 | [10 modifications utiles avec gpedit](03-modifications-utiles.md) | Premiers usages |
+| 04 | [La console GPMC : premiers pas](04-gpmc-premiers-pas.md) | Console AD |
+| 05 | [Creer et lier sa premiere GPO](05-premiere-gpo.md) | Deploiement |
+| 06 | [Comprendre l'heritage et l'ordre d'application](06-heritage.md) | Priorite |
+| 07 | [Les parametres de securite essentiels](07-securite-base.md) | Securite |
+| 08 | [Gerer le bureau et le menu Demarrer](08-bureau-demarrer.md) | Experience utilisateur |
+| 09 | [Configurer Windows Update par GPO](09-windows-update.md) | Maintenance |
+| 10 | [Les preferences de registre par GPO](10-preferences.md) | Registre |
+| 11 | [Sauvegarder avant de toucher](11-sauvegarde.md) | Sauvegarde |
+| 12 | [Mon premier diagnostic GPO](12-diagnostic.md) | Diagnostic |
+| 13 | [Les erreurs classiques a eviter](13-erreurs.md) | Hygiene admin |
+| 14 | [GPO et Windows 11](14-windows11.md) | Compatibilite |
+| 15 | [Mini-projets GPO : mettre en pratique](15-mini-projets.md) | Pratique |
 
-    Pour creer sa premiere GPO, appliquer des parametres de securite et configurer Windows Update.
-
-    [Ouvrir le chapitre 5](05-premiere-gpo.md)
-
--   **Diagnostiquer un probleme**
-
-    Pour comprendre pourquoi une GPO ne s'applique pas et utiliser gpresult comme un pro.
-
-    [Ouvrir le chapitre 12](12-diagnostic.md)
-
-</div>
-
-## Parcours du livre
-
-### Comprendre les bases
-
-<p class="quid-section-intro">Les concepts fondamentaux pour comprendre ce que sont les GPO, comment les ouvrir et naviguer dans les interfaces.</p>
-
-<div class="chapter-grid" markdown>
-
-- [01. C'est quoi une strategie de groupe ?](01-cest-quoi.md)
-- [02. L'editeur de strategies locales (gpedit.msc)](02-gpedit.md)
-- [03. 10 modifications utiles avec gpedit](03-modifications-utiles.md)
-
-</div>
-
-### Decouvrir l'environnement d'entreprise
-
-<p class="quid-section-intro">Les outils et gestes essentiels pour creer, lier et organiser des GPO dans un domaine Active Directory.</p>
-
-<div class="chapter-grid" markdown>
-
-- [04. La console GPMC : premiers pas](04-gpmc-premiers-pas.md)
-- [05. Creer et lier sa premiere GPO](05-premiere-gpo.md)
-- [06. Comprendre l'heritage et l'ordre d'application](06-heritage.md)
-
-</div>
-
-### Configurer et deployer
-
-<p class="quid-section-intro">Les cas d'usage concrets les plus courants pour configurer des postes via GPO.</p>
-
-<div class="chapter-grid" markdown>
-
-- [07. Les parametres de securite essentiels](07-securite-base.md)
-- [08. Gerer le bureau et le menu Demarrer](08-bureau-demarrer.md)
-- [09. Configurer Windows Update par GPO](09-windows-update.md)
-- [10. Les preferences de registre par GPO](10-preferences.md)
-
-</div>
-
-### Maintenir et depanner
-
-<p class="quid-section-intro">Les bons reflexes pour sauvegarder, diagnostiquer et eviter les pieges classiques.</p>
-
-<div class="chapter-grid" markdown>
-
-- [11. Sauvegarder avant de toucher](11-sauvegarde.md)
-- [12. Mon premier diagnostic GPO](12-diagnostic.md)
-- [13. Les erreurs classiques a eviter](13-erreurs.md)
-- [14. GPO et Windows 11](14-windows11.md)
-- [15. Mini-projets GPO](15-mini-projets.md)
-
-</div>
-
-## Avant toute modification
-
-!!! warning "La regle d'or"
-    **Toujours sauvegarder vos GPO avant de les modifier.** Le chapitre 11 explique comment faire. Si vous ne devez retenir qu'une seule chose avant de poursuivre, retenez celle-ci.
-
-## Envie d'aller plus loin ?
-
-Pour une exploration en profondeur de l'architecture interne, des CSE, du format registry.pol et des baselines de securite, consultez [La Bible des Strategies de Groupe](../bible-gpo/index.md). Pour des cas concrets orientes administration d'entreprise (Office 365, navigateurs, migration Intune...), consultez [Les GPO pour les Administrateurs](../gpo-pour-les-admins/index.md).
-
-Vous cherchez le lien entre GPO et registre ? Consultez [La Bible de la Base de Registre Windows — Chapitre 20](../bible-registre-windows/20-gpo.md).
+!!! tip "Par ou commencer ?"
+    Lisez les chapitres 1 a 5 d'une traite pour construire le socle mental, gardez le chapitre 11 comme filet de securite, puis revenez au chapitre 12 des qu'un parametre refuse de s'appliquer.

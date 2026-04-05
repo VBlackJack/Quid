@@ -8,156 +8,81 @@ tags:
 
 # La Bible des Strategies de Groupe
 
-> Reference complete pour comprendre, manipuler et maitriser les strategies de groupe Windows.
+La vue interne des GPO, depuis `gpsvc` et les CSE jusqu'a `registry.pol`, SYSVOL et MDM.
+Ce livre se lit tres bien par probleme technique autant qu'en progression lineaire.
 
-<div class="quid-book-hero" markdown>
+---
 
-Ce livre est une reference technique exhaustive destinee aux administrateurs systemes, ingenieurs et architectes qui souhaitent comprendre les strategies de groupe Windows dans leurs moindres details. De l'architecture interne des Client-Side Extensions au format binaire de registry.pol, en passant par les baselines de securite et la convergence avec MDM, chaque chapitre explore un aspect fondamental de cette technologie centrale de l'ecosysteme Windows.
+## A qui s'adresse ce livre ?
 
-<div class="quid-meta-grid">
-  <div class="quid-meta-item">
-    <span>Public</span>
-    <strong>Administrateurs confirmes, ingenieurs et architectes</strong>
-  </div>
-  <div class="quid-meta-item">
-    <span>Niveau</span>
-    <strong>Intermediaire a avance</strong>
-  </div>
-  <div class="quid-meta-item">
-    <span>Lecture ideale</span>
-    <strong>Par chapitre selon le besoin, ou en lecture lineaire</strong>
-  </div>
-  <div class="quid-meta-item">
-    <span>Point d'entree</span>
-    <strong>Chapitre 1 pour le contexte, ou chapitre 2 pour l'architecture</strong>
-  </div>
-</div>
+Ce livre vise les administrateurs systemes, ingenieurs poste de travail et architectes qui manipulent deja Active Directory au quotidien. Il vaut mieux arriver avec des bases AD, GPMC, PowerShell et un minimum d'aisance sur les journaux Windows pour tirer pleinement profit des chapitres les plus denses.
 
-<div class="quid-action-row" markdown>
+## Ce que vous allez maitriser
 
-[Commencer par le chapitre 1](01-introduction.md){ .md-button .md-button--primary }
-[Voir l'index thematique](../../cross-index.md){ .md-button }
+- Expliquer le role de `gpsvc`, des CSE et des attributs `gPC*ExtensionNames`
+- Diagnostiquer les incidents SYSVOL, `registry.pol`, GPP et filtrage sans rester au niveau symptome
+- Lire et decoder `gPLink`, LSDOU, loopback, WMI filters et les conflits de priorite
+- Maitriser ADMX/ADML, Central Store, baselines et compatibilite entre versions Windows
+- Savoir ou et comment une GPO ecrit dans le registre ou dans les fichiers de strategie
+- Mesurer les performances d'application et isoler les CSE lentes
+- Positionner GPO, LGPO, SCCM, Intune et MDM dans une meme architecture de configuration
 
-</div>
+## Parcours de lecture suggere
 
-</div>
+### Debutant complet
 
-## Aller directement au bon chapitre
+Chapitres recommandes dans l'ordre :
 
-<div class="grid cards" markdown>
+1. [01. Introduction et histoire des strategies de groupe](01-introduction.md)
+2. [02. Architecture et composants internes](02-architecture.md)
+3. [03. Client-Side Extensions (CSE) en profondeur](03-cse.md)
+4. [07. Traitement des strategies : cycle et modes](07-traitement.md)
+5. [08. Heritage et ordre d'application (LSDOU)](08-heritage-lsdou.md)
+6. [09. Filtrage de securite et filtrage WMI](09-filtrage.md)
+7. [20. RSoP et diagnostic des strategies de groupe](20-rsop-diagnostic.md)
 
--   **Architecture et mecanismes**
+### Lecture ciblee par besoin
 
-    Pour comprendre comment les GPO fonctionnent sous le capot : CSE, SYSVOL, registry.pol et cycle de traitement.
+| Je veux... | Aller au chapitre |
+|------------|-------------------|
+| Comprendre ce qui se passe sous le capot | [02 - Architecture et composants internes](02-architecture.md) |
+| Identifier les GUID, DLL et timings des CSE | [03 - Client-Side Extensions (CSE) en profondeur](03-cse.md) |
+| Depanner SYSVOL, GPT et replication | [04 - SYSVOL : replication et structure](04-sysvol.md) |
+| Comprendre ADMX, ADML et le Central Store | [05 - Modeles d'administration (ADMX/ADML)](05-admx-adml.md) |
+| Decoder `registry.pol` et les Extra Registry Settings | [06 - Le format registry.pol](06-registry-pol.md) |
+| Comprendre LSDOU, Enforced et Block Inheritance | [08 - Heritage et ordre d'application (LSDOU)](08-heritage-lsdou.md) |
+| Diagnostiquer un refus de filtrage securite ou WMI | [09 - Filtrage de securite et filtrage WMI](09-filtrage.md) |
+| Arbitrer entre GPO et MDM/Intune | [25 - GPO et MDM : convergence et coexistence](25-mdm-convergence.md) |
 
-    [Ouvrir le chapitre 2](02-architecture.md)
+## Tous les chapitres
 
--   **Securite et controle d'acces**
+| # | Chapitre | Theme |
+|---|----------|-------|
+| 01 | [Introduction et histoire des strategies de groupe](01-introduction.md) | Fondations |
+| 02 | [Architecture et composants internes](02-architecture.md) | Moteur GPO |
+| 03 | [Client-Side Extensions (CSE) en profondeur](03-cse.md) | CSE |
+| 04 | [SYSVOL : replication et structure](04-sysvol.md) | SYSVOL |
+| 05 | [Modeles d'administration (ADMX/ADML)](05-admx-adml.md) | Templates |
+| 06 | [Le format registry.pol](06-registry-pol.md) | Stockage |
+| 07 | [Traitement des strategies : cycle et modes](07-traitement.md) | Execution |
+| 08 | [Heritage et ordre d'application (LSDOU)](08-heritage-lsdou.md) | Priorite |
+| 09 | [Filtrage de securite et filtrage WMI](09-filtrage.md) | Ciblage |
+| 10 | [Loopback Processing : modes et cas d'usage](10-loopback.md) | Session |
+| 11 | [Preferences de strategie de groupe (GPP)](11-preferences-gpp.md) | Preferences |
+| 12 | [Item-Level Targeting avance](12-ilt.md) | Ciblage fin |
+| 13 | [Strategies de securite (mot de passe, audit, droits)](13-securite-strategies.md) | Hardening |
+| 14 | [Windows Firewall with Advanced Security via GPO](14-firewall.md) | Pare-feu |
+| 15 | [AppLocker et WDAC : controle d'application via GPO](15-applocker-wdac.md) | Application control |
+| 16 | [BitLocker via GPO](16-bitlocker.md) | Chiffrement |
+| 17 | [Deploiement de logiciels via GPO (MSI)](17-deploiement-msi.md) | Packaging |
+| 18 | [Scripts et planification via GPO](18-scripts.md) | Automatisation |
+| 19 | [Redirection de dossiers et profils via GPO](19-redirection-profils.md) | Profils |
+| 20 | [RSoP et diagnostic des strategies de groupe](20-rsop-diagnostic.md) | Troubleshooting |
+| 21 | [LGPO et strategies locales multiples](21-lgpo.md) | Local policy |
+| 22 | [Baselines de securite (CIS, STIG, Microsoft)](22-baselines.md) | Conformite |
+| 23 | [Performances et optimisation des GPO](23-performances.md) | Performance |
+| 24 | [GPO et versions Windows : compatibilite, depreciations, parametres fantomes](24-versions.md) | Compatibilite |
+| 25 | [GPO et MDM : convergence et coexistence](25-mdm-convergence.md) | Modern management |
 
-    Pour maitriser le filtrage, le loopback, l'heritage et les baselines de securite.
-
-    [Ouvrir le chapitre 9](09-filtrage.md)
-
--   **Diagnostic et performances**
-
-    Pour depanner les GPO qui ne s'appliquent pas et optimiser les temps de traitement.
-
-    [Ouvrir le chapitre 20](20-rsop-diagnostic.md)
-
-</div>
-
-## Parcours du livre
-
-### Fondations
-
-<p class="quid-section-intro">L'histoire, l'architecture et les composants internes qui font fonctionner les strategies de groupe.</p>
-
-<div class="chapter-grid" markdown>
-
-- [01. Introduction et histoire](01-introduction.md)
-- [02. Architecture et composants internes](02-architecture.md)
-- [03. Client-Side Extensions (CSE) en profondeur](03-cse.md)
-- [04. SYSVOL : replication et structure](04-sysvol.md)
-
-</div>
-
-### Modeles et traitement
-
-<p class="quid-section-intro">Les mecanismes de definition, de stockage et de traitement des strategies.</p>
-
-<div class="chapter-grid" markdown>
-
-- [05. Modeles d'administration (ADMX/ADML)](05-admx-adml.md)
-- [06. Le format registry.pol](06-registry-pol.md)
-- [07. Traitement des strategies : cycle et modes](07-traitement.md)
-
-</div>
-
-### Heritage et filtrage
-
-<p class="quid-section-intro">Les mecanismes de ciblage, d'heritage et de resolution de conflits entre strategies.</p>
-
-<div class="chapter-grid" markdown>
-
-- [08. Heritage et ordre d'application (LSDOU)](08-heritage-lsdou.md)
-- [09. Filtrage de securite et filtrage WMI](09-filtrage.md)
-- [10. Loopback Processing : modes et cas d'usage](10-loopback.md)
-
-</div>
-
-### Preferences et ciblage
-
-<p class="quid-section-intro">Les preferences de strategie de groupe et le ciblage avance par element.</p>
-
-<div class="chapter-grid" markdown>
-
-- [11. Preferences de strategie de groupe (GPP)](11-preferences-gpp.md)
-- [12. Item-Level Targeting avance](12-ilt.md)
-
-</div>
-
-### Securite et protection
-
-<p class="quid-section-intro">Les strategies de securite, le pare-feu, le controle d'applications et le chiffrement.</p>
-
-<div class="chapter-grid" markdown>
-
-- [13. Strategies de securite (mot de passe, audit, droits)](13-securite-strategies.md)
-- [14. Windows Firewall via GPO](14-firewall.md)
-- [15. AppLocker et WDAC](15-applocker-wdac.md)
-- [16. BitLocker via GPO](16-bitlocker.md)
-
-</div>
-
-### Deploiement et configuration
-
-<p class="quid-section-intro">Le deploiement de logiciels, de scripts, la redirection de dossiers et les profils.</p>
-
-<div class="chapter-grid" markdown>
-
-- [17. Deploiement de logiciels (.msi)](17-deploiement-msi.md)
-- [18. Scripts et planification via GPO](18-scripts.md)
-- [19. Redirection de dossiers et profils](19-redirection-profils.md)
-
-</div>
-
-### Diagnostic et reference
-
-<p class="quid-section-intro">Les outils de diagnostic, les strategies locales, les baselines et l'optimisation.</p>
-
-<div class="chapter-grid" markdown>
-
-- [20. Resultats de strategie (RSoP) et diagnostic](20-rsop-diagnostic.md)
-- [21. LGPO et strategies locales multiples](21-lgpo.md)
-- [22. Baselines de securite (CIS, STIG, Microsoft)](22-baselines.md)
-- [23. Performances et optimisation des GPO](23-performances.md)
-- [24. Evolution a travers les versions Windows](24-versions.md)
-- [25. GPO et MDM : convergence et coexistence](25-mdm-convergence.md)
-
-</div>
-
-## Envie d'aller plus loin ?
-
-Pour des cas d'usage concrets en entreprise (Office 365, navigateurs, migration Intune, CI/CD), consultez [Les GPO pour les Administrateurs](../gpo-pour-les-admins/index.md). Pour les debutants, consultez [Les GPO pour les Nuls](../gpo-pour-les-nuls/index.md).
-
-Vous cherchez le lien entre GPO et registre ? Consultez [La Bible de la Base de Registre Windows — Chapitre 20](../bible-registre-windows/20-gpo.md).
+!!! tip "Par ou commencer ?"
+    Si vous avez deja deploye des GPO mais que vous manquez de profondeur, commencez par 02, 03, 07 et 20. Gardez 04, 06 et 09 a portee de main pendant vos depannages terrain : ce sont eux qui font gagner du temps.
