@@ -7,7 +7,6 @@ tags:
   - conformite
   - securite
 ---
-
 # Audit et conformite des GPO
 
 !!! abstract "Ce que vous allez pouvoir faire"
@@ -689,3 +688,10 @@ Les parametres de securite (password policy, audit policy, user rights) sont dan
 | Baselines de securite Microsoft (SCT) | La Bible GPO — Ch. 22 — Baselines |
 | Audit avancé et strategies d'audit subcategories | La Bible GPO — Ch. 13 — Securite avancee |
 | Automatisation CI/CD — audit en pipeline | Ch. 23 — Automatisation CI/CD |
+
+!!! quote "En résumé"
+    - À relire : Gouvernance et delegation des droits GPO → Ch. 02 — Gouvernance.
+    - À relire : Cmdlets PowerShell GroupPolicy (Get-GPOReport, Get-GPO) → Ch. 03 — PowerShell GroupPolicy module.
+    - À relire : Sauvegarde et restauration des GPO → Ch. 05 — Sauvegarde et restauration.
+    - À relire : Baselines de securite Microsoft (SCT) → La Bible GPO — Ch. 22 — Baselines.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.

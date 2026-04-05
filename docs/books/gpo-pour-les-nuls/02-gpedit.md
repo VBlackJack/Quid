@@ -5,7 +5,6 @@ tags:
   - debutant
   - gpedit
 ---
-
 # L'editeur de strategies locales (gpedit.msc)
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - La difference entre Configuration ordinateur et Configuration utilisateur
     - Les trois etats d'un parametre (Non configure, Active, Desactive) et pourquoi ca compte
     - Comment trouver un parametre precis sans chercher pendant une heure
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    `gpedit.msc` ne pilote que la stratégie locale du poste : pratique pour apprendre, insuffisant pour administrer un domaine.
 
 ---
 
@@ -32,6 +35,13 @@ Pensez-y comme le panneau de controle d'un avion. Chaque interrupteur correspond
 
     Pour la suite de ce livre, on commence par gpedit (la gestion locale), et on passera a la console GPMC (la gestion centralisee en entreprise) au [chapitre 4](04-gpmc-premiers-pas.md).
 
+
+!!! quote "En résumé"
+    - Avant de l'ouvrir, un mot rapide sur ce qu'est cet outil.
+    - gpedit.msc est l'editeur de strategies de groupe locales.
+    - Le mot "locales" est important : cet editeur ne gere que les regles de votre poste.
+    - Point connexe : chapitre 4.
+    - Le point clé de qu'est-ce que gpedit.msc ? doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## Ouvrir gpedit.msc
@@ -631,8 +641,7 @@ L'objectif de cet exercice est de vous familiariser avec la navigation dans gped
 
     Appuyez sur ++win+r++, tapez `gpedit.msc`, appuyez sur ++enter++.
 
-    ---
-
+---
     **Etape 2 : Naviguer vers un parametre**
 
     Dans le panneau de gauche, suivez ce chemin en cliquant sur les fleches :
@@ -642,16 +651,14 @@ L'objectif de cet exercice est de vous familiariser avec la navigation dans gped
     3. :material-chevron-right: **Systeme**
     4. Cliquez sur le nom **Systeme** (pas juste sur la fleche) pour afficher les parametres dans le panneau de droite
 
-    ---
-
+---
     **Etape 3 : Trouver le parametre**
 
     Dans la liste du panneau de droite, cherchez :
 
     **"Empecher l'acces a l'invite de commandes"**
 
-    ---
-
+---
     **Etape 4 : Lire la description**
 
     Double-cliquez sur ce parametre. Une fenetre s'ouvre.
@@ -662,14 +669,12 @@ L'objectif de cet exercice est de vous familiariser avec la navigation dans gped
     - Le panneau de **description** ou l'onglet **Aide** en bas qui explique ce que fait ce parametre
     - La mention **"Pris en charge sur"** qui indique les versions de Windows compatibles
 
-    ---
-
+---
     **Etape 5 : Ne rien changer**
 
     Cliquez sur **Annuler** pour fermer la fenetre sans rien modifier.
 
-    ---
-
+---
     **Etape 6 : Explorer une autre categorie**
 
     Maintenant, naviguez vers :
@@ -681,8 +686,7 @@ L'objectif de cet exercice est de vous familiariser avec la navigation dans gped
 
     Parcourez les parametres. Lisez les descriptions de ceux qui vous intriguent. Reperez ceux qui sont "Non configure" (la grande majorite).
 
-    ---
-
+---
     **Etape 7 : Observer un parametre avec des options**
 
     Toujours dans Windows Update, cherchez un parametre qui, quand on le met sur "Active", affiche des options supplementaires (une liste deroulante, un champ de texte, des cases a cocher). Par exemple, cherchez **"Configuration du service Mises a jour automatiques"**.
@@ -788,3 +792,10 @@ Vous savez maintenant **ouvrir** gpedit, **naviguer** dans ses categories, **lir
     1. ++win+r++ → `gpedit.msc` → ++enter++ pour ouvrir
     2. "Machine ou personne ?" pour choisir la bonne branche
     3. Toujours lire la description **avant** de modifier un parametre
+
+!!! quote "En résumé"
+    - win+r → gpedit.msc → enter pour ouvrir.
+    - "Machine ou personne ?" pour choisir la bonne branche.
+    - Toujours lire la description avant de modifier un parametre.
+    - Il est temps de passer a l'action.
+    - On y va pas a pas, avec des explications pour chaque parametre.

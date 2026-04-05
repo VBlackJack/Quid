@@ -5,7 +5,6 @@ tags:
   - debutant
   - bureau
 ---
-
 # Gerer le bureau et le menu Demarrer
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Deployer un menu Demarrer personnalise sur Windows 10 (XML) et Windows 11 (JSON)
     - Controler les icones du bureau, l'economiseur d'ecran et les themes
     - Creer une GPO complete qui standardise l'environnement de bureau
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Les réglages du bureau et du menu Démarrer servent surtout à standardiser l'expérience utilisateur sans bloquer inutilement le poste.
 
 ---
 
@@ -791,6 +794,13 @@ Voici le tableau de synthese de tous les parametres couverts dans ce chapitre :
 !!! tip "Conseil de nomenclature"
     Regroupez tous ces parametres dans une seule GPO nommee `CFG-Utilisateurs-EnvironnementBureau` plutot que de creer une GPO par parametre. Cela facilite la maintenance et reduit le nombre d'objets a gerer. En revanche, si certains parametres doivent s'appliquer a des groupes differents (par exemple, un fond d'ecran different par departement), creez des GPO separees.
 
+
+!!! quote "En résumé"
+    - Papier peint du Bureau : Fond d'ecran.
+    - Forcer une image d'ecran de verrouillage : Ecran de verrouillage.
+    - Verrouiller la barre des taches : Barre des taches.
+    - Supprimer le menu contextuel de la barre des taches : Barre des taches.
+    - Voici le tableau de synthese de tous les parametres couverts dans ce chapitre.
 ---
 
 ## Et maintenant ?
@@ -800,3 +810,8 @@ Vous savez desormais controler l'apparence et le comportement du bureau Windows 
 Mais il reste un sujet critique que tout administrateur doit maitriser : les **mises a jour Windows**. Comment s'assurer que tous les postes installent les correctifs de securite a temps ? Comment eviter qu'une mise a jour ne casse une application metier ? Comment planifier les redemarrages pour ne pas interrompre le travail des utilisateurs ?
 
 C'est exactement ce que couvre le **chapitre 9 : Configurer Windows Update par GPO**.
+
+!!! quote "En résumé"
+    - Vous savez desormais controler l'apparence et le comportement du bureau Windows par GPO.
+    - Mais il reste un sujet critique que tout administrateur doit maitriser : les mises a jour Windows.
+    - Le bon enchaînement reste de tester le chapitre courant avant d’ouvrir le suivant.

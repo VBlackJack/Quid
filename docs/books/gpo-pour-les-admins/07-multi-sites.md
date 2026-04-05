@@ -2,7 +2,6 @@
 description: GPO multi-sites et multi-forêts — sites AD, DFS-R, trusts inter-forêts, architecture cross-domain
 tags: [gpo-admins, multi-sites, multi-forêts, dfs-r, sites-ad, trusts]
 ---
-
 # GPO multi-sites et multi-forêts
 
 !!! abstract "Ce que vous allez apprendre"
@@ -25,6 +24,11 @@ Les problèmes arrivent quand on essaie d'appliquer une configuration centralis�
 
 Ce chapitre couvre les quatre situations que vous rencontrerez en production : GPO liées à un Site, GPO cross-domaine dans une même forêt, GPO cross-forêt (spoiler : ça n'existe pas), et la gestion de la convergence SYSVOL sur liens étendus.
 
+
+!!! quote "En résumé"
+    - Chaque site a des contraintes réseau, des DNS suffixes, des proxies, parfois des fuseaux horaires différents.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## GPO liées à un Site AD
@@ -685,6 +689,12 @@ DC-Lyon01 — No DFS-R critical events in the last 2 hours.
 DC-Bordeaux01 — No DFS-R critical events in the last 2 hours.
 ```
 
+
+!!! quote "En résumé"
+    - Après tout déploiement de GPO en environnement multi-sites, exécutez cette séquence de vérification.
+    - Étape 1 — Confirmer la convergence DFS-R sur tous les DC distants.
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
 ---
 
 ## Cross-références
@@ -695,3 +705,10 @@ DC-Bordeaux01 — No DFS-R critical events in the last 2 hours.
 | Copy-GPO et Import-GPO avec table de migration | [Ch. 05 — Sauvegarde et migration](05-backup-migration.md) |
 | Gouvernance multi-domaine et séparation des rôles | [Ch. 02 — Gouvernance](02-gouvernance.md) |
 | PowerShell GroupPolicy module — New-GPLink, New-GPO | [Ch. 03 — PowerShell GroupPolicy](03-powershell-gpo.md) |
+
+!!! quote "En résumé"
+    - À relire : Mécanismes internes DFS-R et structure SYSVOL → La Bible GPO — Ch. 04 — SYSVOL.
+    - À relire : Copy-GPO et Import-GPO avec table de migration → Ch. 05 — Sauvegarde et migration.
+    - À relire : Gouvernance multi-domaine et séparation des rôles → Ch. 02 — Gouvernance.
+    - À relire : PowerShell GroupPolicy module — New-GPLink, New-GPO → Ch. 03 — PowerShell GroupPolicy.
+    - À relire : La Bible GPO — Ch. 04 — SYSVOL.

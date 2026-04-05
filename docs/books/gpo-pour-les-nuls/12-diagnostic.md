@@ -5,7 +5,6 @@ tags:
   - debutant
   - diagnostic
 ---
-
 # Mon premier diagnostic GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Ouvrir `rsop.msc` pour voir les parametres reellement appliques
     - Identifier les 5 causes les plus courantes d'echec d'une GPO
     - Forcer un rafraichissement et lire les evenements dans l'Observateur d'evenements
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Le diagnostic GPO commence toujours par trois questions : qui est ciblé, quelle GPO devait s'appliquer, et où le traitement a échoué.
 
 ---
 
@@ -30,6 +33,12 @@ C'est exactement pareil avec les GPO.
 !!! tip "La regle d'or du diagnostic"
     Ne devinez jamais. Ne supposez jamais. **Cherchez les preuves**. Les outils Windows vous diront exactement ce qui s'est passe, pourquoi, et quand.
 
+
+!!! quote "En résumé"
+    - "Ma GPO ne marche pas.".
+    - C'est la phrase la plus prononcee par les administrateurs Windows debutants.
+    - Et la bonne nouvelle : il y a toujours une raison.
+    - Le point clé de la question de depart doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## Etape 1 : gpresult /r — le verdict rapide
@@ -585,6 +594,11 @@ flowchart TD
     style S fill:#fd7e14,color:#fff
 ```
 
+
+!!! quote "En résumé"
+    - Voici comment aborder systematiquement le diagnostic d'une GPO qui ne s'applique pas.
+    - Le schéma sur l'arbre de decision sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
 ---
 
 ## Exercice de diagnostic
@@ -600,7 +614,6 @@ Vous avez lie la GPO a l'OU `OU=Postes,DC=contoso,DC=local`. Vous allez sur le p
 **Que faites-vous ?**
 
 ---
-
 ### Etape de diagnostic 1 : gpresult /r
 
 Vous ouvrez une invite de commandes en administrateur sur `PC-MARTIN` et vous tapez `gpresult /r`.
@@ -624,7 +637,6 @@ Objets de strategie de groupe refuses
 :material-lightbulb: **Qu'avez-vous trouve ?** La GPO est bien liee a la bonne OU (l'ordinateur `PC-MARTIN` est dans `OU=Postes`). Mais elle est **refusee a cause du filtrage de securite**.
 
 ---
-
 ### Etape de diagnostic 2 : verifier le filtrage de securite
 
 Vous ouvrez la GPMC (`gpmc.msc`) et vous cliquez sur `GPO-Postes-Chrome`. Dans l'onglet **Etendue**, section **Filtrage de securite**, vous voyez :
@@ -638,7 +650,6 @@ GPO-Postes-Chrome-AutorisesGRP Groupe de securite
 Le groupe `GPO-Postes-Chrome-AutorisesGRP` est dans le filtrage. Mais `PC-MARTIN` est-il membre de ce groupe ?
 
 ---
-
 ### Etape de diagnostic 3 : verifier l'appartenance au groupe
 
 ```powershell
@@ -656,7 +667,6 @@ PC-TEST02
 :material-lightbulb: **La cause trouvee.** `PC-MARTIN` n'est pas dans le groupe `GPO-Postes-Chrome-AutorisesGRP`. Quand vous avez cree la GPO, vous avez cree un filtrage personnalise mais vous avez oublie d'y ajouter les postes de production.
 
 ---
-
 ### Etape de diagnostic 4 : corriger
 
 ```powershell
@@ -672,7 +682,6 @@ Add-ADGroupMember -Identity "GPO-Postes-Chrome-AutorisesGRP" -Members "PC-MARTIN
     Quand vous ajoutez un **compte ordinateur** (et non un utilisateur) a un groupe, n'oubliez pas le `$` a la fin du nom : `PC-MARTIN$`. Sans ce signe, PowerShell cherchera un utilisateur du meme nom.
 
 ---
-
 ### Etape de diagnostic 5 : verifier et forcer
 
 Maintenant, forcez le rafraichissement. Attention : les changements d'appartenance de groupe ne sont pris en compte qu'apres une **reouverture de session** ou un **redemarrage** (le token Kerberos doit etre regenere).
@@ -721,7 +730,6 @@ Apres le redemarrage, relancez `gpresult /r`. La GPO apparait maintenant dans le
 | Conflit entre GPO | `gpresult /h` | Section Parametres (GPO gagnante) | Ajuster la priorite ou Enforced |
 
 ---
-
 !!! quote "En resume"
     - **`gpresult /r`** est votre premier reflexe : 30 secondes pour savoir si la GPO est appliquee, refusee, ou absente.
     - **`gpresult /h`** genere un rapport HTML complet avec les valeurs exactes et la GPO "gagnante" pour chaque parametre.
@@ -731,5 +739,4 @@ Apres le redemarrage, relancez `gpresult /r`. La GPO apparait maintenant dans le
     - Le journal **GroupPolicy/Operational** dans l'Observateur d'evenements contient le detail de chaque traitement. Les IDs 1030 et 1058 signalent des problemes d'acces reseau.
 
 ---
-
 :material-arrow-right: **Chapitre suivant** : [Les erreurs classiques a eviter](13-erreurs.md) — les pieges dans lesquels tombent meme les administrateurs experimentes, et comment les anticiper.

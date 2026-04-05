@@ -6,7 +6,6 @@ tags:
   - histoire
   - architecture
 ---
-
 # Introduction et histoire des stratégies de groupe
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -17,6 +16,10 @@ tags:
     - Évolution du moteur de traitement : `Userenv.dll` (Winlogon) vers le service `gpsvc`
     - Migration SYSVOL de FRS vers DFS-R : états de migration, outils de détection, Event IDs
     - Tableau de référence OS/moteur/ADMX/GPP/MDM par version Windows
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Une GPO est toujours un couple AD + SYSVOL : sans cette dualité, le reste du moteur reste opaque.
 
 ---
 
@@ -112,7 +115,6 @@ Le moteur de traitement est extrait de `Winlogon.exe` et devient le service **Gr
 - Priorité de résolution en cas de conflit GPO/MDM : configurable via `HKLM\SOFTWARE\Policies\Microsoft\Windows\CloudManagedSettings`
 
 ---
-
 ### Tableau de référence : évolution par version Windows
 
 | Version Windows | Moteur GPO | Format templates | Stockage | Nouveauté clé |
@@ -245,6 +247,13 @@ timeline
         2021 : Windows 11 — JSON Start, Policy CSP, MDM coexistence
 ```
 
+
+!!! quote "En résumé"
+    - Le schéma sur diagramme : évolution chronologique sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
+    - Cette section fixe l’essentiel à retenir sur diagramme : évolution chronologique.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## De ADM à ADMX : la rupture de format
@@ -631,6 +640,13 @@ Default Domain Policy 3           3          3          0       True
 !!! warning "versionNumber à zéro"
     Un `versionNumber` de `0` dans le GPC LDAP est normal pour une GPO nouvellement créée avant la première modification. Après toute modification dans la GPMC, il passe à au minimum `1`. Un `versionNumber` de `0` sur une GPO ancienne est un indicateur de corruption ou de réplication AD incomplète.
 
+
+!!! quote "En résumé"
+    - Le versionNumber d'une GPO est un entier 32 bits composite.
+    - Sa structure.
+    - Chaque modification du volet machine incrémente les bits de poids faible.
+    - Bits 0-15 (poids faible) : version du volet machine.
+    - Bits 16-31 (poids fort) : version du volet utilisateur.
 ---
 
 ## Central Store : création et maintenance
@@ -718,6 +734,11 @@ Un écart entre `CentralStoreCount` et `LocalCount` indique que le Central Store
 | Windows 10 / Server 2016 | 10.0 | Oui | Oui | Oui | Oui (Cloud Policy, WUfB) |
 | Windows 11 / Server 2022 | 10.0 22000+ | Oui | Oui (JSON Start) | Oui | Oui (Policy CSP complet) |
 
+
+!!! quote "En résumé"
+    - Windows NT 4.0 : Non.
+    - Windows 2000 : Non.
+    - Le point clé de référence de version par os doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## Clés de registre de référence
@@ -822,3 +843,10 @@ Les CSE clés présents sur tout poste Windows Vista+ :
 | Convergence MDM/Intune et Policy CSP | [Ch. 25 — GPO et MDM : convergence et coexistence](25-mdm-convergence.md) |
 | Introduction GPO niveau intermédiaire | [Les GPO pour les Administrateurs — Ch. 01](../gpo-pour-les-admins/index.md) |
 | GPO et registre Windows : clés Policies, registry.pol et écriture directe | [La Bible du Registre — Ch. 20](../bible-registre-windows/20-gpo.md) |
+
+!!! quote "En résumé"
+    - À relire : Architecture GPC/GPT en détail : structure LDAP complète, attributs, ACL par défaut → Ch. 02 — Architecture et composants internes.
+    - À relire : Client-Side Extensions : GUID, DLL, conditions d'invocation, diagnostic par CSE → Ch. 03 — Client-Side Extensions en profondeur.
+    - À relire : SYSVOL : structure de dossiers, réplication DFS-R, permissions, GPT.INI → Ch. 04 — SYSVOL : réplication et structure.
+    - À relire : Format ADMX/ADML : syntaxe XML, namespacing, Central Store, outils de validation → Ch. 05 — Modèles d'administration (ADMX/ADML).
+    - À relire : Ch. 02 — Architecture et composants internes.

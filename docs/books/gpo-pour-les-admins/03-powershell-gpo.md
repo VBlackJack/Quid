@@ -6,7 +6,6 @@ tags:
   - powershell
   - automatisation
 ---
-
 # PowerShell GroupPolicy module
 
 !!! abstract "Ce que vous allez pouvoir faire"
@@ -15,6 +14,10 @@ tags:
     - Auditer un parc de GPO existant et exporter le rapport complet en CSV, pret pour Excel
     - Detecter les GPO avec des parametres de registre "invisibles" dans GPMC (Extra Registry Settings) avant qu'un audit de conformite les signale
     - Comparer les parametres de deux GPO et identifier les differences en une commande
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    PowerShell devient rentable dès que vous devez inventorier, comparer ou corriger des GPO à grande échelle de façon répétable.
 
 ---
 
@@ -887,3 +890,10 @@ $hasExtraReg      = $xml.OuterXml -match "ExtraRegistrySettings"
 | Central Store et gestion des ADMX | Ch. 04 — Central Store et ADMX |
 | Architecture OU et principes de liaison | Ch. 01 — Architecture GPO d'entreprise |
 | Audit et conformite | Ch. 06 — Audit et conformite des GPO |
+
+!!! quote "En résumé"
+    - À relire : Gouvernance — qui peut creer et modifier → Ch. 02 — Gouvernance et delegation.
+    - À relire : Sauvegarde et restauration PowerShell → Ch. 05 — Sauvegarde et migration.
+    - À relire : Automatisation CI/CD pour les GPO → Ch. 23 — Automatisation CI/CD.
+    - À relire : registry.pol — ce qu'ecrit Set-GPRegistryValue → La Bible GPO — Ch. 06 — registry.pol.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.

@@ -2,7 +2,6 @@
 description: RSoP et diagnostic GPO — gpresult, rsop.msc, Get-GPResultantSetOfPolicy, event log Operational, arbre de décision
 tags: [bible-gpo, rsop, diagnostic, gpresult, event-log, troubleshooting]
 ---
-
 # RSoP et diagnostic des stratégies de groupe
 
 !!! abstract "Ce que vous allez apprendre"
@@ -590,6 +589,13 @@ flowchart TD
     K -- Non --> M[Forcer gpupdate /force /sync\nRelire journal avec ActivityID\nComparer Logging vs Planning]
 ```
 
+
+!!! quote "En résumé"
+    - Le schéma sur arbre de décision : gpo non appliquée sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
+    - Cette section fixe l’essentiel à retenir sur arbre de décision : gpo non appliquée.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## :material-book-open-variant: Références croisées
@@ -598,3 +604,10 @@ flowchart TD
 - **[Terrain — Dépannage avancé](../gpo-pour-les-admins/22-depannage-terrain.md)** : cas réels documentés (WSUS, GlobalProtect, déploiement MSI en échec).
 - **[Traitement — Cycle et Event IDs](07-traitement.md)** : Event IDs du cycle foreground/background, `SyncForegroundPolicy`, détection de lien lent.
 - **[Filtrage — Sécurité et WMI](09-filtrage.md)** : structure DACL, GUID de la permission Apply GP, diagnostic des Event IDs 5313/5320.
+
+!!! quote "En résumé"
+    - À relire : Débutant — Diagnostic GPO.
+    - À relire : Terrain — Dépannage avancé.
+    - À relire : Traitement — Cycle et Event IDs.
+    - À relire : Filtrage — Sécurité et WMI.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.

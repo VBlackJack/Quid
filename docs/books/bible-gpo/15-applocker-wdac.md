@@ -7,7 +7,6 @@ tags:
   - application-control
   - sécurité
 ---
-
 # AppLocker et WDAC : contrôle d'application via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -19,10 +18,10 @@ tags:
     - Le Managed Installer : comment SCCM/MECM peut être marqué comme source de confiance pour autoriser automatiquement les déploiements
     - Les Event IDs de diagnostic pour AppLocker et WDAC, et comment les exploiter en mode audit avant un déploiement en enforce
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     AppLocker et WDAC résolvent le même problème — empêcher l'exécution de code non autorisé — mais à des niveaux radicalement différents. AppLocker opère en **user-space**, est évaluable par SID, et est contournable par un administrateur local. WDAC opère en **mode noyau**, s'applique à la machine entière indépendamment de l'utilisateur, et ne peut pas être désactivé par un admin local. En production, WDAC est le seul mécanisme résistant à une compromission de niveau administrateur.
+
 
 ---
 
@@ -70,7 +69,6 @@ Par défaut, les règles AppLocker exemptent les membres du groupe `BUILTIN\Admi
     Si la sécurité de votre périmètre repose sur AppLocker et que des utilisateurs ont des droits administrateurs locaux, AppLocker n'offre aucune protection contre ces utilisateurs. C'est le cas d'usage principal qui justifie le passage à WDAC.
 
 ---
-
 !!! quote "En résumé"
     AppLocker propose trois types de règles (Publisher, Path, Hash) organisées en quatre collections. L'évaluation est SID-based et s'opère en user-space. Les administrateurs locaux sont exemptés par défaut. La collection DLL Rules est disponible mais désactivée par défaut en raison de son impact sur les performances.
 
@@ -148,7 +146,6 @@ AppLocker supporte deux modes opérationnels configurables par collection indép
 ```
 
 ---
-
 !!! quote "En résumé"
     La CSE AppLocker (`{D02B1F72-3407-48AE-BA88-E8213C6761F1}`) requiert le service `AppIDSvc` en état `Running`. Les règles sont stockées en XML dans SYSVOL. Chaque collection peut être configurée indépendamment en mode Audit ou Enforce. Une collection configurée sans aucune règle Allow bloque tout.
 
@@ -193,6 +190,12 @@ TimeCreated           User                FilePath                              
 2026-04-04 07:15:43   CORP\mbrown         C:\Temp\PuTTY.exe                     (Default Rule)
 ```
 
+
+!!! quote "En résumé"
+    - Les journaux AppLocker se trouvent sous Applications and Services Logs\Microsoft\Windows\AppLocker\.
+    - 8002 : Enforce.
+    - 8003 : Audit.
+    - Le point clé de applocker : event ids de référence doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## :material-kernel: WDAC : Windows Defender Application Control
@@ -281,7 +284,6 @@ Comme AppLocker, WDAC supporte deux modes. La différence est que le mode est en
     Avant de basculer une politique WDAC en Enforce, assurez-vous d'avoir un mécanisme de recovery testé : politique de désactivation signée, accès WinPE, ou procédure via MECM. Un Enforce mal calibré sur les drivers peut empêcher le démarrage complet du système.
 
 ---
-
 !!! quote "En résumé"
     WDAC opère en mode noyau via `ci.dll`. La politique est un fichier XML compilé en `.p7b` et déployé dans SYSVOL ou via MDM. Les niveaux de confiance vont de Hash (fragile) à FilePublisher (recommandé). Le mode Audit est activé par l'option 3 dans la politique XML. Ne jamais déployer en Enforce sans avoir testé en Audit au minimum 2 semaines en conditions réelles.
 
@@ -340,6 +342,13 @@ Pour les environnements hybrides ou cloud-first, WDAC peut être déployé via I
 !!! info "Windows 10 1903+ : politiques multiples"
     À partir de Windows 10 1903, WDAC supporte le déploiement de **plusieurs politiques simultanées**, chacune identifiée par un GUID. Ce mécanisme est natif avec MDM mais nécessite une configuration spécifique en GPO (plusieurs fichiers `.p7b` dans `CodeIntegrity\CiPolicies\Active\`).
 
+
+!!! quote "En résumé"
+    - Le paramètre GPO se trouve dans.
+    - Le chemin UNC configuré pointe vers le .p7b dans SYSVOL.
+    - Contrairement à AppLocker, WDAC ne prend pas effet immédiatement après l'application de la GPO.
+    - Prérequis : Azure AD Join / Hybrid Join.
+    - Délai de prise d'effet : Prochain cycle MDM (8h max).
 ---
 
 ## :material-arrow-decision: Diagramme de décision : évaluation d'une exécution
@@ -388,6 +397,13 @@ flowchart TD
     style Q fill:#2e7d32,color:#fff
 ```
 
+
+!!! quote "En résumé"
+    - Le schéma sur diagramme de décision : évaluation d'une exécution sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
+    - Cette section fixe l’essentiel à retenir sur diagramme de décision : évaluation d'une exécution.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## :material-swap-horizontal: Migration AppLocker → WDAC
@@ -447,7 +463,6 @@ La conversion n'est pas bijective. Certains types de règles AppLocker n'ont pas
 | 9 | Désactiver AppLocker progressivement | Service `AppIDSvc` en Manual |
 
 ---
-
 !!! quote "En résumé"
     La migration AppLocker → WDAC n'est pas une conversion automatique transparente. `ConvertFrom-AppLockerPolicy` génère un XML WDAC de départ, mais les règles Publisher avec plages de versions, les règles Path et les règles SID-based nécessitent une révision manuelle. La phase Audit post-migration est non négociable avant tout passage en Enforce.
 
@@ -501,7 +516,6 @@ Le Managed Installer repose sur deux mécanismes complémentaires.
     La politique AppLocker de Managed Installer doit être déployée **avant** la politique WDAC Enforce. Si WDAC Enforce arrive en premier sur un poste où AppLocker n'a pas encore étiqueté les binaires existants, les applications déjà installées peuvent être bloquées.
 
 ---
-
 !!! quote "En résumé"
     Le Managed Installer permet à SCCM/MECM d'étiqueter automatiquement les binaires qu'il déploie via un Extended Attribute. WDAC autorise ces binaires sans règle explicite si l'option 14 est activée. Le mécanisme d'étiquetage repose sur AppLocker (`AppIDSvc` requis). L'ordre de déploiement — AppLocker Managed Installer d'abord, WDAC Enforce ensuite — est critique.
 
@@ -572,7 +586,6 @@ title="Résultat attendu"
 ```
 
 ---
-
 !!! quote "En résumé"
     Les Event IDs WDAC critiques sont 3076 (audit) et 3077 (blocage) dans `CodeIntegrity/Operational`. `New-CIPolicy -Audit` permet de générer automatiquement des règles depuis le journal d'audit. Cette approche est le workflow standard pour couvrir l'existant avant de passer en Enforce.
 
@@ -604,7 +617,13 @@ Pour le contexte des stratégies de sécurité endpoint plus larges :
 - [Sécurité endpoint](../gpo-pour-les-admins/14-securite-endpoint.md) — vue d'ensemble de la posture endpoint
 - [SCCM/MECM et GPO](../gpo-pour-les-admins/20-sccm-mecm.md) — intégration Managed Installer avec MECM
 
----
 
+!!! quote "En résumé"
+    - OS minimum : WDAC si OS récents.
+    - Granularité utilisateur : AppLocker si scénarios par-user.
+    - Résistance admin local : WDAC pour posture Zero Trust.
+    - Règles drivers : WDAC obligatoire pour drivers.
+    - Stratégies de sécurité GPO — politiques de mot de passe, audit avancé, droits utilisateur.
+---
 !!! quote "En résumé final"
     AppLocker est mature, flexible, et SID-aware, mais contournable par les administrateurs locaux. WDAC opère au niveau du noyau, résiste à la compromission admin, et s'intègre nativement avec MDM. En 2024, Microsoft positionne WDAC comme le mécanisme stratégique : migrer vers WDAC est la trajectoire recommandée, en utilisant AppLocker uniquement comme Managed Installer labeler ou comme couverture pour les OS pré-1903. La phase Audit pre-Enforce n'est pas négociable dans les deux cas.

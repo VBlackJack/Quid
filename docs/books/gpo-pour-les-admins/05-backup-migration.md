@@ -7,7 +7,6 @@ tags:
   - restauration
   - migration
 ---
-
 # Sauvegarde, restauration et migration des GPO
 
 !!! abstract "Ce que vous allez pouvoir faire"
@@ -503,3 +502,10 @@ Le backup conserve seulement le nom du filtre WMI, pas son contenu. Si le filtre
 | Automatisation sauvegarde en pipeline CI/CD | Ch. 23 — Automatisation CI/CD |
 | Structure interne des backups GPO et SYSVOL | La Bible GPO — Ch. 04 — SYSVOL |
 | Audit et conformite des GPO | Ch. 06 — Audit et conformite |
+
+!!! quote "En résumé"
+    - À relire : Cmdlets PowerShell GroupPolicy (Backup-GPO, Restore-GPO, Import-GPO) → Ch. 03 — PowerShell GroupPolicy module.
+    - À relire : Sauvegarde GPO — concepts debutant → Les GPO pour les Nuls — Ch. 11.
+    - À relire : Automatisation sauvegarde en pipeline CI/CD → Ch. 23 — Automatisation CI/CD.
+    - À relire : Structure interne des backups GPO et SYSVOL → La Bible GPO — Ch. 04 — SYSVOL.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.

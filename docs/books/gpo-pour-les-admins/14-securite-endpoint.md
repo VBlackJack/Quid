@@ -2,7 +2,6 @@
 description: Sécurité endpoint via GPO — Defender, ASR, Credential Guard, Exploit Protection, Windows Hello for Business
 tags: [gpo-admins, defender, asr, credential-guard, endpoint-security, whfb]
 ---
-
 # Sécurité endpoint via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -23,6 +22,11 @@ La sécurité endpoint pilotée par GPO reste le socle opérationnel de la major
 
 Même avec une stratégie hybride, les GPO restent pertinentes : elles s'appliquent dès l'authentification AD, sans dépendance à Internet, et couvrent les machines en zone isolée ou hors VPN. Maîtriser ce périmètre, c'est éviter que la sécurité ne dépende du bon vouloir des connexions réseau.
 
+
+!!! quote "En résumé"
+    - Maîtriser ce périmètre, c'est éviter que la sécurité ne dépende du bon vouloir des connexions réseau.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## :material-shield-check: Windows Defender via GPO
@@ -656,6 +660,13 @@ $audit | Export-Csv -Path ".\endpoint-security-audit-$(Get-Date -Format 'yyyyMMd
 Write-Host "Audit exported to CSV."
 ```
 
+
+!!! quote "En résumé"
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
+    - Cette section fixe l’essentiel à retenir sur vérification globale post-déploiement.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## Références croisées
@@ -663,3 +674,10 @@ Write-Host "Audit exported to CSV."
 - [Stratégies de sécurité natives](../bible-gpo/13-securite-strategies.md) — Paramètres de sécurité locaux, stratégies de comptes et d'audit
 - [AppLocker et WDAC](../bible-gpo/15-applocker-wdac.md) — Contrôle d'exécution des applications
 - [Sécuriser les GPO elles-mêmes](24-securite-gpo.md) — Délégation, filtrage de sécurité, protection SYSVOL
+
+!!! quote "En résumé"
+    - À relire : Stratégies de sécurité natives.
+    - À relire : AppLocker et WDAC.
+    - À relire : Sécuriser les GPO elles-mêmes.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

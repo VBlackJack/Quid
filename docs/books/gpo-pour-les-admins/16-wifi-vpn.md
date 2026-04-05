@@ -2,7 +2,6 @@
 description: Wi-Fi, VPN et 802.1X via GPO — profils sans fil, EAP-TLS, PEAP, Always On VPN, NPS, certificats machine
 tags: [gpo-admins, wifi, vpn, 802.1x, eap-tls, peap, nps, always-on-vpn]
 ---
-
 # Wi-Fi, VPN et 802.1X via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -29,6 +28,13 @@ Le **802.1X filaire** applique le même principe aux ports de switch. Un poste n
 
 Les trois reposent sur la même fondation : une PKI interne fonctionnelle, des certificats machine distribués par auto-enrollment, et un NPS correctement configuré. Ce chapitre suppose que le chapitre [15 — Certificats et PKI](15-certificats-pki.md) est opérationnel.
 
+
+!!! quote "En résumé"
+    - L'authentification réseau pilotée par GPO couvre trois besoins distincts que les admins confondent souvent.
+    - Sans GPO Wi-Fi, les utilisateurs configurent manuellement leurs paramètres ou finissent sur le réseau invité.
+    - Le 802.1X filaire applique le même principe aux ports de switch.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## Profils Wi-Fi via GPO
@@ -818,3 +824,10 @@ Chaque flèche est un point de rupture potentiel. Le certificat machine est le s
 - [ ] Device Tunnel déployé en Computer Startup Script — test sur un poste hors réseau d'entreprise
 - [ ] Script `Check-RootCADeployment.ps1` en tâche planifiée — alerte si couverture < 100 %
 - [ ] Plan de basculement CA racine documenté avec phase de coexistence de 30 jours minimum
+
+!!! quote "En résumé"
+    - Profils Wi-Fi d'entreprise : Computer.
+    - Restrictions comportementales Wi-Fi : Computer.
+    - 802.1X filaire : Computer.
+    - Auto-enrollment certificats machine : Computer.
+    - [ ] Auto-enrollment fonctionnel (chapitre 15) — certificat machine présent dans Cert:\LocalMachine\My.

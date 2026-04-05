@@ -2,7 +2,6 @@
 description: Windows Update for Business via GPO — anneaux de deploiement, WUfB vs WSUS, reports, redemarrages
 tags: [gpo-admins, windows-update, wufb, wsus, mise-a-jour, rings]
 ---
-
 # Windows Update for Business via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -23,6 +22,13 @@ La gestion des mises a jour Windows est le sujet qui cristallise le plus de tens
 
 WUfB (Windows Update for Business) repond a cette tension en fournissant un mecanisme natif de report par anneau, sans infrastructure supplementaire. Il est complementaire a WSUS mais ne le remplace pas dans tous les scenarios.
 
+
+!!! quote "En résumé"
+    - D'un cote, les equipes securite exigent des delais de correction de plus en plus courts sur les CVE critiques.
+    - De l'autre, les equipes ops craignent les regressions introduites par des Patch Tuesdays precipites.
+    - Il est complementaire a WSUS mais ne le remplace pas dans tous les scenarios.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## WUfB vs WSUS : tableau comparatif et matrice de decision
@@ -857,3 +863,10 @@ WS-CRIT-03     Critical      30            180
 | Automatisation GPO et pipelines CI/CD | Ch. 23 — Automatisation CI/CD |
 | Sauvegarde des GPO WUfB avant migration | Ch. 05 — Sauvegarde et migration |
 | Audit de conformite des parametres WUfB | Ch. 06 — Audit et conformite |
+
+!!! quote "En résumé"
+    - À relire : Introduction WSUS et WUfB pour debutants → La Bible GPO pour les Nuls — Ch. 09 Windows Update.
+    - À relire : WUfB avec Intune co-management et Azure AD Hybrid Join → Ch. 18 — Azure AD Hybrid.
+    - À relire : Automatisation GPO et pipelines CI/CD → Ch. 23 — Automatisation CI/CD.
+    - À relire : Sauvegarde des GPO WUfB avant migration → Ch. 05 — Sauvegarde et migration.
+    - À relire : La Bible GPO pour les Nuls — Ch. 09 Windows Update.

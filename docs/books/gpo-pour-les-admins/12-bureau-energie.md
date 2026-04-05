@@ -2,7 +2,6 @@
 description: Bureau et énergie via GPO — fond d'écran, barre des tâches Win11, kiosk Assigned Access, plans d'énergie
 tags: [gpo-admins, bureau, energie, kiosk, assigned-access, fond-ecran, windows-11]
 ---
-
 # Bureau et énergie via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -23,6 +22,12 @@ La gestion du bureau via GPO couvre un spectre large : de la simple charte graph
 
 Windows 11 a rendu plusieurs paramètres de bureau moins accessibles qu'avant. La barre des tâches n'accepte plus de fichier LayoutModification.xml comme sous Windows 10 : le paramètre GPO `Start/StartLayout` reste actif pour le menu Démarrer, mais la personnalisation de la barre des tâches Win11 passe désormais par des clés de registre directes. Ce chapitre documente la situation réelle en production, pas l'idéal de la documentation Microsoft.
 
+
+!!! quote "En résumé"
+    - Windows 11 a rendu plusieurs paramètres de bureau moins accessibles qu'avant.
+    - Ce chapitre documente la situation réelle en production, pas l'idéal de la documentation Microsoft.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## :material-monitor-dashboard: Bureau géré : fond d'écran, icônes, barre des tâches Win11
@@ -79,7 +84,6 @@ if (-not (Test-Path $dest)) {
 ```
 
 ---
-
 ### :material-desktop-classic: Icônes du bureau — restreindre via ADMX
 
 Les icônes système (Corbeille, Ce PC, Réseau) se contrôlent indépendamment du fond d'écran. Les clés ADMX `Desktop` permettent de masquer ou forcer chaque icône.
@@ -107,7 +111,6 @@ Configuration utilisateur
     Sur un poste standard, masquez uniquement la Corbeille et Ce PC pour la charte graphique. Si vous avez besoin d'un verrouillage total du bureau, utilisez Assigned Access (voir section dédiée ci-dessous) — les paramètres ADMX Desktop ne suffisent pas pour un kiosk production.
 
 ---
-
 ### :material-dock-bottom: Barre des tâches Windows 11 via GPO
 
 Windows 11 a rompu la compatibilité avec le fichier `LayoutModification.xml` utilisé sous Windows 10 pour personnaliser la barre des tâches. En Windows 11, la personnalisation est gérée par des clés de registre sous `HKCU\SOFTWARE\Policies\Microsoft\Windows\Explorer`.
@@ -197,7 +200,6 @@ Configuration utilisateur
     Utilisez `scrnsave.scr` (écran noir pur) plutôt que les économiseurs graphiques. Les économiseurs graphiques consomment GPU et CPU inutilement. En environnement RDS, un économiseur graphique sur 50 sessions simultanées représente une charge non négligeable.
 
 ---
-
 ### :material-power-sleep: Conflit entre économiseur d'écran et Modern Standby
 
 C'est un piège de production courant que la documentation Microsoft mentionne rarement clairement.
@@ -261,7 +263,6 @@ Windows gère les plans d'énergie par des GUIDs. Ces GUIDs sont identiques sur 
     Les fabricants (Dell, HP, Lenovo) créent souvent leurs propres plans d'énergie avec des GUIDs différents. `powercfg /list` peut retourner 5 ou 6 plans sur un parc hétérogène. Les GUIDs ci-dessus sont les plans **natifs Windows** et sont garantis présents sur toute installation Windows 10/11.
 
 ---
-
 ### :material-cog: Chemin GPMC — Power Management ADMX
 
 Les paramètres de plans d'énergie sont dans l'ADMX `Power` :
@@ -303,7 +304,6 @@ Configuration ordinateur
 | `HKLM\SOFTWARE\Policies\Microsoft\Power\PowerSettings\ActivePowerScheme` | REG_SZ | GUID du plan |
 
 ---
-
 ### :material-powershell: Déploiement par script PowerShell (alternative GPP Registry)
 
 Si l'ADMX Power Management ne couvre pas votre besoin exact, utilisez un script de démarrage GPO.
@@ -332,7 +332,6 @@ if ($plan) {
 ```
 
 ---
-
 ### :material-hibernate: Fast Startup et interaction avec BitLocker
 
 **Fast Startup** (démarrage rapide) est activé par défaut sur Windows 10/11. Il hybride l'arrêt et la mise en veille : lors de l'arrêt, le noyau est mis en hibernation pour accélérer le prochain démarrage.
@@ -364,7 +363,6 @@ Ou directement via la clé de registre :
     Si votre environnement inclut des postes avec dual-boot ou des démarrages depuis WinPE (PXE, MDT), désactivez Fast Startup systématiquement. Un arrêt avec Fast Startup actif laisse la partition NTFS dans un état "sale" pour les autres OS — et BitLocker peut se retrouver en mode de récupération au prochain démarrage Windows.
 
 ---
-
 ### :material-laptop-off: Le piège critique : Haute Performance sur les laptops
 
 C'est la faute de production la plus fréquente dans ce domaine. L'explication complète mérite une attention particulière.
@@ -431,7 +429,6 @@ Assigned Access est le mécanisme natif Windows pour verrouiller un compte à un
 Assigned Access s'intègre naturellement avec le Loopback Processing GPO (voir [chapitre sur le Loopback](../bible-gpo/10-loopback.md)) et avec la gestion des profils RDS (voir [chapitre RDS](11-rds.md)).
 
 ---
-
 ### :material-account-lock: Étape 1 — Créer le compte kiosk dédié
 
 Le compte kiosk doit être un compte **local** dédié, sans droits administrateurs, avec un mot de passe qui n'expire pas. Ne réutilisez pas un compte AD existant — le compte AD peut être sujet à des GPO de l'OU utilisateur qui interféreront avec Assigned Access.
@@ -460,7 +457,6 @@ if (-not (Get-LocalUser -Name $kiosk_user -ErrorAction SilentlyContinue)) {
     Si vous devez utiliser un compte AD (ex : contrainte d'audit), placez ce compte dans une OU dédiée avec un minimum de GPO utilisateur liées — idéalement zéro, sauf la GPO Assigned Access elle-même. Tout paramètre GPO utilisateur non prévu peut bloquer le lancement de l'application kiosk.
 
 ---
-
 ### :material-xml: Étape 2 — Configurer le fichier XML Assigned Access
 
 #### Mono-application kiosk (single-app)
@@ -547,7 +543,6 @@ Le format multi-app requiert Windows 10 Enterprise/Education ou Windows 11 Pro f
 ```
 
 ---
-
 ### :material-cog-transfer: Étape 3 — Déployer la configuration Assigned Access via GPO
 
 La configuration Assigned Access est stockée dans le registre. Déployez-la via GPP Registry ou un script de démarrage ordinateur.
@@ -597,7 +592,6 @@ La configuration Assigned Access peut être écrite directement dans le registre
     Sur les machines kiosk en domaine, activez systématiquement le **Loopback Processing en mode Replace** (voir [chapitre Loopback](../bible-gpo/10-loopback.md)) sur l'OU des machines kiosk. Sans Loopback, les GPO utilisateur de l'OU du compte `KioskUser` (ou son OU AD) peuvent s'appliquer en complément et déverrouiller des accès inattendus. Avec Replace, seules les GPO liées à l'OU de la machine kiosk sont actives pendant la session.
 
 ---
-
 ### :material-check-circle: Étape 4 — Vérification post-déploiement
 
 ```powershell title="Vérification de la configuration Assigned Access"
@@ -656,7 +650,6 @@ Les applications **non-DPI-aware** (applications Win32 legacy, applications dév
 Ce problème est particulièrement fréquent dans les parcs avec des applications métier vieillissantes — ERP, logiciels de CFAO, terminaux AS/400.
 
 ---
-
 ### :material-cog-outline: Paramètre GPO SystemDpiSettings
 
 Windows 11 introduit `SystemDpiSettings` pour forcer le comportement de mise à l'échelle DPI au niveau système.
@@ -678,7 +671,6 @@ Configuration ordinateur
 ```
 
 ---
-
 ### :material-application-cog: Surcharge DPI par application via clés de compatibilité
 
 Windows permet de forcer un comportement DPI spécifique pour une application individuelle via les clés de compatibilité de registre. Cette approche est chirurgicale : elle n'affecte que l'application ciblée.
@@ -822,9 +814,20 @@ $results | ForEach-Object {
 # [INFO] Chassis type: 3
 ```
 
+
+!!! quote "En résumé"
+    - Une fois les GPO bureau et énergie déployées, un script de vérification centralisé permet de valider l'état de chaque poste.
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
 ---
 
 ## Références croisées
 
 - [Loopback Processing GPO](../bible-gpo/10-loopback.md) — indispensable pour les kiosks Assigned Access en domaine
 - [Remote Desktop Services via GPO](11-rds.md) — gestion des bureaux en environnement RDS, profils FSLogix, restrictions de session
+
+!!! quote "En résumé"
+    - À relire : Loopback Processing GPO.
+    - À relire : Remote Desktop Services via GPO.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

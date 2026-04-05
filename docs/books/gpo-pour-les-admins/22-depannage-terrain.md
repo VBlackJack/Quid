@@ -2,7 +2,6 @@
 description: Dépannage GPO terrain — 15 cas réels avec symptôme, diagnostic, cause racine, solution et prévention
 tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
 ---
-
 # Dépannage terrain : 15 cas réels
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -36,6 +35,13 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
 | 14 | Migration GPO vers Intune — un paramètre manque | Pas de CSP équivalent (MDM gap) | `Get-MDMGroupPolicyAnalytics` |
 | 15 | GPO Enforced écrase une exception métier légitime | Suremploi de Enforced | Filtrage de sécurité + Enforced |
 
+
+!!! quote "En résumé"
+    - 1 : Test-ComputerSecureChannel.
+    - 2 : Get-WinEvent (EventID 4018).
+    - 3 : GPMC — action Update.
+    - 4 : Get-AppLockerFileInformation.
+    - Cette synthèse condense index des 15 cas en aide de décision rapide.
 ---
 
 ## :material-wrench-clock: Les 15 cas
@@ -95,7 +101,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Activez la surveillance automatique du canal sécurisé dans votre supervision. Un script hebdomadaire qui exécute `Test-ComputerSecureChannel` sur l'ensemble du parc et alerte sur les `False` détecte le problème avant que les GPO ne cessent de s'appliquer.
 
 ---
-
 === "Cas 2 — Logon lent (45 s) après migration Windows 11"
 
     **Symptôme :** Après une migration de Windows 10 vers Windows 11 22H2, les utilisateurs signalent des logons de 40 à 50 secondes. L'écran reste bloqué sur "Applying Group Policy Scripts" pendant toute cette durée.
@@ -149,7 +154,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Signez tous les scripts GPO lors de leur création. Ajoutez la vérification de signature dans votre pipeline CI/CD GPO. Testez toujours sur Windows 11 avant le déploiement en production.
 
 ---
-
 === "Cas 3 — Paramètre de registre qui « revient » après modif manuelle"
 
     **Symptôme :** Un utilisateur ou un technicien modifie une valeur de registre sur un poste. 90 minutes plus tard (parfois au redémarrage), la valeur est restaurée à sa valeur d'origine. L'utilisateur signale une GPO "buggée" qui annule ses modifications.
@@ -186,7 +190,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Nommez vos GPP en indiquant l'action : `GPP-Registry-REPLACE-ProxySettings` vs `GPP-Registry-UPDATE-DefaultBrowser`. La distinction est visible dans GPMC et évite les confusions.
 
 ---
-
 === "Cas 4 — AppLocker bloque une appli interne après mise à jour"
 
     **Symptôme :** Après une mise à jour d'une application interne (v2.1.4 → v2.2.0), AppLocker bloque l'exécution sur tous les postes concernés. L'EventID **8004** apparaît dans `Applications and Services Logs > Microsoft > Windows > AppLocker > EXE and DLL`.
@@ -241,7 +244,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Auditez vos règles AppLocker et identifiez toutes les règles Hash avec `Get-AppLockerPolicy -Effective | Select-Xml "//FileHashRule"`. Migrez-les systématiquement vers des règles Publisher lorsque l'application est signée.
 
 ---
-
 === "Cas 5 — Default Domain Policy corrompue"
 
     **Symptôme :** Les politiques de mot de passe et de verrouillage de compte ne s'appliquent plus correctement. Certains DCs affichent des paramètres différents. La GPMC affiche des erreurs à l'ouverture de la DDP ou le `versionNumber` est incohérent entre AD et SYSVOL.
@@ -306,7 +308,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Verrouillez la DDP avec une politique de délégation : retirez les droits "Edit settings" de tous les comptes sauf un compte de service dédié. Créez une GPO `CORP-Security-PasswordPolicy` séparée pour tout ajout.
 
 ---
-
 === "Cas 6 — GPO liée mais non appliquée à un utilisateur"
 
     **Symptôme :** Un utilisateur spécifique ne reçoit pas les paramètres d'une GPO pourtant liée à son OU. Ses collègues dans la même OU l'ont. `gpresult /r /user DOMAIN\username` ne montre pas la GPO dans la liste appliquée.
@@ -362,7 +363,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Documentez chaque GPO avec filtrage de sécurité non standard dans votre registre GPO. Ajoutez un commentaire GPMC (`Set-GPO -Name "..." -Comment "..."`) indiquant le groupe ciblé et la raison du filtrage.
 
 ---
-
 === "Cas 7 — Nouveau DC n'applique pas les GPO correctement"
 
     **Symptôme :** Un nouveau contrôleur de domaine vient d'être promu. Les postes qui l'utilisent comme DC préféré ne reçoivent pas les GPO, ou reçoivent une version obsolète. L'Observateur d'événements montre l'EventID **4602** absent du journal DFS Replication.
@@ -426,7 +426,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Après chaque promotion de DC, attendez la confirmation de l'EventID 4602 avant de router des clients vers ce DC. Ajoutez une vérification `Test-Path "\\NEWDC\SYSVOL"` dans votre runbook de promotion.
 
 ---
-
 === "Cas 8 — WMI Filter provoque timeout et ralentit les logons"
 
     **Symptôme :** Depuis l'ajout d'un WMI Filter sur une GPO, les logons prennent 60 à 90 secondes supplémentaires sur toutes les machines ciblées par cette GPO — pas seulement celles où le filtre devrait retourner False.
@@ -485,7 +484,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Banissez `Win32_Product` de tous vos WMI Filters et scripts. Préférez le ciblage au niveau des éléments GPP (Item-Level Targeting) qui offre des conditions similaires sans requête WMI coûteuse.
 
 ---
-
 === "Cas 9 — BitLocker recovery key non sauvegardée dans AD"
 
     **Symptôme :** Un poste BitLocker demande la clé de récupération au démarrage. La clé n'est pas dans AD DS (attribut `msFVE-RecoveryPassword` absent). La GPO BitLocker est bien appliquée selon `gpresult`.
@@ -550,7 +548,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Créez un script de remédiation de masse qui parcourt tous les postes, vérifie si `msFVE-RecoveryPassword` est vide dans AD, et effectue le backup automatiquement. Planifiez ce script en tâche GPP sur le parc entier.
 
 ---
-
 === "Cas 10 — Redirection de dossiers cassée après renommage serveur"
 
     **Symptôme :** Après le renommage ou le remplacement d'un serveur de fichiers, les utilisateurs ne voient plus leurs documents habituels. La GPO de redirection de dossiers pointe vers `\\OLDSERVER\Profiles$\%USERNAME%`. Le nouveau serveur se nomme `NEWSERVER`.
@@ -618,7 +615,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** N'utilisez jamais de nom de serveur physique dans une GPO de redirection. Créez systématiquement un espace de noms DFS (`\\domain.local\Profiles`) et pointez-y la GPO. Le jour d'une migration serveur, vous n'aurez qu'à mettre à jour la cible DFS — sans toucher à la GPO.
 
 ---
-
 === "Cas 11 — LAPS password non généré sur un subset de machines"
 
     **Symptôme :** LAPS est déployé via GPO et fonctionne sur 80 % du parc. Sur les machines d'une OU spécifique, l'attribut `ms-Mcs-AdmPwd` reste vide. L'extension LAPS est bien installée sur ces machines.
@@ -684,7 +680,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Créez un script de vérification hebdomadaire qui liste toutes les OU contenant des objets Computer et vérifie que `Set-AdmPwdComputerSelfPermission` a été appliqué. Intégrez l'exécution de cette commande dans votre procédure standard de création d'OU.
 
 ---
-
 === "Cas 12 — GPO de firewall bloque RDP après déploiement"
 
     **Symptôme :** Après le déploiement d'une nouvelle GPO de pare-feu Windows Defender, les administrateurs ne peuvent plus se connecter en RDP aux serveurs membres. L'accès est impossible à distance — y compris pour corriger la GPO.
@@ -753,7 +748,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Utilisez systématiquement un mode **Audit Only** (log uniquement, pas de block) pendant 48 heures avant de passer en Block. Intégrez toujours une règle Allow RDP explicite pour les plages IP d'administration avant tout déploiement de GPO firewall.
 
 ---
-
 === "Cas 13 — Profils itinérants corrompus sur sessions RDS"
 
     **Symptôme :** Des utilisateurs RDS ne peuvent plus ouvrir de session ou obtiennent un profil temporaire. L'Observateur d'événements montre l'EventID **1509** ("Windows cannot copy file") ou **1511** ("Windows cannot find the local profile"). L'ancienne session s'est terminée par une déconnexion forcée.
@@ -822,7 +816,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Migrez vers FSLogix Profile Container sur tous les environnements RDS. Activez les sessions fantômes pour pouvoir reprendre les sessions déconnectées sans corruption. Configurez un timeout de déconnexion raisonnable (30 minutes) plutôt qu'infini.
 
 ---
-
 === "Cas 14 — Migration GPO vers Intune — un paramètre manque"
 
     **Symptôme :** Lors d'une migration de GPO vers Intune (via l'outil Group Policy Analytics), un paramètre spécifique est signalé comme n'ayant pas d'équivalent MDM. Ce paramètre est pourtant critique pour la sécurité ou la conformité.
@@ -895,7 +888,6 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
     **Prévention :** Avant de planifier une migration GPO → Intune, exécutez systematiquement Group Policy Analytics sur l'ensemble de votre parc GPO. Identifiez le pourcentage de couverture MDM et planifiez le traitement des gaps en amont — pas en cours de migration.
 
 ---
-
 === "Cas 15 — GPO Enforced écrase une exception métier légitime"
 
     **Symptôme :** Une GPO de sécurité marquée **Enforced** empêche une OU métier d'appliquer son exception locale. L'équipe métier a une GPO qui désactive un paramètre bloquant pour leur application spécifique — mais l'Enforced écrase tout.
@@ -967,6 +959,13 @@ tags: [gpo-admins, depannage, troubleshooting, cas-reels, diagnostic, rsop]
 
     **Prévention :** Créez un processus formel de demande d'exception GPO : formulaire documenté, validation sécurité, durée limitée avec date de révision. Chaque exception doit être dans le commentaire GPMC avec son propriétaire et sa date d'expiration. Sans processus, les exceptions s'accumulent sans jamais être révisées.
 
+
+!!! quote "En résumé"
+    - === "Cas 1 — GPO sécurité manquante sur 30 % des postes".
+    - Symptôme : Une GPO de sécurité critique (restrictions USB, Defender config) s'applique sur 70 % des machines du domaine.
+    - Les 30 % restants n'ont aucune trace de la GPO dans gpresult /r.
+    - Exécutez gpresult /r /scope computer sur une machine affectée.
+    - La sortie indique ACCESS DENIED dans la section RSOP ou la GPO apparaît dans "Denied GPOs" sans raison de filtrage visible.
 ---
 
 ## :material-toolbox: Boîte à outils de diagnostic
@@ -988,7 +987,6 @@ Référence rapide des outils utilisés dans ce chapitre.
 | `Get-MDMGroupPolicyAnalytics` | Via Intune portal ou MS Graph | Identifier les paramètres GPO sans équivalent CSP MDM |
 
 ---
-
 !!! quote "En résumé"
     - `gpresult /r` résout 80 % des cas en deux minutes — c'est votre premier réflexe systématique
     - Les 15 cas de ce chapitre couvrent les causes racines les plus fréquentes : canal machine brisé, filtrage de sécurité, permissions SYSVOL/OU, scripts non signés, WMI Filter mal écrits
@@ -997,7 +995,6 @@ Référence rapide des outils utilisés dans ce chapitre.
     - Chaque cas de ce chapitre a une version plus grave que celle décrite. La différence entre l'incident mineur et la coupure de production, c'est souvent un backup récent et une procédure de restauration testée.
 
 ---
-
 *Voir aussi :*
 
 - [`../bible-gpo/20-rsop-diagnostic.md`](../bible-gpo/20-rsop-diagnostic.md) — outils RSOP et gpresult en détail

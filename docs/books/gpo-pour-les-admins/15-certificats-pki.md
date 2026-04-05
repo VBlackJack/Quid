@@ -2,7 +2,6 @@
 description: Certificats et PKI via GPO — auto-enrollment, racines de confiance, CTL, révocation OCSP/CRL, NTAuth
 tags: [gpo-admins, pki, certificats, auto-enrollment, ocsp, ntauth, crl]
 ---
-
 # Certificats et PKI via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -23,6 +22,12 @@ Les GPO sont le seul mécanisme natif pour distribuer la configuration PKI à gr
 
 Sans GPO PKI, chaque nouveau poste doit recevoir manuellement les certificats racines, les paramètres de révocation et les droits d'auto-enrollment. Sur un parc de 500 machines, c'est un gouffre opérationnel. Avec des GPO bien configurées, un poste joint au domaine hérite de la totalité de la configuration PKI en moins de 90 minutes après son premier redémarrage.
 
+
+!!! quote "En résumé"
+    - Les GPO sont le seul mécanisme natif pour distribuer la configuration PKI à grande échelle dans Active Directory.
+    - Sur un parc de 500 machines, c'est un gouffre opérationnel.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## Auto-enrollment via GPO
@@ -717,6 +722,13 @@ No expired certificates in Trusted Root            OK
 All PKI checks passed.
 ```
 
+
+!!! quote "En résumé"
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
+    - Cette section fixe l’essentiel à retenir sur vérification globale post-déploiement.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## Cross-références
@@ -726,3 +738,10 @@ All PKI checks passed.
 | 802.1X Wi-Fi — nécessite certificat machine (PKI prérequis) | Ch. 16 — Wi-Fi, VPN et 802.1X |
 | BitLocker avec récupération par certificat | Ch. 17 — BitLocker et LAPS |
 | EFS Recovery Agent et certificats de récupération | La Bible GPO — Ch. 13 — Sécurité avancée |
+
+!!! quote "En résumé"
+    - À relire : 802.1X Wi-Fi — nécessite certificat machine (PKI prérequis) → Ch. 16 — Wi-Fi, VPN et 802.1X.
+    - À relire : BitLocker avec récupération par certificat → Ch. 17 — BitLocker et LAPS.
+    - À relire : EFS Recovery Agent et certificats de récupération → La Bible GPO — Ch. 13 — Sécurité avancée.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

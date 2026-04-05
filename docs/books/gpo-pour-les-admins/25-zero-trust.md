@@ -2,7 +2,6 @@
 description: Zero Trust et GPO — GPO comme brique ZT, Credential Guard, WDAC, ASR, BitLocker, LAPS, roadmap modernisation
 tags: [gpo-admins, zero-trust, credential-guard, wdac, asr, roadmap, intune, modernisation]
 ---
-
 # Zero Trust et GPO : le futur de la configuration
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -80,6 +79,13 @@ Chaque contrôle GPO peut être mappé sur l'un des trois principes Zero Trust. 
 
 Les sections suivantes détaillent chaque contrôle avec son chemin GPO, sa valeur de registre et l'event ID à surveiller.
 
+
+!!! quote "En résumé"
+    - Chaque contrôle GPO peut être mappé sur l'un des trois principes Zero Trust.
+    - Le tableau ci-dessous est la colonne vertébrale de ce chapitre.
+    - Les sections suivantes détaillent chaque contrôle avec son chemin GPO, sa valeur de registre et l'event ID à surveiller.
+    - Assume Breach : Vol de credentials NTLM/Kerberos par dump LSASS.
+    - Assume Breach : Exécution de code non autorisé, binaires malveillants.
 ---
 
 ## :material-shield-key: Credential Guard — principe ZT : Assume Breach
@@ -694,8 +700,14 @@ Un parc mal gouverné par GPO accumule de la dette de configuration. Cette dette
 
 Maîtriser ce mécanisme, c'est maîtriser l'infrastructure.
 
----
 
+!!! quote "En résumé"
+    - Le paysage de 2026 confirme ce postulat.
+    - La majorité des organisations disposent d'un Active Directory actif.
+    - Les migrations Intune-only sont encore minoritaires.
+    - Concevoir une architecture GPO d'entreprise qui résiste à la croissance et aux audits (chapitres 1 à 7).
+    - Déployer les applications métier critiques — Office, navigateurs, Windows Update, RDS, PKI (chapitres 8 à 16).
+---
 !!! quote "En résumé — chapitre final"
     - Zero Trust + GPO : les GPO durcissent l'OS (Assume Breach), Intune + AAD vérifient la conformité (Verify Explicitly), LAPS minimise les privilèges (Use Least Privilege)
     - Les GPO ne disparaissent pas : configuration DC, Kerberos policy, NTLM, SYSVOL — périmètre permanent

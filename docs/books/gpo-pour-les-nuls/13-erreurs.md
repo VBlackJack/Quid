@@ -5,7 +5,6 @@ tags:
   - debutant
   - erreurs
 ---
-
 # Les erreurs classiques a eviter
 
 !!! abstract "Ce que vous allez apprendre"
@@ -15,8 +14,11 @@ tags:
     - Pourquoi les preferences ne doivent jamais remplacer les strategies pour les parametres de securite
     - Les dix erreurs a connaître par coeur pour ne jamais les commettre
 
----
 
+!!! tip "Si vous ne retenez qu'une chose"
+    La plupart des incidents GPO viennent d'erreurs de portée, de nommage ou de test, pas d'un bug mystérieux de Windows.
+
+---
 Vous avez maintenant les bases solides pour administrer des GPO. Vous savez creer, lier, filtrer, diagnostiquer. Douze chapitres de technique pure.
 
 Mais il existe un piege que personne ne vous dit : la plupart des catastrophes en production ne viennent pas d'un manque de connaissance technique. Elles viennent d'habitudes qui semblent raisonnables au debut, mais qui deviennent des bombes a retardement.
@@ -719,6 +721,13 @@ Avant de passer au tableau final, voici une checklist que vous pouvez utiliser p
 - [ ] La replication AD est saine (`repadmin /showrepl` ne montre pas d'erreurs)
 - [ ] Les journaux de securite ont une taille configuree adequatement
 
+
+!!! quote "En résumé"
+    - [ ] La DDP ne contient que des strategies de comptes et Kerberos.
+    - [ ] Aucun parametre de Modeles d'administration dans la DDP.
+    - [ ] Aucune preference dans la DDP.
+    - Avant de passer au tableau final, voici une checklist que vous pouvez utiliser pour auditer votre propre domaine.
+    - Ouvrez GPMC et cochez chaque point.
 ---
 
 ## :material-table: Recapitulatif des dix erreurs
@@ -738,6 +747,13 @@ Ce tableau est votre aide-memoire. Imprimez-le, affichez-le, envoyez-le a vos co
 | 9 | Ne pas documenter ses GPOs | GPOs orphelines, dette technique, risque lors des audits | Champ Description + convention de nommage + changelog |
 | 10 | Oublier la replication AD | Debogage sans fin d'un probleme qui n'en est pas un | Attendre la replication ou forcer avec `repadmin /syncall /AdeP` |
 
+
+!!! quote "En résumé"
+    - 1 : Reserver la DDP aux strategies de comptes et Kerberos uniquement.
+    - 2 : Grouper par fonction et audience avec une convention de nommage.
+    - 3 : Toujours definir qui doit recevoir la GPO avant de la lier.
+    - 4 : Desactiver avant de supprimer, verifier l'onglet Etendue.
+    - Ce tableau est votre aide-memoire.
 ---
 
 ## :material-flag-checkered: Et maintenant ?
@@ -757,6 +773,11 @@ Les GPOs que vous avez apprises dans ce livre continuent de fonctionner dans ces
 
     Utilisez le script PowerShell de la section "Erreur n°9" pour lister les GPOs sans liens. Et lancez `repadmin /showrepl` pour verifier que votre replication AD est saine. Ces deux verifications prennent moins de cinq minutes.
 
+
+!!! quote "En résumé"
+    - Ces erreurs ne sont pas des anecdotes inventees.
+    - Elles sont le resume de milliers d'heures d'incidents de production, de nuits de depannage, et de sessions de post-mortem.
+    - Le bon enchaînement reste de tester le chapitre courant avant d’ouvrir le suivant.
 ---
 
 ## :material-school: Pour aller plus loin
@@ -795,3 +816,8 @@ wevtutil qe Microsoft-Windows-GroupPolicy/Operational /f:text /c:20 /rd:true
 La reference officielle des parametres GPO est disponible via les **fichiers ADMX** et leur documentation associee. Pour chaque parametre, la description dans l'editeur GPO explique son comportement, les valeurs possibles, et les versions de Windows supportees.
 
 Prenez l'habitude de lire cette documentation avant d'activer un parametre que vous ne connaissez pas. Un parametre mal compris vaut autant que dix erreurs de ce chapitre reunies.
+
+!!! quote "En résumé"
+    - Ce chapitre couvre les erreurs les plus frequentes, mais l'administration GPO est un domaine vaste.
+    - Voici quelques pistes pour continuer a progresser.
+    - Le bon enchaînement reste de tester le chapitre courant avant d’ouvrir le suivant.

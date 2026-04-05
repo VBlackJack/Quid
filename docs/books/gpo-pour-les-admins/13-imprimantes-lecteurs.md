@@ -2,7 +2,6 @@
 description: Imprimantes, lecteurs réseau et partages via GPO — GPP Printers, Drive Maps, DFS, ILT ciblage, Print Management
 tags: [gpo-admins, imprimantes, lecteurs, gpp, drive-maps, dfs, print-management, ilt]
 ---
-
 # Imprimantes, lecteurs réseau et partages
 
 !!! abstract "Ce que vous allez apprendre"
@@ -23,6 +22,12 @@ Les imprimantes et les lecteurs réseau sont les deux sujets qui génèrent le p
 
 GPP Printers et GPP Drive Maps sont les remplaçants officiels de ces scripts. Ils s'administrent depuis la GPMC, journalisent leurs erreurs dans l'Observateur d'événements, et supportent le ciblage ILT nativement. La migration depuis les scripts `net use` prend une demi-journée ; les gains de maintenabilité durent des années.
 
+
+!!! quote "En résumé"
+    - GPP Printers et GPP Drive Maps sont les remplaçants officiels de ces scripts.
+    - La migration depuis les scripts net use prend une demi-journée ; les gains de maintenabilité durent des années.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## GPP Printers : déploiement d'imprimantes par département
@@ -658,9 +663,21 @@ Les ID d'événements les plus utiles pour le diagnostic :
 
 Quand un Drive Map ou une imprimante ne se déploie pas, commencez toujours par filtrer sur les événements `7016` dans ce journal — le message d'erreur contient le nom de l'item GPP et le code d'erreur Windows exact.
 
+
+!!! quote "En résumé"
+    - Les erreurs GPP (Drive Maps, Printers, Shares) sont consignées dans.
+    - Les ID d'événements les plus utiles pour le diagnostic.
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
 ---
 
 ## Références croisées
 
 - [Bible GPO — Chapitre 11 : Préférences GPP](../bible-gpo/11-preferences-gpp.md) — Mécanique complète des Préférences GPO (actions CRUD, ordre d'application, comportement Remove)
 - [Bible GPO — Chapitre 12 : ILT Ciblage](../bible-gpo/12-ilt.md) — Tous les types de conditions ILT et leur combinaison avec les opérateurs booléens
+
+!!! quote "En résumé"
+    - À relire : Bible GPO — Chapitre 11 : Préférences GPP.
+    - À relire : Bible GPO — Chapitre 12 : ILT Ciblage.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

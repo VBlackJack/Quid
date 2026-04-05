@@ -5,7 +5,6 @@ tags:
   - debutant
   - preferences
 ---
-
 # Les preferences de registre par GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Les quatre actions disponibles (Creer, Remplacer, Mettre a jour, Supprimer) et quand utiliser chacune
     - Le ciblage par element (Item-Level Targeting) pour appliquer une preference a un sous-ensemble precis de machines ou d'utilisateurs
     - L'effet "tatouage" des preferences et comment l'eviter
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Une préférence configure un état par défaut exploitable tout de suite, sans le verrouiller comme une stratégie stricte.
 
 ---
 
@@ -441,7 +444,6 @@ Chaque exemple suit le meme schema en quatre etapes :
 4. **Verification** : la commande PowerShell pour confirmer que ca fonctionne
 
 ---
-
 ### :material-web: Exemple 1 : Definir la page d'accueil de Microsoft Edge
 
 **Contexte :** Vous souhaitez que tous les navigateurs Edge de l'entreprise s'ouvrent sur le portail intranet `https://intranet.entreprise.fr`. Vous preferez utiliser une preference plutot qu'une strategie car vous voulez que les utilisateurs puissent modifier cette page d'accueil s'ils le souhaitent.
@@ -483,7 +485,6 @@ Le resultat doit afficher `https://intranet.entreprise.fr`. Si la commande ne re
     - Pensez a cocher **Supprimer cet element quand il ne s'applique plus** pour eviter le tatouage.
 
 ---
-
 ### :material-earth: Exemple 2 : Configurer un proxy
 
 **Contexte :** L'entreprise utilise un proxy pour l'acces Internet. Vous devez configurer automatiquement les parametres proxy sur tous les postes utilisateurs.
@@ -548,7 +549,6 @@ Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet
     - Placez ces preferences en **Configuration utilisateur** car les parametres proxy sont propres a chaque session utilisateur.
 
 ---
-
 ### :material-microsoft-edge: Exemple 3 : Desactiver la premiere execution de Edge
 
 **Contexte :** A chaque premiere ouverture de Microsoft Edge sur un nouveau profil, une serie d'ecrans de bienvenue s'affiche : choix du navigateur par defaut, importation de favoris, configuration de la page d'accueil... Sur un parc de 500 postes, c'est 500 appels au support parce que les utilisateurs ne savent pas quoi repondre.
@@ -762,7 +762,6 @@ Voici un tableau de synthese de tout ce que vous avez appris dans ce chapitre :
     - Les trois reflexes avant de valider : action **Mettre a jour**, case **anti-tatouage** cochee, **test** sur un seul poste.
 
 ---
-
 ### Les commandes de verification essentielles
 
 Voici les commandes PowerShell a garder sous la main pour diagnostiquer vos preferences :
@@ -785,10 +784,8 @@ Get-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet
 ```
 
 ---
-
 !!! tip "Gardez ces commandes a portee de main"
     Copiez ces commandes dans un fichier texte sur votre poste d'administration. Vous les utiliserez a chaque deploiement de preference pour verifier que tout fonctionne avant de deployer largement.
 
 ---
-
 :material-arrow-right: Dans le [chapitre 11](11-sauvegarde.md), on verra comment **sauvegarder vos GPO** avant toute modification -- parce que meme les meilleurs administrateurs font des erreurs, et une bonne sauvegarde permet de revenir en arriere en quelques clics.

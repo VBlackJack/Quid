@@ -5,7 +5,6 @@ tags:
   - debutant
   - sauvegarde
 ---
-
 # Sauvegarder avant de toucher
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Comment sauvegarder une GPO ou toutes les GPO d'un coup, via la console GPMC ou PowerShell
     - Comment restaurer une GPO apres une erreur ou une suppression accidentelle
     - Comment automatiser les sauvegardes avec un script planifie et garder une trace documentee de chaque modification
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Une GPO non sauvegardée n'est pas une configuration fiable : exportez-la avant toute modification majeure ou migration.
 
 ---
 
@@ -612,6 +615,13 @@ Dans six mois, ces descriptions ne vous apprendront rien. Laquelle des trois sau
         Format-Table -AutoSize
     ```
 
+
+!!! quote "En résumé"
+    - Sauvegarder une GPO : Backup-GPO -Name <nom> -Path <dossier>.
+    - Sauvegarder toutes les GPO : Backup-GPO -All -Path <dossier>.
+    - Sauvegarder avec commentaire : Backup-GPO -All -Path <dossier> -Comment "texte".
+    - Restaurer une GPO existante : Restore-GPO -Name <nom> -Path <dossier>.
+    - Cette synthèse condense tableau de reference : commandes et operations en aide de décision rapide.
 ---
 
 ## Et maintenant : le chapitre 12
@@ -631,3 +641,8 @@ Mais parfois, malgre toutes les precautions, une GPO ne fonctionne pas comme pre
     - Documentez avec la **Description** GPMC, des **conventions de nommage** claires, et un **fichier changelog**.
     - Automatisez avec un **script PowerShell planifie** : sauvegarde hebdomadaire + purge des anciennes sauvegardes.
     - Les cinq erreurs a eviter : pas de sauvegarde avant modification, sauvegarde sur le meme serveur que l'AD, restauration jamais testee, liens oublies apres restauration, descriptions inutiles.
+
+!!! quote "En résumé"
+    - Vous savez maintenant sauvegarder vos GPO, les restaurer, les importer, les documenter et les sauvegarder automatiquement.
+    - C'est une competence fondamentale pour travailler sereinement en production.
+    - Le bon enchaînement reste de tester le chapitre courant avant d’ouvrir le suivant.

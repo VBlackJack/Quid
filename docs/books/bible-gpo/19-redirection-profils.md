@@ -2,7 +2,6 @@
 description: Redirection de dossiers et profils via GPO — CSE, Folder Redirection, Roaming Profiles, FSLogix, profils obligatoires, gestion en production
 tags: [bible-gpo, folder-redirection, profils, fslogix, roaming, cse]
 ---
-
 # Redirection de dossiers et profils via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -489,6 +488,11 @@ flowchart TD
 | CSE Folder Redirection échoue | Dossiers non redirigés silencieusement | Partage UNC inaccessible au moment de la GPO, permissions manquantes |
 | Last writer wins | Données perdues pour l'utilisateur qui ferme en premier | Sessions simultanées sur plusieurs machines (profils itinérants sans FSLogix) |
 
+
+!!! quote "En résumé"
+    - Points de défaillance identifiés dans le diagramme.
+    - Le schéma sur séquence de chargement du profil — diagramme sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
 ---
 
 ## :material-bomb: Pièges de production
@@ -603,6 +607,13 @@ Get-SmbSession | Where-Object { $_.ClientUserName -like "*jdupont*" } |
 | VDI non persistent | FSLogix Profile Container + redirection Documents | Profil reconstruit à chaque session depuis le VHDX |
 | Kiosk à compte unique | Profil obligatoire (pas de redirection) | Aucune donnée à conserver entre les sessions |
 
+
+!!! quote "En résumé"
+    - Postes de travail fixes, utilisateur unique : Simple, performant, pas de synchronisation réseau superflue.
+    - Postes partagés (accueil, formation) : État toujours propre, données utilisateur isolées par redirection.
+    - RDS / Serveurs de sessions : Résout les conflits de session simultanée, performances I/O optimales.
+    - Azure Virtual Desktop (AVD) : Recommandation Microsoft officielle pour AVD.
+    - Cette synthèse condense tableau de décision : quelle solution pour quel environnement en aide de décision rapide.
 ---
 
 ## :material-link-variant: Cross-références
@@ -614,3 +625,10 @@ Get-SmbSession | Where-Object { $_.ClientUserName -like "*jdupont*" } |
 | Déploiement de préférences de registre via GPP | Ch. 11 — Préférences de stratégie de groupe (GPP) |
 | Diagnostic RSOP et gpresult | Ch. 20 — RSOP et diagnostic |
 | Filtrage de sécurité et WMI | Ch. 09 — Filtrage de sécurité et filtrage WMI |
+
+!!! quote "En résumé"
+    - À relire : Profils et sessions RDS → Gestion des profils RDS.
+    - À relire : Loopback et environnements multi-utilisateurs → Loopback Processing.
+    - À relire : Déploiement de préférences de registre via GPP → Ch. 11 — Préférences de stratégie de groupe (GPP).
+    - À relire : Diagnostic RSOP et gpresult → Ch. 20 — RSOP et diagnostic.
+    - À relire : Gestion des profils RDS.

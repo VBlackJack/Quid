@@ -5,7 +5,6 @@ tags:
   - debutant
   - creation
 ---
-
 # Creer et lier sa premiere GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Configurer un parametre concret (fond d'ecran impose)
     - Lier la GPO a une OU et verifier son application
     - Faire la difference entre supprimer un lien et supprimer une GPO
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Une bonne première GPO est simple, testable et liée d'abord à une OU de laboratoire avant toute généralisation.
 
 ---
 
@@ -761,7 +764,6 @@ Utilisez cette checklist a chaque nouvelle GPO avant de la deployer en productio
 | `eventvwr.msc` | Ouvrir l'Observateur d'evenements |
 
 ---
-
 !!! quote "En resume"
     | Concept | Ce qu'il faut retenir |
     |---------|----------------------|
@@ -789,3 +791,9 @@ Mais un detail important vous a peut-etre echappe : que se passe-t-il quand **pl
 C'est la question de l'**heritage** et de l'**ordre d'application**. Comprendre ce mecanisme est indispensable des que vous avez plus d'une poignee de GPO. Et c'est exactement ce que couvre le chapitre suivant.
 
 **Chapitre suivant** : :material-arrow-right: [Comprendre l'heritage et l'ordre d'application](06-heritage.md) — Decouvrez l'ordre LSDOU, le blocage d'heritage et l'application forcee.
+
+!!! quote "En résumé"
+    - Felicitations, vous avez cree et deploye votre premiere GPO de domaine !
+    - Vous savez creer une GPO, la configurer, la lier, la verifier et la nettoyer.
+    - Prochaine étape utile : Comprendre l'heritage et l'ordre d'application.
+    - Le bon enchaînement reste de tester le chapitre courant avant d’ouvrir le suivant.

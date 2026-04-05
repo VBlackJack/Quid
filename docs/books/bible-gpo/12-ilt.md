@@ -7,7 +7,6 @@ tags:
   - item-level-targeting
   - preferences
 ---
-
 # Item-Level Targeting avancé
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -19,10 +18,10 @@ tags:
     - La comparaison rigoureuse ILT / WMI Filter / Security Filtering pour choisir le bon mécanisme selon le contexte
     - Les Event IDs et les techniques PowerShell pour diagnostiquer un ILT silencieux
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     L'ILT évalue les conditions **côté client**, avant d'appliquer chaque item GPP individuellement. C'est plus granulaire qu'un filtre WMI (par item plutôt que par GPO), mais la logique est similaire. La combinaison AND/OR/NOT entre conditions vous permet de construire des règles de ciblage très précises — au prix d'un surcoût d'évaluation proportionnel au nombre d'items et à la lourdeur de chaque condition.
+
 
 ---
 
@@ -285,6 +284,11 @@ flowchart TD
 !!! info "Court-circuit OR"
     Quand `gpprefcl.dll` rencontre un bloc OR dont la première condition est vraie, elle applique immédiatement l'item sans évaluer les blocs suivants. C'est le comportement standard de court-circuit booléen — placez les blocs OR les plus susceptibles d'être vrais en premier pour économiser des évaluations.
 
+
+!!! quote "En résumé"
+    - Le diagramme suivant représente le flux d'évaluation exécuté par gpprefcl.dll pour chaque item GPP contenant une section <filters>.
+    - Le schéma sur diagramme d'évaluation ilt sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
 ---
 
 ## :material-database-search: Condition avancée : LDAP Query
@@ -729,3 +733,10 @@ Ce pattern garantit qu'une configuration est proprement retirée quand une machi
 | Performances — temps de logon et GPO | [Ch. 23 — Performances](./23-performances.md) |
 | ILT niveau débutant (Security Group uniquement) | Les GPO pour les Nuls — Ch. 10 |
 | RSoP et diagnostic | [Ch. 20 — RSoP et diagnostic](./20-rsop-diagnostic.md) |
+
+!!! quote "En résumé"
+    - À relire : GPP — contexte général, actions C/U/R/D → Ch. 11 — Préférences GPP.
+    - À relire : WMI Filters au niveau GPO → Ch. 09 — Filtrage de sécurité et WMI.
+    - À relire : CSE gpprefcl.dll et son GUID → Ch. 03 — Client-Side Extensions.
+    - À relire : Performances — temps de logon et GPO → Ch. 23 — Performances.
+    - À relire : Ch. 11 — Préférences GPP.

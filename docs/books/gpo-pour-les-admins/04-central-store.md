@@ -6,7 +6,6 @@ tags:
   - admx
   - central-store
 ---
-
 # Central Store et gestion des ADMX
 
 !!! abstract "Ce que vous allez pouvoir faire"
@@ -583,6 +582,13 @@ Ce tableau est a maintenir dans votre `CHANGELOG.md` ou votre documentation inte
 
 :material-pencil-outline: Adaptez ce tableau a votre environnement. Le maintenir a jour prend deux minutes par mise a jour et evite des heures de recherche lors d'un incident.
 
+
+!!! quote "En résumé"
+    - Windows 11 24H2 : en-US, fr-FR.
+    - Microsoft Edge 130 : en-US, fr-FR.
+    - Google Chrome 126 : en-US.
+    - Firefox 124 : en-US, fr-FR.
+    - Ce tableau est a maintenir dans votre CHANGELOG.md ou votre documentation interne.
 ---
 
 ## :material-custom-admx: Creer ses propres ADMX
@@ -675,6 +681,12 @@ Ouvrez GPMC, creez une GPO de test, et verifiez que vos parametres apparaissent 
 | Sauvegarde et migration SYSVOL | Ch. 05 — Sauvegarde et migration |
 | Gestion des GPO avec PowerShell | Ch. 03 — PowerShell GroupPolicy module |
 
----
 
+!!! quote "En résumé"
+    - À relire : Format ADMX en detail (namespace, categories, policies) → La Bible GPO — Ch. 05 — ADMX/ADML.
+    - À relire : Mise a jour ADMX Windows 11 par version → Les GPO pour les Nuls — Ch. 14.
+    - À relire : Automatisation du deploiement ADMX en CI/CD → Ch. 23 — Automatisation CI/CD.
+    - À relire : Sauvegarde et migration SYSVOL → Ch. 05 — Sauvegarde et migration.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+---
 *Ce chapitre couvre la creation, la maintenance et la securisation du Central Store en environnement d'entreprise. Le chapitre suivant traite de la sauvegarde et de la migration des GPO — dont la sauvegarde complementaire du Central Store.*

@@ -5,7 +5,6 @@ tags:
   - debutant
   - heritage
 ---
-
 # Comprendre l'heritage et l'ordre d'application
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Comment resoudre un conflit quand deux GPO se contredisent
     - Comment bloquer l'heritage et forcer une GPO (et pourquoi il faut y reflechir a deux fois)
     - Comment visualiser l'heritage effectif dans la console GPMC
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Une GPO liée plus près de l'objet gagne généralement le conflit, sauf si un lien parent est marqué Enforced.
 
 ---
 
@@ -775,7 +778,6 @@ flowchart TB
     Serieusement. Ce chapitre est celui que vous relirez le plus souvent dans votre carriere d'administrateur. La prochaine fois qu'une GPO "ne fonctionne pas", revenez ici et suivez la logique LSDOU etape par etape. La reponse sera presque toujours dans l'heritage.
 
 ---
-
 !!! tip "Les trois questions a se poser face a un probleme d'heritage"
     Quand une GPO ne s'applique pas comme prevu, posez-vous ces trois questions dans l'ordre :
 
@@ -792,5 +794,4 @@ flowchart TB
     - La simplicite paie toujours : bien organiser ses OU evite 90% des problemes d'heritage.
 
 ---
-
 :material-arrow-right: Dans le **chapitre suivant**, on passera a la pratique avec [les parametres de securite essentiels](07-securite-base.md) a configurer en priorite via les GPO. Vous verrez comment appliquer les concepts d'heritage que vous venez d'apprendre pour deployer une politique de securite solide sur l'ensemble de votre domaine.

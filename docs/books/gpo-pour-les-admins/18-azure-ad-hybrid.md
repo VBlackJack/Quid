@@ -2,7 +2,6 @@
 description: Azure AD Hybrid Join et GPO cloud — AAD Connect, Cloud Policy, co-management Intune, Conditional Access
 tags: [gpo-admins, azure-ad, hybrid-join, intune, co-management, cloud-policy, conditional-access]
 ---
-
 # Azure AD Hybrid Join et GPO cloud
 
 !!! abstract "Ce que vous allez apprendre"
@@ -25,6 +24,13 @@ La tentation est de traiter Hybrid Join comme un projet autonome. C'est une erre
 
 Ce chapitre documente chaque étape avec les chemins exacts, les clés de registre impliquées et les scripts de vérification.
 
+
+!!! quote "En résumé"
+    - Les environnements hybrides Azure AD sont aujourd'hui la norme dans les entreprises en transition vers le cloud.
+    - L'Active Directory on-prem reste en place pour les applications legacy, les ressources fichiers et les scripts existants.
+    - Azure AD arrive en parallèle pour le SSO M365, le Conditional Access et la gestion moderne des postes.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## Hybrid Join : deux identités, une seule machine
@@ -832,6 +838,13 @@ Score: 7 / 7
 ==============================
 ```
 
+
+!!! quote "En résumé"
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
+    - Cette section fixe l’essentiel à retenir sur vérification globale post-déploiement.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## Références croisées
@@ -839,3 +852,10 @@ Score: 7 / 7
 - [GPO/MDM convergence — théorie et positionnement](../bible-gpo/25-mdm-convergence.md) : comprendre pourquoi GPO et MDM coexistent et les limites de chaque approche
 - [Migration vers Intune](19-migration-intune.md) : après Hybrid Join, la migration complète vers Intune full-cloud
 - [Windows Update for Business et co-management](10-windows-update.md) : workload WUfB dans le contexte co-management MECM/Intune
+
+!!! quote "En résumé"
+    - À relire : GPO/MDM convergence — théorie et positionnement.
+    - À relire : Migration vers Intune.
+    - À relire : Windows Update for Business et co-management.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

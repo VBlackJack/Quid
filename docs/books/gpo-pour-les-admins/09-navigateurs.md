@@ -2,7 +2,6 @@
 description: Navigateurs Edge, Chrome, Firefox via GPO — ADMX, sécurité, extensions, proxy, homepage
 tags: [gpo-admins, edge, chrome, firefox, navigateurs, admx]
 ---
-
 # Navigateurs (Edge, Chrome, Firefox) via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -303,6 +302,13 @@ Ce tableau recense les parametres communs et leur equivalent dans chaque navigat
 |---|---|---|---|
 | Desactiver | `InPrivateModeAvailability` = `2` | `IncognitoModeAvailability` = `2` | `"DisablePrivateBrowsing": true` |
 
+
+!!! quote "En résumé"
+    - Utiliser les parametres systeme : "Proxy": {"Mode": "system"}.
+    - Proxy fixe : "Mode": "manual" + "HTTPProxy".
+    - Script PAC : "Mode": "pac_script" + "AutoConfigURL".
+    - Desactiver le proxy : "Mode": "none".
+    - Ce tableau recense les parametres communs et leur equivalent dans chaque navigateur.
 ---
 
 ## :material-puzzle-plus: Gestion des extensions
@@ -669,3 +675,10 @@ Ces pages affichent toutes les politiques actives, leur source (GPO, MDM, cloud)
 | Chrome policy reference | https://chromeenterprise.google/policies/ |
 | Firefox policy templates | https://github.com/mozilla/policy-templates |
 | Firefox policies.json reference | https://mozilla.github.io/policy-templates/ |
+
+!!! quote "En résumé"
+    - À relire : Microsoft Edge → Microsoft Edge for Business.
+    - À relire : Google Chrome → Google Chrome Enterprise.
+    - À relire : Firefox → GitHub mozilla/policy-templates.
+    - À relire : Edge → edge://policy.
+    - À relire : 04-central-store.md.

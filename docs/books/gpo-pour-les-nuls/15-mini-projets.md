@@ -6,7 +6,6 @@ tags:
   - projets
   - pratique
 ---
-
 # Mini-projets GPO : mettre en pratique
 
 !!! abstract "Ce que vous allez apprendre"
@@ -15,6 +14,10 @@ tags:
     - Ecrire un script PowerShell de diagnostic GPO automatise et planifiable
     - Deployer une configuration navigateur standardisee via les modeles ADMX
     - Construire un kit GPO complet pour demarrer un nouvel environnement Active Directory
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Un mini-projet GPO réussi part d'un besoin concret, d'un périmètre limité et d'un critère de validation observable.
 
 ---
 
@@ -946,7 +949,6 @@ Ce n'est pas rien.
 Ce livre couvre les fondamentaux. Mais les GPO sont un sujet vaste. Voici ou aller selon votre prochain objectif.
 
 ---
-
 #### :material-book-open-page-variant: Vous voulez comprendre pourquoi les GPO fonctionnent ainsi ?
 
 Plongez dans **La Bible des Strategies de Groupe**.
@@ -958,7 +960,6 @@ C'est la reference technique pour ceux qui veulent comprendre non seulement **qu
 [Ouvrir La Bible des Strategies de Groupe](../bible-gpo/index.md){ .md-button .md-button--primary }
 
 ---
-
 #### :material-briefcase-outline: Vous etes administrateur systeme et vous voulez des cas concrets ?
 
 Consultez **Les GPO pour les Administrateurs**.
@@ -968,7 +969,6 @@ Ce livre s'adresse aux pros en production. Il couvre les scenarios reels : deplo
 [Ouvrir Les GPO pour les Administrateurs](../gpo-pour-les-admins/index.md){ .md-button }
 
 ---
-
 ### Un dernier conseil
 
 :material-lightbulb: Les GPO ne s'apprennent vraiment qu'en les pratiquant. Le meilleur investissement que vous puissiez faire maintenant, c'est de monter un labo : une machine virtuelle Windows Server, quelques postes clients, et un domaine de test.

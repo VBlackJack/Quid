@@ -5,7 +5,6 @@ tags:
   - debutant
   - modifications
 ---
-
 # 10 modifications utiles avec gpedit
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Comment annuler proprement un changement
     - Quelles modifications touchent l'ordinateur et lesquelles touchent l'utilisateur
     - Comment garder une trace de tout ce que vous changez
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Avant toute modification, notez le réglage d'origine et validez le résultat avec `gpupdate /force` puis un contrôle visible sur le poste.
 
 ---
 
@@ -35,6 +38,13 @@ Dans ce chapitre, on va toucher aux deux branches. Pour chaque modification, on 
 
     Pour verifier votre edition : ++win+r++ → tapez `winver` → ++enter++. La fenetre qui s'ouvre indique votre edition. Le chapitre 2 explique tout ca en detail.
 
+
+!!! quote "En résumé"
+    - Si vous arrivez directement sur ce chapitre, un petit rappel s'impose.
+    - gpedit.msc est l'editeur de strategies de groupe locales de Windows.
+    - Il permet de modifier le comportement de Windows sur un seul PC, sans avoir besoin d'un serveur Active Directory.
+    - Configuration ordinateur : les parametres qui s'appliquent a la machine entiere, quel que soit l'utilisateur connecte.
+    - Configuration utilisateur : les parametres qui s'appliquent au profil de l'utilisateur qui est connecte.
 ---
 
 ## Avant de commencer : notez tout !
@@ -86,6 +96,13 @@ Chaque modification suit le meme format :
 3. **Comment** l'appliquer (pas a pas)
 4. **Comment** verifier et annuler
 
+
+!!! quote "En résumé"
+    - Pourquoi ?
+    - Parce que dans trois semaines, quand quelque chose ne fonctionnera plus comme prevu, vous serez tres content de retrouver cette liste.
+    - Pas besoin d'un outil complique.
+    - La date.
+    - Le chemin exact du parametre.
 ---
 
 ## 1. Interdire l'acces au Panneau de configuration
@@ -697,6 +714,13 @@ Vous pouvez aussi imprimer ce tableau ou le garder en signet — c'est une refer
 
 Et surtout : toutes ces modifications sont **reversibles**. Il suffit de remettre le parametre sur **Non configure** pour retrouver le comportement par defaut de Windows.
 
+
+!!! quote "En résumé"
+    - # : Difficulte.
+    - 1 : material-star.
+    - 2 : material-star.
+    - 3 : material-star::material-star.
+    - 6 modifications sur 10 se trouvent dans la branche Configuration utilisateur.
 ---
 
 ## Et apres ?
@@ -729,7 +753,6 @@ Quelques pistes pour aller plus loin par vous-meme :
     Mais c'est un sujet pour les chapitres suivants. Pour l'instant, retenez simplement : pour annuler vos modifications, utilisez **Non configure**.
 
 ---
-
 !!! tip "Tenez un journal de modifications"
     Creez un fichier texte simple et notez chaque modification que vous faites. Voici un modele que vous pouvez copier-coller :
 
@@ -742,14 +765,14 @@ Quelques pistes pour aller plus loin par vous-meme :
     Etat avant : Non configure
     Etat apres : Active
     Raison : PC de presentation en salle de reunion
-    ---
+---
     Date : 2025-01-15
     Parametre : Verrouillage apres inactivite
     Chemin : Config ordinateur > Parametres Windows > Securite > Options de securite
     Etat avant : 0
     Etat apres : 900
     Raison : Securisation du poste d'accueil
-    ---
+---
     Date : 2025-01-20
     Parametre : Longueur minimale du mot de passe
     Chemin : Config ordinateur > Parametres Windows > Securite > Strategie de mot de passe
@@ -777,7 +800,6 @@ Quelques pistes pour aller plus loin par vous-meme :
     Tres pratique pour retrouver une modification quand on a oublie de tenir son journal. Ou pour diagnostiquer un probleme sur le poste d'un collegue.
 
 ---
-
 !!! quote "En resume"
     - Gpedit.msc permet de modifier le comportement de Windows sans toucher au registre directement.
     - Chaque parametre a trois etats : **Non configure**, **Active**, **Desactive**.
@@ -790,7 +812,6 @@ Quelques pistes pour aller plus loin par vous-meme :
 Vous avez desormais 10 modifications concretes sous la main, un journal pour les suivre, la commande `gpupdate /force` pour appliquer vos changements immediatement, et la commande `gpresult` pour les retrouver. Pas mal pour un seul chapitre, non ?
 
 ---
-
 Dans le [chapitre suivant](04-gpmc-premiers-pas.md), on quitte le monde du PC local pour decouvrir la **console de gestion des strategies de groupe (GPMC)** — l'outil qui permet de gerer les GPO a l'echelle d'un domaine Active Directory. On passera de la gestion d'un seul PC a la gestion de centaines de machines.
 
 C'est le grand saut. Mais avec les bases solides que vous venez d'acquerir dans ce chapitre — naviguer dans gpedit, activer des parametres, verifier les effets, annuler proprement — vous avez tous les reflexes necessaires pour aborder la suite sereinement.

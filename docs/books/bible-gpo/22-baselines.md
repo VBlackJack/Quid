@@ -2,7 +2,6 @@
 description: Baselines de sécurité CIS, STIG et Microsoft — import, gap analysis, application progressive, conformité
 tags: [bible-gpo, baselines, cis, stig, microsoft-security-baseline, hardening, conformite]
 ---
-
 # Baselines de sécurité (CIS, STIG, Microsoft)
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,10 +13,10 @@ tags: [bible-gpo, baselines, cis, stig, microsoft-security-baseline, hardening, 
     - `LGPO.exe /g` pour appliquer une baseline Microsoft sans GPMC sur des machines autonomes ou golden images
     - Un **script PowerShell de gap analysis** : comparer les valeurs courantes du registre avec les valeurs cibles d'une baseline
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     Une baseline n'est pas un commutateur à basculer en production. C'est un **référentiel de départ** qui doit être audité, filtré selon votre contexte, puis déployé par ring progressif. La Microsoft Security Baseline appliquée telle quelle casse des applications legacy. Le CIS L2 désactive des fonctionnalités utilisées dans 30 % des parcs. La valeur réelle d'une baseline est dans la **gap analysis** — mesurer l'écart entre votre état actuel et la cible — pas dans l'application aveugle.
+
 
 ---
 
@@ -290,7 +289,7 @@ Check: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Sys
        Value Name: EnableSmartScreen
        Value Type: REG_DWORD
        Value: 1
-       
+
 Event ID associé: 4657 (modification d'une valeur de registre auditée)
 ```
 
@@ -325,6 +324,13 @@ Event ID associé: 4657 (modification d'une valeur de registre auditée)
 !!! info "Microsoft Security Compliance Manager (SCM)"
     Le **Security Compliance Manager** est un outil Microsoft (distinct du SCT) qui permet de comparer les paramètres d'une baseline avec la configuration courante d'une machine et d'exporter des rapports de conformité. Il utilise le même format de données que les GPOs du SCT.
 
+
+!!! quote "En résumé"
+    - Organisation émettrice : DISA (DoD américain).
+    - Public cible : DoD + hauts niveaux d'assurance.
+    - Fréquence de mise à jour : Trimestriel à semestriel.
+    - Format de distribution : ZIP XCCDF + OVAL.
+    - Cette synthèse condense comparaison des trois référentiels en aide de décision rapide.
 ---
 
 ## :material-sitemap: Workflow enterprise d'application d'une baseline
@@ -630,6 +636,13 @@ flowchart TD
 !!! info "Drift de conformité"
     Le **drift** est l'écart progressif entre la baseline appliquée et l'état réel de la machine, causé par des mises à jour Windows, des scripts de déploiement, des GPOs concurrentes ou des modifications manuelles. La surveillance continue est indispensable — une baseline appliquée une fois ne reste pas conforme indéfiniment.
 
+
+!!! quote "En résumé"
+    - Le schéma sur diagramme : cycle de vie du déploiement d'une baseline sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
+    - Cette section fixe l’essentiel à retenir sur diagramme : cycle de vie du déploiement d'une baseline.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## :material-link: Références croisées
@@ -637,3 +650,10 @@ flowchart TD
 - **[13 — Stratégies de sécurité](13-securite-strategies.md)** — Les paramètres `GptTmpl.inf` (mot de passe, audit, droits utilisateur, options de sécurité) sont au cœur de toute baseline. Les baselines Microsoft et CIS les configurent massivement.
 - **[21 — LGPO et stratégies locales multiples](21-lgpo.md)** — `LGPO.exe` est l'outil d'application des baselines sur machines autonomes. Ce chapitre couvre le format `LGPO.txt`, les couches MLGPO et les cas d'usage de golden image.
 - **[../gpo-pour-les-admins/06-audit-conformite.md](../gpo-pour-les-admins/06-audit-conformite.md)** — Mesurer la conformité à une baseline en environnement de domaine : RSoP, rapports GPMC, intégration Nessus.
+
+!!! quote "En résumé"
+    - À relire : 13 — Stratégies de sécurité.
+    - À relire : 21 — LGPO et stratégies locales multiples.
+    - À relire : ../gpo-pour-les-admins/06-audit-conformite.md.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

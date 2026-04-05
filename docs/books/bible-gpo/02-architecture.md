@@ -6,7 +6,6 @@ tags:
   - architecture
   - composants-internes
 ---
-
 # Architecture et composants internes
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -17,6 +16,10 @@ tags:
     - Le service `gpsvc` — son rôle d'orchestrateur, ses dépendances et son cache local
     - La synchronisation critique GPC ↔ GPT et les conséquences d'une divergence de version
     - Les attributs `gPCMachineExtensionNames` / `gPCUserExtensionNames` et leur impact sur les performances
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Le moteur GPO ne lit pas un bloc monolithique : il assemble un objet AD, un template SYSVOL et une liste de CSE spécialisées.
 
 ---
 
@@ -35,6 +38,12 @@ La compréhension de cette architecture est fondamentale. La quasi-totalité des
 !!! info "Deux systèmes de réplication distincts"
     Le GPC est répliqué via le moteur de réplication AD (Knowledge Consistency Checker + RPC). Le GPT est répliqué via DFS-R (ou FRS sur les très anciens environnements). Ces deux systèmes ont des latences différentes, ce qui explique pourquoi les désynchronisations GPC/GPT sont possibles.
 
+
+!!! quote "En résumé"
+    - Une GPO n'est pas un objet unique.
+    - C'est une construction distribuée composée de trois éléments distincts qui doivent rester cohérents entre eux.
+    - La compréhension de cette architecture est fondamentale.
+    - Le point clé de les trois couches d'une gpo doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## Le GPC — Group Policy Container
@@ -402,6 +411,12 @@ sequenceDiagram
 
 :material-information-outline: Le flux est identique pour les politiques Machine (au démarrage) et Utilisateur (à la connexion). Seul le contexte d'exécution change — `SYSTEM` pour Machine, session de l'utilisateur pour User.
 
+
+!!! quote "En résumé"
+    - Le flux est identique pour les politiques Machine (au démarrage) et Utilisateur (à la connexion).
+    - Seul le contexte d'exécution change — SYSTEM pour Machine, session de l'utilisateur pour User.
+    - Le schéma sur architecture générale — flux d'application d'une gpo sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
 ---
 
 ## La synchronisation GPC ↔ GPT : le numéro de version
@@ -612,3 +627,10 @@ User    35378EAC-683F-11D2-A89A-00C04FBBCFA2  53D6AB1B-2488-11D1-A28C-00C04FB94F
 | RSoP et diagnostic des versions appliquées | [Ch. 20 — RSoP et diagnostic](20-rsop-diagnostic.md) |
 | Performances et optimisation GPO | [Ch. 23 — Performances et optimisation](23-performances.md) |
 | Vue registre des paramètres GPO | [La Bible du Registre — Ch. 20](../bible-registre-windows/20-gpo.md) |
+
+!!! quote "En résumé"
+    - À relire : CSE en détail — GUID, DLL, comportement par CSE → Ch. 03 — Client-Side Extensions.
+    - À relire : Structure SYSVOL et réplication DFS-R → Ch. 04 — SYSVOL.
+    - À relire : Format binaire de registry.pol → Ch. 06 — Le format registry.pol.
+    - À relire : Cycle complet de traitement par gpsvc → Ch. 07 — Traitement des stratégies.
+    - À relire : Ch. 03 — Client-Side Extensions.

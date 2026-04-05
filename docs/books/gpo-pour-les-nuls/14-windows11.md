@@ -5,7 +5,6 @@ tags:
   - debutant
   - windows11
 ---
-
 # GPO et Windows 11
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Deployer un menu Demarrer personnalise avec la nouvelle methode JSON (l'ancien XML ne fonctionne plus)
     - Controler les nouveaux elements de la barre des taches : Widgets, Copilot, bouton Chat Teams
     - Construire une checklist de migration GPO avant de basculer votre parc vers Windows 11
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Sous Windows 11, la version des ADMX et l'identification précise des applications conditionnent la réussite des politiques modernes.
 
 ---
 
@@ -721,7 +724,13 @@ Vous avez maintenant une vision complete des differences entre GPO Windows 10 et
 
 **Reflexe 3** : Utilisez des filtres WMI pour cibler precisement chaque version de Windows. Ne laissez pas des GPO s'appliquer sur les mauvais systemes.
 
----
 
+!!! quote "En résumé"
+    - Modeles ADMX : Telecharger et copier dans le magasin central SYSVOL.
+    - Menu Demarrer : Creer une GPO JSON via le nouveau parametre dedié.
+    - Barre des taches (position) : Adapter les procedures support, pas d'alternative GPO.
+    - Barre des taches (boutons) : Configurer via les nouvelles GPO si besoin.
+    - Voici le tableau de synthese des points cles.
+---
 !!! info "Chapitre suivant : Mini-projets GPO"
     Dans le **chapitre 15 — Mini-projets GPO**, vous mettrez en pratique tout ce que vous avez appris dans ce livre a travers des scenarios complets et realistes : deploiement d'un poste standardise de A a Z, securisation d'une salle de formation, configuration d'une station kiosque, et gestion d'un parc mixte Windows 10 / Windows 11. Des etapes guidees, des GPO a creer, des scripts a executer. Le meilleur moyen de consolider vos connaissances.

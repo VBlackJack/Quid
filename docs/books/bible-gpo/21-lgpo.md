@@ -2,7 +2,6 @@
 description: LGPO et stratégies locales multiples — MLGPO, LGPO.exe, format LGPO.txt, hardening autonome, golden image
 tags: [bible-gpo, lgpo, mlgpo, local-policy, hardening, golden-image]
 ---
-
 # LGPO et stratégies locales multiples
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,10 +13,10 @@ tags: [bible-gpo, lgpo, mlgpo, local-policy, hardening, golden-image]
     - Cas d'usage production : hardening de machine autonome, préparation de golden image, pipeline CI/CD de validation de baselines CIS avant publication
     - Interactions entre Local GPO et GPO de domaine dans LSDOU — y compris le cas LAPS
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     La Local GPO n'est pas une — elle est multiple. Depuis Windows Vista, MLGPO permet de configurer des paramètres différents pour les administrateurs locaux, les utilisateurs standard, et chaque compte nommé, sur la même machine. L'outil `LGPO.exe` permet d'automatiser la totalité de ce système via un format texte, sans domaine, sans GPMC — ce qui en fait la base incontournable de tout pipeline de hardening autonome.
+
 
 ---
 
@@ -672,6 +671,13 @@ flowchart TD
     style J fill:#1e8449,color:#fff,stroke:#196f3d
 ```
 
+
+!!! quote "En résumé"
+    - Le schéma sur diagramme : pipeline ci/cd lgpo sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
+    - Cette section fixe l’essentiel à retenir sur diagramme : pipeline ci/cd lgpo.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## :material-domain: Interactions avec les GPO de domaine
@@ -735,3 +741,10 @@ Techniquement, LAPS ne "passe pas par" les politiques locales pour modifier le m
 | LGPO dans un pipeline CI/CD complet | [Les GPO pour les Admins — Ch. 23 — Automatisation CI/CD](../gpo-pour-les-admins/23-automation-cicd.md) |
 | Format registry.pol et structure binaire | [Ch. 06 — Le format registry.pol](06-registry-pol.md) |
 | LAPS et GPO de domaine | [Les GPO pour les Admins — Ch. 17 — BitLocker et LAPS](../gpo-pour-les-admins/17-bitlocker-laps.md) |
+
+!!! quote "En résumé"
+    - À relire : Héritage LSDOU et la couche Local → Ch. 08 — Héritage et ordre d'application (LSDOU).
+    - À relire : Appliquer des baselines CIS/STIG avec LGPO.exe → Ch. 22 — Baselines de sécurité.
+    - À relire : LGPO dans un pipeline CI/CD complet → Les GPO pour les Admins — Ch. 23 — Automatisation CI/CD.
+    - À relire : Format registry.pol et structure binaire → Ch. 06 — Le format registry.pol.
+    - À relire : Ch. 08 — Héritage et ordre d'application (LSDOU).

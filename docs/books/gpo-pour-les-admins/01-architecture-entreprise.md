@@ -6,7 +6,6 @@ tags:
   - architecture
   - entreprise
 ---
-
 # Concevoir une architecture GPO d'entreprise
 
 !!! abstract "Ce que vous allez pouvoir faire"
@@ -15,6 +14,10 @@ tags:
     - Decider combien de GPO creer et comment les regrouper par fonction
     - Auditer un parc existant pour identifier les GPO inutiles, non liees ou en conflit
     - Eviter les trois pieges de production qui ralentissent les ouvertures de session et bloquent le diagnostic
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Une architecture GPO d'entreprise tient si le scope, le nommage et les niveaux de liaison restent lisibles avant même d'ouvrir l'éditeur.
 
 ---
 
@@ -458,7 +461,6 @@ Audit exporte : C:\Temp\gpo-audit-complet.csv
 Cette section documente les erreurs les plus courantes observees sur des environnements reels. Chaque piege a cause au moins un incident de production documentable.
 
 ---
-
 ### Piege 1 — Enforced active par defaut
 
 !!! danger "Production — Ne jamais utiliser Enforced par defaut"
@@ -469,7 +471,6 @@ Cette section documente les erreurs les plus courantes observees sur des environ
     **Regle :** utilisez Enforced uniquement quand vous avez une OU enfant avec Block Inheritance et qu'une politique de securite critique doit quand meme s'y appliquer. Documentez chaque usage dans la description de la GPO.
 
 ---
-
 ### Piege 2 — Block Inheritance sans documentation
 
 !!! warning "A surveiller — Block Inheritance casse le diagnostic"
@@ -482,7 +483,6 @@ Cette section documente les erreurs les plus courantes observees sur des environ
     **Regle :** chaque OU avec Block Inheritance doit avoir une description explicite dans ses proprietes AD. Exemple : `"Block Inheritance active — DMZ — justification : isolation reseau, voir ticket INC-4521"`.
 
 ---
-
 ### Piege 3 — CREATOR OWNER en production
 
 !!! warning "A surveiller — CREATOR OWNER conserve Full Control"
@@ -537,7 +537,6 @@ CREATOR OWNER removed from: CFG-Postes-Reseau
 ```
 
 ---
-
 ### Piege 4 — GPO desactivee encore liee
 
 !!! warning "A surveiller — GPO desactivee = pas supprimee"
@@ -546,7 +545,6 @@ CREATOR OWNER removed from: CFG-Postes-Reseau
     Apres validation qu'une GPO desactivee n'est plus necessaire, supprimez-la completement. GPMC propose de supprimer la GPO ET ses liaisons en une seule operation.
 
 ---
-
 ### Piege 5 — L'ordre des liens et la priorite
 
 !!! warning "A surveiller — La priorite des liens n'est pas intuitive"
@@ -573,3 +571,10 @@ CREATOR OWNER removed from: CFG-Postes-Reseau
 | Introduction debutant GPO | Les GPO pour les Nuls — Ch. 06 — Heritage |
 | Windows Update en entreprise | Ch. 10 — Windows Update (WUfB) |
 | Securite endpoint | Ch. 14 — Securite endpoint |
+
+!!! quote "En résumé"
+    - À relire : Delegation et roles GPO → Ch. 02 — Gouvernance et delegation.
+    - À relire : Automatisation avec PowerShell → Ch. 03 — PowerShell GroupPolicy.
+    - À relire : Sauvegarde et migration → Ch. 05 — Backup et migration.
+    - À relire : LSDOU et ordre d'application → La Bible GPO — Ch. 08 — Heritage LSDOU.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.

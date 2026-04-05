@@ -2,7 +2,6 @@
 description: Automatisation et CI/CD pour les GPO — Git, LGPO.exe, Pester, Azure DevOps, GitHub Actions, versioning ADMX
 tags: [gpo-admins, cicd, automation, git, lgpo, pester, devops, admx]
 ---
-
 # Automatisation et CI/CD pour les GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -23,6 +22,13 @@ La plupart des équipes gèrent leurs GPO comme un système de fichiers partagé
 
 GitOps appliqué aux GPO résout ce problème structurellement : toute modification est un commit, toute promotion est une pull request, tout rollback est un `git revert`. Ce chapitre décrit comment passer de l'état "GPO artisanales" à un pipeline reproductible et auditable, sans changer d'outil de gestion.
 
+
+!!! quote "En résumé"
+    - La plupart des équipes gèrent leurs GPO comme un système de fichiers partagé non versionné.
+    - Une modification dans GPMC, un commentaire dans le ticket, et on oublie.
+    - Six mois plus tard, personne ne sait pourquoi NTLMv1 est encore activé sur 200 machines.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## :material-source-branch: Le pipeline CI/CD GPO
@@ -1048,6 +1054,12 @@ Après chaque promotion en production :
 | Aucun ticket support ouvert dans les 2h | Vérification ITSM manuelle |
 | Log de backup du soir à jour | Vérifier `C:\Logs\gpo-git-backup.log` |
 
+
+!!! quote "En résumé"
+    - Après un déploiement en production, vérifiez l'état de cohérence entre Git et les GPO vivantes du domaine.
+    - Après chaque promotion en production.
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
 ---
 
 ## Références croisées
@@ -1055,3 +1067,10 @@ Après chaque promotion en production :
 - [PowerShell GroupPolicy module](03-powershell-gpo.md) — cmdlets utilisés dans ce chapitre (`Backup-GPO`, `Get-GPO`, `New-GPLink`, etc.)
 - [Sauvegarde, restauration et migration](05-backup-migration.md) — fondations de la sauvegarde GPO et gestion des commentaires `Backup.xml`
 - [LGPO.exe — Bible GPO](../bible-gpo/21-lgpo.md) — référence complète de LGPO.exe : options de parse, import, apply et génération de `registry.pol`
+
+!!! quote "En résumé"
+    - À relire : PowerShell GroupPolicy module.
+    - À relire : Sauvegarde, restauration et migration.
+    - À relire : LGPO.exe — Bible GPO.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

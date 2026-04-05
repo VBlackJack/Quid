@@ -7,7 +7,6 @@ tags:
   - rds
   - kiosk
 ---
-
 # Loopback Processing : modes et cas d'usage
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -292,7 +291,6 @@ Avec loopback Replace, tous les utilisateurs qui se connectent sur les serveurs 
     En mode Replace, les GPO de redirection de dossiers de l'OU utilisateur sont ignorees. Si vos utilisateurs ont des redirections de `Documents` ou `Desktop` definies dans leur OU, elles ne s'appliqueront plus sur le serveur RDS. Il faut reconfigurer les redirections dans les GPO liees a l'OU RDS — ou passer en mode Merge si la redirection utilisateur doit etre preservee.
 
 ---
-
 ### :material-monitor: Kiosks et postes d'accueil
 
 Les bornes interactives, postes d'accueil, ordinateurs de salles de reunion — tous partagent la meme caracteristique : **n'importe qui peut se connecter, mais l'experience doit etre identique pour tous**.
@@ -313,7 +311,6 @@ OU=Postes-Kiosk
     La GPO qui active le loopback (`KSK-Loopback-Replace`) peut etre liee dans n'importe quel ordre — ce qui compte c'est qu'elle soit dans `OU=Postes-Kiosk`. Les GPO User Configuration liees a la meme OU seront appliquees lors de la prochaine connexion utilisateur.
 
 ---
-
 ### :material-cloud-outline: Citrix et VDI
 
 Les environnements Citrix XenApp/XenDesktop et les infrastructures VDI (VMware Horizon, AVD) fonctionnent selon le meme principe que RDS.
@@ -329,7 +326,6 @@ Loopback Replace garantit que :
     Les technologies de profil comme FSLogix ou les profils Citrix UPM fonctionnent au niveau du systeme de fichiers, pas via GPO. Le loopback n'affecte pas leur chargement. En revanche, les **parametres GPO** dans le profil (registry.pol applique au profil) peuvent interagir — tester en environnement de preprod avant tout deploiement.
 
 ---
-
 ### :material-school: Salles de formation
 
 Les salles de formation presentent un cas hybride interessant :
@@ -497,6 +493,12 @@ flowchart TD
 | **Loopback Replace** | Kiosk, RDS, VDI session partagee | OU de l'ordinateur uniquement | OU ordinateur |
 | **Loopback Merge** | Lab, formation, VDI personnalise | OUs ordinateur + utilisateur combinees | OU ordinateur > OU utilisateur |
 
+
+!!! quote "En résumé"
+    - Normal : OU utilisateur la plus profonde.
+    - Loopback Replace : OU ordinateur.
+    - Loopback Merge : OU ordinateur > OU utilisateur.
+    - Cette synthèse condense tableau recapitulatif des modes en aide de décision rapide.
 ---
 
 ## :material-link-variant: Comparaison Replace vs Merge : aide a la decision
@@ -510,6 +512,13 @@ flowchart TD
 | Risque de conflit de parametres | Nul | Possible (a tester) |
 | Cas typique | Kiosk, RDS strict | Formation, lab, VDI semi-perso |
 
+
+!!! quote "En résumé"
+    - Personnalisation utilisateur preservee : Oui (partiellement).
+    - Controle total de l'experience : Non (depend aussi de l'OU user).
+    - Redirection de dossiers utilisateur : Peut venir de l'OU user.
+    - Complexite de maintenance : Moyenne (deux sources).
+    - Cette synthèse condense comparaison replace vs merge : aide a la decision en aide de décision rapide.
 ---
 
 ## :material-book-open-variant: Bonnes pratiques de deploiement
@@ -537,6 +546,12 @@ En mode Replace, les redirections de dossiers de l'OU utilisateur sont ignorees.
 !!! warning "Impact sur les scripts de connexion"
     Les scripts de connexion (User Configuration → Windows Settings → Scripts) sont eux aussi soumis au loopback. En mode Replace, seuls les scripts de l'OU ordinateur s'executent. Les scripts de l'OU utilisateur sont ignores. A verifier systematiquement lors d'un deploiement loopback sur un environnement existant.
 
+
+!!! quote "En résumé"
+    - Creer une GPO dediee pour le loopback.
+    - Ne pas melanger la GPO qui active le loopback avec les GPO qui configurent les parametres utilisateur.
+    - Une GPO XXX-Loopback-Replace qui ne contient que le parametre de loopback est plus facile a auditer et a depanner.
+    - Le point clé de bonnes pratiques de deploiement doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## :material-crosshairs: Cross-references
@@ -549,3 +564,10 @@ En mode Replace, les redirections de dossiers de l'OU utilisateur sont ignorees.
 | Configuration d'un kiosk complet | Les GPO pour les Nuls — Ch. 15 (Projet 2) |
 | Diagnostic RSOP et gpresult avance | Ch. 20 — RSOP et diagnostic |
 | Interaction avec MDM (Intune) | Ch. 25 — Convergence GPO et MDM |
+
+!!! quote "En résumé"
+    - À relire : Heritage LSDOU et ordre d'application → Ch. 08 — Heritage et ordre d'application (LSDOU).
+    - À relire : Filtrage de securite et filtrage WMI → Ch. 09 — Filtrage de securite et filtrage WMI.
+    - À relire : GPO pour les environnements RDS → La Bible des Admins — Ch. 11.
+    - À relire : Configuration d'un kiosk complet → Les GPO pour les Nuls — Ch. 15 (Projet 2).
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.

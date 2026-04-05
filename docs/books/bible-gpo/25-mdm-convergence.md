@@ -2,7 +2,6 @@
 description: GPO et MDM — convergence, coexistence, CSP, PolicyManager, Autopilot, stratégies hybrides
 tags: [bible-gpo, mdm, intune, csp, policymanager, autopilot, convergence]
 ---
-
 # GPO et MDM : convergence et coexistence
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,10 +13,10 @@ tags: [bible-gpo, mdm, intune, csp, policymanager, autopilot, convergence]
     - La **pile de configuration complète** (BIOS → Autopilot → CSP → GPO → Applications) et quel couche gagne à chaque niveau
     - La trajectoire réaliste de la convergence GPO/MDM selon la feuille de route Microsoft 2026+
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     MDM et GPO ne sont pas en guerre — ils écrivent dans des clés de registre **différentes**. La clé MDM (`PolicyManager\current`) est lue en priorité par les composants modernes. La clé GPO (`SOFTWARE\Policies\`) est lue en priorité par les composants legacy. Maîtriser quelle couche gagne sur quel paramètre est la compétence centrale de l'architecte hybride.
+
 
 ---
 
@@ -573,8 +572,14 @@ Ce chapitre est le dernier de la Bible GPO. Les sujets traités s'articulent ave
 - [Chapitre 19 — Migration vers Intune](../gpo-pour-les-admins/19-migration-intune.md) — méthodologie de migration GPO → Settings Catalog, outils d'analyse, déploiement progressif
 - [Chapitre 25 — Zero Trust et GPO](../gpo-pour-les-admins/25-zero-trust.md) — architecture Zero Trust, rôle des GPO dans le modèle de confiance moderne, Conditional Access
 
----
 
+!!! quote "En résumé"
+    - À relire : Chapitre 18 — Azure AD Hybrid Join.
+    - À relire : Chapitre 19 — Migration vers Intune.
+    - À relire : Chapitre 25 — Zero Trust et GPO.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.
+---
 !!! abstract "Ce que vous avez appris dans ce chapitre"
     - `PolicyManager\current\` est la clé de vérité MDM — les composants modernes la lisent en priorité sur `SOFTWARE\Policies\`
     - Les ADMX-backed policies Intune écrivent dans la même clé de registre que la GPO équivalente, mais via un chemin PolicyManager distinct

@@ -2,7 +2,6 @@
 description: Windows Firewall with Advanced Security via GPO — profils, règles, logging, déploiement en entreprise
 tags: [bible-gpo, firewall, wfas, sécurité, réseau]
 ---
-
 # Windows Firewall with Advanced Security via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,10 +13,10 @@ tags: [bible-gpo, firewall, wfas, sécurité, réseau]
     - L'activation du logging pare-feu via GPO et les Event IDs critiques du journal Security
     - Le piège de production majeur : déployer "Block All Outbound" sans exception préalable
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     Une règle de pare-feu GPO n'est active que si le profil réseau actif correspond au profil de la règle. La détection de profil est effectuée par **NLA (Network Location Awareness)** au moment de la connexion réseau. Si NLA ne détecte pas le contrôleur de domaine, la machine tombe en profil **Public** — et toutes vos règles ciblant le profil Domain deviennent inactives. Comprendre NLA est donc un prérequis à tout déploiement de règles Domain.
+
 
 ---
 
@@ -417,6 +416,13 @@ WFAS n'a pas de numéro de priorité explicite comme les ACL réseau. Les règle
 !!! warning "BLOCK beats ALLOW"
     Si une règle GPO bloque le port 443 sortant et qu'une autre règle (même GPO ou autre) l'autorise, le BLOCK l'emporte. Il n'existe pas de mécanisme d'exception (`permit` après `deny`) comme dans les ACL Cisco. Concevez vos règles pour éviter les conflits plutôt que de compter sur un ordre d'évaluation.
 
+
+!!! quote "En résumé"
+    - Le moteur WFP (Windows Filtering Platform) évalue chaque paquet selon un ordre précis.
+    - La décision finale suit ce flux.
+    - WFAS n'a pas de numéro de priorité explicite comme les ACL réseau.
+    - Le schéma sur flux de traitement d'un paquet sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
 ---
 
 ## :material-bomb: Piège de production : Block All Outbound sans exception
@@ -514,3 +520,10 @@ Les sujets connexes traités dans d'autres chapitres de cette série :
 - **Déploiement pare-feu en entreprise** (règles d'exceptions par rôle serveur, segmentation) → [`../gpo-pour-les-admins/14-securite-endpoint.md`](../gpo-pour-les-admins/14-securite-endpoint.md)
 - **Contexte d'audit et stratégies de sécurité globales** (Event IDs, Advanced Audit Policy) → [`13-securite-strategies.md`](13-securite-strategies.md)
 - **AppLocker et WDAC** (contrôle des applications, complémentaire au pare-feu sortant) → [`15-applocker-wdac.md`](15-applocker-wdac.md)
+
+!!! quote "En résumé"
+    - À relire : ../gpo-pour-les-admins/14-securite-endpoint.md.
+    - À relire : 13-securite-strategies.md.
+    - À relire : 15-applocker-wdac.md.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

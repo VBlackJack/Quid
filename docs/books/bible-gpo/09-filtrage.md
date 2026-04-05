@@ -7,7 +7,6 @@ tags:
   - securite
   - wmi
 ---
-
 # Filtrage de sécurité et filtrage WMI
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -19,10 +18,10 @@ tags:
     - La sémantique des requêtes WQL : TRUE = GPO appliquée, FALSE ou erreur = GPO ignorée
     - Les Event IDs 5313, 5320 et 5321 pour diagnostiquer les refus de filtrage dans le journal opérationnel Group Policy
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     Le filtrage de sécurité contrôle **QUI** la GPO s'applique. Le filtrage WMI contrôle **DANS QUEL CONTEXTE** elle s'applique. Les deux sont évalués côté client — supprimer "Authenticated Users" sans ajouter un groupe de remplacement casse le traitement machine.
+
 
 ---
 
@@ -741,3 +740,10 @@ Get-GPO -All | Sort-Object DisplayName | ForEach-Object {
 | Diagnostic complet avec RSOP et gpresult | [Ch. 20 — RSOP et diagnostic](20-rsop-diagnostic.md) |
 | Impact des filtres WMI sur les performances | [Ch. 23 — Performances](23-performances.md) |
 | Audit des permissions GPO en environnement sécurisé | [Les GPO pour les Admins — Audits et gouvernance](../gpo-pour-les-admins/index.md) |
+
+!!! quote "En résumé"
+    - À relire : Héritage LSDOU et ordre d'application → Ch. 08 — Héritage et ordre d'application.
+    - À relire : Item-Level Targeting (alternative aux filtres WMI pour GPP) → Ch. 12 — Item-Level Targeting.
+    - À relire : Diagnostic complet avec RSOP et gpresult → Ch. 20 — RSOP et diagnostic.
+    - À relire : Impact des filtres WMI sur les performances → Ch. 23 — Performances.
+    - À relire : Ch. 08 — Héritage et ordre d'application.

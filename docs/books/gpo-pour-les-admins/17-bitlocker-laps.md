@@ -2,7 +2,6 @@
 description: BitLocker et LAPS via GPO — déploiement enterprise, recovery keys AD, LAPS v1/v2, JIT administration
 tags: [gpo-admins, bitlocker, laps, local-admin, recovery-key, jit, privilege]
 ---
-
 # BitLocker et LAPS via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -23,6 +22,11 @@ BitLocker et LAPS répondent à deux vecteurs de risque complémentaires : le vo
 
 Les deux sont souvent déployés en même temps, lors d'une initiative de durcissement du parc. Ils s'appuient sur Active Directory pour stocker les secrets (clé de récupération, mot de passe local), ce qui impose une rigueur particulière sur les ACL AD et sur la séquence de déploiement.
 
+
+!!! quote "En résumé"
+    - Les deux sont souvent déployés en même temps, lors d'une initiative de durcissement du parc.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## :material-lock: BitLocker — déploiement enterprise via GPO
@@ -844,6 +848,11 @@ WKS-003   FullyDecrypted / Protection: Off       False          True           #
 WKS-010   FullyEncrypted / Protection: On        True           True           # migration v1→v2 en cours
 ```
 
+
+!!! quote "En résumé"
+    - Après avoir déployé BitLocker et LAPS, exécutez cette vérification synthétique sur un échantillon représentatif du parc.
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
 ---
 
 ## Références croisées
@@ -851,3 +860,10 @@ WKS-010   FullyEncrypted / Protection: On        True           True           #
 - [BitLocker — fonctionnement interne et TPM](../bible-gpo/16-bitlocker.md) — pour comprendre les modes de protection TPM, les PCR et le recovery flow avant de déployer
 - [Sécurité endpoint via GPO](14-securite-endpoint.md) — Credential Guard, LSASS protection et Exploit Protection complètent le durcissement des postes
 - [Sécurité des GPO elles-mêmes](24-securite-gpo.md) — protéger l'accès à la GPO LAPS et aux droits de lecture AD contre toute élévation non autorisée
+
+!!! quote "En résumé"
+    - À relire : BitLocker — fonctionnement interne et TPM.
+    - À relire : Sécurité endpoint via GPO.
+    - À relire : Sécurité des GPO elles-mêmes.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

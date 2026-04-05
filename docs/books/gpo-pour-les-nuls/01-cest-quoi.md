@@ -5,7 +5,6 @@ tags:
   - debutant
   - introduction
 ---
-
 # C'est quoi une strategie de groupe ?
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Les deux grands types de configuration : ordinateur et utilisateur
     - Ce qu'une GPO peut faire et ce qu'elle ne peut pas faire
     - Comment une GPO arrive jusqu'a votre poste de travail
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Une GPO permet de définir une règle une seule fois et de l'appliquer automatiquement à tout le parc.
 
 ---
 
@@ -758,7 +761,6 @@ Vous avez maintenant une vision d'ensemble de ce qu'est une strategie de groupe.
     | Ce qu'elles ne peuvent pas faire ? | Installer du materiel, accelerer le reseau, remplacer un antivirus, gerer du Linux/Mac |
 
 ---
-
 ### Verifiez vos connaissances
 
 Avant de passer au chapitre 2, essayez de repondre a ces questions sans regarder le cours :
@@ -794,3 +796,10 @@ Dans le [chapitre 2 -- L'editeur de strategies locales (gpedit.msc)](02-gpedit.m
 - :material-eye: Voir a quoi ressemble un parametre de strategie de groupe
 
 Pas besoin de serveur, pas besoin de domaine, pas besoin d'etre administrateur d'entreprise : tout se passe sur votre propre PC.
+
+!!! quote "En résumé"
+    - Ouvrir gpedit.msc pour la premiere fois.
+    - Comprendre l'arborescence des parametres.
+    - Apprendre a naviguer dans les categories.
+    - Voir a quoi ressemble un parametre de strategie de groupe.
+    - Maintenant que vous savez ce qu'est une GPO, il est temps de la voir en action.

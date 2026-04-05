@@ -7,7 +7,6 @@ tags:
   - gpp
   - tatouage
 ---
-
 # Preferences de strategie de groupe (GPP)
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -699,6 +698,13 @@ Il n'y a pas de mecanisme de deduplication automatique entre GPP et Intune. Une 
 | 7016 | Microsoft-Windows-GroupPolicy/Operational | Erreur pendant le traitement |
 | 8016 | Microsoft-Windows-GroupPolicy/Operational | Item GPP individuel — erreur d'application |
 
+
+!!! quote "En résumé"
+    - {0E28E245-9368-4853-AD84-6DA3BA35BB75} : gpprefcl.dll.
+    - {169EBF44-942F-4C43-87CE-13C93996EBBE} : gpprefcl.dll.
+    - {AADCED64-746C-4633-A97C-D61349046527} : gpprefcl.dll.
+    - Registry : Machine + User.
+    - Cette synthèse condense referentiel rapide en aide de décision rapide.
 ---
 
 ## :material-crosshairs-gps: Renvois croisés
@@ -711,3 +717,10 @@ Il n'y a pas de mecanisme de deduplication automatique entre GPP et Intune. Une 
 | Preferences GPP niveau debutant — concepts de base | Les GPO pour les Nuls — Ch. 10 |
 | Performances du traitement GPO | [Ch. 23 — Performances](23-performances.md) |
 | Co-gestion GPO + Intune | [Ch. 25 — MDM et convergence](25-mdm-convergence.md) |
+
+!!! quote "En résumé"
+    - À relire : Item-Level Targeting avance — toutes les conditions → Ch. 12 — ILT.
+    - À relire : CSE gpprefcl.dll — enregistrement et cycle de traitement → Ch. 03 — CSE.
+    - À relire : Registre hors \Policies\ — risques et audit → La Bible du Registre — Ch. 20.
+    - À relire : Preferences GPP niveau debutant — concepts de base → Les GPO pour les Nuls — Ch. 10.
+    - À relire : Ch. 12 — ILT.

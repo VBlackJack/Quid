@@ -5,7 +5,6 @@ tags:
   - debutant
   - securite
 ---
-
 # Les parametres de securite essentiels
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Mettre en place un audit pertinent sans noyer vos journaux
     - Controler les droits utilisateur et les options de securite critiques
     - Creer une GPO de securite de reference complete, de A a Z
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Les paramètres de sécurité n'ont de valeur que s'ils restent cohérents entre eux : mot de passe, verrouillage et droits utilisateur forment un tout.
 
 ---
 
@@ -781,6 +784,13 @@ Chacune de ces erreurs semble anodine isolement. Mais combinees, elles creent un
 | UAC : invite pour les standards | Options de securite | Refuser automatiquement |
 | Modele de partage | Options de securite | Classique |
 
+
+!!! quote "En résumé"
+    - Longueur minimale du mot de passe : 14 caracteres.
+    - Complexite du mot de passe : Active.
+    - Duree de vie maximale : 90 jours.
+    - Duree de vie minimale : 1 jour.
+    - Voici l'ensemble des parametres recommandes dans ce chapitre, regroupes dans un tableau de reference unique.
 ---
 
 ## La suite

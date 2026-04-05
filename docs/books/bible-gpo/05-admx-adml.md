@@ -7,7 +7,6 @@ tags:
   - adml
   - modeles-administration
 ---
-
 # Modèles d'administration (ADMX/ADML)
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -18,6 +17,10 @@ tags:
     - La création, l'alimentation et la maintenance du Central Store dans SYSVOL
     - La gestion des ADMX tiers (Edge, Chrome, Firefox, Office 365) et les risques de conflits de namespace
     - La création complète d'un ADMX personnalisé avec les quatre types d'éléments principaux
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Les fichiers ADMX/ADML ne sont que la grammaire de l'éditeur : la valeur finale est presque toujours une écriture registre.
 
 ---
 
@@ -807,6 +810,12 @@ flowchart LR
 !!! info "Découplage complet"
     L'application n'a aucune connaissance des GPO, de SYSVOL, ni des ADMX. Elle lit uniquement le registre. Ce découplage est l'un des grands avantages du modèle GPO : n'importe quelle application qui lit le registre peut être pilotée via GPO sans modification de son code.
 
+
+!!! quote "En résumé"
+    - Le schéma ci-dessous illustre le flux complet depuis la définition du modèle jusqu'à l'effet sur le comportement de l'application.
+    - Étape 1 — Lecture des définitions.
+    - Quand GPMC ouvre l'éditeur de stratégie de groupe, il lit les fichiers ADMX dans le Central Store.
+    - Le point clé de relation admx → registry.pol → registre doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## :material-alert-circle-outline: Event ID 4017 : erreurs de parsing ADMX
@@ -938,3 +947,10 @@ if ($failed -eq 0) {
 | Historique ADM → ADMX et timeline des versions | [Ch. 01 — Introduction](01-introduction.md) |
 | Structure SYSVOL et emplacement du Central Store | [Ch. 04 — SYSVOL](04-sysvol.md) |
 | CSE Registry qui applique `registry.pol` | [Ch. 03 — CSE](03-cse.md) |
+
+!!! quote "En résumé"
+    - À relire : Le fichier registry.pol produit par les ADMX → Ch. 06 — registry.pol.
+    - À relire : Gestion opérationnelle du Central Store → Les GPO pour les Admins — Ch. 04.
+    - À relire : Mise à jour ADMX pour Windows 11 → Les GPO pour les Nuls — Ch. 14.
+    - À relire : Historique ADM → ADMX et timeline des versions → Ch. 01 — Introduction.
+    - À relire : Ch. 06 — registry.pol.

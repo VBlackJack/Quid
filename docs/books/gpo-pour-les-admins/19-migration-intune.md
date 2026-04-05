@@ -2,7 +2,6 @@
 description: Migration GPO vers Intune — Group Policy Analytics, mapping CSP, gaps MDM, workload switching, validation
 tags: [gpo-admins, intune, migration, gpa, csp, mdm, workload-switching, admx-backed]
 ---
-
 # Migration GPO vers Intune
 
 !!! abstract "Ce que vous allez apprendre"
@@ -25,6 +24,13 @@ La réalité terrain : la majorité des organisations qui commencent cette migra
 
 Ce chapitre part du principe que vos machines sont en **Hybrid Join** (jointes au domaine AD et enregistrées dans Azure AD) et que vous avez un tenant Intune actif. Le co-management MECM est traité dans le chapitre suivant.
 
+
+!!! quote "En résumé"
+    - La migration des GPO vers Intune n'est pas un événement ponctuel.
+    - C'est un processus progressif, workload par workload, sur plusieurs mois.
+    - Avant de migrer quoi que ce soit, vous devez savoir ce que vous avez.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## :material-chart-bar: Group Policy Analytics : analyser avant de migrer
@@ -690,6 +696,11 @@ foreach ($computer in $Computers) {
 | Aucun ticket support lié | Helpdesk — filtrer les tickets des 2 dernières semaines | 0 incident lié au workload migré |
 | MDM enrolled | `dsregcmd /status` → `MDMEnrolled : YES` | YES sur toutes les machines |
 
+
+!!! quote "En résumé"
+    - Une fois la migration d'un workload terminée (GPO supprimée, politique Intune active), ces commandes confirment l'état final.
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
 ---
 
 ## Références croisées
@@ -697,3 +708,10 @@ foreach ($computer in $Computers) {
 - [Chapitre 18 — Azure AD Hybrid Join](18-azure-ad-hybrid.md) : prérequis et configuration du Hybrid Join, co-management initial
 - [Chapitre 20 — SCCM/MECM](20-sccm-mecm.md) : co-management MECM/Intune et workload switching depuis MECM
 - [Bible GPO — Chapitre 25 : Convergence GPO/MDM](../bible-gpo/25-mdm-convergence.md) : théorie de la convergence, architecture CSP, comparaison des modèles de gestion
+
+!!! quote "En résumé"
+    - À relire : Chapitre 18 — Azure AD Hybrid Join.
+    - À relire : Chapitre 20 — SCCM/MECM.
+    - À relire : Bible GPO — Chapitre 25 : Convergence GPO/MDM.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

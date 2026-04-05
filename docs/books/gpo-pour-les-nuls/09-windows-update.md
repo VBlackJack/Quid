@@ -5,7 +5,6 @@ tags:
   - debutant
   - windows-update
 ---
-
 # Configurer Windows Update par GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Configurer un serveur WSUS ou des reports de mises a jour via GPO
     - Empecher les redemarrages sauvages pendant les heures de travail
     - Verifier l'etat des mises a jour sur un poste avec PowerShell et le registre
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Le bon réglage Windows Update consiste à contrôler le moment d'installation sans empêcher durablement la machine de se corriger.
 
 ---
 
@@ -781,3 +784,9 @@ Vos postes sont maintenant proteges contre les redemarrages sauvages et les mise
 Dans le prochain chapitre, on va decouvrir un outil meconnu mais extremement puissant : les **preferences de strategie de groupe**. Contrairement aux parametres classiques (qui imposent des regles), les preferences permettent de **deployer des valeurs de registre, des raccourcis, des lecteurs reseau et bien plus encore** -- avec une flexibilite que les parametres classiques n'offrent pas.
 
 **Chapitre suivant** : :material-arrow-right: [Les preferences de registre par GPO](10-preferences.md) -- Deployer des valeurs de registre, des raccourcis et des fichiers avec les preferences de strategie de groupe.
+
+!!! quote "En résumé"
+    - Vos postes sont maintenant proteges contre les redemarrages sauvages et les mises a jour non controlees.
+    - Mais Windows Update n'est qu'un des nombreux parametres que vous pouvez configurer par GPO.
+    - Prochaine étape utile : Les preferences de registre par GPO.
+    - Le bon enchaînement reste de tester le chapitre courant avant d’ouvrir le suivant.

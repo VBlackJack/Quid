@@ -6,7 +6,6 @@ tags:
   - registry-pol
   - format-binaire
 ---
-
 # Le format registry.pol
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -17,6 +16,10 @@ tags:
     - Un parseur PowerShell natif complet — sans dépendance externe
     - L'outil `LGPO.exe` : lecture et écriture du format texte intermédiaire
     - Les risques d'écriture directe dans `registry.pol` sans GPMC et comment incrémenter la version correctement
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    `registry.pol` est le format binaire intermédiaire entre la console GPMC et les clés de registre effectivement imposées sur le poste.
 
 ---
 
@@ -154,6 +157,11 @@ flowchart TD
 
 :material-information-outline: Le client contacte toujours le DC logon pour lire SYSVOL. Si la réplication DFS-R est en retard, le client peut lire une version obsolète du fichier — même si le DC d'authentification a déjà la version récente.
 
+
+!!! quote "En résumé"
+    - Le client contacte toujours le DC logon pour lire SYSVOL.
+    - Le schéma sur visualisation du pipeline registry.pol sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
 ---
 
 ## :material-powershell: Lire registry.pol avec PowerShell
@@ -824,6 +832,13 @@ $localPol | Format-Table KeyPath, ValueName, TypeName, Value -AutoSize
 !!! info "GPO locales multiples"
     Depuis Windows Vista, Windows supporte les GPO locales multiples (MLGPO). Chaque GPO locale stocke son `registry.pol` dans son propre répertoire sous `GroupPolicyUsers\{SID}\`. Les SIDs standards sont `S-1-5-32-544` (Administrateurs) et `S-1-5-32-545` (Utilisateurs).
 
+
+!!! quote "En résumé"
+    - En dehors du domaine, les GPO locales stockent leurs registry.pol dans un emplacement fixe sur le poste.
+    - Cela est utile pour les postes workgroup ou pour tester un paramètre sans AD.
+    - GPO locale — Machine : C:\Windows\System32\GroupPolicy\Machine\Registry.pol.
+    - GPO locale — User : C:\Windows\System32\GroupPolicy\User\Registry.pol.
+    - Le point clé de inspecter registry.pol sur un poste local doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## :material-link-box-variant: Cross-références
@@ -839,3 +854,10 @@ Ce chapitre s'appuie sur plusieurs concepts décrits ailleurs dans la Bible GPO 
 | Écriture de `registry.pol` en pipeline CI/CD (cas complet) | Les GPO pour les Admins — Ch. 23 |
 | Structure des chemins `\Policies\` dans le registre Windows | La Bible du Registre — Ch. 20 |
 | Baselines et LGPO.exe dans les projets de durcissement | [Ch. 22 — Baselines et SCT](22-baselines.md) |
+
+!!! quote "En résumé"
+    - À relire : ADMX/ADML — source des paramètres qui alimentent registry.pol → Ch. 05 — Modèles d'administration ADMX/ADML.
+    - À relire : CSE Registry — la DLL qui lit et applique registry.pol → Ch. 03 — Client-Side Extensions.
+    - À relire : versionNumber, GPT.INI et la synchronisation GPC/GPT → Ch. 02 — Architecture et composants internes.
+    - À relire : Traitement complet et cycle de vie d'un refresh GPO → Ch. 07 — Traitement des GPO.
+    - À relire : Ch. 05 — Modèles d'administration ADMX/ADML.

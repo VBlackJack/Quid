@@ -2,7 +2,6 @@
 description: Sécurité des GPO — surface d'attaque, ACL audit, GPO Hijacking, SYSVOL hardening, monitoring des modifications non autorisées
 tags: [gpo-admins, securite-gpo, gpo-hijacking, acl, sysvol, smb-signing, event-5136]
 ---
-
 # Sécurité des GPO elles-mêmes
 
 !!! abstract "Ce que vous allez apprendre"
@@ -23,6 +22,12 @@ Dans la majorité des environnements, les permissions GPO n'ont jamais été aud
 
 Cette situation est radicalement différente d'une simple négligence de gouvernance. Une GPO modifiée de manière malveillante peut déployer un script de démarrage, affaiblir la politique de pare-feu ou installer une tâche planifiée sur l'ensemble d'une OU — sans déclencher aucune alerte si la surveillance n'est pas en place.
 
+
+!!! quote "En résumé"
+    - Dans la majorité des environnements, les permissions GPO n'ont jamais été auditées depuis leur création.
+    - Cette situation est radicalement différente d'une simple négligence de gouvernance.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## Surface d'attaque des GPO
@@ -951,6 +956,11 @@ PDC    : DC01.contoso.local
 === Check complete ===
 ```
 
+
+!!! quote "En résumé"
+    - Après toute modification des permissions GPO ou du hardening SYSVOL, exécutez ce bloc de vérification complet.
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
 ---
 
 ## Référence : tableau des mesures de sécurité GPO
@@ -966,6 +976,13 @@ PDC    : DC01.contoso.local
 | Chemins UNC FQDN dans les GPO | Haute | Revue manuelle des scripts GPO | Section SYSVOL hardening |
 | Comptes de service exclus des éditeurs GPO | Haute | Script Find-UnexpectedGPOEditors | Section moindre privilège |
 
+
+!!! quote "En résumé"
+    - SMB Signing obligatoire sur tous les DCs : Section SYSVOL hardening.
+    - Audit Directory Service Changes activé : Ch. 06 — Audit.
+    - ACL GPO auditées et liste blanche maintenue : Section ACL GPO.
+    - CREATOR OWNER absent des GPO de production : Section ACL GPO.
+    - Cette synthèse condense référence : tableau des mesures de sécurité gpo en aide de décision rapide.
 ---
 
 ## Cross-références
@@ -977,3 +994,10 @@ PDC    : DC01.contoso.local
 | Filtrage GPO et permissions sur les objets GPO | [Bible GPO — Ch. 09 — Filtrage](../bible-gpo/09-filtrage.md) |
 | Intégration dans un contexte Zero Trust | [Ch. 25 — Zero Trust](25-zero-trust.md) |
 | Automatisation CI/CD — pipeline de validation sécurité | [Ch. 23 — Automatisation CI/CD](23-automation-cicd.md) |
+
+!!! quote "En résumé"
+    - À relire : Modèle de délégation à quatre rôles et groupes AD → Ch. 02 — Gouvernance.
+    - À relire : Audit GPO avec événements 5136 et 4719 → Ch. 06 — Audit et conformité.
+    - À relire : Filtrage GPO et permissions sur les objets GPO → Bible GPO — Ch. 09 — Filtrage.
+    - À relire : Intégration dans un contexte Zero Trust → Ch. 25 — Zero Trust.
+    - À relire : Ch. 02 — Gouvernance.

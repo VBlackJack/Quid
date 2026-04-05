@@ -6,7 +6,6 @@ tags:
   - gouvernance
   - delegation
 ---
-
 # Gouvernance et délégation des GPO
 
 !!! abstract "Ce que vous allez pouvoir faire"
@@ -15,6 +14,10 @@ tags:
     - Auditer l'ensemble des permissions GPO de votre domaine et exporter le résultat en CSV
     - Identifier et corriger les cinq failles de gouvernance les plus courantes en production
     - Mettre en place une documentation minimale viable sans AGPM ni outil tiers
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    La gouvernance GPO évite surtout les changements invisibles : sans rôles clairs, revue et traçabilité, le parc dérive vite.
 
 ---
 
@@ -656,7 +659,6 @@ La convention de nommage est définie au chapitre 1. Ce rappel est intentionnel 
     **Correction :** utilisez le script d'audit de la section précédente. Exécutez la correction en masse. Intégrez la suppression dans `New-ManagedGPO`.
 
 ---
-
 ### Piège 2 — Group Policy Creator Owners trop peuplé
 
 !!! warning "À surveiller — Groupe à haut privilège souvent oublié"
@@ -682,7 +684,6 @@ GRP-GPO-Creators GRP-GPO-Creat  group
 ```
 
 ---
-
 ### Piège 3 — GPO non liées avec des paramètres actifs
 
 !!! warning "À surveiller — Mine dormante en production"
@@ -717,7 +718,6 @@ APP-Teams-v1-draft      2025-11-15 2025-11-15    141
 ```
 
 ---
-
 ### Piège 4 — Délégation accordée à des comptes nominatifs
 
 !!! warning "À surveiller — Délégation non révocable en cas de départ"
@@ -728,7 +728,6 @@ APP-Teams-v1-draft      2025-11-15 2025-11-15    141
     **Règle absolue :** délégation uniquement sur des groupes, jamais sur des comptes individuels. Si vous trouvez des ACE nominatives dans votre audit, migrez-les vers des groupes avant de désactiver le compte concerné.
 
 ---
-
 ### Piège 5 — Droits d'édition accordés sans date d'expiration
 
 !!! warning "À surveiller — Les accès temporaires deviennent permanents"
@@ -786,6 +785,13 @@ Pour documenter qui fait quoi dans votre équipe, utilisez cette matrice comme p
 
 *R = Responsable, A = Approbateur, C = Consulté, I = Informé*
 
+
+!!! quote "En résumé"
+    - Créer une GPO : I.
+    - Modifier les paramètres : I.
+    - Lier une GPO à une OU pilote : I.
+    - Valider en pilote (48h) : I.
+    - Pour documenter qui fait quoi dans votre équipe, utilisez cette matrice comme point de départ.
 ---
 
 ## :material-book-open-outline: Références croisées
@@ -800,3 +806,10 @@ Pour documenter qui fait quoi dans votre équipe, utilisez cette matrice comme p
 | Sécurisation des GPO elles-mêmes | Ch. 24 — Sécurité des GPO |
 | Filtrage de sécurité (Apply vs Read) | La Bible GPO — Ch. 09 — Filtrage |
 | LSDOU et ordre d'application | La Bible GPO — Ch. 08 — Héritage LSDOU |
+
+!!! quote "En résumé"
+    - À relire : Architecture et structure des OU → Ch. 01 — Architecture d'entreprise.
+    - À relire : PowerShell GroupPolicy (cmdlets complets) → Ch. 03 — PowerShell GroupPolicy module.
+    - À relire : Sauvegarde et restauration des GPO → Ch. 05 — Sauvegarde, restauration et migration.
+    - À relire : Audit et conformité GPO → Ch. 06 — Audit et conformité.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.

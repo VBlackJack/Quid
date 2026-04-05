@@ -8,7 +8,6 @@ tags:
   - modes
   - gpsvc
 ---
-
 # Traitement des stratégies : cycle et modes
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -19,6 +18,10 @@ tags:
     - Le journal d'evenements operationnel Group Policy : les Event IDs essentiels pour diagnostiquer un cycle defaillant
     - Le cache local des GPO — ou il se trouve, comment il est invalide, comment le vider proprement
     - Le mecanisme `WaitForNetwork` et ce qui se passe quand le reseau n'est pas disponible au demarrage
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Comprendre une GPO revient à suivre sa séquence complète : découverte, filtrage, ordre d'application, puis exécution par CSE.
 
 ---
 
@@ -606,6 +609,13 @@ flowchart TD
     R -->|Non| O([Cycle termine\nEvents 4003 / 4004])
 ```
 
+
+!!! quote "En résumé"
+    - Le schéma sur flowchart du cycle complet sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
+    - Cette section fixe l’essentiel à retenir sur flowchart du cycle complet.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## :material-puzzle-outline: Interactions entre les mecanismes
@@ -657,3 +667,10 @@ Ce scenario illustre pourquoi un utilisateur portable peut avoir des parametres 
 | Optimisation des temps de traitement et impact sur les DC | Ch. 23 — Performances |
 | Diagnostic complet quand `gpupdate` ne fonctionne pas | Les GPO pour les Nuls — Ch. 12 |
 | Comportement du traitement en environnement MDM hybride | Ch. 25 — MDM et convergence |
+
+!!! quote "En résumé"
+    - À relire : Flags NoBackgroundPolicy, NoSlowLink, NoGPOListChanges par CSE → Ch. 03 — Client-Side Extensions.
+    - À relire : Cache local et mecanisme versionNumber / GPC → Ch. 02 — Architecture.
+    - À relire : RSoP et lecture des resultats de traitement → Ch. 20 — RSoP et diagnostic.
+    - À relire : Optimisation des temps de traitement et impact sur les DC → Ch. 23 — Performances.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.

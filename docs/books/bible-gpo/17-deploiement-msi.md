@@ -2,7 +2,6 @@
 description: Déploiement de logiciels MSI via GPO — CSE Software Installation, modes d'assignation, transforms, ZAP, limites
 tags: [bible-gpo, msi, déploiement-logiciels, software-installation, cse]
 ---
-
 # Déploiement de logiciels via GPO (MSI)
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,10 +13,10 @@ tags: [bible-gpo, msi, déploiement-logiciels, software-installation, cse]
     - La gestion des montées de version : table `Upgrades`, `ProductCode`, et mécanisme de redéploiement
     - Les limites structurelles du déploiement MSI par GPO et les alternatives modernes
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     **La CSE Software Installation opère uniquement au premier plan (foreground) — lors du démarrage machine ou de la session utilisateur.** Elle n'intervient pas lors des refreshs périodiques en arrière-plan. Un package assigné à l'ordinateur ne s'installe pas en tâche de fond entre deux reboots : il attend le prochain démarrage. Ce comportement, fondamental, est souvent mal compris et génère des tickets de non-conformité sur les parcs où les machines ne redémarrent pas régulièrement.
+
 
 ---
 
@@ -105,6 +104,31 @@ HKLM\...\AppMgmt\
 
 !!! info "Diagnostic par AppMgmt"
     La clé `AppMgmt` est votre premier point de vérification lors d'un incident. Si un package est absent de cette clé sur un poste ciblé, la CSE n'a pas traité la GPO — problème de portée, de filtrage, ou de connectivité à SYSVOL. Si la clé est présente mais le package absent des programmes installés, l'installation elle-même a échoué (consultez le journal `Application` pour les Event ID `1022`, `1023`, `1024`).
+
+### :material-console-line: Exemple terrain : audit rapide d'un package assigné
+
+Sur un poste censé recevoir `7-Zip 23.01` en mode **Assigned to Computer**, vous pouvez vérifier en quelques secondes si la CSE a bien traité la GPO et si Windows Installer voit encore le produit.
+
+```powershell title="Audit-MsiAssignment.ps1"
+$productCode = '{23170F69-40C1-2702-2301-000001000000}'
+$appMgmtPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\AppMgmt\$productCode"
+$uninstallPath = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$productCode"
+
+[PSCustomObject]@{
+    InAppMgmt      = Test-Path $appMgmtPath
+    InUninstallKey = Test-Path $uninstallPath
+    ScriptPath     = (Get-ItemProperty -Path $appMgmtPath -ErrorAction SilentlyContinue).ScriptPath
+    DeploymentType = (Get-ItemProperty -Path $appMgmtPath -ErrorAction SilentlyContinue).DeploymentType
+}
+```
+
+Exemple de lecture :
+
+- `InAppMgmt = True`, `InUninstallKey = False` : la CSE a traité la GPO, mais l'installation MSI a échoué ou a été retirée ensuite.
+- `InAppMgmt = False`, `InUninstallKey = False` : le poste n'a pas encore traité la GPO, ou il est hors scope.
+- `InAppMgmt = True`, `InUninstallKey = True` : l'assignation et l'installation sont cohérentes.
+
+Cette corrélation entre `AppMgmt` et `Uninstall` évite de confondre un problème de ciblage GPO avec un échec propre à Windows Installer.
 
 ### :material-table: GUIDs complémentaires
 

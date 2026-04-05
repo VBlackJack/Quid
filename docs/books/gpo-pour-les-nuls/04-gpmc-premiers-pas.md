@@ -5,7 +5,6 @@ tags:
   - debutant
   - gpmc
 ---
-
 # La console GPMC : premiers pas
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,6 +13,10 @@ tags:
     - Comment naviguer dans l'interface et comprendre l'arborescence
     - Comment lire une GPO existante et interpreter son rapport de parametres
     - La difference cruciale entre une GPO et un **lien** de GPO
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    GPMC n'applique rien seule : elle sert à créer, lier et organiser des GPO qui seront ensuite traitées sur les postes ciblés.
 
 ---
 
@@ -738,6 +741,12 @@ Avant de continuer, assurons-nous que les termes sont clairs :
 | **Filtrage de securite** | Le mecanisme qui definit quels utilisateurs/groupes sont concernes par une GPO |
 | **Rapport de parametres** | Le document HTML genere par GPMC montrant les reglages configures dans une GPO |
 
+
+!!! quote "En résumé"
+    - Avant de continuer, assurons-nous que les termes sont clairs.
+    - GPMC : Group Policy Management Console : l'outil graphique pour gerer les GPO du domaine.
+    - RSAT : Remote Server Administration Tools : le pack d'outils d'administration dont GPMC fait partie.
+    - Le point clé de vocabulaire cle de ce chapitre doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## Un mot sur PowerShell et GPMC
@@ -801,3 +810,10 @@ Dans ce chapitre, vous avez appris a :
 Au [chapitre 5](05-premiere-gpo.md), on passe a l'action : vous allez **creer votre premiere GPO de A a Z**, la **configurer** avec un parametre concret et la **lier** a une OU ciblee. Votre premiere regle de groupe, appliquee a de vrais utilisateurs.
 
 C'est la que les choses deviennent vraiment interessantes.
+
+!!! quote "En résumé"
+    - Installer GPMC via les outils RSAT.
+    - Ouvrir la console et comprendre son interface.
+    - Naviguer dans l'arborescence foret → domaine → OU.
+    - Lire les quatre onglets d'une GPO existante.
+    - Vous savez maintenant naviguer dans GPMC et lire les GPO existantes.

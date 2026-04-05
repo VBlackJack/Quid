@@ -2,7 +2,6 @@
 description: GPO et SCCM/MECM en coexistence — périmètres, conflits WSUS, Client Settings, Managed Installer, reporting
 tags: [gpo-admins, sccm, mecm, wsus, co-management, managed-installer, configuration-manager]
 ---
-
 # GPO et SCCM/MECM en coexistence
 
 !!! abstract "Ce que vous allez apprendre"
@@ -23,6 +22,11 @@ Dans la majorité des organisations on-prem ou hybrides, SCCM/MECM et les GPO AD
 
 Les incidents les plus courants ne viennent pas d'une mauvaise configuration d'un seul système, mais d'une méconnaissance des interactions entre les deux. Ce chapitre traite ces interactions comme des sujets opérationnels concrets, pas comme des cas théoriques.
 
+
+!!! quote "En résumé"
+    - Ce chapitre traite ces interactions comme des sujets opérationnels concrets, pas comme des cas théoriques.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## Périmètres respectifs et zones de chevauchement
@@ -867,6 +871,11 @@ Write-Host ""
 $report | Sort-Object WSUS_Conflict, CCM_Service | Format-Table -AutoSize
 ```
 
+
+!!! quote "En résumé"
+    - Ce script consolide les vérifications de tous les points couverts dans ce chapitre en un seul rapport.
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
 ---
 
 ## Références croisées
@@ -874,3 +883,10 @@ $report | Sort-Object WSUS_Conflict, CCM_Service | Format-Table -AutoSize
 - [`../bible-gpo/17-deploiement-msi.md`](../bible-gpo/17-deploiement-msi.md) — Déploiement MSI via GPO Software Installation : périmètre exact et limitations du lifecycle
 - [`../bible-gpo/15-applocker-wdac.md`](../bible-gpo/15-applocker-wdac.md) — AppLocker et WDAC via GPO : configuration complète de la politique, règles de type Managed Installer
 - [`19-migration-intune.md`](19-migration-intune.md) — Migration de SCCM vers Intune : co-management, workloads, et impact sur les GPO existantes
+
+!!! quote "En résumé"
+    - À relire : ../bible-gpo/17-deploiement-msi.md.
+    - À relire : ../bible-gpo/15-applocker-wdac.md.
+    - À relire : 19-migration-intune.md.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

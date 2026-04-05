@@ -7,7 +7,6 @@ tags:
   - audit
   - politique-mot-de-passe
 ---
-
 # Stratégies de sécurité (mot de passe, audit, droits)
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -19,10 +18,10 @@ tags:
     - Les droits utilisateur (User Rights) : les 9 privilèges les plus dangereux et leur valeur par défaut
     - Les options de sécurité critiques : NTLMv2, signature SMB, signature LDAP, UAC
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     Les paramètres de sécurité ne passent **pas** par `registry.pol`. Ils sont stockés dans `GptTmpl.inf` (format INI dans SYSVOL) et appliqués par `scecli.dll`. La politique de mot de passe de domaine ne peut être définie **que** dans une GPO liée à la **racine du domaine** — les GPO liées à des OUs enfants sont ignorées pour les comptes de domaine. Les Fine-Grained Password Policies (PSOs) sont le seul mécanisme légal pour dépasser cette contrainte.
+
 
 ---
 
@@ -639,6 +638,11 @@ Pour les paramètres `[System Access]` (politique de mot de passe et de verrouil
 !!! warning "Paramètre absent ≠ non configuré"
     Si une GPO de priorité haute ne contient pas un paramètre, `scecli.dll` remonte aux GPO de priorité plus basse pour ce paramètre. Un paramètre absent dans `GptTmpl.inf` n'écrase pas le paramètre existant — contrairement à `registry.pol` où l'absence peut signifier une suppression de la valeur.
 
+
+!!! quote "En résumé"
+    - Les GPO liées aux OUs enfants sont ignorées pour ces paramètres.
+    - Le schéma sur flux d'application des stratégies de sécurité sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
 ---
 
 ## :material-bug: Diagnostic et dépannage
@@ -709,3 +713,10 @@ gpupdate /force /target:computer
 | BitLocker via GPO | Ch. 16 — BitLocker |
 | Déploiement pratique sécurité endpoint | Les GPO pour les Admins — Ch. 14 |
 | Introduction sécurité niveau débutant | Les GPO pour les Nuls — Ch. 07 |
+
+!!! quote "En résumé"
+    - À relire : Mécanisme des CSE en détail → Ch. 03 — Client-Side Extensions.
+    - À relire : Filtrage des GPO (qui reçoit quoi) → Ch. 09 — Filtrage de sécurité et WMI.
+    - À relire : Baselines CIS / STIG / Microsoft Security → Ch. 22 — Baselines de sécurité.
+    - À relire : AppLocker et WDAC → Ch. 15 — AppLocker et WDAC.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.

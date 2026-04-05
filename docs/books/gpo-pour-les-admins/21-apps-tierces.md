@@ -2,7 +2,6 @@
 description: Applications tierces via GPO — Adobe, Java, 7-Zip, méthode générique ProcMon, AppLocker Publisher rules
 tags: [gpo-admins, apps-tierces, adobe, java, 7-zip, gpp-registry, procmon]
 ---
-
 # Applications tierces via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -771,6 +770,13 @@ Creez un item separe pour chaque valeur a gerer. L'action Update sur chaque item
 | AppLocker et WDAC en detail | [../bible-gpo/15-applocker-wdac.md](../bible-gpo/15-applocker-wdac.md) |
 | Meme approche ADMX pour les apps Microsoft | [08-m365-office.md](08-m365-office.md) |
 
+
+!!! quote "En résumé"
+    - À relire : GPP Registry — concept et structure → ../bible-gpo/11-preferences-gpp.md.
+    - À relire : AppLocker et WDAC en detail → ../bible-gpo/15-applocker-wdac.md.
+    - À relire : Meme approche ADMX pour les apps Microsoft → 08-m365-office.md.
+    - À relire : ../bible-gpo/11-preferences-gpp.md.
+    - À relire : ../bible-gpo/15-applocker-wdac.md.
 ---
 
 ## :material-clipboard-check-outline: Checklist operationnelle
@@ -787,3 +793,10 @@ Avant de considerer la GPO "apps tierces" comme prete pour la production :
 - [ ] AppLocker : regles Publisher creees a partir d'executables signes, verifiez la signature avant
 - [ ] AppLocker : deploiement en mode **Audit** au moins 5 jours ouvres avant passage en Enforce
 - [ ] AppLocker : audit des evenements 8003 valide (aucune exclusion necessaire non identifiee)
+
+!!! quote "En résumé"
+    - [ ] Adobe : ADMX charges dans le Central Store OU cles GPP Registry deployees sous HKLM\SOFTWARE\Policies\Adobe\.
+    - [ ] Adobe : JavaScript desactive, Protected Mode actif, mises a jour desactivees.
+    - [ ] Java : deployment.properties present sous C:\Windows\Sun\Java\Deployment\.
+    - Avant de considerer la GPO "apps tierces" comme prete pour la production.
+    - Cette synthèse condense checklist operationnelle en aide de décision rapide.

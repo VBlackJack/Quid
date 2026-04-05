@@ -7,7 +7,6 @@ tags:
   - tpm
   - sécurité
 ---
-
 # BitLocker via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -19,10 +18,10 @@ tags:
     - Le pré-provisioning BitLocker en déploiement OSD (MDT/MECM) et l'interaction avec les GPO post-déploiement
     - Les pièges critiques de production : backup non configuré + panne disque = perte irrémédiable
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     **Sans backup de la clé de récupération dans AD DS, un poste BitLocker est potentiellement irrécupérable.** La GPO `Do not enable BitLocker until recovery information is stored to AD DS` est le seul garde-fou natif. Si vous n'activez pas cette option **avant** le premier chiffrement, une panne matérielle sur une machine sans sauvegarde de clé signifie une perte définitive des données. C'est le paramètre le plus critique de toute stratégie BitLocker d'entreprise.
+
 
 ---
 
@@ -463,6 +462,13 @@ flowchart TD
 
 **Network Unlock — repli sur PIN** — si le serveur WDS est indisponible ou que le réseau est inaccessible, la machine bascule silencieusement sur le protecteur PIN (s'il existe) ou sur la récupération. Documenter ce comportement pour les équipes d'astreinte.
 
+
+!!! quote "En résumé"
+    - Mesures PCR invalides — le TPM a détecté un changement dans la chaîne de démarrage.
+    - Causes légitimes : mise à jour firmware UEFI, activation/désactivation Secure Boot, changement de bootloader.
+    - Dans ce cas, la récupération via mot de passe 48 chiffres est normale.
+    - Le schéma sur séquence de démarrage avec bitlocker sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
+    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
 ---
 
 ## :material-alert-circle: Pièges de production
@@ -579,3 +585,9 @@ Toujours vérifier que la machine est re-chiffrée ou que la clé est re-sauvega
 
 - **[Chapitre 13 — Stratégies de sécurité](13-securite-strategies.md)** — Contexte général des mécanismes de sécurité GPO, `scecli.dll`, et audit avancé. BitLocker s'inscrit dans une stratégie de sécurité endpoint plus large.
 - **[Gpo pour les Admins — Chapitre 17 : BitLocker et LAPS](../gpo-pour-les-admins/17-bitlocker-laps.md)** — Déploiement enterprise de BitLocker avec LAPS, intégration Intune/Entra ID, et gestion du cycle de vie des clés dans un environnement hybride.
+
+!!! quote "En résumé"
+    - À relire : Chapitre 13 — Stratégies de sécurité.
+    - À relire : Gpo pour les Admins — Chapitre 17 : BitLocker et LAPS.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

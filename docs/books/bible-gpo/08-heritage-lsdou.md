@@ -7,7 +7,6 @@ tags:
   - lsdou
   - ordre-application
 ---
-
 # Héritage et ordre d'application (LSDOU)
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -18,10 +17,10 @@ tags:
     - Résolution de conflits entre plusieurs GPO liées à la même OU
     - PowerShell pour lire, décoder et auditer l'héritage en production
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     Le dernier mot appartient toujours à l'OU la plus proche de l'objet. Sauf si une GPO parente est marquée **Enforced** — dans ce cas, elle gagne toujours, quelle que soit la profondeur.
+
 
 ---
 
@@ -562,6 +561,13 @@ if ($inh.BlockInheritance) {
 | Lien désactivé (`flag = 1` dans gPLink) | Lien spécifique | Lien ignoré, GPO non traitée sur ce conteneur |
 | Section GPO désactivée (Computer ou User) | Section | Section ignorée, l'autre s'applique normalement |
 
+
+!!! quote "En résumé"
+    - LSDOU normal : L'OU la plus proche de l'objet.
+    - Link Order 1 vs Link Order 2 (même conteneur) : Link Order 1.
+    - Block Inheritance : Coupe l'héritage des parents (sauf Enforced).
+    - Enforced + Block Inheritance : Enforced gagne toujours.
+    - Cette synthèse condense tableau de synthèse : priorités et exceptions en aide de décision rapide.
 ---
 
 ## :material-book-open-variant: Références croisées
@@ -575,3 +581,10 @@ if ($inh.BlockInheritance) {
 | Introduction LSDOU niveau débutant | Les GPO pour les Nuls — Ch. 06 |
 | Multiple Local GPOs (MLGPO) | Ch. 21 — LGPO et MLGPO |
 | Diagnostic RSOP et gpresult | Ch. 20 — RSOP et diagnostic |
+
+!!! quote "En résumé"
+    - À relire : Qui la GPO s'applique (filtrage sécurité, WMI) → Ch. 09 — Filtrage de sécurité et filtrage WMI.
+    - À relire : Loopback Processing — exception à l'ordre LSDOU → Ch. 10 — Loopback Processing.
+    - À relire : Cycle de traitement et gpsvc → Ch. 07 — Traitement des stratégies : cycle et modes.
+    - À relire : Architecture d'entreprise et règles de liaison → Les GPO pour les Admins — Ch. 01.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.

@@ -2,7 +2,6 @@
 description: Scripts et planification via GPO — Startup/Shutdown/Logon/Logoff, scripts.ini, gpscript.exe, GPP Scheduled Tasks
 tags: [bible-gpo, scripts, planification, logon, startup, gpp]
 ---
-
 # Scripts et planification via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -13,10 +12,10 @@ tags: [bible-gpo, scripts, planification, logon, startup, gpp]
     - GPP Scheduled Tasks : types disponibles, format XML dans SYSVOL, différences architecturales avec les scripts GPO, et pourquoi ce mécanisme est préférable pour les tâches longues
     - Les Event IDs opérationnels (4016, 4017, 4018) pour diagnostiquer les délais de logon imputables aux scripts
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     **Un script GPO Logon synchrone retarde l'ouverture de session jusqu'à sa complétion.** Si ce script dure 45 secondes, l'utilisateur attend 45 secondes devant un écran vide. La solution n'est pas de réduire le timeout — c'est de migrer vers une **GPP Scheduled Task de type Immediate**, qui s'exécute dans le contexte SYSTEM en tâche de fond, sans bloquer la session.
+
 
 ---
 
@@ -346,6 +345,13 @@ sequenceDiagram
 !!! info "gpscript.exe est un processus éphémère"
     `gpscript.exe` est créé pour chaque script et se termine dès que le script est fini ou en timeout. Il ne reste pas résident en mémoire. En mode synchrone, `gptext.dll` attend la fin du processus `gpscript.exe` avant de lancer le suivant.
 
+
+!!! quote "En résumé"
+    - Le diagramme suivant illustre le flux complet depuis l'appel de gpsvc jusqu'à la complétion ou l'expiration du timeout.
+    - Le point clé de cycle de vie de gpscript.exe doit être relu comme un repère de diagnostic et de conception.
+    - Cette section fixe l’essentiel à retenir sur cycle de vie de gpscript.exe.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## :material-calendar-clock: GPP Scheduled Tasks
@@ -685,3 +691,10 @@ Si la synchronicité est indispensable (ex. : mappage requis avant le lancement 
 - [03 — Client-Side Extensions (CSE)](03-cse.md) — structure interne de la CSE Scripts (`gptext.dll`), cycle de déclenchement, valeurs de registre `GPExtensions`
 - [07 — Traitement des GPO](07-traitement.md) — contexte du traitement synchrone vs asynchrone, foreground vs background, impact sur les CSE
 - [11 — Preferences GPP](11-preferences-gpp.md) — architecture GPP, Drive Maps, ScheduledTasks XML, Item-Level Targeting
+
+!!! quote "En résumé"
+    - À relire : 03 — Client-Side Extensions (CSE).
+    - À relire : 07 — Traitement des GPO.
+    - À relire : 11 — Preferences GPP.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

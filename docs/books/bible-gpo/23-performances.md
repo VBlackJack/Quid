@@ -2,7 +2,6 @@
 description: Performances et optimisation GPO — métriques logon, WMI filters, ILT, scripts lents, consolidation, cache
 tags: [bible-gpo, performances, logon-time, optimisation, wmi, ilt, cse]
 ---
-
 # Performances et optimisation des GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -438,6 +437,13 @@ gantt
 
 Le logon total dans ce scénario dépasse 28 secondes — au-delà du seuil d'alerte de 30 secondes.
 
+
+!!! quote "En résumé"
+    - Points de goulot typiques identifiés.
+    - Le logon total dans ce scénario dépasse 28 secondes — au-delà du seuil d'alerte de 30 secondes.
+    - Évaluation WMI (03.4s → 06.8s) — 3,4 secondes pour deux filtres WMI.
+    - C'est ici que se concentre le gain le plus rapide.
+    - Le schéma sur timeline annotée du logon gpo sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
 ---
 
 ## :material-monitor-dashboard: Mesure et monitoring continu
@@ -551,3 +557,10 @@ $endEvents | ForEach-Object {
 - [Chapitre 03 — Client-Side Extensions en profondeur](03-cse.md) — valeurs de registre `NoGPOListChanges`, `EnableAsynchronousProcessing` et GUID de chaque CSE
 - [Chapitre 07 — Traitement des stratégies : cycle et modes](07-traitement.md) — détection de lien lent, mode synchrone vs asynchrone, comportement du cache
 - [Chapitre 12 — Item-Level Targeting avancé](12-ilt.md) — coût des conditions LDAP et WMI dans l'ILT, alternatives de ciblage performantes
+
+!!! quote "En résumé"
+    - À relire : Chapitre 03 — Client-Side Extensions en profondeur.
+    - À relire : Chapitre 07 — Traitement des stratégies : cycle et modes.
+    - À relire : Chapitre 12 — Item-Level Targeting avancé.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

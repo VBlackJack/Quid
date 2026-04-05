@@ -2,7 +2,6 @@
 description: Microsoft 365 Apps et Office via GPO — ADMX, macros, OneDrive KFM, Teams, sécurité Office
 tags: [gpo-admins, office, m365, onedrive, macros, admx]
 ---
-
 # Microsoft 365 Apps (Office) via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -25,6 +24,12 @@ Intune peut gerer Office sur les postes hybrides ou full-cloud, mais en environn
 
 :material-information-outline: Les parametres Office via GPO ecrivent sous `HKCU\SOFTWARE\Policies\Microsoft\Office\` et `HKLM\SOFTWARE\Policies\Microsoft\Office\`. Ces cles ont priorite sur les preferences utilisateur et ne peuvent pas etre ecrasees par l'application elle-meme — contrairement aux cles sous `HKCU\SOFTWARE\Microsoft\Office\`.
 
+
+!!! quote "En résumé"
+    - Ce chapitre couvre uniquement le perimetre GPO on-premises.
+    - Les parametres Office via GPO ecrivent sous HKCU\SOFTWARE\Policies\Microsoft\Office\ et HKLM\SOFTWARE\Policies\Microsoft\Office\.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## :material-download-box-outline: ADMX Office : telechargement et installation
@@ -795,6 +800,13 @@ $lastRefresh = (Get-Item "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Group 
 Write-Host "`nFor full HTML report, run: gpresult /h C:\Temp\gpresult.html"
 ```
 
+
+!!! quote "En résumé"
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
+    - Cette section fixe l’essentiel à retenir sur verification post-deploiement.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## :material-link-variant: References croisees
@@ -807,6 +819,12 @@ Write-Host "`nFor full HTML report, run: gpresult /h C:\Temp\gpresult.html"
 | AppLocker et regles Publisher pour MSIX | Ch. 14 — Securite endpoint |
 | Deploiement Office via MECM/SCCM en complement GPO | Ch. 20 — SCCM/MECM |
 
----
 
+!!! quote "En résumé"
+    - À relire : Format ADMX en detail (namespace, dependances, structure XML) → La Bible GPO — Ch. 05 — ADMX/ADML.
+    - À relire : Creer le Central Store et y deployer les ADMX tiers → Ch. 04 — Central Store.
+    - À relire : Signature de code et PKI interne pour macros → Ch. 15 — Certificats et PKI.
+    - À relire : AppLocker et regles Publisher pour MSIX → Ch. 14 — Securite endpoint.
+    - À relire : La Bible GPO — Ch. 05 — ADMX/ADML.
+---
 *Ce chapitre couvre la gestion de Microsoft 365 Apps en environnement on-premises via GPO : ADMX, securite des macros, KFM OneDrive, Teams nouvelle generation et conflits d'activation. Le chapitre suivant traite des navigateurs web (Edge, Chrome, Firefox) geres par GPO.*

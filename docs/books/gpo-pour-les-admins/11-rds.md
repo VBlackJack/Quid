@@ -2,7 +2,6 @@
 description: Remote Desktop Services via GPO — loopback, sessions, profils, impression, sécurité NLA, FSLogix
 tags: [gpo-admins, rds, remote-desktop, loopback, fslogix, nla, sessions]
 ---
-
 # Remote Desktop Services via GPO
 
 !!! abstract "Ce que vous allez apprendre"
@@ -23,6 +22,13 @@ Les environnements Remote Desktop Services concentrent deux problèmes que les G
 
 La GPO devient ici un outil de cloisonnement, pas seulement de configuration. Un paramètre mal placé — sur l'OU utilisateur au lieu de l'OU serveur — peut affecter des dizaines de sessions simultanément. La marge d'erreur est nulle en production.
 
+
+!!! quote "En résumé"
+    - La GPO devient ici un outil de cloisonnement, pas seulement de configuration.
+    - Un paramètre mal placé — sur l'OU utilisateur au lieu de l'OU serveur — peut affecter des dizaines de sessions simultanément.
+    - La marge d'erreur est nulle en production.
+    - Le contexte de production fixe les contraintes réelles de réseau, de portée et d’exploitation qui gouvernent tout le chapitre.
+    - Retenez les hypothèses opérationnelles avant de choisir un modèle de liaison ou de déploiement.
 ---
 
 ## :material-server-network: Architecture RDS et GPO : le rôle du Loopback
@@ -745,6 +751,13 @@ RDSHOST01  1            1           2             1                       1     
 RDSHOST02  1            1           2             1                       1                1              Running
 ```
 
+
+!!! quote "En résumé"
+    - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
+    - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
+    - Cette section fixe l’essentiel à retenir sur vérification globale post-déploiement.
+    - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
+    - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
 
 ## Références croisées
@@ -752,3 +765,10 @@ RDSHOST02  1            1           2             1                       1     
 - [Bible GPO — Loopback Processing](../bible-gpo/10-loopback.md) — fonctionnement détaillé du Loopback en mode Replace et Merge
 - [Bible GPO — Redirection de profils](../bible-gpo/19-redirection-profils.md) — profils itinérants, dossiers redirigés et interaction avec RDS
 - [Certificats et PKI via GPO](15-certificats-pki.md) — configuration du template RDP et de l'auto-enrôlement PKI
+
+!!! quote "En résumé"
+    - À relire : Bible GPO — Loopback Processing.
+    - À relire : Bible GPO — Redirection de profils.
+    - À relire : Certificats et PKI via GPO.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
+    - Gardez ces chapitres sous la main pour le diagnostic ou la conception d’une GPO liée à ce thème.

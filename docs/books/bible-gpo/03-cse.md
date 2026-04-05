@@ -6,7 +6,6 @@ tags:
   - cse
   - client-side-extensions
 ---
-
 # Client-Side Extensions (CSE) en profondeur
 
 !!! abstract "Ce que couvre ce chapitre"
@@ -17,6 +16,10 @@ tags:
     - La meta-CSE `gpprefcl.dll` et ses 21 sous-categories de preferences
     - Les Event IDs operationnels pour diagnostiquer les CSE lentes ou defaillantes
     - Comment enregistrer une CSE personnalisee et les pieges a eviter
+
+
+!!! tip "Si vous ne retenez qu'une chose"
+    Une GPO n'applique rien seule : ce sont les Client Side Extensions qui lisent chaque catégorie de paramètres et décident comment l'exécuter.
 
 ---
 
@@ -861,3 +864,10 @@ GUID                                   Name                     NoBackground NoS
 | Restricted Groups vs GPP Local Users | Ch. 13 — Securite : strategies avancees |
 | Tatouage de registre et ADMX legacy | Ch. 05 — ADMX et ADML |
 | `Registry.pol` : format et outils | Ch. 06 — Registry.pol en detail |
+
+!!! quote "En résumé"
+    - À relire : Attributs GPC et gPCMachineExtensionNames → Ch. 02 — Architecture et composants.
+    - À relire : Cycle de traitement complet et timeouts → Ch. 07 — Traitement des strategies.
+    - À relire : Preferences GPP et Item-Level Targeting → Ch. 11 — Preferences GPP.
+    - À relire : Performances et CSE lentes → Ch. 23 — Performances.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.

@@ -2,7 +2,6 @@
 description: Évolution des GPO par version Windows — compatibilité, dépréciations, nouveautés NT4→Win11 24H2, paramètres fantômes, divergence ADMX
 tags: [bible-gpo, versions, compatibilite, deprecations, windows-11, admx, historique]
 ---
-
 # GPO et versions Windows : compatibilité, dépréciations, paramètres fantômes
 
 !!! abstract "Ce que vous allez apprendre"
@@ -14,10 +13,10 @@ tags: [bible-gpo, versions, compatibilite, deprecations, windows-11, admx, histo
     - La détection et la remédiation des **paramètres fantômes** : GPO configurées pour un ancien OS, persistantes dans AD, sans effet sur le parc actuel
     - Un script PowerShell de détection des paramètres fantômes exploitant les attributs `gPCMachineExtensionNames` et les clés de registre cibles
 
----
 
 !!! tip "Si vous ne retenez qu'une chose"
     Une GPO ne s'auto-désactive jamais. Un paramètre configuré pour Windows XP en 2008 **existe toujours dans votre AD aujourd'hui**, s'applique à vos clients Windows 11, et écrit dans le registre une valeur que le système d'exploitation ignore silencieusement — ou pire, interprète différemment. Les paramètres fantômes ne génèrent aucune erreur. La seule défense est un audit proactif.
+
 
 ---
 
@@ -99,7 +98,6 @@ timeline
 ```
 
 ---
-
 !!! quote "En résumé"
     - Le moteur GPO a connu cinq ruptures majeures : Windows 2000 (invention), Vista (ADMX + GPP), Windows 10 (MDM parallèle), Windows 11 (Start Menu JSON), Server 2025 (Azure Arc + IA).
     - Chaque rupture introduit des paramètres non rétrocompatibles et des dépréciations silencieuses.
@@ -135,7 +133,6 @@ timeline
     Les colonnes ADMX indiquent des ordres de grandeur cumulés. Le nombre exact varie selon la version des ADMX téléchargées depuis le Microsoft Download Center, qui publie des packages ADMX distincts par version d'OS.
 
 ---
-
 !!! quote "En résumé"
     - Windows Vista est la rupture technique la plus importante pour les ADMX : passage au format XML, Central Store, et ajout des GPP.
     - Windows 10 1607 est le point de non-retour pour IEM : si votre environnement utilisait encore l'Internet Explorer Maintenance CSE à cette date, vos paramètres ont été silencieusement ignorés.
@@ -214,7 +211,6 @@ Il ne fonctionne pas. Du moins, pas de manière fiable.
     Si vous avez des GPO `DisallowRun` actives dans votre domaine, elles donnent une illusion de contrôle d'application. Un utilisateur averti contourne en lançant l'exécutable depuis une invite PowerShell. Remplacez par AppLocker (Path rules au minimum) ou WDAC.
 
 ---
-
 !!! quote "En résumé"
     - IEM a été supprimée silencieusement en Windows 10 1607. L'Event ID 1085 est le seul signal. Des milliers de domaines en production ont encore des GPO IEM actives sans le savoir.
     - `DisallowRun` est toujours configurable via GPMC mais ne constitue pas un contrôle d'application fiable. Remplacer par AppLocker ou WDAC.
@@ -333,7 +329,6 @@ La gestion Hyper-V via GPO est étendue avec de nouveaux paramètres de contrôl
     Les ADMX téléchargés depuis le kit ADMX Windows 11 ne contiennent pas les paramètres Server 2025. Et inversement. Pour un parc mixte client/serveur, le Central Store doit être alimenté avec les deux sets d'ADMX. En cas de conflit de namespace (même fichier `.admx`, versions différentes), la version la plus récente doit remplacer l'ancienne.
 
 ---
-
 !!! quote "En résumé"
     - Vista : ADMX + GPP = les deux piliers de la gestion GPO moderne.
     - Windows 10 : l'ère hybride GPO/MDM commence. `MDMWinsOverGP` peut silencieusement invalider des GPO.
@@ -504,7 +499,6 @@ La remédiation suit une logique en trois phases.
     Avant de désactiver ou de supprimer une GPO contenant des paramètres fantômes, vérifier qu'elle ne contient pas aussi d'autres paramètres encore valides. `Get-GPOReport` ou le panneau Settings de GPMC donnent la vue complète. Une GPO peut contenir 50 paramètres valides et 2 paramètres fantômes.
 
 ---
-
 !!! quote "En résumé"
     - La divergence ADMX W10/W11 est réelle et non documentée de manière centralisée. Les paramètres Start Menu, Widgets, Taskbar Clock sont les plus fréquemment impactés.
     - Un paramètre fantôme ne génère aucune erreur dans GPMC. Il faut un audit proactif par script.
@@ -522,3 +516,10 @@ Ce chapitre couvre la dimension temporelle et la compatibilité entre versions. 
 - **Spécificités Windows 11 pour débutants** — guide d'introduction aux nouveautés GPO W11 : [../gpo-pour-les-nuls/14-windows11.md](../gpo-pour-les-nuls/14-windows11.md)
 - **AppLocker et WDAC** — pour remplacer SRP et DisallowRun : [15-applocker-wdac.md](15-applocker-wdac.md)
 - **GPO et MDM : convergence** — coexistence GPO/Intune et gestion du conflit `MDMWinsOverGP` : [25-mdm-convergence.md](25-mdm-convergence.md)
+
+!!! quote "En résumé"
+    - À relire : 05-admx-adml.md.
+    - À relire : ../gpo-pour-les-admins/04-central-store.md.
+    - À relire : ../gpo-pour-les-nuls/14-windows11.md.
+    - À relire : 15-applocker-wdac.md.
+    - Ces renvois prolongent le chapitre avec des mécanismes complémentaires ou des cas d’usage voisins.
