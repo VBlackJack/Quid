@@ -718,7 +718,7 @@ $results = foreach ($rdsh in $RDSHosts) {
         [PSCustomObject]@{
             Host                    = $env:COMPUTERNAME
             # Loopback
-            LoopbackMode            = $gpReg.UserPolicyMode       # 1=Replace, 2=Merge
+            LoopbackMode            = $gpReg.UserPolicyMode       # 1=Merge, 2=Replace
             # Session timeouts (ms)
             MaxIdleTime             = $tsReg.MaxIdleTime
             MaxDisconnectionTime    = $tsReg.MaxDisconnectionTime

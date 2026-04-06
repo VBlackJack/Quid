@@ -156,7 +156,7 @@ Chaque anneau est implementé via une GPO distincte, liee a une OU ou filtree pa
 | Critical | 30 jours | 180 jours | 5-10% du parc | Serveurs, postes de trading, salles de reunion |
 
 !!! warning "A surveiller"
-    30 jours est le maximum pour `DeferQualityUpdates`. Les anneaux Production (21j) et Critical (35j) semblent contradictoires : Critical est limite a 30j en pratique pour les quality updates. Pour forcer un report supplementaire sur Critical, combinez `DeferQualityUpdates = 30` avec une approbation manuelle WSUS ou un `PauseQualityUpdates` a renouveler manuellement.
+    30 jours est le **maximum absolu** pour `DeferQualityUpdatesPeriodInDays`. Toute valeur superieure est silencieusement tronquee a 30. Pour un report supplementaire au-dela de 30 jours sur les quality updates, combinez `DeferQualityUpdates = 30` avec une approbation manuelle WSUS ou un `PauseQualityUpdates` a renouveler manuellement.
 
 ### :material-powershell: Script de creation des quatre GPO WUfB
 
