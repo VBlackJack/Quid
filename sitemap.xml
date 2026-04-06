@@ -2,650 +2,734 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://vblackjack.github.io/Quid/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/cross-index/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/01-introduction/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/02-architecture/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/03-cse/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/04-sysvol/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/05-admx-adml/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/06-registry-pol/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/07-traitement/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/08-heritage-lsdou/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/09-filtrage/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/10-loopback/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/11-preferences-gpp/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/12-ilt/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/13-securite-strategies/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/14-firewall/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/15-applocker-wdac/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/16-bitlocker/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/17-deploiement-msi/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/18-scripts/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/19-redirection-profils/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/20-rsop-diagnostic/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/21-lgpo/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/22-baselines/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/23-performances/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/24-versions/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-gpo/25-mdm-convergence/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/01-introduction/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/02-architecture/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/03-ruches/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/04-types-donnees/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/05-outils/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/06-securite/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/07-sauvegarde/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/08-reseau/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/09-optimisation/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/10-scripts/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/11-depannage/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/12-reference/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/13-demarrage-bcd/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/14-services/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/15-com-shell/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/16-securite-moderne/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/17-forensique/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/18-versions/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/19-virtualisation/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/20-gpo/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/21-apps-modernes/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/22-non-documentees/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/23-wmi-cim/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/24-cloud-entreprise/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/25-api-avancees/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/26-msi-installer/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/27-etw-performance/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/28-taches-planifiees/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/29-cryptographie/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/bible-registre-windows/30-impression/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/01-architecture-entreprise/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/02-gouvernance/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/03-powershell-gpo/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/04-central-store/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/05-backup-migration/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/06-audit-conformite/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/07-multi-sites/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/08-m365-office/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/09-navigateurs/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/10-windows-update/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/11-rds/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/12-bureau-energie/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/13-imprimantes-lecteurs/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/14-securite-endpoint/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/15-certificats-pki/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/16-wifi-vpn/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/17-bitlocker-laps/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/18-azure-ad-hybrid/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/19-migration-intune/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/20-sccm-mecm/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/21-apps-tierces/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/22-depannage-terrain/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/23-automation-cicd/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/24-securite-gpo/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/25-zero-trust/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/26-osd-mdt-wds/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/27-printnightmare-hardening/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/28-whfb/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/29-fslogix/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-admins/30-secured-core/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/01-cest-quoi/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/02-gpedit/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/03-modifications-utiles/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/04-gpmc-premiers-pas/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/05-premiere-gpo/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/06-heritage/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/07-securite-base/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/08-bureau-demarrer/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/09-windows-update/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/10-preferences/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/11-sauvegarde/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/12-diagnostic/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/13-erreurs/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/14-windows11/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/gpo-pour-les-nuls/15-mini-projets/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/01-philosophie/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/02-baselines/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/03-credential-protection/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/04-uac-privileges/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/05-smb-hardening/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/06-rdp-hardening/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/07-applocker-wdac/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/08-asr-rules/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/09-audit-eventlog/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/10-powershell-clm/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/11-laps-comptes-locaux/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/12-bitlocker/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/13-firewall/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/14-whfb/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/15-secured-core/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/16-defender-antivirus/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/17-reseau-llmnr-doh/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/18-checklist-niveaux/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/19-audit-conformite/</loc>
+         <lastmod>2026-04-06</lastmod>
+    </url>
+    <url>
+         <loc>https://vblackjack.github.io/Quid/books/hardening-windows/20-maintien-temps/</loc>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/01-powershell-remoting/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/02-gpo-registre-ad/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/03-audit-conformite/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/04-deploiement/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/05-ad-ds/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/06-dns/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/07-dhcp/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/08-wsus/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/09-iis/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/10-rds/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/11-hyper-v/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/12-file-server/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/13-print-server/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/14-radius-nps/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/15-globalprotect/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/16-sccm-mecm/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/17-intune/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/18-antivirus/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/19-citrix/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/20-vmware/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/21-m365-office/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/22-navigateurs/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/23-vpn-clients/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/24-backup-monitoring/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/25-exchange/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/26-sql-server/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/27-sharepoint/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/28-adobe-java/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/29-compliance/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-admins/30-zero-trust/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/01-cest-quoi/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/02-premiers-pas/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/03-structure/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/04-modifications/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/05-sauvegarde/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/06-erreurs/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/07-astuces/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/08-fichiers-reg/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/09-depannage/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/10-evaluer-tutos/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/11-securite/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/12-glossaire/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/13-powershell-bases/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/14-gpo-debutant/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/15-windows11/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/16-parametres-registre/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/books/registre-pour-les-nuls/17-mini-projets/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/includes/abbreviations/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/lab/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/reference/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/reference/event-ids/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/reference/gpo-cheatsheet/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/reference/outils/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
     <url>
          <loc>https://vblackjack.github.io/Quid/reference/registre-cheatsheet/</loc>
-         <lastmod>2026-04-05</lastmod>
+         <lastmod>2026-04-06</lastmod>
     </url>
 </urlset>
