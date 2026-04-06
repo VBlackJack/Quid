@@ -96,6 +96,76 @@ Avant le registre, la configuration de Windows reposait sur des **fichiers texte
 
 ---
 
+## Pourquoi un format binaire ?
+
+Le registre utilise un **format binaire natif**, et non un format texte comme XML, JSON ou `.ini`.
+Ce choix n'est pas arbitraire : il répond à trois contraintes d'ingénierie que Windows doit satisfaire en permanence.
+
+### 1. Performance
+
+Les ruches sont conçues pour être **mappées directement en mémoire** (*memory-mapped files*).
+Le Configuration Manager peut ainsi naviguer dans des structures déjà alignées, avec des offsets fixes et des cellules typées.
+
+Avec un format texte, chaque lecture imposerait une étape supplémentaire :
+
+- lire la chaîne brute
+- parser sa structure
+- convertir les types (`DWORD`, `QWORD`, binaire, multi-string)
+- reconstruire un objet exploitable en mémoire
+
+Sur une machine qui lit le registre au démarrage, à l'ouverture de session, au chargement des services et à chaque appel d'API, cette latence serait partout.
+Le format binaire supprime ce coût de parsing à chaque accès.
+
+### 2. Atomicité
+
+Le registre doit pouvoir modifier **une cellule précise à un offset précis**, puis journaliser l'opération pour garantir la cohérence.
+Un format binaire se prête bien à cette logique : Windows sait exactement où se trouve une valeur, quelle est sa taille, et quelle partie doit être remplacée.
+
+Dans un fichier texte, même une petite modification peut forcer :
+
+- la réécriture complète du document
+- le décalage de toutes les données suivantes
+- la régénération des structures de syntaxe
+
+Autrement dit, le binaire permet des mises à jour **in-place** beaucoup plus prédictibles.
+Le texte, lui, favorise plutôt une logique de réécriture globale.
+
+### 3. Efficacité en taille
+
+Le registre stocke des millions de petites données de configuration.
+Dans ce contexte, chaque octet compte.
+
+Un `DWORD` contenant `00000001` occupe **4 octets** en binaire.
+En texte brut, la valeur `"1"` n'occupe qu'un octet, mais ce chiffre seul n'a aucun contexte.
+Dans une structure XML ou JSON réelle, il faut ajouter :
+
+- le nom du champ
+- les séparateurs
+- la syntaxe de structure
+- parfois des métadonnées de type
+
+Sur des données de configuration, le surcoût d'un format texte structuré est souvent de **10 à 30 fois** la taille utile.
+Pour un système qui charge plusieurs ruches au boot et garde une grande partie du registre en mémoire, cette différence est loin d'être théorique.
+
+### Comparaison rapide
+
+| Format | Lisibilité | Performance | Atomicité | Utilisé par |
+|--------|------------|-------------|-----------|-------------|
+| Fichiers `.ini` (texte) | Excellente | Médiocre | Aucune | Windows 3.x, apps legacy |
+| XML (texte structuré) | Bonne | Faible (parsing) | Faible | .NET config, app manifests |
+| JSON (texte structuré) | Bonne | Faible (parsing) | Faible | Apps modernes, UWP |
+| Registre (binaire) | Faible (Regedit requis) | Excellente | Complète | Windows, pilotes, services |
+
+!!! note "Pourquoi Notepad affiche du bruit"
+    C'est pour cette raison qu'un fichier de ruche ne s'ouvre pas dans Notepad comme un document lisible. Ce n'est **pas** un signe de corruption : le format est binaire par conception, optimisé pour le noyau et les API Windows, pas pour la lecture humaine directe.
+
+!!! info "En résumé"
+    - Le format binaire élimine le coût de parsing à chaque lecture
+    - Il permet des mises à jour précises et atomiques à des offsets connus
+    - Il minimise la taille des données stockées et conserve un registre compact en mémoire comme sur disque
+
+---
+
 ## L'arborescence : 5 branches principales
 
 La base de registre est organisee comme un **systeme de fichiers** avec des dossiers et sous-dossiers :
@@ -193,6 +263,57 @@ Le dossier RegBack s'affiche. Sur Windows 10 1803+, les fichiers peuvent faire 0
     - Le registre a evolue sur 3 decennies, de `REG.DAT` (Windows 3.1) au format moderne avec ACL et Unicode (Windows NT)
     - Windows Vista a introduit la virtualisation UAC et le registre transactionnel (KTM)
     - Depuis Windows 10 1803, les sauvegardes automatiques RegBack sont desactivees par defaut
+
+---
+
+## Contenu pratique des principales sous-ruches HKLM
+
+Pour un administrateur, `HKLM` est la ruche la plus critique.
+Elle concentre la configuration **machine**, donc tout ce qui s'applique au système dans son ensemble, indépendamment de l'utilisateur connecté.
+
+Ses principales sous-ruches sont les suivantes :
+
+| Sous-ruche | Contenu | Exemples de clés utiles |
+|------------|---------|-------------------------|
+| `HKLM\SYSTEM` | Services, pilotes, paramètres de démarrage, `CurrentControlSet` | `Services\Tcpip\Parameters`, `BootExecute` |
+| `HKLM\SOFTWARE` | Config des logiciels installés pour tous les utilisateurs | `Microsoft\Windows NT\CurrentVersion`, `Wow6432Node` |
+| `HKLM\SAM` | Base de données des comptes locaux (inaccessible via Regedit sans SYSTEM) | `Accounts\Users` |
+| `HKLM\SECURITY` | Politiques de sécurité locales, LSA secrets (inaccessible même en admin) | `Policy\Secrets` |
+| `HKLM\HARDWARE` | Profil matériel détecté au démarrage, volatile, recréé à chaque boot | `Description\System`, `DeviceMap` |
+
+Deux points pratiques méritent d'être retenus :
+
+- `HKLM\HARDWARE` est une sous-ruche **volatile** : elle n'est pas stockée telle quelle sur disque, elle est reconstruite à chaque démarrage.
+- `HKLM\SAM` et `HKLM\SECURITY` exigent un accès de niveau **SYSTEM**. Un administrateur local classique ne peut pas les lire librement avec les outils standard.
+
+La sous-ruche `HKLM\SYSTEM` est souvent la première à inspecter lors d'un diagnostic de boot, d'un problème réseau ou d'un incident sur un service Windows.
+Le nœud `CurrentControlSet\Services` contient notamment l'enregistrement des services et pilotes connus du système.
+
+```powershell title="Lister les 10 premiers services enregistrés dans le registre"
+# List the first 10 services registered in the registry
+Get-ChildItem "HKLM:\SYSTEM\CurrentControlSet\Services" | Select-Object -First 10 Name
+```
+
+```text title="Exemple de sortie"
+Name
+----
+.NET CLR Data
+.NET CLR Networking
+.NET CLR Networking 4.0.0.0
+ACPI
+AFD
+AarSvc
+AarSvc_XXXXX
+AcpiDev
+AcpiPmi
+ahcache
+```
+
+!!! info "En résumé"
+    - `HKLM` concentre la configuration machine la plus importante pour l'administration
+    - `SYSTEM` et `SOFTWARE` sont les sous-ruches les plus consultées au quotidien
+    - `SAM` et `SECURITY` contiennent des données sensibles et nécessitent un contexte SYSTEM pour être lues
+    - `HARDWARE` est une vue volatile du matériel détecté au boot
 
 ---
 

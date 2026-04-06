@@ -105,7 +105,66 @@ Cette branche determine **quel programme ouvre quel type de fichier** :
 | `.jpg` | Visionneuse de photos |
 | `.docx` | Microsoft Word |
 
-Elle gere aussi les **menus contextuels** (le menu qui apparait quand vous faites un clic droit sur un fichier).
+Quand vous **double-cliquez** sur un fichier, Windows doit repondre a une question toute simple :
+
+> "Quel programme dois-je lancer pour ouvrir ca ?"
+
+HKCR sert justement a faire ce lien entre **un type de fichier** et **une action**.
+
+Elle gere aussi les **menus contextuels** : le menu qui apparait quand vous faites un clic droit sur un fichier.
+
+Autrement dit, les options comme **Ouvrir**, **Modifier**, **Imprimer** ou **Ouvrir avec** viennent souvent d'ici.
+
+| Action visible au clic droit | Idee derriere le decor |
+|-----------------------------|------------------------|
+| `Open` / `Ouvrir` | Quel programme lancer |
+| `Edit` / `Modifier` | Quel programme utiliser pour modifier |
+| `Print` / `Imprimer` | Quelle commande envoyer a l'imprimante |
+| `Open with...` / `Ouvrir avec...` | Quelle liste d'applications proposer |
+
+Prenons un exemple tres concret avec un fichier `.txt`.
+
+Quand vous faites un clic droit dessus, vous pouvez voir une option comme **Ouvrir avec le Bloc-notes**.
+
+En version simplifiee, Windows suit une chaine comme celle-ci :
+
+```text
+HKCR\.txt → (Par défaut) = "txtfile"
+HKCR\txtfile\shell\open\command → (Par défaut) = "notepad.exe %1"
+```
+
+Ce que cela veut dire, en francais normal :
+
+1. Windows regarde d'abord l'extension du fichier : ici `.txt`.
+2. Il voit que `.txt` correspond au type logique `txtfile`.
+3. Il va ensuite chercher, dans `txtfile`, quelle commande correspond a l'action `open`.
+4. Il trouve `notepad.exe %1`, ce qui signifie en gros : "ouvre le fichier clique avec le Bloc-notes".
+
+Le petit symbole `%1` represente simplement **le nom du fichier sur lequel vous avez clique**.
+
+Si vous avez clique sur `courses.txt`, Windows comprend donc quelque chose comme :
+
+```text
+notepad.exe courses.txt
+```
+
+Vous n'avez pas besoin de memoriser ce chemin par coeur.
+
+Retenez juste l'idee : **extension -> type de fichier -> action -> programme a lancer**.
+
+!!! example "Image mentale utile"
+    Pensez a HKCR comme a un standardiste.
+    Vous lui dites : "J'ai un fichier `.txt`."
+    Il regarde sa fiche, puis repond : "Pour ca, j'appelle le Bloc-notes."
+
+!!! tip "Si un clic droit sur un fichier ne propose plus le bon programme, c'est souvent dans HKCR que le problème se cache."
+
+!!! warning "HKCR est une branche à observer, rarement à modifier. Une erreur ici peut désactiver l'ouverture de tous vos fichiers d'un certain type."
+
+!!! quote "En résumé"
+    - HKCR dit a Windows **quoi faire** quand vous double-cliquez ou faites un clic droit sur un type de fichier.
+    - Pour un fichier `.txt`, Windows peut suivre la chaine `.txt` -> `txtfile` -> `shell\open\command` -> `notepad.exe %1`.
+    - Si les mauvaises options apparaissent au clic droit, HKCR est souvent l'endroit a inspecter en premier.
 
 ---
 
@@ -120,9 +179,36 @@ Contient les reglages de **tous** les comptes utilisateurs actuellement connecte
 
 ### HKEY_CURRENT_CONFIG (HKCC) -- Le materiel actuel
 
-Contient le profil materiel en cours d'utilisation.
+HKCC contient le **profil materiel charge au demarrage**.
 
-Rarement utilise directement. Passons.
+En pratique, cela correspond au materiel et aux reglages que Windows a **effectivement retenus pour cette session** : par exemple certains parametres d'affichage, de resolution ou d'equipements branches.
+
+Cette branche n'est pas vraiment stockee a part.
+
+C'est en fait un **raccourci** (un alias, ou lien symbolique) vers une sous-cle situee ici :
+
+```text
+HKLM\SYSTEM\CurrentControlSet\Hardware Profiles\Current
+```
+
+Vous pouvez voir HKCC comme une **porte d'entree pratique** vers ce profil materiel courant, sans avoir a parcourir tout `HKLM\SYSTEM`.
+
+Pour un debutant, le point important est le suivant : on ne change presque jamais ces elements a la main dans Regedit.
+
+Quand vous modifiez la resolution d'ecran, l'echelle d'affichage ou certains reglages du materiel, vous passez normalement par **Parametres Windows**, **Panneau de configuration** ou l'outil fourni par le constructeur.
+
+Windows se charge ensuite d'ecrire les bonnes informations au bon endroit.
+
+!!! info "HKCC n'est pas vraiment une branche indépendante. C'est un alias vers une partie de HKLM. Vous n'avez pas besoin de l'explorer directement."
+
+!!! note "Le bon reflexe"
+    Si vous cherchez a changer un reglage d'ecran, commencez par `Parametres` avec ++win+i++.
+    N'allez pas fouiller dans `HKCC` en premier.
+
+!!! quote "En résumé"
+    - HKCC montre le **profil materiel actuellement utilise** par Windows.
+    - Ce n'est pas une branche separee : c'est un alias vers `HKLM\SYSTEM\CurrentControlSet\Hardware Profiles\Current`.
+    - Dans la vraie vie, on passe presque toujours par les outils Windows plutot que par une modification manuelle de HKCC.
 
 !!! quote "En resume"
     - **HKCU** contient vos preferences personnelles (sans risque pour les autres utilisateurs), **HKLM** contient les reglages machine (necessite les droits admin).
@@ -155,6 +241,55 @@ C'est comme un chemin de fichier (`C:\Users\Jean\Documents\Factures`), mais pour
 !!! quote "En resume"
     - Les cles fonctionnent comme des dossiers et sous-dossiers, imbriques les uns dans les autres.
     - Le chemin complet se lit de haut en bas, separe par des `\`, comme un chemin de fichier.
+
+### HKCU ou HKLM : qui gagne quand les deux existent ?
+
+Parfois, **le meme reglage** existe a deux endroits :
+
+- dans `HKLM` pour definir une base commune a tout le PC ;
+- dans `HKCU` pour enregistrer **votre** preference personnelle.
+
+Pour debuter, retenez cette regle simple :
+
+**si le meme reglage existe dans les deux, `HKCU` passe avant `HKLM` pour l'utilisateur connecte.**
+
+Pourquoi ? Parce que `HKLM` sert souvent de **reglage par defaut pour la machine**, alors que `HKCU` sert de **personnalisation individuelle**.
+
+Exemple tres courant :
+
+un logiciel installe "pour tout le monde" place une configuration generale dans `HKLM`.
+
+Puis, quand **vous** changez une preference dans ce logiciel, votre choix est ecrit dans `HKCU`.
+
+Au moment de lire le reglage, Windows ou le logiciel prend alors votre valeur `HKCU`, qui **ecrase** la valeur machine pour votre session.
+
+| Situation | Cle utilisee | Effet |
+|-----------|-------------|-------|
+| Reglage machine par defaut | HKLM | S'applique a tous les utilisateurs |
+| Vous personnalisez ce reglage | HKCU | Votre valeur ecrase HKLM pour votre session |
+| Vous supprimez votre valeur HKCU | HKLM | Le reglage machine reprend le dessus |
+
+Imaginez un **hotel** :
+
+- `HKLM`, c'est la chambre preparee par defaut : temperature, rideaux, disposition generale.
+- `HKCU`, c'est ce que **vous** changez pendant votre sejour : vous ouvrez la fenetre, vous baissez la lumiere, vous deplacez un coussin.
+
+Tant que votre preference personnelle existe, c'est **elle** qui s'applique pour vous.
+
+Si vous l'enlevez, la chambre revient a la configuration par defaut de l'hotel.
+
+!!! info "C'est pourquoi certains réglages faits par un admin pour tous les utilisateurs peuvent être surchargés par chaque utilisateur dans son propre HKCU."
+
+!!! example "Petit scenario"
+    Un administrateur installe un logiciel pour toute l'entreprise.
+    Le logiciel met `Theme=clair` dans `HKLM`.
+    Vous ouvrez les preferences et choisissez `Theme=sombre`.
+    Votre choix part dans `HKCU`, et vous voyez alors le theme sombre, meme si le theme clair reste defini pour la machine.
+
+!!! quote "En résumé"
+    - `HKLM` pose souvent le decor pour tout le PC, `HKCU` ajoute votre couche personnelle.
+    - Quand les deux existent pour le meme reglage, retenez la regle simple : **votre `HKCU` passe d'abord**.
+    - Si votre valeur `HKCU` disparait, Windows ou le logiciel retombe sur la valeur definie dans `HKLM`.
 
 ---
 
@@ -190,6 +325,58 @@ Elle est souvent vide et rarement utilisee directement. Ne vous en preoccupez pa
 !!! quote "En resume"
     - Chaque valeur est composee de trois elements : un **nom**, un **type** (REG_SZ, REG_DWORD...) et des **donnees**.
     - La valeur "(Par defaut)" est presente dans chaque cle mais rarement utilisee directement.
+
+## Les types de valeurs courants
+
+Chaque valeur du registre a aussi un **type**.
+
+Ce type indique **quelle forme de donnee** Windows s'attend a trouver dedans.
+
+Pensez-y comme au contenant :
+
+- une case pour du texte ;
+- une case pour un nombre ;
+- une case pour plusieurs lignes ;
+- une case pour des donnees techniques plus brutes.
+
+| Type | Nom complet | Ce que ça stocke | Exemple |
+|------|-------------|------------------|---------|
+| REG_SZ | String Value | Du texte simple | `C:\Program Files\MonApp\app.exe` |
+| REG_DWORD | Double Word | Un nombre entier (32 bits) | `1` (activé) ou `0` (désactivé) |
+| REG_EXPAND_SZ | Expandable String | Du texte avec variables d'environnement | `%USERPROFILE%\Documents` |
+| REG_BINARY | Binary Value | Des données binaires brutes | Rarement modifié à la main |
+| REG_MULTI_SZ | Multi-String | Plusieurs lignes de texte | Liste de services ou de chemins |
+
+Voici la lecture la plus simple possible :
+
+- `REG_SZ` : du texte "normal"
+- `REG_DWORD` : un petit nombre, souvent utilise pour `0` ou `1`
+- `REG_EXPAND_SZ` : du texte qui contient des raccourcis comme `%USERPROFILE%`
+- `REG_BINARY` : des octets techniques, rarement agreables a lire
+- `REG_MULTI_SZ` : plusieurs lignes de texte rangees ensemble
+
+!!! tip "Pour un débutant, REG_SZ et REG_DWORD couvrent 90 % des cas. Les autres types se rencontrent mais se modifient rarement directement."
+
+Un detail qui surprend souvent au debut :
+
+quand vous voyez `0x00000001` a cote d'une valeur `DWORD`, cela veut simplement dire **1 en hexadecimal**.
+
+L'hexadecimal est une autre facon d'ecrire un nombre, un peu comme si Windows parlait son dialecte technique.
+
+Pour eviter de vous melanger, quand une boite de dialogue vous demande un format, choisissez **Decimale** si vous voulez taper des nombres "normaux".
+
+!!! example "Le bon reflexe"
+    Si un tutoriel dit "mettre la valeur a 1", vous pouvez presque toujours choisir **Decimale** puis taper `1`.
+    Pas besoin de convertir a la main en `0x00000001`.
+
+!!! note "Petit pense-bete"
+    Si vous voyez un chemin de programme ou de dossier, pensez souvent `REG_SZ`.
+    Si vous voyez un interrupteur du style actif / inactif, pensez souvent `REG_DWORD`.
+
+!!! quote "En résumé"
+    - Le type d'une valeur indique **quelle sorte de donnee** elle peut contenir.
+    - Pour debuter, vous rencontrerez surtout `REG_SZ` (texte) et `REG_DWORD` (nombre).
+    - Si `0x00000001` vous intimide, retenez simplement que cela correspond a **1**.
 
 ---
 

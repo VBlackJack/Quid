@@ -80,6 +80,63 @@ graph TD
 
 ---
 
+## DPAPI et chiffrement des secrets du registre
+
+Le contrôle d'accès ne suffit pas toujours.
+Quand Windows doit stocker des secrets sensibles dans le registre, il s'appuie aussi sur **DPAPI** (*Data Protection API*).
+
+DPAPI chiffre des blobs de données en s'appuyant sur une clé dérivée :
+
+- du mot de passe utilisateur pour les secrets liés à `HKCU`
+- de la clé machine pour les secrets liés à `HKLM`
+
+L'idée est simple : même si une application peut stocker une donnée dans le registre, elle ne la laisse pas forcément en clair.
+Le registre devient alors un conteneur de **blobs chiffrés**, et non de secrets lisibles directement.
+
+| Emplacement | Contenu chiffré |
+|-------------|-----------------|
+| `HKCU\Software\Microsoft\Protected Storage System Provider` | Anciens mots de passe IE/Outlook (DPAPI user) |
+| `HKLM\SECURITY\Policy\Secrets` | LSA Secrets : comptes de service, mots de passe machine (DPAPI system) |
+| `HKCU\Software\Microsoft\Credentials` | Gestionnaire d'informations d'identification Windows |
+
+### Les LSA Secrets en pratique
+
+Les **LSA Secrets** sont stockés sous `HKLM\SECURITY\Policy\Secrets`.
+Ils servent notamment à conserver :
+
+- des mots de passe de comptes de service
+- des secrets machine utilisés par Windows
+- certains identifiants VPN ou mécanismes d'auto-logon
+
+Cette zone n'est pas seulement protégée par une ACL stricte.
+Elle est aussi réservée au contexte **SYSTEM**, ce qui explique pourquoi même un administrateur local ne peut pas simplement l'ouvrir dans Regedit ou avec PowerShell.
+
+```powershell title="Constater que HKLM\\SECURITY exige le contexte SYSTEM"
+# Attempting to read LSA Secrets as admin — will fail
+try {
+    Get-ChildItem "HKLM:\SECURITY\Policy\Secrets" -ErrorAction Stop
+} catch {
+    Write-Warning "Access denied — SECURITY hive requires SYSTEM privileges: $_"
+}
+```
+
+```text title="Exemple de sortie"
+WARNING: Access denied — SECURITY hive requires SYSTEM privileges: ...
+```
+
+!!! info "Comprendre la surface d'attaque"
+    Des outils offensifs comme **Mimikatz** abusent de DPAPI et du contexte SYSTEM pour extraire ou déprotéger ces secrets. Pour un défenseur, le point important n'est pas de mémoriser les commandes offensives, mais de comprendre qu'une élévation vers SYSTEM ouvre immédiatement l'accès à une partie critique du registre.
+
+!!! warning "Manipulation tres sensible"
+    Ne tentez pas d'accéder à `HKLM\SECURITY\Policy\Secrets` sur un système en production sans autorisation explicite. Ces clés contiennent des secrets actifs.
+
+!!! info "En résumé"
+    - DPAPI chiffre les secrets du registre avec une clé dérivée de l'utilisateur ou de la machine
+    - `HKLM\SECURITY\Policy\Secrets` contient les LSA Secrets les plus sensibles
+    - L'accès à ces données requiert en pratique le contexte SYSTEM, pas seulement des droits administrateur
+
+---
+
 ## Permissions detaillees
 
 ### Permissions individuelles
@@ -323,6 +380,104 @@ Cela affiche une colonne indiquant si chaque processus est virtualise.
 
 !!! info "En resume"
     La virtualisation UAC redirige silencieusement les ecritures dans `HKLM\SOFTWARE` vers `HKCU\...\VirtualStore\...` pour les anciennes applications 32 bits. C'est un mecanisme de compatibilite, pas une fonctionnalite. Pour les developpeurs, un manifeste d'elevation desactive ce comportement et rend les erreurs explicites.
+
+---
+
+## Persistance et vecteurs d'attaque courants
+
+Le registre est une cible de premier plan pour les attaquants qui cherchent une **persistance**.
+Une simple valeur ajoutée au bon endroit peut suffire à relancer un malware à chaque boot, à chaque logon, voire à détourner l'exécution d'un binaire légitime.
+
+Les mécanismes suivants font partie du minimum à connaître pour tout audit de sécurité Windows :
+
+| Clé de registre | Technique | Niveau de risque |
+|-----------------|-----------|------------------|
+| `HKCU\Software\Microsoft\Windows\CurrentVersion\Run` | Programme lancé à chaque connexion utilisateur | Élevé — très courant |
+| `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run` | Programme lancé au démarrage pour tous les utilisateurs | Élevé — nécessite admin |
+| `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\<exe>` | IFEO Hijacking — redirige l'exécution d'un EXE vers un autre | Très élevé |
+| `HKLM\SYSTEM\CurrentControlSet\Services` | Service malveillant enregistré comme service Windows | Critique |
+| `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon` | Modification de `Userinit` ou `Shell` | Critique |
+| `HKCU\Software\Classes\<extension>` | Hijacking d'association de fichiers pour l'utilisateur courant | Modéré |
+
+### Run keys
+
+Les clés `Run` et `RunOnce` sont les plus banales, donc les plus souvent vérifiées.
+Elles permettent de lancer un programme automatiquement à l'ouverture de session ou au prochain démarrage.
+
+Leur force pour un attaquant est leur simplicité :
+
+- une simple valeur `REG_SZ` suffit
+- la persistance peut être limitée à l'utilisateur courant (`HKCU`) ou étendue à toute la machine (`HKLM`)
+- beaucoup d'environnements tolèrent encore des entrées légitimes dans ces emplacements, ce qui masque le bruit
+
+```powershell title="Auditer les Run keys"
+# Audit Run keys — compare against a known-good baseline
+$runKeys = @(
+    "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run",
+    "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run",
+    "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce"
+)
+foreach ($key in $runKeys) {
+    Write-Host "`n=== $key ===" -ForegroundColor Cyan
+    Get-ItemProperty $key -ErrorAction SilentlyContinue |
+        Select-Object * -ExcludeProperty PS* |
+        Format-List
+}
+```
+
+### IFEO Hijacking
+
+La clé **Image File Execution Options** (IFEO) est légitime : elle sert au débogage ou à certains mécanismes de compatibilité.
+Mais si une sous-clé contient une valeur `Debugger`, Windows peut lancer un autre programme à la place du binaire cible.
+
+Pour un attaquant, c'est une technique redoutable :
+
+- elle détourne un exécutable de confiance
+- elle peut casser les outils de sécurité ou les utilitaires d'administration
+- elle est souvent oubliée lors des contrôles de routine
+
+```powershell title="Détecter les entrées IFEO avec Debugger"
+# Detect suspicious IFEO entries (should have no Debugger value on production systems)
+Get-ChildItem "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options" |
+    Where-Object { $_.GetValue("Debugger") -ne $null } |
+    Select-Object Name, @{N="Debugger";E={$_.GetValue("Debugger")}}
+```
+
+```text title="Exemple de sortie"
+(aucune sortie — aucun Debugger défini)
+```
+
+### Winlogon
+
+La clé `Winlogon` contrôle une partie du chemin critique d'ouverture de session.
+Deux valeurs doivent être surveillées en priorité :
+
+- `Userinit`, qui initialise la session utilisateur
+- `Shell`, qui définit l'interface lancée après authentification
+
+Une déviation minime suffit pour obtenir une persistance très fiable, exécutée très tôt dans la session.
+
+```powershell title="Vérifier l'intégrité de Winlogon"
+# Verify Winlogon integrity — Userinit and Shell must not be altered
+Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" |
+    Select-Object Userinit, Shell
+```
+
+```text title="Exemple de sortie"
+Userinit : C:\Windows\system32\userinit.exe,
+Shell    : explorer.exe
+```
+
+!!! danger "Indicateur de compromission fort"
+    Toute valeur supplémentaire dans `Userinit` (ex. `userinit.exe,malware.exe`) ou un `Shell` autre qu'`explorer.exe` est un indicateur de compromission fort.
+
+!!! tip "Base de contrôle minimale"
+    Ces clés font partie des vérifications de base de tout audit de sécurité Windows. Automatisez leur surveillance via un script planifié ou un SIEM.
+
+!!! info "En résumé"
+    - Les Run keys, IFEO, Services et Winlogon sont des points de persistance prioritaires
+    - Une simple comparaison avec une baseline saine permet souvent d'identifier des anomalies rapidement
+    - L'automatisation de ces contrôles doit faire partie de l'hygiène défensive de base
 
 ---
 
