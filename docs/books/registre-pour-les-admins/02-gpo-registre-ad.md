@@ -78,10 +78,10 @@ Mode                 LastWriteTime         Length Name
 
 ### Decoder un fichier registry.pol
 
-Le fichier `registry.pol` est binaire, mais le module `GPRegistryPolicy` permet de le lire.
+Le fichier `registry.pol` est binaire, mais le module `GPRegistryPolicyParser` permet de le lire.
 
 ```powershell
-# Install the GPRegistryPolicy module (if not already present)
+# Install the GPRegistryPolicyParser module (if not already present)
 Install-Module -Name GPRegistryPolicyParser -Scope CurrentUser -Force
 
 # Parse a registry.pol file

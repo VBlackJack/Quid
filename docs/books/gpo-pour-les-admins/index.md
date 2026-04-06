@@ -82,6 +82,11 @@ Chapitres recommandes dans l'ordre :
 | 23 | [Automatisation et CI/CD pour les GPO](23-automation-cicd.md) | CI/CD |
 | 24 | [Securite des GPO elles-memes](24-securite-gpo.md) | Tier-0 |
 | 25 | [Zero Trust et GPO : le futur de la configuration](25-zero-trust.md) | Strategie |
+| 26 | [OSD / MDT / WDS](26-osd-mdt-wds.md) | Deploiement |
+| 27 | [PrintNightmare et durcissement Print Spooler](27-printnightmare-hardening.md) | Impression |
+| 28 | [Windows Hello for Business](28-whfb.md) | Identite |
+| 29 | [FSLogix et GPO](29-fslogix.md) | VDI |
+| 30 | [Secured-Core PC](30-secured-core.md) | Hardening |
 
 !!! tip "Par ou commencer ?"
     Si vous etes en exploitation pure, lisez 01 a 06 puis sautez directement vers le chapitre metier qui vous concerne. Le chapitre 22 sert de runbook mental quand la theorie est deja connue mais qu'il faut resoudre vite.

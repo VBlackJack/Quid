@@ -315,6 +315,9 @@ Voici les 10 modifications les plus couramment appliquees via gpedit, avec leur 
 | 7 | Desactiver Cortana / Copilot | `HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search` | `AllowCortana` | REG_DWORD | `0` |
 | 8 | Forcer un fond d'ecran | `HKCU\...\Policies\System` | `Wallpaper` | REG_SZ | chemin |
 | 9 | Desactiver les conseils et suggestions Windows | `HKCU\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager` | `SubscribedContent-338389Enabled` | REG_DWORD | `0` |
+
+!!! info "Approche GPO standard"
+    `USBSTOR\Start = 4` fonctionne comme coupe-circuit bas niveau, mais l'approche GPO la plus propre reste en general **System > Removable Storage Access** ou les **Device Installation Restrictions**. Ces politiques sont plus explicites, plus auditables et moins susceptibles d'avoir des effets de bord sur d'autres peripheriques USB.
 | 10 | Bloquer le Microsoft Store | `HKLM\SOFTWARE\Policies\Microsoft\WindowsStore` | `RemoveWindowsStore` | REG_DWORD | `1` |
 
 !!! note "Notes sur le tableau"

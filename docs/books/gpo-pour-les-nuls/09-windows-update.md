@@ -251,9 +251,12 @@ C'est comme un nouveau modele de voiture. Vous ne voulez pas etre le premier ach
 
     1. Double-cliquez sur le parametre
     2. Selectionnez **Active**
-    3. Dans **Selectionner le niveau de preparation de la build Windows a recevoir**, choisissez **Canal semi-annuel**
+    3. Dans **Selectionner le niveau de preparation de la build Windows a recevoir**, choisissez **General Availability Channel** (anciennement **Canal semi-annuel**)
     4. Dans **Apres la publication d'une mise a jour de fonctionnalites, reporter son installation de ce nombre de jours**, entrez le nombre de jours souhaite
     5. Cliquez **OK**
+
+!!! note "Terminologie Windows 11"
+    Microsoft a abandonne la terminologie **Canal semi-annuel** sur les versions recentes de Windows 11. Si votre documentation interne parle encore de SAC, faites la correspondance avec **General Availability Channel** pour eviter les confusions.
 
 ### La strategie des anneaux de deploiement
 

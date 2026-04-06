@@ -75,9 +75,9 @@ MsiBuildMinor   : 4
 ### Identifier les roles installes
 
 ```powershell
-# Determine which Exchange roles are installed
+# Determine which Exchange roles are installed on modern versions
 $setupPath = "HKLM:\SOFTWARE\Microsoft\ExchangeServer\v15\Setup"
-$roles = @("MBXRoleIsInstalled", "CASRoleIsInstalled", "EdgeRoleIsInstalled")
+$roles = @("MBXRoleIsInstalled", "EdgeRoleIsInstalled")
 
 foreach ($role in $roles) {
     $val = Get-ItemProperty $setupPath -Name $role -ErrorAction SilentlyContinue
@@ -91,9 +91,11 @@ foreach ($role in $roles) {
 
 ```title="Resultat attendu"
 MBXRoleIsInstalled : Installed
-CASRoleIsInstalled : Not installed
 EdgeRoleIsInstalled : Not installed
 ```
+
+!!! note "Exchange 2016+"
+    Depuis Exchange 2016, le role **Client Access Server (CAS)** n'existe plus comme role separe : ses fonctions sont integrees au role **Mailbox**. Si vous croisez encore `CASRoleIsInstalled` dans d'anciens scripts ou sorties historiques, traitez-le comme un vestige de compatibilite, pas comme un role deployable independamment.
 
 !!! info "En resume"
     - La configuration Exchange est sous `HKLM\SOFTWARE\Microsoft\ExchangeServer\v15`

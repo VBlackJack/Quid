@@ -98,8 +98,8 @@ Le tableau ci-dessous recense les parametres operationnels essentiels.
 
 | Parametre GPO | Chemin GPMC (relatif a Windows Update for Business) | Cle de registre | Valeurs admises |
 |--------------|---------------------------------------------------|----------------|----------------|
-| `DeferFeatureUpdatesPeriodInDays` | Selectionner le moment ou les mises a jour des fonctionnalites sont recues | `HKLM\...\WindowsUpdate\AU\DeferFeatureUpdatesPeriodInDays` (REG_DWORD) | 0 – 365 |
-| `DeferQualityUpdatesPeriodInDays` | Selectionner le moment ou les mises a jour de qualite sont recues | `HKLM\...\WindowsUpdate\AU\DeferQualityUpdatesPeriodInDays` (REG_DWORD) | 0 – 30 |
+| `DeferFeatureUpdatesPeriodInDays` | Selectionner le moment ou les mises a jour des fonctionnalites sont recues | `HKLM\...\WindowsUpdate\DeferFeatureUpdatesPeriodInDays` (REG_DWORD) | 0 – 365 |
+| `DeferQualityUpdatesPeriodInDays` | Selectionner le moment ou les mises a jour de qualite sont recues | `HKLM\...\WindowsUpdate\DeferQualityUpdatesPeriodInDays` (REG_DWORD) | 0 – 30 |
 | `PauseFeatureUpdates` | Suspendre les mises a jour des fonctionnalites | `HKLM\...\WindowsUpdate\PauseFeatureUpdatesStartTime` (REG_SZ) | Date ISO ou vide |
 | `PauseQualityUpdates` | Suspendre les mises a jour de qualite | `HKLM\...\WindowsUpdate\PauseQualityUpdatesStartTime` (REG_SZ) | Date ISO ou vide |
 | `BranchReadinessLevel` | Selectionner le canal de preparation des fonctionnalites | `HKLM\...\WindowsUpdate\BranchReadinessLevel` (REG_DWORD) | 2 (Beta), 8 (Release Preview), 16 (GA) |
@@ -153,7 +153,7 @@ Chaque anneau est implementé via une GPO distincte, liee a une OU ou filtree pa
 | Pilot | 0 jour | 0 jour | 1-5% du parc | Equipe IT, testeurs volontaires |
 | Early Adopters | 7 jours | 30 jours | 10-15% du parc | Utilisateurs mobiles, early adopters |
 | Production | 21 jours | 90 jours | 70-80% du parc | Ensemble des postes standard |
-| Critical | 35 jours | 180 jours | 5-10% du parc | Serveurs, postes de trading, salles de reunion |
+| Critical | 30 jours | 180 jours | 5-10% du parc | Serveurs, postes de trading, salles de reunion |
 
 !!! warning "A surveiller"
     30 jours est le maximum pour `DeferQualityUpdates`. Les anneaux Production (21j) et Critical (35j) semblent contradictoires : Critical est limite a 30j en pratique pour les quality updates. Pour forcer un report supplementaire sur Critical, combinez `DeferQualityUpdates = 30` avec une approbation manuelle WSUS ou un `PauseQualityUpdates` a renouveler manuellement.

@@ -59,7 +59,7 @@ C'est sa carte d'identite.
 | `0x08` | 4 | Sequence 2 | Incremente **apres** chaque ecriture |
 | `0x0C` | 8 | Horodatage | Derniere modification (format FILETIME) |
 | `0x14` | 4 | Version majeure | Generalement `1` |
-| `0x18` | 4 | Version mineure | `3` pour NT 3.5, `5` pour NT 5+ |
+| `0x18` | 4 | Version mineure | `3` pour NT 3.5, `5` pour XP / Server 2003, `6` pour Vista et versions ulterieures |
 | `0x1C` | 4 | Type | `0` = fichier principal |
 | `0x20` | 4 | Format | `1` = memoire directe |
 | `0x24` | 4 | Offset cle racine | Pointe vers la cellule de la cle racine |
@@ -173,6 +173,55 @@ Le Configuration Manager ne lit pas le disque a chaque acces. Il utilise un **ca
 
 !!! tip "Analogie"
     C'est comme un serveur de restaurant qui garde les plats les plus commandes en cuisine plutot que de retourner au cellier a chaque commande. Les modifications sont notees sur un bon, puis envoyees en cuisine quand le serveur a un moment.
+
+### Clés volatiles : ce qui ne touche jamais le disque
+
+Toutes les clés du registre ne correspondent pas à un stockage persistant sur disque.
+Certaines sont **volatiles** : elles existent uniquement en mémoire et ne sont jamais écrites dans un fichier de ruche.
+
+Au niveau API Win32, ce comportement est demandé avec le flag `REG_OPTION_VOLATILE` lors d'un appel comme `RegCreateKeyEx`.
+La clé est alors créée dans l'espace du registre en mémoire, mais sans support persistant.
+
+Concrètement :
+
+- elle apparaît normalement dans Regedit ou via PowerShell
+- elle peut contenir des sous-clés et des valeurs
+- elle disparaît entièrement à l'arrêt de Windows ou au redémarrage
+
+Windows utilise ce mécanisme pour exposer des informations transitoires, liées à l'état courant de la machine plutôt qu'à une configuration durable.
+
+Exemples classiques de zones volatiles :
+
+- `HKLM\HARDWARE` : entièrement volatile, reconstruite à partir de la détection matérielle à chaque boot
+- `HKCU\Software\Classes\Local Settings` : certaines branches sont temporaires ou recalculées
+- certaines clés de registration COM temporaires créées par des applications
+
+| Zone volatile | Qui la crée | Durée de vie |
+|---------------|-------------|--------------|
+| `HKLM\HARDWARE` | Noyau Windows au démarrage | Jusqu'au prochain redémarrage |
+| `HKLM\SYSTEM\CurrentControlSet\Enum` (partiel) | Plug and Play Manager | Jusqu'au redémarrage |
+| Clés d'application marquées `REG_OPTION_VOLATILE` | Toute application via API Win32 | Jusqu'à la fermeture de session ou redémarrage |
+
+```powershell title="Observer que HKLM\\HARDWARE est une vue mémoire"
+# HARDWARE hive has no backing file — it's pure memory
+(Get-Item "HKLM:\HARDWARE").GetType().Name
+
+# Try to export it — will succeed in Regedit but the exported .reg is a snapshot
+reg export "HKLM\HARDWARE" "$env:TEMP\hardware_snapshot.reg" /y
+```
+
+```text title="Interprétation"
+L'export réussit, mais le fichier capturé reflète l'état au moment de l'export.
+À chaque redémarrage, HKLM\HARDWARE est entièrement reconstruit par le noyau.
+```
+
+!!! warning "Pas de fichier HARDWARE sur disque"
+    Ne cherchez pas `HKLM\HARDWARE` dans `System32\config\` : ce fichier n'existe pas sur le disque. Vous observez une projection dynamique du matériel détecté pendant la phase de boot.
+
+!!! info "En résumé"
+    - Une clé volatile vit en mémoire uniquement et n'a aucun backing file
+    - Le flag `REG_OPTION_VOLATILE` permet à une application d'en créer via l'API Win32
+    - `HKLM\HARDWARE` est l'exemple le plus visible d'une ruche reconstruite à chaque démarrage
 
 ---
 
@@ -308,6 +357,87 @@ graph LR
     - Un nom de cle est limite a 255 caracteres, une valeur a environ 1 Mo en pratique
     - La profondeur maximale d'imbrication est de 512 niveaux et une ruche ne peut depasser environ 4 Go
     - Le registre est concu pour des donnees de petite taille ; au-dela, les performances se degradent
+
+---
+
+## Surveiller la taille du registre
+
+La taille du registre n'est pas qu'une curiosité.
+Des ruches trop volumineuses ralentissent plusieurs opérations critiques :
+
+- le démarrage de Windows, car davantage de données doivent être chargées et validées
+- l'ouverture de session, surtout quand `NTUSER.DAT` grossit fortement
+- les sauvegardes, restaurations et captures forensiques, qui deviennent plus longues et plus lourdes
+
+Dans la pratique, ce n'est pas la taille totale du registre qui pose problème, mais la croissance anormale d'une ou deux ruches.
+`SOFTWARE` et `NTUSER.DAT` sont souvent les premiers candidats.
+
+```powershell title="Mesurer la taille des principales ruches sur disque"
+# Check size of main hive files
+$hives = @("SYSTEM", "SOFTWARE", "SAM", "SECURITY", "DEFAULT")
+foreach ($hive in $hives) {
+    $path = "$env:SystemRoot\System32\config\$hive"
+    if (Test-Path $path) {
+        $size = (Get-Item $path).Length / 1MB
+        Write-Host ("{0,-12} : {1:N1} MB" -f $hive, $size)
+    }
+}
+```
+
+```text title="Exemple de sortie"
+SYSTEM       : 18.2 MB
+SOFTWARE     : 82.4 MB
+SAM          : 0.1 MB
+SECURITY     : 0.3 MB
+DEFAULT      : 0.5 MB
+```
+
+| Ruche | Taille normale | Signe d'alerte |
+|-------|----------------|----------------|
+| `SYSTEM` | 5–25 MB | > 100 MB |
+| `SOFTWARE` | 20–150 MB | > 500 MB |
+| `NTUSER.DAT` | 2–30 MB par utilisateur | > 100 MB |
+
+Les causes classiques d'un gonflement du registre sont bien connues :
+
+- logiciels désinstallés laissant des clés orphelines
+- listes MRU (*Most Recently Used*) qui s'accumulent sans purge
+- malwares qui stockent charges utiles, configuration ou données exfiltrées dans des valeurs
+- applications mal conçues qui utilisent le registre comme pseudo base de données temporaire
+
+Quand vous suspectez un abus, il peut être utile de rechercher des **valeurs anormalement grosses**.
+Le script suivant explore un sous-arbre et remonte les entrées dépassant 1 Mo :
+
+```powershell title="Rechercher de grosses valeurs dans une branche du registre"
+# Find registry values larger than 1 MB (may indicate bloat or abuse)
+function Find-LargeRegistryValues {
+    param([string]$Path, [int]$ThresholdKB = 1024)
+    try {
+        $key = Get-Item -LiteralPath $Path -ErrorAction Stop
+        foreach ($valueName in $key.GetValueNames()) {
+            $data = $key.GetValue($valueName)
+            $size = if ($data -is [byte[]]) { $data.Length } else { [System.Text.Encoding]::Unicode.GetByteCount($data.ToString()) }
+            if ($size -gt ($ThresholdKB * 1024)) {
+                [PSCustomObject]@{ Path = $Path; Value = $valueName; SizeKB = [math]::Round($size/1KB, 1) }
+            }
+        }
+        foreach ($subkey in $key.GetSubKeyNames()) {
+            Find-LargeRegistryValues -Path "$Path\$subkey" -ThresholdKB $ThresholdKB
+        }
+    } catch {}
+}
+Find-LargeRegistryValues -Path "HKLM:\SOFTWARE" | Sort-Object SizeKB -Descending | Select-Object -First 20
+```
+
+Cette approche peut compléter un `reg.exe query /s` ciblé sur une branche connue, notamment quand vous cherchez à confirmer qu'une valeur volumineuse explique une ruche anormalement grosse.
+
+!!! warning "Analyse potentiellement lente"
+    Cette fonction est lente sur `SOFTWARE` et `NTUSER.DAT`. Limitez la profondeur ou filtrez à un sous-arbre connu pour éviter un scan trop long sur une machine de production.
+
+!!! info "En résumé"
+    - Surveiller la taille des ruches permet d'anticiper des lenteurs au boot, au logon et pendant les sauvegardes
+    - `SOFTWARE` et `NTUSER.DAT` sont les ruches qui grossissent le plus souvent
+    - Des valeurs volumineuses peuvent signaler un abus applicatif, un reste logiciel ou une activité malveillante
 
 ---
 

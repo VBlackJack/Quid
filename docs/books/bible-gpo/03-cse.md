@@ -110,7 +110,7 @@ Get-ChildItem $cseKey | ForEach-Object {
 GUID                                   Name                     DLL                         NoBackground NoSlowLink NoGPOListChanges
 ----                                   ----                     ---                         ------------ ---------- ----------------
 {35378EAC-683F-11D2-A89A-00C04FBBCFA2} Registry                 %SystemRoot%\System32\...            0          0               0
-{827D319E-6EAC-11D2-A4EA-00C04F79F83A} Security                 %SystemRoot%\System32\...            1          1               1
+{827D319E-6EAC-11D2-A4EA-00C04F79F83A} Security                 %SystemRoot%\System32\...            0          1               1
 {42B5FAAE-6536-11D2-AE5A-0000F87571E3} Scripts                  %SystemRoot%\System32\...            1          1               1
 {0E28E245-9368-4853-AD84-6DA3BA35BB75} Group Policy Preferences %SystemRoot%\System32\...            0          0               0
 ```
@@ -135,14 +135,13 @@ Les CSE suivantes sont presentes sur tout systeme Windows joint a un domaine. Le
 
 | GUID | DLL | Nom | Machine | User |
 |------|-----|-----|:-------:|:----:|
-| `{00000000-0000-0000-0000-000000000000}` | `scecli.dll` | Local Users and Groups (legacy) | Oui | Non |
-| `{35378EAC-683F-11D2-A89A-00C04FBBCFA2}` | `gpedit.dll` | Registry (ADMX-based) | Oui | Oui |
+| `{35378EAC-683F-11D2-A89A-00C04FBBCFA2}` | `userenv.dll` | Registry (ADMX-based) | Oui | Oui |
 | `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}` | `gpscript.dll` | Scripts | Oui | Oui |
 | `{827D319E-6EAC-11D2-A4EA-00C04F79F83A}` | `scecli.dll` | Security | Oui | Non |
-| `{B1BE8D72-6EAC-11D2-A4EA-00C04F79F83A}` | `fdeploy.dll` | Folder Redirection | Non | Oui |
+| `{25537BA6-77A8-11D2-9B6C-0000F8080861}` | `fdeploy.dll` | Folder Redirection | Non | Oui |
 | `{C6DC5466-785A-11D2-84D0-00C04FB169F7}` | `appmgmts.dll` | Software Installation (Machine) | Oui | Non |
 | `{3610EDA5-77EF-11D2-8DC5-00C04FA31A66}` | `appmgmts.dll` | Software Installation (User) | Non | Oui |
-| `{0F6B957E-509E-11D1-A7CC-0000F87571E3}` | `gptext.dll` | Wireless Policy | Oui | Non |
+| `{0ACDD3F5-75AC-47AB-BAA0-BF6DE7E7FE63}` | `gptext.dll` | Wireless Policy | Oui | Non |
 | `{0F6B957D-509E-11D1-A7CC-0000F87571E3}` | `gptext.dll` | EFS Recovery Policy | Oui | Non |
 | `{25537523-E2C2-11D2-8DC5-00C04FA31A66}` | `dskquota.dll` | Disk Quota | Oui | Non |
 | `{426031c0-0b47-4852-b0ca-ac3d37bfcb39}` | `gptext.dll` | QoS Packet Scheduler | Oui | Non |
@@ -156,7 +155,7 @@ Les CSE suivantes sont presentes sur tout systeme Windows joint a un domaine. Le
 
 ### :material-information: Notes sur les DLL partagees
 
-Plusieurs CSE partagent la meme DLL physique. `scecli.dll` gere a la fois la securite locale et les anciens groupes locaux. `gptext.dll` regroupe les politiques sans fil, EFS, QoS et IE Maintenance. `gpprefcl.dll` est une DLL unique qui contient le moteur de toutes les preferences.
+Plusieurs CSE partagent la meme DLL physique. `scecli.dll` gere la securite locale, `gptext.dll` regroupe les politiques sans fil, EFS, QoS et IE Maintenance, et `gpprefcl.dll` contient le moteur de toutes les preferences.
 
 Le partage de DLL n'implique pas de partage d'etat entre CSE. Chaque appel est isole par son GUID et par les donnees passees par `gpsvc`.
 
@@ -193,20 +192,20 @@ Le foreground est synchrone par defaut. Le bureau Windows n'apparait pas tant qu
 
 **Le traitement background** se produit periodiquement, en tache de fond. L'intervalle par defaut est de 90 minutes, avec une variation aleatoire de ±30 minutes pour eviter les pics de charge sur les controleurs de domaine.
 
-Plusieurs CSE critiques ne s'executent pas en background :
+Toutes les CSE critiques ne se comportent pas de la meme facon en background :
 
 | CSE | `NoBackgroundPolicy` | Comportement en arriere-plan |
 |-----|:--------------------:|------------------------------|
 | Registry (ADMX) | `0` | S'execute a chaque refresh background |
 | Group Policy Preferences | `0` | S'execute a chaque refresh background |
-| Security (`scecli.dll`) | `1` | Foreground uniquement |
+| Security (`scecli.dll`) | `0` | Peut se reappliquer en background, avec controle supplementaire via `NoGPOListChanges` et `MaxNoGPOListChangesInterval` |
 | Scripts (`gpscript.dll`) | `1` | Foreground uniquement |
 | Folder Redirection | `1` | Foreground uniquement |
 | Software Installation | `1` | Foreground uniquement |
 | Audit Policy | `1` | Foreground uniquement |
 
 !!! warning "Consequence pour les tests en production"
-    Modifier une GPO de securite ou de redirection de dossiers ne prend effet qu'au prochain demarrage machine ou ouverture de session. Un `gpupdate /force` en session active applique uniquement les CSE avec `NoBackgroundPolicy = 0`. Pour les autres, seul un `gpupdate /force /boot` ou un `gpupdate /force /logoff` declenche un vrai foreground.
+    Un `gpupdate /force` en session active applique les CSE avec `NoBackgroundPolicy = 0`, ce qui inclut la CSE Security. En revanche, Scripts, Folder Redirection, Software Installation et Audit Policy restent dependantes d'un vrai foreground (`/boot` ou `/logoff`) pour etre traitees completement.
 
 !!! check "Point de contrôle"
     Avant de continuer, vérifiez que vous avez bien compris :
@@ -612,7 +611,7 @@ Get-WinEvent -LogName "Microsoft-Windows-GroupPolicy/Operational" |
 
 ---
 
-## :material-database: La CSE Registry en detail : `gpedit.dll`
+## :material-database: La CSE Registry en detail : `userenv.dll`
 
 La CSE Registry (`{35378EAC-683F-11D2-A89A-00C04FBBCFA2}`) est la plus frequemment invoquee. Elle est responsable de l'application de tous les parametres ADMX — c'est-a-dire la quasi-totalite des parametres visibles dans l'editeur de GPO sous **Administrative Templates**.
 
@@ -623,7 +622,7 @@ Les parametres ADMX d'une GPO sont serialises dans un fichier binaire appele `Re
 - `{GUID}\Machine\Registry.pol` — parametres machine
 - `{GUID}\User\Registry.pol` — parametres utilisateur
 
-`gpedit.dll` lit ce fichier depuis le cache local (apres synchronisation depuis SYSVOL par `gpsvc`) et applique chaque entree en ecrivant directement dans le registre.
+`userenv.dll` lit ce fichier depuis le cache local (apres synchronisation depuis SYSVOL par `gpsvc`) et applique chaque entree en ecrivant directement dans le registre.
 
 ### :material-format-list-bulleted: Structure d'une entree `Registry.pol`
 
@@ -670,7 +669,7 @@ Quand un parametre ADMX est defini dans une GPO puis supprime (passe a "Not Conf
 
 Deux mecanismes coexistent :
 
-**1. Les cles `Software\Policies\` (managed)** : `gpedit.dll` nettoie automatiquement ces valeurs quand la GPO ne les definit plus. Toute la plage `HKCU\Software\Policies\` et `HKLM\Software\Policies\` est geree proprement.
+**1. Les cles `Software\Policies\` (managed)** : `userenv.dll` nettoie automatiquement ces valeurs quand la GPO ne les definit plus. Toute la plage `HKCU\Software\Policies\` et `HKLM\Software\Policies\` est geree proprement.
 
 **2. Les cles hors `Policies\` (tatouage)** : Certains anciens ADMX ecrivent directement dans `HKCU\Software\Microsoft\...` ou `HKLM\Software\Microsoft\...`, hors de l'espace `Policies`. Ces valeurs **ne sont pas automatiquement supprimees** quand la GPO est retiree. Elles "tatouent" le registre de facon permanente jusqu'a une intervention manuelle.
 
@@ -706,7 +705,7 @@ DisableWindowsUpdateAccess : 0
 
 ### :material-clock-fast: Performance de la CSE Registry
 
-La CSE Registry (`gpedit.dll`) est la plus rapide des CSE integrees dans la plupart des environnements. Un `Registry.pol` typique de quelques dizaines de parametres est traite en moins de 100 ms.
+La CSE Registry (`userenv.dll`) est la plus rapide des CSE integrees dans la plupart des environnements. Un `Registry.pol` typique de quelques dizaines de parametres est traite en moins de 100 ms.
 
 Les cas de lenteur sont rares mais identifiables :
 
@@ -715,7 +714,7 @@ Les cas de lenteur sont rares mais identifiables :
 - **ADMX personnalises avec de nombreuses valeurs** : Les ADMX d'editeurs tiers (VMware, Citrix, Chrome) peuvent introduire des centaines de valeurs supplementaires.
 
 !!! info "La CSE Registry s'execute en background"
-    Contrairement a Security ou Scripts, `gpedit.dll` a `NoBackgroundPolicy = 0`. Elle s'execute a chaque refresh de 90 minutes. C'est ce qui permet aux parametres ADMX d'etre mis a jour sans redemarrage — un comportement souvent attendu mais rarement explicitement configure.
+    `userenv.dll` a `NoBackgroundPolicy = 0`. Elle s'execute a chaque refresh de 90 minutes. C'est ce qui permet aux parametres ADMX d'etre mis a jour sans redemarrage — un comportement souvent attendu mais rarement explicitement configure.
 
 !!! quote "En résumé"
     La CSE Registry est le cheval de bataille quotidien de Group Policy. Elle est rapide, fiable, et s'execute en background. Ses deux points de vigilance sont le tatouage de registre (cles hors `Policies\`) et la taille du fichier `Registry.pol` sur les GPO de type baseline avec de nombreux parametres ADMX.
@@ -852,9 +851,8 @@ Ce mecanisme existe parce que les parametres de securite sont la cible d'attaque
     ```powershell
     # Force security policy reapplication immediately
     gpupdate /force /target:computer
-    # Note: NoBackgroundPolicy=1 means this only works at next reboot
-    # To truly force Security CSE in current session, use:
-    secedit /configure /cfg %windir%\inf\defltbase.inf /db defltbase.sdb /verbose
+    # Security has NoBackgroundPolicy=0, so a background refresh can reapply it
+    # Some individual settings may still require logoff/reboot for visible effect
     ```
 
 !!! check "Point de contrôle"

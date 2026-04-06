@@ -68,8 +68,8 @@ Computer Configuration
 
 ```
 HKLM\SOFTWARE\Policies\Microsoft\Windows\System
-  UserPolicyMode = 1   (Replace)
-  UserPolicyMode = 2   (Merge)
+  UserPolicyMode = 1   (Merge)
+  UserPolicyMode = 2   (Replace)
 ```
 
 ### Modèle ADMX requis : TerminalServer.admx

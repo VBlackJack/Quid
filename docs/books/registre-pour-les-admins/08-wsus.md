@@ -62,7 +62,7 @@ Cette cle contient les parametres qui pointent le client vers le serveur WSUS et
 |--------|------|-------------|--------|
 | `WUServer` | REG_SZ | URL du serveur WSUS (ex : `http://wsus01.corp.local:8530`) | (vide) |
 | `WUStatusServer` | REG_SZ | URL du serveur de rapports (generalement identique a `WUServer`) | (vide) |
-| `ElevateNonAdmins` | REG_DWORD | `1` = les non-administrateurs peuvent approuver les mises a jour | 0 |
+| `ElevateNonAdmins` | REG_DWORD | `1` = les non-administrateurs peuvent recevoir les notifications et installer les mises a jour approuvees | 0 |
 | `TargetGroupEnabled` | REG_DWORD | `1` = ciblage cote client active | 0 |
 | `TargetGroup` | REG_SZ | Nom du groupe cible (ex : `Servers-Production`) | (vide) |
 | `AcceptTrustedPublisherCerts` | REG_DWORD | `1` = accepte les certificats d'editeurs approuves | 0 |
@@ -299,11 +299,13 @@ HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate
 
 | Valeur | Canal |
 |--------|-------|
-| 2 | Windows Insider - Fast |
-| 4 | Windows Insider - Slow |
-| 8 | Windows Insider - Release Preview |
-| 16 | Semi-Annual Channel (defaut) |
-| 32 | General Availability Channel |
+| 2 | Dev Channel (anciennement Fast Ring) |
+| 4 | Beta Channel (anciennement Slow Ring) |
+| 8 | Release Preview Channel |
+| 16 | General Availability Channel (anciennement Semi-Annual Channel) |
+
+!!! info "Terminologie depreciee"
+    Les libelles `Fast`, `Slow`, `Semi-Annual Channel` et la valeur `32` appartiennent aux anciennes generations Windows 10 / Windows Insider. Sur les versions modernes, retenez surtout `16 = General Availability Channel` pour la production.
 
 ### Configuration type pour un deploiement progressif
 
@@ -315,7 +317,7 @@ Set-ItemProperty -Path $wuPath -Name "DeferFeatureUpdates" -Value 1 -Type DWord
 Set-ItemProperty -Path $wuPath -Name "DeferFeatureUpdatesPeriodInDays" -Value 90 -Type DWord
 Set-ItemProperty -Path $wuPath -Name "DeferQualityUpdates" -Value 1 -Type DWord
 Set-ItemProperty -Path $wuPath -Name "DeferQualityUpdatesPeriodInDays" -Value 14 -Type DWord
-Set-ItemProperty -Path $wuPath -Name "BranchReadinessLevel" -Value 32 -Type DWord
+Set-ItemProperty -Path $wuPath -Name "BranchReadinessLevel" -Value 16 -Type DWord
 ```
 
 ```title="Resultat attendu"

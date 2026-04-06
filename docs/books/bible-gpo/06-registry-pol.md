@@ -9,7 +9,7 @@ tags:
 # Le format registry.pol
 
 !!! abstract "Ce que couvre ce chapitre"
-    - Le rôle exact de `registry.pol` dans la chaîne GPO et sa relation avec la CSE Registry (`gpedit.dll`)
+    - Le rôle exact de `registry.pol` dans la chaîne GPO et sa relation avec la CSE Registry (`userenv.dll`)
     - La structure binaire complète du format PReg : en-tête 8 octets, délimiteurs UTF-16LE, layout des enregistrements
     - Le tableau complet des types de registre supportés avec leurs valeurs hexadécimales
     - Les valeurs spéciales `**Del`, `**DelVals`, `**DeleteValues`, `**DeleteKeys` et leurs effets précis
@@ -36,7 +36,7 @@ Chaque GPO possède **deux** fichiers `registry.pol`, un par contexte :
 
 Le fichier peut être absent si le contexte ne contient aucun paramètre de registre. Un fichier vide (8 octets — juste l'en-tête) est différent d'un fichier absent : le premier déclenche quand même la CSE.
 
-:material-cog-transfer: La CSE Registry, identifiée par le GUID `{35378EAC-683F-11D2-A89A-00C04FBBCFA2}` et implémentée dans `gpedit.dll`, est la seule entité qui lit ce fichier et l'applique au registre. Elle est invoquée par `gpsvc` lors de chaque cycle de traitement GPO.
+:material-cog-transfer: La CSE Registry, identifiée par le GUID `{35378EAC-683F-11D2-A89A-00C04FBBCFA2}` et implémentée dans `userenv.dll`, est la seule entité qui lit ce fichier et l'applique au registre. Elle est invoquée par `gpsvc` lors de chaque cycle de traitement GPO.
 
 !!! info "Fichier texte vs fichier binaire"
     Ne pas confondre `registry.pol` avec les fichiers `.pol` de la stratégie de groupe locale sous Windows 9x. Les deux utilisent l'extension `.pol` mais leur format est totalement différent. `registry.pol` utilise le format PReg documenté dans la spécification MS-GPREG.
@@ -115,7 +115,7 @@ Voici un enregistrement complet qui active un paramètre avec la valeur DWORD `1
 ```
 
 !!! info "Null terminator dans la taille"
-    La taille dans le champ `size` ne compte **pas** le null terminator des chaînes REG_SZ. Pour une chaîne `"Enable"` (6 caractères), `size` vaut `14` (6 × 2 octets UTF-16LE + 2 octets null). Ceci est une source classique de bug dans les parseurs maison.
+    La taille dans le champ `size` **inclut** le null terminator des chaînes REG_SZ. Pour une chaîne `"Enable"` (6 caractères), `size` vaut `14` (6 × 2 octets UTF-16LE + 2 octets null). Ceci est une source classique de bug dans les parseurs maison.
 
 ### :material-format-list-numbered: Types de registre supportés
 
@@ -148,7 +148,7 @@ flowchart TD
     A["GPMC / RSAT<br/>Admin configure un paramètre"] -->|"Écrit registry.pol<br/>et met à jour GPC + GPT.INI"| B["registry.pol<br/>SYSVOL — format binaire PReg"]
     B -->|"DFS-R réplique<br/>vers tous les DC"| C["registry.pol<br/>répliqué sur DC secondaires"]
     D["Client — gpsvc<br/>au démarrage / ouverture session"] -->|"SMB — lit le fichier<br/>depuis le DC logon"| B
-    D -->|"Invoque la CSE Registry"| E["gpedit.dll<br/>CSE {35378EAC-...}"]
+    D -->|"Invoque la CSE Registry"| E["userenv.dll<br/>CSE {35378EAC-...}"]
     E -->|"Parse le format PReg<br/>séquentiellement"| F["Applique les valeurs<br/>HKLM\\SOFTWARE\\Policies\\..."]
     E -->|"Traite les valeurs **Del*<br/>et **DelVals"| G["Supprime les valeurs<br/>orphelines"]
     F --> H["Application lit la valeur<br/>depuis le registre"]

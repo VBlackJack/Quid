@@ -227,7 +227,7 @@ Ajoutez une **alerte par e-mail** ou une supervision sur le fichier `backup.log`
 C'est le cas apres une mauvaise modification ou une erreur de configuration. `Restore-GPO` ecrase les parametres actuels avec ceux du backup. La GPO conserve son GUID et ses liens OU existants.
 
 **Scenario 2 — La GPO a ete supprimee.**
-La restoration recreé la GPO avec ses parametres, mais elle obtient un **nouveau GUID**. Les liens OU doivent etre recreés manuellement.
+La restauration recree la GPO avec ses parametres et **son GUID d'origine**. En revanche, les liens OU doivent etre recrees manuellement car ils ne font pas partie de la sauvegarde.
 
 ### :material-restore: Restauration — Scenario 1 (GPO existante)
 
@@ -259,22 +259,21 @@ La commande ne demande pas de confirmation. L'ecrasement est immediat.
 $backupPath = "\\serveur\GPO-Backups\2026-04-01"
 
 Restore-GPO -BackupId "{BACKUP-GUID}" `
-            -Path $backupPath `
-            -Name "SEC-Postes-Baseline"
+            -Path $backupPath
 
-# The restored GPO has a NEW GUID — recreate the OU links manually
+# Recreate the OU links manually
 New-GPLink -Name "SEC-Postes-Baseline" `
            -Target "OU=Postes-de-travail,DC=contoso,DC=local"
 ```
 
 ```title="Resultat attendu"
 DisplayName : SEC-Postes-Baseline
-Id          : {yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy}   ← nouveau GUID
+Id          : {xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}   ← GUID d'origine restaure
 GpoStatus   : AllSettingsEnabled
 ```
 
-!!! warning "Le GUID change apres restauration d'une GPO supprimee"
-    Le nouveau GUID differe de l'original. Tout ce qui reference l'ancien GUID doit etre mis a jour : scripts de monitoring, alertes SIEM, documentation interne, eventuellement des GPO qui referençaient cette GPO via WMI. Notez l'ancien et le nouveau GUID dans le ticket d'incident.
+!!! info "Le point cle"
+    `Restore-GPO -BackupId` recree la GPO avec son identite d'origine. Ce qu'il faut reconstruire apres coup, ce sont les **liens OU** et verifier les references externes comme le filtre WMI associe.
 
 ### :material-list-status: Procedure etape par etape
 
@@ -407,8 +406,7 @@ Validation post-restauration — SEC-Postes-Baseline — 2026-04-05
 [ ] Filtre WMI verifie (nom correct, contenu du filtre intact)
 [ ] gpresult /r sur machine pilote confirme l'application de la GPO
 [ ] Parametres effectifs verifies (ex: Get-NetFirewallProfile, cles registre)
-[ ] Ancien GUID et nouveau GUID notes dans le ticket (si GPO supprimee)
-[ ] Monitoring/SIEM mis a jour si reference a l'ancien GUID
+[ ] GUID d'origine confirme si la GPO avait ete supprimee
 [ ] Incident documente : qui, quand, depuis quel backup, pourquoi
 ```
 
@@ -473,8 +471,8 @@ Le reflexe "je suis certain du backup" est dangereux. `Restore-GPO` n'a pas de m
 **Oublier de recreer les liens apres restauration d'une GPO supprimee.**
 La GPO est restauree, les parametres sont la, mais rien ne s'applique parce que la GPO n'est liee a aucune OU. Ce bug est particulierement sournois car `gpresult /r` ne montrera tout simplement pas la GPO.
 
-**Ignorer le changement de GUID.**
-Apres restauration d'une GPO supprimee, l'ancien GUID ne pointe plus sur rien. Si des alertes de monitoring, des rapports SIEM ou des scripts referençaient ce GUID, ils cesseront de fonctionner silencieusement.
+**Melanger `-Name` et `-BackupId`.**
+`Restore-GPO` s'utilise soit pour restaurer une GPO existante avec `-Name`, soit pour recreer une GPO supprimee avec `-BackupId`. Combiner les deux dans la meme commande est une erreur de syntaxe et un mauvais signal conceptuel.
 
 **Restaurer le mauvais backup.**
 Plusieurs backups de la meme GPO pour des dates differentes. Sans commentaire dans `Backup-GPO`, impossible de savoir lequel choisir. D'ou l'importance du parametre `-Comment` systematique.
@@ -489,7 +487,7 @@ Le backup conserve seulement le nom du filtre WMI, pas son contenu. Si le filtre
     Si un filtre WMI associe a la GPO a ete supprime, la restauration de la GPO ne le restaure pas. Vous devez recreer le filtre WMI manuellement dans GPMC (onglet **WMI Filters**) puis le reassocier a la GPO restauree. Verifiez systematiquement l'etat des filtres WMI dans votre checklist post-restauration.
 
 !!! quote "En resume"
-    La majorite des incidents post-restauration provient de trois causes : liens OU non recrees, mauvais GUID reference dans le monitoring, filtre WMI manquant. Votre checklist couvre les trois. Utilisez-la.
+    La majorite des incidents post-restauration provient de trois causes : liens OU non recrees, mauvais backup choisi, filtre WMI manquant. Votre checklist couvre les trois. Utilisez-la.
 
 ---
 

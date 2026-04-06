@@ -126,9 +126,9 @@ Pour verifier specifiquement que les modeles Windows 11 sont presents, cherchez 
 |:-------------|:--------------------|
 | `WindowsAI.admx` | Copilot Windows, Recall |
 | `NewsAndInterests.admx` | Widget Meteo et actualites (Widgets) |
-| `TaskbarFeatures.admx` | Bouttons de la barre des taches Windows 11 |
+| `Taskbar.admx` | Bouttons de la barre des taches Windows 11 |
 | `StartMenu.admx` | Menu Demarrer (JSON layout) |
-| `SnapAssist.admx` | Snap Layouts et disposition des fenetres |
+| `SnapLayout.admx` | Snap Layouts et disposition des fenetres |
 
 Si ces fichiers sont absents ou dates d'avant 2022, vos modeles ne couvrent pas Windows 11.
 
@@ -136,7 +136,7 @@ Si ces fichiers sont absents ou dates d'avant 2022, vos modeles ne couvrent pas 
     - Les ADMX sont les "dictionnaires" de l'editeur GPO : sans les modeles Windows 11, les nouveaux parametres sont invisibles.
     - Copiez les fichiers `.admx` dans `PolicyDefinitions\` et les `.adml` dans `PolicyDefinitions\fr-FR\` sur SYSVOL.
     - Aucun redemarrage requis : la GPMC recharge les modeles automatiquement.
-    - Verifiez la presence de `WindowsAI.admx`, `NewsAndInterests.admx` et `TaskbarFeatures.admx` pour confirmer que les modeles Windows 11 sont bien en place.
+    - Verifiez la presence de `WindowsAI.admx`, `NewsAndInterests.admx` et `Taskbar.admx` pour confirmer que les modeles Windows 11 sont bien en place.
 
 ---
 
@@ -372,6 +372,9 @@ Pour le desactiver :
 !!! warning "Attention au paradoxe activer/desactiver"
     La logique peut paraitre contre-intuitive : pour **desactiver** Copilot, il faut **Activer** le parametre intitule "Desactiver Copilot Windows". C'est la convention Microsoft pour les parametres de restriction : le parametre decrit ce qu'il fait quand il est active. Lisez toujours le nom du parametre et l'action souhaitee ensemble.
 
+!!! warning "Windows 11 24H2 et versions ulterieures"
+    Le **Copilot Windows** historique est progressivement remplace par une experience plus proche d'une application / web app. La GPO **Desactiver Copilot Windows** reste pertinente sur 23H2, mais sur 24H2+ il faut aussi verifier la gestion de l'application Copilot, du Microsoft Store et des experiences M365 associees.
+
 ### Desactiver Copilot et les Widgets en une seule GPO
 
 !!! example "Pas a pas"
@@ -587,8 +590,8 @@ Write-Host "--- Windows 11 template availability ---" -ForegroundColor Yellow
 $win11Templates = @(
     "WindowsAI.admx",
     "NewsAndInterests.admx",
-    "TaskbarFeatures.admx",
-    "SnapAssist.admx"
+    "Taskbar.admx",
+    "SnapLayout.admx"
 )
 
 foreach ($template in $win11Templates) {
@@ -626,7 +629,7 @@ if (Test-Path $frStore) {
 !!! quote "En resume"
     - Verifiez l'etat de votre magasin ADMX avant toute configuration Windows 11.
     - Le script PowerShell detaille ci-dessus diagnostique automatiquement la presence des modeles cles.
-    - Les fichiers a surveiller : `WindowsAI.admx`, `NewsAndInterests.admx`, `TaskbarFeatures.admx`, `SnapAssist.admx`.
+    - Les fichiers a surveiller : `WindowsAI.admx`, `NewsAndInterests.admx`, `Taskbar.admx`, `SnapLayout.admx`.
     - Un magasin central manquant est un probleme de fond a resoudre independamment.
 
 ---
@@ -640,7 +643,7 @@ Une migration reussie commence par un audit de l'existant. Voici la checklist pr
 #### :material-checkbox-marked-outline: Phase 1 — Preparation des outils d'administration
 
 - [ ] Telecharger et installer les modeles ADMX Windows 11 dans le magasin central SYSVOL
-- [ ] Verifier la presence des fichiers `WindowsAI.admx`, `NewsAndInterests.admx`, `TaskbarFeatures.admx`
+- [ ] Verifier la presence des fichiers `WindowsAI.admx`, `NewsAndInterests.admx`, `Taskbar.admx`
 - [ ] Verifier les fichiers de langue `fr-FR` correspondants
 - [ ] Executer le script de diagnostic PowerShell pour confirmer la readiness du magasin central
 - [ ] Mettre a jour la console GPMC si necessaire (Windows Server 2019/2022 ou RSAT recents)

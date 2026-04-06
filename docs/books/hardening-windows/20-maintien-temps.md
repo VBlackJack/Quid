@@ -318,7 +318,7 @@ $defender = Get-MpComputerStatus
 [PSCustomObject]@{
     SignatureAge    = $defender.AntivirusSignatureAge
     RealTimeActive  = $defender.RealTimeProtectionEnabled
-    MAPSEnabled     = $defender.IsTamperProtected
+    MAPSEnabled     = $defender.MAPSReporting   # 0 = Off, 1 = Basic, 2 = Advanced
 }
 
 # Indicateurs BitLocker

@@ -233,10 +233,13 @@ HKLM\SYSTEM\CurrentControlSet\Control\FileSystem
 
 | Valeur | Type | Description | Defaut |
 |--------|------|-------------|--------|
-| `NtfsDisableLastAccessUpdate` | REG_DWORD | Desactive la mise a jour de l'horodatage "dernier acces" (`1` = desactive). Reduit les ecritures disque. | 1 (depuis Vista) |
+| `NtfsDisableLastAccessUpdate` | REG_DWORD | Desactive la mise a jour de l'horodatage "dernier acces" (`1` = desactive). Reduit les ecritures disque. | `0x80000003` sur Windows 10 1803+ (gestion systeme, dernier acces generalement desactive) |
 | `NtfsDisable8dot3NameCreation` | REG_DWORD | Desactive la creation des noms courts 8.3 (ex : `PROGRA~1`). Ameliore les performances de creation de fichiers et economise l'espace de nommage. | Variable |
 | `NtfsAllowExtendedCharacterIn8dot3Name` | REG_DWORD | Autorise les caracteres etendus dans les noms courts 8.3. | 0 |
 | `NtfsMemoryUsage` | REG_DWORD | Controle la taille du jeu de travail NTFS. `1` = normal, `2` = augmente (plus de cache paginable). | 1 |
+
+!!! note "Valeur par defaut moderne"
+    Depuis Windows 10 1803, la valeur par defaut observee pour `NtfsDisableLastAccessUpdate` est souvent `0x80000003`. Ce comportement laisse Windows gerer l'horodatage "dernier acces" de facon interne et revient, en pratique, a ne plus le mettre a jour comme sur les versions anciennes.
 
 ### Valeurs recommandees selon le contexte
 

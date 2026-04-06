@@ -345,6 +345,7 @@ L'OU de test recoit les GPOs en premier, avant n'importe quelle OU de production
 Les GPOs s'appliquent dans un ordre precis, du niveau le plus haut au niveau le plus bas :
 
 ```
+0. Locale (`gpedit.msc`)
 1. Site
 2. Domaine
 3. OU parente

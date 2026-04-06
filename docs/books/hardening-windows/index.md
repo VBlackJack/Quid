@@ -76,7 +76,7 @@ Prérequis utiles : connaître Active Directory, manipuler Regedit sans stress, 
 | 14 | [Windows Hello for Business](14-whfb.md) | Authentification |
 | 15 | [Secured-Core PC](15-secured-core.md) | Firmware |
 | 16 | [Defender et antivirus via GPO](16-defender-antivirus.md) | EDR |
-| 17 | [Réseau : LLMNR, NBT-NS, DoH](17-reseau-llmnr.md) | Protocoles |
+| 17 | [Réseau : LLMNR, NBT-NS, DoH](17-reseau-llmnr-doh.md) | Protocoles |
 | 18 | [Checklist hardening par niveau](18-checklist-niveaux.md) | Référence terrain |
 | 19 | [Audit de conformité et RSoP](19-audit-conformite.md) | Conformité |
 | 20 | [Maintien dans le temps](20-maintien-temps.md) | Durabilité |

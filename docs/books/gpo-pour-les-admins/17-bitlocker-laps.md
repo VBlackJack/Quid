@@ -702,10 +702,12 @@ Import-Module ActiveDirectory
 $ou = Get-ADOrganizationalUnit -Identity $OUDistinguishedName
 $acl = Get-Acl -Path "AD:\$($ou.DistinguishedName)"
 
-# LAPS v1 attribute GUID
-$lapsV1Guid  = [guid]"bf967950-0de6-11d0-a285-00aa003049e2"  # ms-Mcs-AdmPwd
-# LAPS v2 attribute GUID
-$lapsV2Guid  = [guid]"f8c1a0d0-4c2a-11d5-a4ca-00c04fd430c8"  # msLAPS-EncryptedPassword (example GUID)
+# Resolve schema GUIDs dynamically from the current forest
+$schemaNC   = (Get-ADRootDSE).schemaNamingContext
+$lapsV1Attr = Get-ADObject -SearchBase $schemaNC -LDAPFilter "(lDAPDisplayName=ms-Mcs-AdmPwd)" -Properties schemaIDGUID
+$lapsV2Attr = Get-ADObject -SearchBase $schemaNC -LDAPFilter "(lDAPDisplayName=msLAPS-EncryptedPassword)" -Properties schemaIDGUID
+$lapsV1Guid = [guid]::new($lapsV1Attr.schemaIDGUID)
+$lapsV2Guid = [guid]::new($lapsV2Attr.schemaIDGUID)
 
 $lapsAcls = $acl.Access | Where-Object {
     $_.ActiveDirectoryRights -match "ReadProperty" -and

@@ -177,10 +177,10 @@ Voir le chapitre 8 pour un guide complet.
 
 ### GUID (Globally Unique Identifier)
 
-Un identifiant de 128 bits garanti unique dans le monde entier. Format : `{8-4-4-4-12}` en hexadecimal, par exemple `{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}`. Utilise dans le registre pour identifier les composants COM (**CLSID**), les interfaces, et les profils utilisateur (**SID**).
+Un identifiant de 128 bits garanti unique dans le monde entier. Format : `{8-4-4-4-12}` en hexadecimal, par exemple `{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}`. Utilise dans le registre pour identifier des composants COM (**CLSID**), des interfaces, des bibliotheques de types, des classes de peripheriques ou des objets systeme.
 
 !!! quote "En resume"
-    - **GUID** : identifiant unique de 128 bits au format `{8-4-4-4-12}`, utilise pour identifier les composants COM et les profils utilisateur dans le registre.
+    - **GUID** : identifiant unique de 128 bits au format `{8-4-4-4-12}`, utilise pour identifier des objets techniques comme les composants COM.
 
 ---
 

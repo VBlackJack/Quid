@@ -162,7 +162,7 @@ Si vous avez deja vecu le moment ou votre ecran passe en 800x600 apres une mise 
 | **Chemin** | Configuration ordinateur → Modeles d'administration → Systeme → Installation de peripheriques |
 | **Parametre** | Empecher la recuperation de metadonnees de peripheriques sur Internet |
 | **Action** | Activer |
-| **Effet** | Windows ne telecharge plus automatiquement les pilotes et metadonnees depuis Internet |
+| **Effet** | Windows ne telecharge plus automatiquement les **metadonnees** des peripheriques depuis Internet |
 
 !!! example "Essayez vous-meme"
     1. Ouvrir gpedit.msc (++win+r++ → `gpedit.msc`)
@@ -171,12 +171,15 @@ Si vous avez deja vecu le moment ou votre ecran passe en 800x600 apres une mise 
     4. Selectionner **Active**
     5. Cliquer sur **OK**
 
-    Pour verifier : branchez un peripherique USB inconnu (une webcam, une cle USB Wi-Fi, etc.). Windows ne devrait plus chercher de pilote en ligne automatiquement. Vous verrez un message dans le Gestionnaire de peripheriques indiquant que le peripherique n'a pas pu etre configure automatiquement.
+    Pour verifier : branchez un peripherique USB inconnu. Windows ne recuperera plus ses icones, descriptions marketing ou informations enrichies depuis Internet. Ce parametre ne bloque pas, a lui seul, tous les pilotes distribues via Windows Update.
 
     Pour annuler : remettre le parametre sur **Non configure**
 
 !!! warning "Attention aux consequences"
-    En activant cette strategie, vous devrez installer les pilotes **manuellement** pour les nouveaux peripheriques. Gardez les pilotes de vos imprimantes, cles USB Wi-Fi et autres peripheriques a portee de main (sur une cle USB, par exemple).
+    Ce parametre ne desactive pas completement le telechargement de pilotes via Windows Update. Il agit d'abord sur les **metadonnees** de peripheriques. Si vous voulez aussi bloquer les pilotes proposes par Windows Update, utilisez en complement la strategie **Ne pas inclure les pilotes avec Windows Update**.
+
+!!! tip "Pour bloquer aussi les pilotes"
+    La strategie la plus adaptee est generalement : **Configuration ordinateur → Modeles d'administration → Composants Windows → Windows Update → Ne pas inclure les pilotes avec Windows Update**.
 
 C'est un parametre de la branche **Configuration ordinateur**, ce qui signifie qu'il s'applique a **tous les utilisateurs** de la machine. Peu importe qui est connecte, Windows ne telechargera plus de pilotes tout seul.
 
@@ -190,8 +193,8 @@ C'est un parametre de la branche **Configuration ordinateur**, ce qui signifie q
     En revanche, si vous etes un utilisateur lambda qui branche simplement une souris ou un clavier, laissez ce parametre tranquille — le telechargement automatique vous simplifie la vie.
 
 !!! quote "En resume"
-    - Windows ne telecharge plus de pilotes automatiquement depuis Internet.
-    - Pensez a garder vos pilotes a disposition pour les installations manuelles.
+    - Ce parametre bloque surtout la recuperation de **metadonnees** de peripheriques.
+    - Pour bloquer aussi les pilotes via Windows Update, ajoutez la strategie dediee cote Windows Update.
 
 Les deux premieres modifications etaient des blocages "invisibles" — on empeche quelque chose de se produire. La suivante est beaucoup plus visuelle : on va changer ce que l'utilisateur voit sur son ecran.
 

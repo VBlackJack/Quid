@@ -437,7 +437,7 @@ Microsoft documente des incompatibilités quand des applications ou protocoles d
 Microsoft ajoute que certaines applications peuvent aussi provoquer des problèmes de performance en tentant de s'accrocher au processus isolé `LSAIso.exe`.
 
 !!! warning "Deux pièges à retenir"
-    - `Credential Guard` n'est pas recommandé sur les contrôleurs de domaine.
+    - `Credential Guard` n'est pas supporté sur les contrôleurs de domaine.
     - `Credential Guard` n'est pas supporté sur Exchange Server et peut y provoquer des problèmes de performance.
 
 !!! quote "En résumé"

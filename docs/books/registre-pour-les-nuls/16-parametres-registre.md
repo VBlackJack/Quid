@@ -84,6 +84,9 @@ Voici un tableau de reference. Pour chaque reglage des Parametres, vous trouvere
 | Confidentialite > Historique d'activites | `HKLM\SOFTWARE\Policies\Microsoft\Windows\System` | `PublishUserActivities` | `0` = desactive l'envoi de l'historique |
 | Confidentialite > Diagnostics et commentaires | `HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection` | `AllowTelemetry` | `0` = securite uniquement, `1` = de base, `3` = complet |
 
+!!! note "Edition Windows"
+    `AllowTelemetry = 0` n'est pris en charge que sur les editions **Enterprise** et **Education**. Sur Home et Pro, la valeur minimale effective reste `1`.
+
 ### Applications
 
 | Chemin Parametres | Cle du registre | Valeur | Notes |
@@ -283,7 +286,10 @@ Pour des raisons de compatibilite, certains reglages existent **a la fois** dans
         - Double-cliquez et mettez `0` (petite), `1` (moyenne, defaut) ou `2` (grande)
     4. Redemarrez l'Explorateur ou deconnectez-vous pour voir le changement
 
-    Ce reglage **n'existe pas** dans les Parametres. C'est un exemple parfait de cas ou le registre est le seul moyen d'action.
+    Ce reglage a longtemps ete un bon exemple de parametre expose uniquement par le registre.
+
+!!! warning "Windows 11 23H2 et versions ulterieures"
+    `TaskbarSi` est devenu **obsolete** sur les versions recentes de Windows 11, notamment 23H2 et suivantes. Selon la build, la valeur peut etre ignoree completement. Gardez cet exercice comme illustration historique du registre, pas comme un reglage fiable en production.
 
     ---
 
@@ -306,7 +312,7 @@ Pour des raisons de compatibilite, certains reglages existent **a la fois** dans
 
 !!! quote "En resume"
     - L'exercice montre que le registre et les Parametres sont **synchronises** : modifier l'un modifie l'autre instantanement.
-    - Certains reglages comme `TaskbarSi` (taille de la barre des taches) n'existent **que** dans le registre et sont absents des Parametres.
+    - Certains reglages avances ont longtemps existe uniquement dans le registre, mais leur prise en charge peut disparaitre au fil des versions.
 
 ---
 

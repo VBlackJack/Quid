@@ -309,7 +309,7 @@ Naviguez vers :
 Configuration utilisateur
   └── Modeles d'administration
         └── Bureau
-              └── Bureau Active Directory
+              └── Bureau
 ```
 
 Cherchez **Papier peint du Bureau** :

@@ -45,8 +45,8 @@ et les mieux documentées.
 | Contrôle | Ch. | GPO ou clé | Coût | Gain |
 |---|---|---|---|---|
 | Désactiver WDigest | 03 | `WDigest\UseLogonCredential = 0` | Très faible | Élevé |
-| Activer RunAsPPL (LSA Protection) | 03 | `RunAsPPL = 1` | Faible | Élevé |
-| Désactiver LM et NTLMv1 | 03 | `LmCompatibilityLevel = 5` | Faible | Élevé |
+| Activer RunAsPPL (LSA Protection) | 03 | `HKLM\SYSTEM\CurrentControlSet\Control\Lsa\RunAsPPL = 2` | Faible | Élevé |
+| Désactiver LM et NTLMv1 | 03 | `HKLM\SYSTEM\CurrentControlSet\Control\Lsa\LmCompatibilityLevel = 5` | Faible | Élevé |
 
 WDigest stockait les credentials en clair en mémoire.
 Sa désactivation empêche les outils de type Mimikatz
@@ -55,6 +55,9 @@ de récupérer des mots de passe en clair depuis `lsass.exe`.
 RunAsPPL protège le processus `LSASS` en tant que processus protégé.
 Un attaquant avec des droits administrateur
 ne peut plus injecter de code dans `lsass.exe`.
+
+!!! note "Valeur recommandee pour un premier deploiement"
+    `RunAsPPL = 1` ajoute un verrou UEFI, plus difficile a retirer en cas d'incompatibilite pilote / EDR. Pour un deploiement initial, utilisez souvent `RunAsPPL = 2` (sans verrou), validez la compatibilite du parc, puis envisagez le verrou firmware si votre exploitation le supporte.
 
 `LmCompatibilityLevel = 5` force l'utilisation de NTLMv2
 et refuse les réponses LM et NTLMv1,
@@ -413,7 +416,11 @@ Get-CimInstance -ClassName Win32_DeviceGuard `
 # BitLocker
 Get-BitLockerVolume -MountPoint C: | Select-Object VolumeStatus, ProtectionStatus
 
-# LAPS
+# Windows LAPS (moderne)
+Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS" `
+    -ErrorAction SilentlyContinue
+
+# LAPS legacy
 Get-ItemProperty "HKLM:\SOFTWARE\Policies\Microsoft Services\AdmPwd" `
     -Name AdmPwdEnabled -ErrorAction SilentlyContinue
 ```

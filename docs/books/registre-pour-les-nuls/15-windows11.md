@@ -340,10 +340,10 @@ HKLM\SYSTEM\CurrentControlSet\Control\IntegrityServices
 
 | Valeur | Ce qu'elle indique |
 |--------|-------------------|
-| `UEFI` | Presente si le demarrage UEFI est actif (necessaire pour TPM 2.0) |
+| `UEFI` | Presente si le demarrage UEFI est actif ; utile pour le measured boot et certaines fonctions de securite, mais ce n'est pas une preuve directe de la presence d'un TPM 2.0 |
 
 !!! tip "Verification plus simple"
-    La methode la plus fiable pour verifier le TPM reste la commande ++win+r++ → `tpm.msc`. Mais le registre peut confirmer l'information.
+    La methode la plus fiable pour verifier le TPM reste ++win+r++ → `tpm.msc` ou la cmdlet PowerShell `Get-Tpm`. Le registre peut completer le diagnostic, pas remplacer ces outils.
 
 ### Secure Boot
 
@@ -470,7 +470,7 @@ HKLM\SOFTWARE\Policies\Microsoft\Windows\DataCollection
 | `AllowTelemetry` | REG_DWORD | `1` | Niveau minimum de telemetrie (obligatoire) |
 
 !!! note "Limite"
-    Vous ne pouvez pas mettre `AllowTelemetry` a `0` sur les editions Home et Pro. La valeur `1` (Donnees de diagnostic obligatoires) est le minimum autorise. Seule l'edition Enterprise permet la valeur `0`.
+    Vous ne pouvez pas mettre `AllowTelemetry` a `0` sur les editions Home et Pro. La valeur `1` (Donnees de diagnostic obligatoires) est le minimum autorise. Seules les editions **Enterprise** et **Education** permettent la valeur `0`.
 
 **Identifiant publicitaire** :
 

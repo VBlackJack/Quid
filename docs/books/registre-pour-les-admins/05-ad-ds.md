@@ -175,7 +175,7 @@ HKLM\SYSTEM\CurrentControlSet\Services\NTDS\Parameters
 
 | Valeur | Type | Description | Defaut |
 |--------|------|-------------|--------|
-| `Replicator notify pause after modify (secs)` | REG_DWORD | Delai avant notification des partenaires apres modification | 300 |
+| `Replicator notify pause after modify (secs)` | REG_DWORD | Delai avant notification des partenaires apres modification | 15 |
 | `Replicator notify pause between DSAs (secs)` | REG_DWORD | Delai entre les notifications successives | 30 |
 
 ```powershell
@@ -313,8 +313,7 @@ objectVersion
 | 56 | Windows Server 2012 |
 | 69 | Windows Server 2012 R2 |
 | 87 | Windows Server 2016 |
-| 88 | Windows Server 2019/2022 |
-| 90 | Windows Server 2025 |
+| 88 | Windows Server 2019 / 2022 / 2025 |
 
 ### Niveau fonctionnel du domaine et de la foret
 
@@ -349,7 +348,7 @@ Schema master               DC01.corp.local
 
 !!! info "En resume"
     - La version du schema AD determine les fonctionnalites disponibles et la compatibilite des DC
-    - La version 88 correspond a Windows Server 2019/2022, la version 90 a Server 2025
+    - La version 88 correspond aux generations Windows Server 2019, 2022 et 2025
     - Verifiez toujours la version du schema avant d'introduire un nouveau DC
     - `adprep /forestprep` met a jour le schema sur l'ensemble de la foret
 

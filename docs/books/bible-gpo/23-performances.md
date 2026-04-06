@@ -153,7 +153,7 @@ Avec 100 GPO liées sur le chemin d'une OU, l'étape 2 seule peut générer 100 
 
 | # | Problème | Impact | Détection | Correction |
 |---|---------|--------|-----------|------------|
-| 1 | **Filtres WMI** évalués côté client | +2 à +15 s par GPO filtrée | Event 4016/4017 sur la CSE `{00000000-0000-0000-0000-000000000000}` avec durée élevée | Remplacer par Security Filtering ou ILT Registry |
+| 1 | **Filtres WMI** évalués côté client | +2 à +15 s par GPO filtrée | Event IDs `5313` / `5320` dans le log GroupPolicy/Operational, avec latence visible avant l'invocation des CSE | Remplacer par Security Filtering ou ILT Registry |
 | 2 | **ILT avec requêtes LDAP** | +1 à +5 s par item LDAP | Event ID 4257 (GPP processing) + traces Netmon/Wireshark | Remplacer les conditions LDAP par des conditions Registry ou Group Membership |
 | 3 | **Scripts de logon synchrones** | Bloque le bureau pendant toute la durée du script | Event 4016/4017 sur CSE Scripts avec durée > 5 s | Passer en asynchrone, ou migrer vers une tâche planifiée ou un package PSADT |
 | 4 | **Folder Redirection sur lien lent** | +10 à +60 s si le serveur de fichiers est distant ou saturé | Event 4016/4017 sur CSE Folder Redirection ; Event 5016 indiquant une détection de lien lent | Configurer la politique de lien lent pour ignorer Folder Redirection sous 500 Kbps |
@@ -162,7 +162,7 @@ Avec 100 GPO liées sur le chemin d'une OU, l'étape 2 seule peut générer 100 
 !!! check "Point de contrôle"
     Avant de continuer, vérifiez que vous avez bien compris :
     - les repères de lecture du tableau précédent : `#`, `Problème`, `Impact`
-    - l'artefact technique à savoir relire sans chercher : `{00000000-0000-0000-0000-000000000000}`
+    - l'artefact technique à savoir relire sans chercher : `Event IDs 5313 / 5320`
     - le second repère technique à retenir avant de continuer : `Get-GPInheritance`
 
 ### :material-filter-variant: 1. Les filtres WMI — coût côté client
@@ -194,7 +194,7 @@ La règle opérationnelle est simple : si un script de logon dépasse 3 secondes
 
 ### :material-folder-network: 4. La redirection de dossiers sur lien lent
 
-La CSE Folder Redirection (`{25537523-E41F-11D2-B10E-00C04F799F7C}`) reconfigure les chemins shell (`%APPDATA%`, `%DESKTOP%`, etc.) pour pointer vers un partage réseau. Cette opération nécessite que le partage soit accessible et répond avant de continuer.
+La CSE Folder Redirection (`{25537BA6-77A8-11D2-9B6C-0000F8080861}`) reconfigure les chemins shell (`%APPDATA%`, `%DESKTOP%`, etc.) pour pointer vers un partage réseau. Cette opération nécessite que le partage soit accessible et répond avant de continuer.
 
 Sur un lien lent ou un serveur de fichiers surchargé, cette CSE peut attendre plusieurs dizaines de secondes une réponse SMB. Sur les postes mobiles hors réseau d'entreprise, le timeout peut atteindre la valeur configurée dans les stratégies de détection de lien lent.
 
@@ -339,13 +339,13 @@ Computer Configuration > Policies > Administrative Templates > System > Group Po
 | Registry (`{35378EAC...}`) | Oui (défaut) | Oui | CSE la plus courante, optimisée par défaut |
 | Security (`{827D319E...}`) | Non | Non | Toujours synchrone — modifie les ACL et droits locaux |
 | Scripts (`{42B5FAAE...}`) | Oui | Non (logon) / Oui (startup) | Les scripts de logon utilisateur sont toujours synchrones |
-| Folder Redirection (`{25537523...}`) | Non | Non | Exige le mode synchrone pour garantir les chemins shell |
+| Folder Redirection (`{25537BA6...}`) | Non | Non | Exige le mode synchrone pour garantir les chemins shell |
 | Software Installation (`{C6DC5466...}`) | Non | Non | Toujours synchrone — installe des packages MSI |
 | GPP Drive Maps (`{5794DAFD...}`) | Oui (défaut) | Oui | Peut être asynchrone sans impact fonctionnel |
 | GPP Printers (`{BC75B1ED...}`) | Oui (défaut) | Oui | Même comportement que Drive Maps |
 | GPP Registry (`{B087BE9D...}`) | Oui (défaut) | Oui | Écriture registre pure, sans dépendance d'ordre |
 | Applocker / WDAC (`{D76B9641...}`) | Non | Non | Politique de sécurité, toujours synchrone |
-| Wireless (`{0ACDD40C...}`) | Oui | Non | La connexion réseau dépend du timing |
+| Wireless (`{0ACDD3F5...}`) | Oui | Non | La connexion réseau dépend du timing |
 
 !!! info "Règle générale"
     Les CSE qui modifient la posture de sécurité (Security, Software Installation, Applocker) sont toujours synchrones. Les CSE de confort (Drive Maps, Printers, GPP Registry) sont généralement asynchronisables.

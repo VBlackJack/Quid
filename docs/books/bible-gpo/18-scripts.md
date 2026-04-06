@@ -56,13 +56,13 @@ Chaque type de script est géré par une CSE enregistrée sous `HKLM\SOFTWARE\Mi
 
 | Type de script | GUID de la CSE | DLL |
 |---|---|---|
-| **Startup** (Machine) | `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}` | `gptext.dll` |
-| **Shutdown** (Machine) | `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}` | `gptext.dll` |
-| **Logon** (User) | `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}` | `gptext.dll` |
-| **Logoff** (User) | `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}` | `gptext.dll` |
+| **Startup** (Machine) | `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}` | `gpscript.dll` |
+| **Shutdown** (Machine) | `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}` | `gpscript.dll` |
+| **Logon** (User) | `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}` | `gpscript.dll` |
+| **Logoff** (User) | `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}` | `gpscript.dll` |
 
 !!! info "Un seul GUID pour les quatre types"
-    Les quatre types de scripts partagent le même GUID de CSE (`{42B5FAAE-6536-11D2-AE5A-0000F87571E3}`) et la même DLL `gptext.dll`. C'est la section dans `scripts.ini` qui détermine le type et le moment d'exécution — pas la CSE elle-même.
+    Les quatre types de scripts partagent le même GUID de CSE (`{42B5FAAE-6536-11D2-AE5A-0000F87571E3}`) et la même DLL `gpscript.dll`. C'est la section dans `scripts.ini` qui détermine le type et le moment d'exécution — pas la CSE elle-même.
 
 ### :material-table: Comparatif des 4 types
 
@@ -75,15 +75,15 @@ Chaque type de script est géré par une CSE enregistrée sous `HKLM\SOFTWARE\Mi
 
 ### :material-book-open-outline: Lecture de `scripts.ini` par la CSE
 
-Au moment du traitement (Startup, Logon, etc.), `gpsvc` invoque `gptext.dll`. Celle-ci localise `scripts.ini` dans le GPT de chaque GPO applicable, lit la section correspondante au type d'événement, et lance `gpscript.exe` pour chaque script déclaré.
+Au moment du traitement (Startup, Logon, etc.), `gpsvc` invoque `gpscript.dll`. Celle-ci localise `scripts.ini` dans le GPT de chaque GPO applicable, lit la section correspondante au type d'événement, et lance `gpscript.exe` pour chaque script déclaré.
 
 `gpscript.exe` est le processus intermédiaire responsable du lancement effectif. Il détermine le moteur à utiliser (cmd, PowerShell, wscript) en fonction de l'extension du script, et signale à `gpsvc` la complétion ou le timeout.
 
 !!! quote "En résumé"
     - Quatre types de scripts GPO : Startup et Shutdown (machine, compte SYSTEM), Logon et Logoff (utilisateur).
-    - Tous partagent la même CSE (`{42B5FAAE-6536-11D2-AE5A-0000F87571E3}`, `gptext.dll`).
+    - Tous partagent la même CSE (`{42B5FAAE-6536-11D2-AE5A-0000F87571E3}`, `gpscript.dll`).
     - Les scripts sont stockés dans `{GUID}/Machine/Scripts/{Type}/` ou `{GUID}/User/Scripts/{Type}/`.
-    - La configuration est dans `scripts.ini`, lu par `gptext.dll`, exécuté via `gpscript.exe`.
+    - La configuration est dans `scripts.ini`, lu par `gpscript.dll`, exécuté via `gpscript.exe`.
 
 ---
 
@@ -131,7 +131,7 @@ Chaque script dans une section est défini par deux clés numérotées : `NCmdLi
 L'ordre d'exécution respecte la numérotation : `0` est exécuté avant `1`, `1` avant `2`, etc. Si une GPO de niveau supérieur et une GPO de niveau inférieur définissent toutes les deux des scripts Startup, ils sont fusionnés — les scripts de la GPO la plus haute dans LSDOU sont exécutés en **premier** pour Startup/Logon, et en **dernier** pour Shutdown/Logoff.
 
 !!! warning "Numérotation discontinue = scripts manquants silencieux"
-    Si vous avez `0CmdLine` et `2CmdLine` mais pas `1CmdLine`, `gptext.dll` s'arrête à `0` et n'exécute pas `2`. La numérotation doit être strictement continue et commencer à `0`. Ne modifiez jamais `scripts.ini` manuellement : laissez la GPMC gérer ce fichier.
+    Si vous avez `0CmdLine` et `2CmdLine` mais pas `1CmdLine`, `gpscript.dll` s'arrête à `0` et n'exécute pas `2`. La numérotation doit être strictement continue et commencer à `0`. Ne modifiez jamais `scripts.ini` manuellement : laissez la GPMC gérer ce fichier.
 
 ### :material-magnify: Clés reconnues dans `scripts.ini`
 
@@ -143,7 +143,7 @@ L'ordre d'exécution respecte la numérotation : `0` est exécuté avant `1`, `1
 Les autres clés sont ignorées. Il n'y a pas de clé pour définir le timeout ou le compte d'exécution dans `scripts.ini` — ces comportements sont contrôlés par les Administrative Templates et les valeurs de registre Winlogon.
 
 !!! warning "La clé `NParameters=` doit toujours être présente"
-    Pour chaque script `NCmdLine=`, la clé `NParameters=` correspondante doit exister même si elle est vide. Un `0CmdLine` sans `0Parameters` peut provoquer un comportement indéfini selon la version de `gptext.dll`.
+    Pour chaque script `NCmdLine=`, la clé `NParameters=` correspondante doit exister même si elle est vide. Un `0CmdLine` sans `0Parameters` peut provoquer un comportement indéfini selon la version de `gpscript.dll`.
 
 !!! quote "En résumé"
     - `scripts.ini` contient quatre sections possibles : `[Startup]`, `[Shutdown]`, `[Logon]`, `[Logoff]`.
@@ -177,7 +177,7 @@ Computer Configuration
 
 ### :material-launch: Le processus `gpscript.exe`
 
-`gpscript.exe` est le lanceur de scripts GPO. Il est invoqué par `gptext.dll` pour chaque script à exécuter.
+`gpscript.exe` est le lanceur de scripts GPO. Il est invoqué par `gpscript.dll` pour chaque script à exécuter.
 
 Pour un script PowerShell, `gpscript.exe` construit et exécute une commande de la forme :
 
@@ -315,7 +315,7 @@ Le diagramme suivant illustre le flux complet depuis l'appel de `gpsvc` jusqu'à
 ```mermaid
 sequenceDiagram
     participant W as winlogon.exe / gpsvc
-    participant G as gptext.dll (CSE Scripts)
+    participant G as gpscript.dll (CSE Scripts)
     participant S as gpscript.exe
     participant P as powershell.exe / cmd.exe
 
@@ -343,7 +343,7 @@ sequenceDiagram
 ```
 
 !!! info "gpscript.exe est un processus éphémère"
-    `gpscript.exe` est créé pour chaque script et se termine dès que le script est fini ou en timeout. Il ne reste pas résident en mémoire. En mode synchrone, `gptext.dll` attend la fin du processus `gpscript.exe` avant de lancer le suivant.
+    `gpscript.exe` est créé pour chaque script et se termine dès que le script est fini ou en timeout. Il ne reste pas résident en mémoire. En mode synchrone, `gpscript.dll` attend la fin du processus `gpscript.exe` avant de lancer le suivant.
 
 
 !!! quote "En résumé"
@@ -688,7 +688,7 @@ Si la synchronicité est indispensable (ex. : mappage requis avant le lancement 
 
 ## :material-link-variant: Voir aussi
 
-- [03 — Client-Side Extensions (CSE)](03-cse.md) — structure interne de la CSE Scripts (`gptext.dll`), cycle de déclenchement, valeurs de registre `GPExtensions`
+- [03 — Client-Side Extensions (CSE)](03-cse.md) — structure interne de la CSE Scripts (`gpscript.dll`), cycle de déclenchement, valeurs de registre `GPExtensions`
 - [07 — Traitement des GPO](07-traitement.md) — contexte du traitement synchrone vs asynchrone, foreground vs background, impact sur les CSE
 - [11 — Preferences GPP](11-preferences-gpp.md) — architecture GPP, Drive Maps, ScheduledTasks XML, Item-Level Targeting
 

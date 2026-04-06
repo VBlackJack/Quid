@@ -65,10 +65,13 @@ Ses valeurs principales :
 |--------|------|-----------------|
 | `ImagePath` | `REG_EXPAND_SZ` | `%SystemRoot%\System32\spoolsv.exe` |
 | `Start` | `REG_DWORD` | `2` (demarrage automatique) |
-| `Type` | `REG_DWORD` | `0x110` (processus propre, interactif) |
+| `Type` | `REG_DWORD` | `0x10` (`SERVICE_WIN32_OWN_PROCESS`) |
 | `ObjectName` | `REG_SZ` | `LocalSystem` |
 | `DependOnService` | `REG_MULTI_SZ` | `RPCSS`, `http` |
 | `RequiredPrivileges` | `REG_MULTI_SZ` | `SeTcbPrivilege`, `SeImpersonatePrivilege`, `SeAuditPrivilege` |
+
+!!! note "Service interactif"
+    Le flag `SERVICE_INTERACTIVE_PROCESS` (`0x100`) a longtemps existe mais il est deprecie depuis Vista et n'est plus un mode de fonctionnement normal du spooler sur les versions modernes de Windows.
 
 Le processus `spoolsv.exe` charge des DLL (pilotes, moniteurs de port, processeurs d'impression) directement dans son espace d'adressage. C'est pourquoi un pilote defectueux peut faire crasher l'ensemble du sous-systeme.
 

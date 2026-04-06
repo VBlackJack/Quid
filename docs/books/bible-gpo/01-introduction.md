@@ -37,11 +37,11 @@ Conséquences opérationnelles directes :
 |----------|--------|
 | Aucun nettoyage à la suppression de la stratégie | Les valeurs restent indéfiniment dans le registre |
 | Aucun suivi de version | Impossible de savoir quelle version de la stratégie est appliquée |
-| Format ADM binaire propriétaire | Pas d'édition externe, pas de diff, pas de versionning fiable |
+| Format ADM texte proprietaire | Pas d'edition externe fiable, diff et versionning difficiles |
 | Pas d'intégration LDAP | La stratégie ne tient pas compte de la position de l'objet dans l'annuaire |
 | Granularité limitée | Pas de ciblage par OU, uniquement par groupe NT |
 
-Les fichiers ADM (Administrative Template) sont au format binaire. Ils sont embarqués dans chaque GPO et décrivent les paramètres exposés dans l'interface graphique de `poledit.exe`.
+Les fichiers ADM (Administrative Template) sont au format texte proprietaire. Ils sont embarques dans chaque GPO et decrivent les parametres exposes dans l'interface graphique de `poledit.exe`.
 
 ### Windows 2000 — Group Policy v1
 
@@ -65,11 +65,11 @@ Le GPMC n'existe pas encore : la gestion des GPO se fait via **Active Directory 
 Fonctionnalités introduites :
 
 - **RSoP** (Resultant Set of Policy) : snap-in MMC permettant de simuler ou de journaliser les stratégies effectivement appliquées à un utilisateur ou une machine
-- **Starter GPOs** : modèles de GPO réutilisables, stockés dans `\\domain\SYSVOL\domain\StarterGPOs\`
+- **GPMC** : console d'administration centralisee des GPO, avec sauvegarde XML et vue unifiee
 - **Software Restriction Policies (SRP)** : premier mécanisme de contrôle d'exécution applicatif via GPO
 - **Copier/coller de GPO** et sauvegarde XML depuis la GPMC
 
-Les fichiers ADM restent au format binaire et sont toujours dupliqués dans chaque GPO sous `\{GUID}\Adm\`.
+Les fichiers ADM restent dans leur format texte proprietaire et sont toujours dupliques dans chaque GPO sous `\{GUID}\Adm\`.
 
 ### Windows Vista / Server 2008 — ADMX, GPP et extraction de gpsvc
 
@@ -77,7 +77,7 @@ Deux ruptures majeures se produisent simultanément :
 
 **1. Remplacement ADM → ADMX**
 
-Le format binaire ADM est remplacé par **ADMX** (XML pur) accompagné de fichiers de langue **ADML** (XML également). Le concept de **Central Store** est introduit : un répertoire unique `\\domain\SYSVOL\domain\Policies\PolicyDefinitions\` héberge l'ensemble des ADMX/ADML du domaine, éliminant la duplication par GPO.
+Le format texte proprietaire ADM est remplace par **ADMX** (XML pur) accompagne de fichiers de langue **ADML** (XML egalement). Le concept de **Central Store** est introduit : un repertoire unique `\\domain\SYSVOL\domain\Policies\PolicyDefinitions\` heberge l'ensemble des ADMX/ADML du domaine, eliminant la duplication par GPO.
 
 **2. Group Policy Preferences (GPP)**
 
@@ -98,7 +98,7 @@ Le moteur de traitement est extrait de `Winlogon.exe` et devient le service **Gr
 - Adoption généralisée du **Central Store** ADMX dans les nouvelles infrastructures
 - **AGPM 4.0** (Advanced Group Policy Management) : gestion du cycle de vie des GPO avec workflow d'approbation
 - Nouveaux ADMX pour les fonctionnalités Windows 8 (Internet Explorer 10, Store, etc.)
-- **Fine-Grained Password Policies** accessibles directement depuis le GPMC (avant : uniquement via ADSI Edit ou PowerShell)
+- **Fine-Grained Password Policies** administrables via PowerShell et ADAC plutot que directement depuis le GPMC
 
 ### Windows 10 / Server 2016 — Cloud Policy
 
@@ -119,17 +119,17 @@ Le moteur de traitement est extrait de `Winlogon.exe` et devient le service **Gr
 
 | Version Windows | Moteur GPO | Format templates | Stockage | Nouveauté clé |
 |----------------|-----------|-----------------|---------|--------------|
-| Windows NT 4.0 | `poledit.exe` (tatouage) | ADM binaire | `NETLOGON\NTConfig.pol` | System Policy, effet tatouage |
-| Windows 2000 | `Userenv.dll` (Winlogon) | ADM binaire | SYSVOL GPC+GPT | LSDOU, réversibilité, LDAP |
-| Windows XP / Server 2003 | `Userenv.dll` (Winlogon) | ADM binaire | SYSVOL GPC+GPT | GPMC, RSoP, SRP, Starter GPOs |
-| Windows Vista / Server 2008 | `gpsvc` (service) | ADMX/ADML XML | SYSVOL + Central Store | GPP (gpprefcl.dll), gpsvc séparé |
+| Windows NT 4.0 | `poledit.exe` (tatouage) | ADM texte proprietaire | `NETLOGON\NTConfig.pol` | System Policy, effet tatouage |
+| Windows 2000 | `Userenv.dll` (Winlogon) | ADM texte proprietaire | SYSVOL GPC+GPT | LSDOU, reversibilite, LDAP |
+| Windows XP / Server 2003 | `Userenv.dll` (Winlogon) | ADM texte proprietaire | SYSVOL GPC+GPT | GPMC, RSoP, SRP |
+| Windows Vista / Server 2008 | `gpsvc` (service) | ADMX/ADML XML | SYSVOL + Central Store | GPP (gpprefcl.dll), Starter GPOs, gpsvc separe |
 | Windows 7 / Server 2008 R2 | `gpsvc` (service) | ADMX/ADML XML | SYSVOL + Central Store | PowerShell RSAT, AppLocker |
-| Windows 8.1 / Server 2012 R2 | `gpsvc` (service) | ADMX/ADML XML | SYSVOL + Central Store | AGPM 4.0, FGP depuis GPMC |
+| Windows 8.1 / Server 2012 R2 | `gpsvc` (service) | ADMX/ADML XML | SYSVOL + Central Store | AGPM 4.0, FGPP via ADAC/PowerShell |
 | Windows 10 / Server 2016 | `gpsvc` (service) | ADMX/ADML XML | SYSVOL + Central Store | Cloud Policy, WUfB, MDM partiel |
 | Windows 11 / Server 2022 | `gpsvc` (service) | ADMX/ADML XML + JSON Start | SYSVOL + Central Store | Policy CSP, MDM coexistence complète |
 
 !!! quote "En résumé"
-    L'évolution des stratégies de groupe suit trois ruptures techniques majeures : la transition de System Policy (tatouage, NETLOGON) vers Group Policy (réversibilité, SYSVOL, LDAP) en 2000 ; le remplacement du format ADM binaire par ADMX/XML et l'introduction des préférences GPP en 2007-2008 ; l'extraction du moteur de traitement hors de Winlogon vers le service `gpsvc` indépendant. Depuis Windows 10, la montée en puissance de MDM/Intune via Policy CSP remet en question la place centrale des GPO dans les architectures nouvelles.
+    L'évolution des stratégies de groupe suit trois ruptures techniques majeures : la transition de System Policy (tatouage, NETLOGON) vers Group Policy (reversibilite, SYSVOL, LDAP) en 2000 ; le remplacement du format ADM texte proprietaire par ADMX/XML et l'introduction des preferences GPP en 2007-2008 ; l'extraction du moteur de traitement hors de Winlogon vers le service `gpsvc` independant. Depuis Windows 10, la montee en puissance de MDM/Intune via Policy CSP remet en question la place centrale des GPO dans les architectures nouvelles.
 
 ---
 
@@ -156,7 +156,7 @@ Attributs LDAP clés du GPC :
 | `versionNumber` | Integer | Numéro de version composite (machine + utilisateur) |
 | `gPCMachineExtensionNames` | String | GUIDs des CSE applicables côté machine |
 | `gPCUserExtensionNames` | String | GUIDs des CSE applicables côté utilisateur |
-| `flags` | Integer | 0=activé, 1=volet machine désactivé, 2=volet user désactivé, 3=les deux |
+| `flags` | Integer | 0=activé, 1=volet utilisateur désactivé, 2=volet ordinateur désactivé, 3=les deux |
 
 ### GPT — Group Policy Template
 
@@ -237,9 +237,9 @@ timeline
         1996 : NT 4.0 — poledit.exe, tatouage ADM
     section Ère Group Policy
         2000 : Windows 2000 — GPC/GPT, LSDOU, SYSVOL, Userenv.dll
-        2003 : Server 2003 — GPMC, RSoP, Starter GPOs, SRP
+        2003 : Server 2003 — GPMC, RSoP, SRP
     section Ère ADMX
-        2007 : Vista/2008 — ADMX/ADML, Central Store, GPP (gpprefcl.dll), gpsvc séparé
+        2007 : Vista/2008 — ADMX/ADML, Central Store, GPP (gpprefcl.dll), Starter GPOs, gpsvc séparé
         2009 : Windows 7 — Module PowerShell RSAT, AppLocker
         2012 : Server 2012 — AGPM 4.0, Central Store généralisé
     section Ère Cloud
@@ -260,7 +260,7 @@ timeline
 
 ### Le format ADM et ses limites
 
-Les fichiers **ADM** (Administrative Template) utilisés jusqu'à Windows Server 2003 sont en format binaire propriétaire. Chaque GPO embarque ses propres copies dans `\\domain\SYSVOL\domain\Policies\{GUID}\Adm\`. Cette architecture impose :
+Les fichiers **ADM** (Administrative Template) utilisés jusqu'à Windows Server 2003 sont en format texte proprietaire. Chaque GPO embarque ses propres copies dans `\\domain\SYSVOL\domain\Policies\{GUID}\Adm\`. Cette architecture impose :
 
 - **Duplication** : les fichiers ADM standards de Windows (environ 3 Mo par GPO pour les templates Microsoft) sont copiés dans chaque GPO, entraînant une consommation SYSVOL significative sur les domaines avec de nombreuses GPO
 - **Absence d'Unicode complet** : certaines locales posent des problèmes d'encodage
@@ -524,7 +524,7 @@ dc03.corp.contoso.com       Remote-VPN   Current DFSR global state: 'Eliminated 
 
 ## Group Policy Preferences : les 25 types d'extensions
 
-Introduites avec Windows Vista / Server 2008 et rétrocompatibles jusqu'à Windows XP SP3 via l'installation manuelle du client GPP, les **Group Policy Preferences** sont traitées par le CSE `{00000000-0000-0000-0000-000000000000}` (registre), mais surtout par `gpprefcl.dll` qui orchestre les 25 sous-extensions.
+Introduites avec Windows Vista / Server 2008 et rétrocompatibles jusqu'à Windows XP SP3 via l'installation manuelle du client GPP, les **Group Policy Preferences** sont orchestrees par `gpprefcl.dll` et ses sous-extensions. Elles ne reposent pas sur un GUID nul unique faisant office de CSE.
 
 ### Différence structurelle entre Paramètres et Préférences
 
@@ -814,13 +814,12 @@ Les CSE clés présents sur tout poste Windows Vista+ :
 
 | GUID | Nom | DLL |
 |------|-----|-----|
-| `{00000000-0000-0000-0000-000000000000}` | Registry | `gpprefcl.dll` (GPP) |
-| `{35378EAC-683F-11D2-A89A-00C04FBBCFA2}` | Registry (Settings) | `gpsvc.dll` |
+| `{35378EAC-683F-11D2-A89A-00C04FBBCFA2}` | Registry (Settings) | `userenv.dll` |
 | `{827D319E-6EAC-11D2-A4EA-00C04F79F83A}` | Security | `scecli.dll` |
 | `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}` | Scripts | `gpscript.dll` |
 | `{B1BE8D72-6EAC-11D2-A4EA-00C04F79F83A}` | EFS Recovery | `gpscript.dll` |
 | `{C6DC5466-785A-11D2-84D0-00C04FB169F7}` | Software Installation | `appmgmts.dll` |
-| `{25537523-E3DA-4EB1-9672-4F3F800F0B73}` | Folder Redirection | `fdeploy.dll` |
+| `{25537BA6-77A8-11D2-9B6C-0000F8080861}` | Folder Redirection | `fdeploy.dll` |
 | `{5794DAFD-BE60-433F-88A2-1A31939AC01F}` | Drive Maps (GPP) | `gpprefcl.dll` |
 | `{6232C319-91AC-4931-9385-E70C2B099F0E}` | Printers (GPP) | `gpprefcl.dll` |
 

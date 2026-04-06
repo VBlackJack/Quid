@@ -400,14 +400,11 @@ HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Reliability  ← Moniteur de fiab
 
 ### Version mineure du format
 
-Le format des ruches passe a la version mineure `5` (version 1.5) pour supporter :
-
-- Des checkpoints dans les journaux de transactions
-- Un mecanisme de recuperation ameliore
+Windows 7 **conserve** la version mineure `6` (format `1.6`), introduite avec Vista, et s'appuie sur le mecanisme de journalisation et de recuperation deja modernise sur cette generation.
 
 !!! info "En resume"
     - Windows 7 a introduit la maintenance en arriere-plan du registre (compactage, defragmentation interne, nettoyage)
-    - Le format des ruches passe a la version mineure 5 avec des checkpoints dans les journaux
+    - Windows 7 ne change pas le numero de version mineure du format : il reste en `1.6`
     - Pas de revolution architecturale, mais des optimisations incrementales de performances et de fiabilite
 
 ---
@@ -681,9 +678,8 @@ Le format binaire des ruches a evolue au fil des versions de Windows.
 | 1.1 | NT 3.1 | Format initial |
 | 1.2 | NT 3.5 | Corrections mineures |
 | 1.3 | NT 4.0 | Format stable de reference |
-| 1.4 | Vista | Support des journaux duaux (.LOG1/.LOG2) |
-| 1.5 | 7/8 | Checkpoints dans les journaux |
-| 1.6 | 10 | Optimisations internes |
+| 1.5 | XP / Server 2003 | Evolutions internes du format NT 5.x |
+| 1.6 | Vista+ | Journaux duaux, recuperation amelioree et evolutions modernes |
 
 !!! info "Compatibilite ascendante"
     La version majeure est restee `1` depuis le debut. Cela signifie que le format est **fondamentalement le meme** depuis NT 3.1. Un outil qui sait lire la version 1.3 peut generalement lire toutes les versions ulterieures. Les changements de version mineure ajoutent des fonctionnalites sans casser la compatibilite.

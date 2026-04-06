@@ -622,7 +622,7 @@ cifs/SRV-FILE01
 ### CredSSP (a eviter en production)
 
 !!! danger "CredSSP expose vos credentials"
-    CredSSP envoie vos identifiants en clair au serveur intermediaire. Si ce serveur est compromis, l'attaquant recupere vos credentials d'administrateur de domaine. Ne l'utilisez jamais en production.
+    CredSSP ne transmet pas vos identifiants en clair sur le reseau, mais il les **delegue** au serveur intermediaire, qui les stocke ensuite dans `LSASS` pour realiser le second saut. Si ce serveur est compromis, l'attaquant peut reutiliser ces credentials de haut niveau. Le trafic reste chiffre, mais le risque vient bien du poste intermediaire.
 
 ```powershell
 # Enable CredSSP (TEST ENVIRONMENT ONLY)
@@ -633,7 +633,9 @@ Enable-WSManCredSSP -Role Server -Force  # On SRV-APP01
 $cred = Get-Credential
 Invoke-Command -ComputerName SRV-APP01 -Credential $cred -Authentication CredSSP -ScriptBlock {
     # This second hop now works (but at what cost?)
-    Get-ItemProperty "\\SRV-FILE01\HKLM\SOFTWARE\MonApp"
+    Invoke-Command -ComputerName SRV-FILE01 -ScriptBlock {
+        Get-ItemProperty "HKLM:\SOFTWARE\MonApp"
+    }
 }
 ```
 

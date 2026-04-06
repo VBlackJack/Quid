@@ -47,7 +47,7 @@ C'est exactement pareil avec les GPO.
 
 ### Comment l'executer
 
-Ouvrez une invite de commandes **en tant qu'administrateur** sur l'ordinateur concerne et tapez :
+Ouvrez une invite de commandes standard sur l'ordinateur concerne et tapez :
 
 ```cmd
 gpresult /r
@@ -183,7 +183,7 @@ Le rapport HTML s'ouvre dans votre navigateur. Il est interactif : on peut depli
     Si un autre parametre s'applique a la meme cle, il sera liste en dessous avec la mention "GPO perdante".
 
 !!! example "Pas a pas"
-    1. Ouvrez une invite de commandes en administrateur
+    1. Ouvrez une invite de commandes (admin seulement si vous ciblez un autre utilisateur ou un autre contexte)
     2. Tapez `mkdir C:\Temp` (si le dossier n'existe pas)
     3. Tapez `gpresult /h C:\Temp\rapport-gpo.html`
     4. Attendez le message de confirmation
@@ -616,7 +616,7 @@ Vous avez lie la GPO a l'OU `OU=Postes,DC=contoso,DC=local`. Vous allez sur le p
 ---
 ### Etape de diagnostic 1 : gpresult /r
 
-Vous ouvrez une invite de commandes en administrateur sur `PC-MARTIN` et vous tapez `gpresult /r`.
+Vous ouvrez une invite de commandes standard sur `PC-MARTIN` et vous tapez `gpresult /r`.
 
 ```cmd title="Resultat attendu"
 PARAMETRES DE L'ORDINATEUR

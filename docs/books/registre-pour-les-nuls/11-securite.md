@@ -461,10 +461,11 @@ C'est le systeme de **permissions** du registre. Comme les fichiers sur votre di
 | `HKCU\...` | Controle total | Controle total (c'est **sa** ruche) |
 | `HKLM\SOFTWARE` | Controle total | Lecture seule |
 | `HKLM\SYSTEM` | Controle total | Lecture seule |
-| `HKLM\SAM` | Controle total | Aucun acces |
+| `HKLM\SAM` | Aucun acces (SYSTEM uniquement par defaut) | Aucun acces |
 | `HKLM\SECURITY` | Aucun acces* | Aucun acces |
 
-*Meme les administrateurs ne peuvent pas lire `HKLM\SECURITY` directement. Seul le compte `SYSTEM` y a acces.
+!!! note "SAM et SECURITY"
+    `HKLM\SAM` et `HKLM\SECURITY` sont proteges par defaut. Meme un administrateur local ne les lit pas directement sans passer par `SYSTEM` ou sans reprendre possession de la cle et modifier les ACL.
 
 ### Comment voir les permissions d'une cle
 
@@ -508,7 +509,7 @@ Certaines cles sont protegees par des mecanismes supplementaires :
 | Desactivation antivirus | `DisableAntiSpyware` (legacy) | `Get-MpComputerStatus` |
 | Composant cache | CLSID dans `HKCR` | Autoruns, analyse antivirus |
 | Redirection de fichiers | Associations dans `HKCR` | Ouverture d'un fichier test |
-| Service malveillant | `HKLM\SYSTEM\Services` | Autoruns, `sc query` |
+| Service malveillant | `HKLM\SYSTEM\CurrentControlSet\Services` | Autoruns, `sc query` |
 | Tache planifiee | Taches dans le registre | Planificateur de taches, Autoruns |
 
 !!! quote "En resume"

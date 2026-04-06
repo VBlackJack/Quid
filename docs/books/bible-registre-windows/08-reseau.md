@@ -261,6 +261,9 @@ La valeur `DefaultSecureProtocols` controle quels protocoles TLS sont actives :
 | 0x00000800 | TLS 1.2 |
 | 0x00002000 | TLS 1.3 |
 
+!!! warning "TLS 1.3 et KB3140245"
+    Le bit `0x00002000` pour `TLS 1.3` est utilise par les versions recentes de Windows, mais il ne fait pas partie de la documentation historique de `KB3140245`. Ne supposez pas que toute machine ayant recu ce correctif comprend `TLS 1.3` : verifiez toujours la version de Windows et de Schannel ciblee.
+
 !!! danger "Desactiver SSL 2.0 et 3.0"
     SSL 2.0 et 3.0 sont considerees comme **cassees** (attaques POODLE, DROWN). Assurez-vous que seuls TLS 1.2 et TLS 1.3 sont actives en environnement de production.
 

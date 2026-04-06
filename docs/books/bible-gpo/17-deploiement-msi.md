@@ -5,7 +5,7 @@ tags: [bible-gpo, msi, déploiement-logiciels, software-installation, cse]
 # Déploiement de logiciels via GPO (MSI)
 
 !!! abstract "Ce que vous allez apprendre"
-    - Le rôle de la CSE Software Installation (`{942A8E4F-A261-11D1-A760-00C04FB9603F}`) et la structure du fichier `psmt.xml` dans le GPT
+    - Le role des CSE Software Installation (machine et utilisateur) et la structure du fichier `psmt.xml` dans le GPT
     - Les trois modes de déploiement — Assigned to Computer, Assigned to User, Published to User — leurs différences comportementales et leurs limites
     - La clé de registre `HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy\AppMgmt\` et ce qu'elle contient
     - Le format ZAP pour les exécutables non-MSI : syntaxe, contraintes et cas d'usage
@@ -24,26 +24,28 @@ tags: [bible-gpo, msi, déploiement-logiciels, software-installation, cse]
 
 ### :material-identifier: GUID et enregistrement
 
-La CSE Software Installation est identifiée par le GUID :
+La fonctionnalite Software Installation repose sur deux GUIDs de CSE, selon le contexte :
 
 ```
-{942A8E4F-A261-11D1-A760-00C04FB9603F}
+{C6DC5466-785A-11D2-84D0-00C04FB169F7}   # traitement machine
+{3610EDA5-77EF-11D2-8DC5-00C04FA31A66}   # traitement utilisateur
 ```
 
-Elle est implémentée dans `appmgmts.dll`, chargée par `gpsvc` dans le contexte SYSTEM pour le traitement machine, et dans le contexte de la session utilisateur pour le traitement utilisateur.
+Ces deux CSE sont implementees dans `appmgmts.dll`, chargee par `gpsvc` dans le contexte SYSTEM pour le traitement machine, et dans le contexte de la session utilisateur pour le traitement utilisateur.
 
 Son entrée de registre se trouve sous :
 
 ```
 HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\
-  {942A8E4F-A261-11D1-A760-00C04FB9603F}
+  {C6DC5466-785A-11D2-84D0-00C04FB169F7}
+  {3610EDA5-77EF-11D2-8DC5-00C04FA31A66}
 ```
 
 !!! check "Point de contrôle"
     Avant de continuer, vérifiez que vous avez bien compris :
     - le but précis de cette sous-section : **GUID et enregistrement**
     - l'artefact technique à savoir relire sans chercher : `appmgmts.dll`
-    - la commande ou l'étape de validation à pouvoir rejouer en labo : `{942A8E4F-A261-11D1-A760-00C04FB9603F}`
+    - la commande ou l'étape de validation à pouvoir rejouer en labo : `{C6DC5466-785A-11D2-84D0-00C04FB169F7}` / `{3610EDA5-77EF-11D2-8DC5-00C04FA31A66}`
 
 ### :material-table: Valeurs de registre de la CSE
 
@@ -164,18 +166,19 @@ Cette corrélation entre `AppMgmt` et `Uninstall` évite de confondre un problè
 
 | GUID | CSE associée | Rôle |
 |---|---|---|
-| `{942A8E4F-A261-11D1-A760-00C04FB9603F}` | Software Installation | Déploiement MSI/ZAP |
+| `{C6DC5466-785A-11D2-84D0-00C04FB169F7}` | Software Installation (Machine) | Deploiement MSI/ZAP cote ordinateur |
+| `{3610EDA5-77EF-11D2-8DC5-00C04FA31A66}` | Software Installation (User) | Deploiement MSI/ZAP cote utilisateur |
 | `{35378EAC-683F-11D2-A89A-00C04FBBCFA2}` | Registry | Politiques de registre |
-| `{0ACDD3F3-B1B2-40F1-9E34-3C81FF6DDBFF}` | Wireless Policy | Configuration Wi-Fi |
+| `{0ACDD3F5-75AC-47AB-BAA0-BF6DE7E7FE63}` | Wireless Policy | Configuration Wi-Fi |
 | `{827D319E-6EAC-11D2-A4EA-00C04F79F83A}` | Security | Stratégie de sécurité locale |
 | `{B1BE8D72-6EAC-11D2-A4EA-00C04F79F83A}` | EFS Recovery | Politiques de chiffrement EFS |
-| `{25537523-E2DC-11D2-A6E8-00C04FB997CB}` | Folder Redirection | Redirection de dossiers |
+| `{25537BA6-77A8-11D2-9B6C-0000F8080861}` | Folder Redirection | Redirection de dossiers |
 | `{7B849A69-220F-451E-B3FE-2CB811AF94AE}` | Internet Explorer Maint. | Paramètres IE (obsolète) |
 
 !!! check "Point de contrôle"
     Avant de continuer, vérifiez que vous avez bien compris :
     - les repères de lecture du tableau précédent : `GUID`, `CSE associée`, `Rôle`
-    - l'artefact technique à savoir relire sans chercher : `{942A8E4F-A261-11D1-A760-00C04FB9603F}`
+    - l'artefact technique à savoir relire sans chercher : `{C6DC5466-785A-11D2-84D0-00C04FB169F7}`
     - le second repère technique à retenir avant de continuer : `{35378EAC-683F-11D2-A89A-00C04FBBCFA2}`
 
 !!! quote "En résumé"

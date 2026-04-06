@@ -161,7 +161,7 @@ Les CSE qui s'executent en background :
 
 Les CSE qui ignorent le background :
 
-- Security, Scripts, Folder Redirection, Software Installation, Audit Policy — toutes avec `NoBackgroundPolicy = 1`
+- Scripts, Folder Redirection, Software Installation et Audit Policy — toutes avec `NoBackgroundPolicy = 1`
 
 ```powershell title="Identifier les CSE actives en background"
 $cseKey = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions"
@@ -184,7 +184,7 @@ GUID                                   Name                     BackgroundOK
 ```
 
 !!! warning "Implication pour les changements de securite"
-    Une modification de GPO de securite ne prend **jamais** effet via un refresh background. Seul un `gpupdate /force /boot` ou un redemarrage machine declenche la CSE Security. En production, ne supposez jamais qu'un changement de politique de mot de passe ou de restriction logicielle se propagera dans les 90 minutes.
+    La CSE Security peut etre reappliquee en background (`NoBackgroundPolicy = 0`), mais certains sous-composants voisins comme Scripts, Folder Redirection ou Software Installation restent dependants d'un vrai foreground. En production, distinguez bien ce qui releve de Security et ce qui exige encore `/boot` ou `/logoff`.
 
 !!! quote "En résumé"
     Le background refresh se produit toutes les 90 a 120 minutes. Il est concu pour etre leger : seules les CSE Registry et Preferences s'executent reellement. Les parametres de securite, les scripts et la redirection de dossiers ne sont jamais mis a jour en background — ils attendent le prochain foreground.
@@ -633,9 +633,9 @@ Un exemple concret : machine portable, utilisateur itinerant, VPN.
 5. `gpsvc` detecte le lien VPN → mesure de bande passante
 6. Si la bande passante est inferieure a 500 Kbps → lien lent, Folder Redirection ignoree
 7. Les parametres de registre et les preferences sont mis a jour via le cache invalide
-8. La securite ne s'applique pas (NoBackgroundPolicy = 1)
+8. La securite peut se reappliquer, mais Folder Redirection et les autres CSE foreground-only attendent toujours un vrai foreground
 
-Ce scenario illustre pourquoi un utilisateur portable peut avoir des parametres incoherents en journee — et pourquoi la solution n'est pas `gpupdate /force` mais un **redemarrage** avec reseau disponible.
+Ce scenario illustre pourquoi un utilisateur portable peut avoir des parametres incoherents en journee — et pourquoi la solution n'est pas seulement `gpupdate /force` : pour Folder Redirection et les autres CSE foreground-only, il faut un **redemarrage** ou une **reconnexion** avec reseau disponible.
 
 !!! info "Priorite des mecanismes"
     L'ordre de priorite est : mode synchrone/asynchrone → detection de lien lent → `NoBackgroundPolicy` → `NoGPOListChanges`. Chaque mecanisme peut court-circuiter les suivants. Construisez votre diagnostic en remontant cet ordre.

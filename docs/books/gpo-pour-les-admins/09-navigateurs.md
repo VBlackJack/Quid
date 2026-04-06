@@ -203,14 +203,12 @@ Le fichier `policies.json` est un objet JSON avec une cle racine `policies`. Voi
     "DisableMasterPasswordCreation": false,
     "OfferToSaveLogins": false,
     "PasswordManagerEnabled": false,
-    "PrivateBrowsingModeAvailability": 2,
     "DisablePrivateBrowsing": true,
     "Homepage": {
       "URL": "https://intranet.contoso.com",
       "Locked": true,
       "StartPage": "homepage"
     },
-    "SmartScreen": true,
     "Proxy": {
       "Mode": "system"
     },

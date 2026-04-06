@@ -374,6 +374,9 @@ Sur un PC fixe ou un ordinateur utilise uniquement a la maison, l'ecran de verro
 
     Pour annuler : remettre la valeur a `0` ou supprimer la valeur.
 
+!!! warning "Compatibilite editions"
+    Sur les versions modernes de Windows 10/11, `NoLockScreen` est surtout pris en charge sur les editions **Enterprise**, **Education** et **Server**. Sur Home et Pro, cette cle peut etre ignoree selon la version.
+
 !!! note "Necessite des droits administrateur (HKLM)."
 
 ---
@@ -481,6 +484,9 @@ Utile si vous allumez souvent votre PC tot le matin, en reunion, ou dans une pie
     ```
 
     Pour annuler : remettre la valeur a `0`.
+
+!!! tip "Methode recommandee"
+    Pour un poste unique, la methode la plus propre reste l'interface graphique : `mmsys.cpl` > onglet **Sons** > decochez **Jouer le son de demarrage de Windows**. Gardez la cle de registre pour l'automatisation, la documentation ou un deploiement standardise.
 
 !!! note "Necessite des droits administrateur (HKLM)."
 

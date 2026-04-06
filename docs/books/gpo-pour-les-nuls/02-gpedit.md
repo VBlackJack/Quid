@@ -57,6 +57,9 @@ C'est tout. Pas de mot de passe a saisir, pas de confirmation administrateur a v
 !!! info "Pourquoi pas de confirmation administrateur ?"
     Contrairement a Regedit, gpedit ne demande pas d'autorisation UAC (la fenetre "Voulez-vous autoriser cette application..."). C'est parce que l'editeur de strategies **locales** ne modifie que la configuration de **votre** machine. Il n'a pas besoin d'un niveau d'acces special pour s'ouvrir. En revanche, certains parametres a l'interieur ne prendront effet que si vous etes administrateur du poste.
 
+!!! warning "Ouverture sans UAC != droits d'ecriture"
+    L'ouverture de `gpedit.msc` ne demande pas d'elevation, mais l'enregistrement de la plupart des changements en **Configuration ordinateur** exige bien des droits administrateur locaux. Sans ces droits, vous pouvez parcourir l'editeur, pas appliquer toutes les modifications.
+
 ### Via la recherche Windows
 
 1. Cliquez sur la barre de recherche dans la barre des taches (ou appuyez sur ++win+s++)
@@ -101,7 +104,7 @@ Ne vous laissez pas impressionner par l'aspect "vieux Windows" de l'interface. L
 !!! quote "En resume"
     - gpedit.msc est l'editeur de strategies de groupe **locales** : il ne gere que votre poste.
     - Pour l'ouvrir : ++win+r++ puis tapez `gpedit.msc` et appuyez sur ++enter++.
-    - Aucune autorisation administrateur n'est demandee a l'ouverture.
+    - Aucune autorisation administrateur n'est demandee a l'ouverture, mais beaucoup de changements exigent quand meme des droits admin pour etre enregistres.
     - Deux branches principales apparaissent : **Configuration ordinateur** et **Configuration utilisateur**.
 
 ---

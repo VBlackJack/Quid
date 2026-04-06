@@ -59,11 +59,14 @@ Par defaut, Windows regroupe toutes les fenetres d'une meme application sous un 
 
     **Modification** :
 
-    | Valeur | Type | Donnees | Effet |
-    |--------|:----:|:-------:|-------|
-    | `TaskbarGlomLevel` | REG_DWORD | `2` | Chaque fenetre a son propre bouton |
+| Valeur | Type | Donnees | Effet |
+|--------|:----:|:-------:|-------|
+| `TaskbarGlomLevel` | REG_DWORD | `2` | Chaque fenetre a son propre bouton |
 
-    Les trois options possibles :
+!!! note "Compatibilite"
+    `TaskbarGlomLevel` est surtout pertinent pour Windows 10. Sous Windows 11, la nouvelle barre des taches ignore ou limite ce reglage selon la version et le shell actif.
+
+Les trois options possibles :
 
     | Valeur | Comportement |
     |:------:|:------------:|
@@ -184,9 +187,9 @@ Quand vous survolez un menu qui a des sous-menus, il y a un petit delai avant qu
 
 ## Reseau
 
-### Desactiver la detection automatique de proxy
+### Desactiver le proxy manuel
 
-Si vous n'utilisez pas de proxy (c'est le cas de la plupart des particuliers), desactiver la detection automatique peut accelerer legerement votre connexion reseau.
+Si vous n'utilisez pas de **proxy manuel**, vous pouvez desactiver cette configuration pour eviter des tentatives de connexion inutiles.
 
 !!! example "Essayez vous-meme"
     **Cle** :
@@ -196,13 +199,16 @@ Si vous n'utilisez pas de proxy (c'est le cas de la plupart des particuliers), d
 
     **Modification** :
 
-    | Valeur | Type | Donnees | Effet |
-    |--------|:----:|:-------:|-------|
-    | `ProxyEnable` | REG_DWORD | `0` | Desactive le proxy |
+| Valeur | Type | Donnees | Effet |
+|--------|:----:|:-------:|-------|
+| `ProxyEnable` | REG_DWORD | `0` | Desactive uniquement le proxy manuel configure dans Internet Settings |
 
     ```title="Resultat attendu"
 
-    votre navigateur ne perd plus de temps a chercher un proxy inexistant.
+    votre systeme n'essaie plus d'utiliser un proxy manuel obsolete.
+
+!!! note "WPAD et detection automatique"
+    `ProxyEnable = 0` **ne desactive pas** la detection automatique de proxy (WPAD / option "Detecter automatiquement les parametres"). Pour cela, il faut agir sur d'autres parametres de configuration reseau ou sur la configuration WinHTTP / navigateur.
 
     ```
 
@@ -232,7 +238,7 @@ Le cache DNS stocke les adresses des sites web que vous avez visites, pour ne pa
         Quand un site web est introuvable, Windows se souvient de cette "non-reponse" pendant un certain temps. C'est le cache negatif. Reduire sa duree permet de reessayer plus vite si le site revient en ligne.
 
 !!! quote "En resume"
-    - Desactiver la detection automatique de proxy (`ProxyEnable` = `0`) peut accelerer legerement la connexion si vous n'utilisez pas de proxy.
+    - `ProxyEnable = 0` desactive le **proxy manuel**, pas la detection automatique WPAD.
     - Le cache DNS peut etre ajuste pour optimiser la resolution des noms de domaine.
 
 ---

@@ -545,7 +545,7 @@ Chaque attribut est une chaîne contenant des paires de GUID encapsulées dans d
 | Security (secedit) | `{827D319E-6EAC-11D2-A4EA-00C04F79F83A}` | `scecli.dll` |
 | Scripts | `{42B5FAAE-6536-11D2-AE5A-0000F87571E3}` | `gpscript.dll` |
 | Software Installation | `{C6DC5466-785A-11D2-84D0-00C04FB169F7}` | `appmgmts.dll` |
-| Folder Redirection | `{25537BA6-77A8-11D2-9B61-0000F805416C}` | `fdeploy.dll` |
+| Folder Redirection | `{25537BA6-77A8-11D2-9B6C-0000F8080861}` | `fdeploy.dll` |
 | Internet Explorer | `{A2E30F80-D7DE-11d2-BBDE-00C04F86AE3B}` | `iedkcs32.dll` |
 | GP Preferences (Registry) | `{B087BE9D-ED37-454f-AF9C-04291E351182}` | `gpprefcl.dll` |
 | GP Preferences (Files) | `{7150F9BF-48AD-4DA4-A49C-29EF4A8369BA}` | `gpprefcl.dll` |

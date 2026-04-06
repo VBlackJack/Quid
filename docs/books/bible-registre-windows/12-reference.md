@@ -108,6 +108,9 @@ HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunServicesOnce
 HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunServices
 ```
 
+!!! warning "Cles obsoletes"
+    `RunServices` et `RunServicesOnce` sont des reliquats des anciennes versions Windows 9x/NT. Ils ne doivent plus etre utilises comme mecanisme de demarrage sur les versions modernes de Windows ; preferez `Run`, `RunOnce`, les services ou le Planificateur de taches selon le besoin reel.
+
 !!! example "Lister les programmes au demarrage de l'utilisateur"
     ```batch
     reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Run"

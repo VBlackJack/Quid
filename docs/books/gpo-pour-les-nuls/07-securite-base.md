@@ -97,10 +97,13 @@ Windows offre six parametres pour encadrer la politique de mot de passe. Les voi
 |:---------:|:-----------:|:--------------:|
 | Longueur minimale du mot de passe | Nombre minimum de caracteres exige | **14 caracteres** |
 | Le mot de passe doit respecter des exigences de complexite | Impose majuscules, minuscules, chiffres et/ou caracteres speciaux | **Active** |
-| Duree de vie maximale du mot de passe | Nombre de jours avant expiration obligatoire | **90 jours** |
+| Duree de vie maximale du mot de passe | Nombre de jours avant expiration obligatoire | **90 jours** (reglage legacy courant) |
 | Duree de vie minimale du mot de passe | Nombre de jours minimum avant de pouvoir changer de mot de passe | **1 jour** |
 | Conserver l'historique des mots de passe | Nombre d'anciens mots de passe retenus pour empecher la reutilisation | **24 mots de passe** |
 | Enregistrer les mots de passe en utilisant un chiffrement reversible | Stocke le mot de passe dans un format dechiffrable | **Desactive** |
+
+!!! info "Recommandations modernes sur l'expiration"
+    Le NIST, Microsoft et l'ANSSI recommandent aujourd'hui d'eviter l'expiration periodique **sans indice de compromission**. Gardez `90 jours` seulement si votre contexte reglementaire ou technique l'impose encore ; sinon, privilegiez des mots de passe / phrases de passe longs, une MFA solide et une rotation sur incident.
 
 ### Pourquoi 14 caracteres ?
 
@@ -162,7 +165,7 @@ Avec une expiration a 90 jours et un historique de 24 mots de passe, un utilisat
 
 !!! quote "En resume"
     - Les 6 parametres de mot de passe se configurent dans la GPO liee a la racine du domaine.
-    - Longueur minimale de 14 caracteres, complexite activee, expiration a 90 jours.
+    - Longueur minimale de 14 caracteres, complexite activee, et expiration a adapter a votre politique interne (90 jours reste un reglage legacy courant).
     - L'historique de 24 mots de passe et la duree minimale de 1 jour empechent le recyclage.
     - Le chiffrement reversible ne doit **jamais** etre active.
     - Pour des politiques differenciees, explorez les Fine-Grained Password Policies (FGPP).
@@ -761,7 +764,7 @@ Chacune de ces erreurs semble anodine isolement. Mais combinees, elles creent un
 |:---------:|:------:|:------------------:|
 | Longueur minimale du mot de passe | Strategie de mot de passe | 14 caracteres |
 | Complexite du mot de passe | Strategie de mot de passe | Active |
-| Duree de vie maximale | Strategie de mot de passe | 90 jours |
+| Duree de vie maximale | Strategie de mot de passe | 90 jours (legacy courant) |
 | Duree de vie minimale | Strategie de mot de passe | 1 jour |
 | Historique des mots de passe | Strategie de mot de passe | 24 mots de passe |
 | Chiffrement reversible | Strategie de mot de passe | Desactive |
@@ -788,7 +791,7 @@ Chacune de ces erreurs semble anodine isolement. Mais combinees, elles creent un
 !!! quote "En résumé"
     - Longueur minimale du mot de passe : 14 caracteres.
     - Complexite du mot de passe : Active.
-    - Duree de vie maximale : 90 jours.
+    - Duree de vie maximale : a definir selon votre politique interne (`90 jours` reste un exemple classique).
     - Duree de vie minimale : 1 jour.
     - Voici l'ensemble des parametres recommandes dans ce chapitre, regroupes dans un tableau de reference unique.
 ---

@@ -191,7 +191,8 @@ consultées dans un ordre de priorité configurable :
 | WSUS / SCCM | `ManagedServiceAccount` | Réseau interne uniquement |
 | MMPC (cloud Microsoft) | `MMPC` | Accès Internet direct |
 | Partage UNC | `FileShares` | Réseau interne |
-| Windows Update | `InternalDefinitionUpdateServer` | Accès Internet ou WSUS |
+| Serveur interne WSUS / SCCM | `InternalDefinitionUpdateServer` | Réseau interne uniquement |
+| Windows Update / Microsoft Update | `MicrosoftUpdateServer` | Accès Internet direct |
 
 La clé `SignatureUpdateFallbackOrder` définit l'ordre de consultation.
 Si la première source est indisponible,

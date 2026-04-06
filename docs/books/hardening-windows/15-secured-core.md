@@ -65,8 +65,8 @@ Secured-Core va plus loin sur trois axes :
   l'état du firmware est mesuré dynamiquement,
   pas seulement au moment de la mise sous tension.
 - **Protection des secrets** dans une enclave matérielle :
-  Credential Guard isole les identifiants
-  dans un environnement inaccessible au système principal.
+  Credential Guard isole les secrets d'authentification
+  via `LSAIso.exe` dans un environnement inaccessible au système principal.
 
 !!! info "Secure Boot est une condition nécessaire, pas suffisante"
     Secure Boot protège la chaîne de démarrage.
@@ -104,7 +104,7 @@ VBS est une fondation sur laquelle s'appuient plusieurs mécanismes de sécurit�
 
 | Composant | Dépendance VBS | Effet |
 |---|---|---|
-| Credential Guard | Oui | Isole `LSASS` dans le Secure Kernel, protège les hashes NTLM et tickets Kerberos |
+| Credential Guard | Oui | Isole les secrets d'authentification via `LSAIso.exe`, protege les hashes NTLM et tickets Kerberos |
 | HVCI | Oui | Valide l'intégrité du code noyau en continu depuis le Secure World |
 | Virtual TPM | Oui (Hyper-V Gen 2) | Fournit un TPM virtuel aux machines virtuelles |
 | Windows Defender Application Guard | Oui | Isole le navigateur dans un conteneur matériel |
@@ -262,14 +262,14 @@ Il expose les sous-options suivantes :
 
 ### 5.2 Clés de registre associées
 
-Toutes les clés se trouvent sous `HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard`.
+La plupart des cles se trouvent sous `HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard`, **sauf** `LsaCfgFlags` qui appartient a `HKLM\SYSTEM\CurrentControlSet\Control\Lsa`.
 
 | Valeur | Type | Données | Effet |
 |---|---|---|---|
 | `EnableVirtualizationBasedSecurity` | `REG_DWORD` | `1` | Active VBS |
 | `RequirePlatformSecurityFeatures` | `REG_DWORD` | `3` | Exige Secure Boot + DMA Protection |
 | `Scenarios\HypervisorEnforcedCodeIntegrity\Enabled` | `REG_DWORD` | `1` | Active HVCI |
-| `LsaCfgFlags` | `REG_DWORD` | `1` | Active Credential Guard via VBS (avec verrou UEFI) |
+| `Control\Lsa\LsaCfgFlags` | `REG_DWORD` | `1` | Active Credential Guard via VBS (avec verrou UEFI) |
 
 !!! info "Valeurs de LsaCfgFlags"
     `1` = Credential Guard activé avec verrou UEFI (nécessite une intervention manuelle pour désactiver).
@@ -365,7 +365,7 @@ enregistre les événements liés à VBS et HVCI.
 |---|---|---|---|
 | VBS | `DeviceGuard\EnableVirtualizationBasedSecurity = 1` | Isolation matérielle via hyperviseur | CPU VT-x/AMD-V + SLAT + IOMMU |
 | HVCI | `DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity\Enabled = 1` | Intégrité du code noyau en continu | VBS actif |
-| Credential Guard | `DeviceGuard\LsaCfgFlags = 1` | Isolation de `LSASS` dans le Secure World | VBS actif + TPM 2.0 |
+| Credential Guard | `Control\Lsa\LsaCfgFlags = 1` | Isolation des secrets via `LSAIso.exe` dans le Secure World | VBS actif + TPM 2.0 |
 | Secure Boot + DMA | `DeviceGuard\RequirePlatformSecurityFeatures = 3` | Exige Secure Boot et protection DMA | UEFI + IOMMU |
 | System Guard / DRTM | Configuration firmware + System Guard policy | Attestation de l'état courant du poste | Intel TXT ou AMD SKINIT + TPM 2.0 |
 
@@ -379,7 +379,7 @@ flowchart TD
     E --> F
     F --> G[Secure Kernel - VBS Secure World]
     G --> H[HVCI protège le code noyau]
-    G --> I[Credential Guard isole LSASS]
+    G --> I[Credential Guard isole les secrets via LSAIso.exe]
     F --> J[Normal World - OS Windows]
     J --> K[Noyau Windows classique]
     K -.->|Accès bloqué| G

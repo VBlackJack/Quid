@@ -142,7 +142,7 @@ Les cmdlets du module `GroupPolicy` sont ici organises par scenario d'usage, pas
 | `Invoke-GPUpdate` | Forcer `gpupdate /force` sur un ou plusieurs postes distants |
 | `Get-GPResultantSetOfPolicy` | Simuler le RSoP sans appliquer les parametres |
 
-:material-lightbulb-outline: `Rename-GPO` n'est pas dans le module `GroupPolicy`. Le renommage passe par `Set-GPO -Name "ancien" -TargetName "nouveau"` — ou directement via `Rename-GPO` si vous avez la version Server 2019+ du module.
+:material-lightbulb-outline: `Set-GPO -TargetName` n'existe pas. Sur les modules `GroupPolicy` recents (Windows 10 1809+ / Server 2019+), utilisez `Rename-GPO`. Sur les consoles plus anciennes, faites le renommage via la GPMC plutot que d'inventer une syntaxe PowerShell non supportee.
 
 !!! quote "En resume"
     25 cmdlets couvrent la quasi-totalite des operations GPO. Les groupes "creation", "lecture" et "sauvegarde" representent 90 % des usages quotidiens. `Invoke-GPUpdate` et `Get-GPResultantSetOfPolicy` sont les outils de diagnostic immediat.
@@ -368,7 +368,7 @@ Le rapport HTML peut etre ouvert dans n'importe quel navigateur. Il est identiqu
 
 ### Sauvegarder toutes les GPO
 
-La sauvegarde inclut les parametres, les permissions, les filtres WMI et les liens — mais pas les cibles de liens (les OU elles-memes ne sont pas sauvegardees).
+La sauvegarde inclut les parametres, les permissions et la reference au filtre WMI associe (nom / liaison) — mais pas le contenu du filtre WMI ni les liens OU.
 
 ```powershell
 # Backup all GPOs to a timestamped folder
@@ -685,7 +685,7 @@ SOFTWARE\Policies\Microsoft\Windows\System                     DisableCMD      R
 
 ### Invoke-GPUpdate : gpupdate a distance
 
-`Invoke-GPUpdate` execute `gpupdate /force` sur un ou plusieurs postes distants via WMI. Pas besoin de PSRemoting — il utilise le service `Remote Registry` et WMI.
+`Invoke-GPUpdate` execute `gpupdate /force` sur un ou plusieurs postes distants en creant une tache planifiee distante via RPC. Pas besoin de PSRemoting, ni de `Remote Registry`.
 
 ```powershell
 # Force a gpupdate on a single remote computer
@@ -722,7 +722,7 @@ PC-PILOTE-03    AccessDenied
 PC-PILOTE-04    Successful
 ```
 
-Un status `AccessDenied` indique que le compte qui execute le script n'a pas les droits WMI sur ce poste, ou que le pare-feu bloque le trafic WMI (port 135 + ports dynamiques).
+Un status `AccessDenied` indique en general que le compte n'a pas les droits d'administration distante necessaires, ou que le pare-feu / filtrage reseau bloque RPC (port 135 + ports dynamiques).
 
 !!! warning "A surveiller — RandomDelayInMinutes = 0 en production"
     En production, deployer `Invoke-GPUpdate` avec `-RandomDelayInMinutes 0` sur 500 postes simultanement peut creer une tempete de requetes SYSVOL et surcharger les controleurs de domaine. Utilisez un delai aleatoire (`-RandomDelayInMinutes 30`) pour etaler la charge sur une fenetre de 30 minutes.
@@ -740,7 +740,7 @@ Get-GPResultantSetOfPolicy -Computer "PC-JULIEN-01" `
 Le rapport HTML genere est identique au rapport RSoP de planification de GPMC. Il montre quelles GPO s'appliquent, dans quel ordre, et quels parametres sont effectifs.
 
 !!! quote "En resume"
-    `Invoke-GPUpdate` passe par WMI — il ne necessite pas PSRemoting. Limitez `-RandomDelayInMinutes 0` aux environnements de test ou aux interventions ciblees sur peu de postes. En production a grande echelle, utilisez un delai aleatoire pour eviter la surcharge SYSVOL. `Get-GPResultantSetOfPolicy` produit un rapport HTML de planification sans appliquer quoi que ce soit.
+    `Invoke-GPUpdate` passe par une tache planifiee distante creee via RPC — il ne necessite pas PSRemoting. Limitez `-RandomDelayInMinutes 0` aux environnements de test ou aux interventions ciblees sur peu de postes. En production a grande echelle, utilisez un delai aleatoire pour eviter la surcharge SYSVOL. `Get-GPResultantSetOfPolicy` produit un rapport HTML de planification sans appliquer quoi que ce soit.
 
 ---
 
