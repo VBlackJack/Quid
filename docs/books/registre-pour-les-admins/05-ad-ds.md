@@ -439,6 +439,59 @@ msDS-deletedObjectLifetime
     - L'activation de la corbeille est irreversible mais fortement recommandee
     - Ne jamais laisser un DC hors ligne plus longtemps que le tombstone lifetime
 
+### Windows LAPS et Active Directory
+
+Windows LAPS utilise Active Directory comme coffre de mots de passe quand `BackupDirectory` cible AD.
+Cela exige un schéma compatible, des ACL correctes sur les OUs et une séparation claire entre lecture, reset et self-permission des ordinateurs.
+
+Les attributs Windows LAPS modernes commencent par `msLAPS-*`.
+Selon la configuration, on retrouve notamment :
+
+| Attribut | Usage |
+|---|---|
+| `msLAPS-PasswordExpirationTime` | Date d'expiration du mot de passe |
+| `msLAPS-Password` | Mot de passe en clair si le chiffrement AD n'est pas activé |
+| `msLAPS-EncryptedPassword` | Mot de passe chiffré |
+| `msLAPS-EncryptedPasswordHistory` | Historique chiffré si configuré |
+| `msLAPS-EncryptedDSRMPassword` | Mot de passe DSRM chiffré pour les DCs si configuré |
+
+!!! warning "Schéma et droits"
+    Le déploiement Windows LAPS en mode AD ne se résume pas à activer une GPO.
+    Il faut mettre à jour le schéma si nécessaire, puis déléguer les droits sur les OUs ciblées.
+
+```powershell title="Préparer AD pour Windows LAPS"
+# Requires Windows LAPS PowerShell module and appropriate AD rights
+Update-LapsADSchema
+
+Set-LapsADComputerSelfPermission -Identity "OU=Workstations,DC=corp,DC=local"
+Set-LapsADReadPasswordPermission -Identity "OU=Workstations,DC=corp,DC=local" `
+    -AllowedPrincipals "GG-LAPS-Readers"
+Set-LapsADResetPasswordPermission -Identity "OU=Workstations,DC=corp,DC=local" `
+    -AllowedPrincipals "GG-LAPS-Resetters"
+```
+
+```powershell title="Auditer les droits étendus LAPS"
+Find-LapsADExtendedRights -Identity "OU=Workstations,DC=corp,DC=local" |
+    Select-Object ObjectDN, ExtendedRightHolders
+```
+
+Bonnes pratiques :
+
+- déléguer la lecture LAPS à un groupe restreint et tracé ;
+- séparer les droits de lecture et de reset ;
+- activer le chiffrement AD du secret quand le domaine le permet ;
+- éviter de donner les droits LAPS à un groupe support trop large ;
+- documenter la procédure break-glass et les journaux consultés.
+
+!!! info "En resume"
+    - Windows LAPS en mode AD dépend du schéma `msLAPS-*` et des ACL sur les OUs
+    - Les ordinateurs doivent pouvoir écrire leur propre secret LAPS
+    - La lecture et le reset doivent être délégués à des groupes distincts
+    - Le chiffrement AD du secret est à privilégier quand il est disponible
+
+!!! tip "Voir aussi"
+    - :material-shield-check: [LAPS et comptes locaux](../hardening-windows/11-laps-comptes-locaux.md) — Hardening : deploiement GPO, recuperation du mot de passe et checklist
+
 ---
 
 ## Politiques LDAP et limites de connexion

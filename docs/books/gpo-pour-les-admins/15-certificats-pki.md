@@ -515,6 +515,57 @@ certutil -enterprise -addstore NTAuth "C:\Temp\CONTOSO-CA.cer"
 
 ---
 
+## Surface d'attaque ADCS
+
+Active Directory Certificate Services peut devenir un chemin d'escalade Tier 0.
+Le modèle `ESC` popularisé par SpecterOps décrit des familles de mauvaises configurations : templates trop permissifs, droits d'enrollment dangereux, CA modifiable par trop de monde, relais NTLM vers les services Web ADCS, ou publication NTAuth trop large.
+
+| Classe | Signal typique | Réponse défensive |
+|---|---|---|
+| `ESC1` | Template d'authentification où l'utilisateur peut fournir le sujet ou SAN | Retirer `ENROLLEE_SUPPLIES_SUBJECT`, limiter l'enrollment, activer l'approbation |
+| `ESC2` | Template avec `Any Purpose` ou EKU trop large | Réduire les EKU aux usages nécessaires |
+| `ESC3` | Enrollment Agent trop permissif | Restreindre les agents et imposer l'approbation |
+| `ESC4` | ACL de template modifiable par un groupe non privilégié | Revoir `WriteDacl`, `WriteOwner`, `GenericAll`, `WriteProperty` |
+| `ESC5` | ACL dangereuses sur objets PKI AD ou serveur CA | Auditer `CN=Public Key Services` et les groupes CA |
+| `ESC6` | CA acceptant les attributs de sujet fournis à la demande | Revoir `EDITF_ATTRIBUTESUBJECTALTNAME2` et les templates publiés |
+| `ESC7` | Droits d'administration CA trop larges | Séparer `ManageCA`, `ManageCertificates` et admins système |
+| `ESC8` | Relais NTLM vers Web Enrollment / CES | Désactiver ou durcir les endpoints Web, forcer EPA/HTTPS et réduire NTLM |
+
+### Inventaire rapide
+
+```powershell title="Lister les templates publiés par une CA"
+certutil -config "CA-SERVER\CONTOSO-CA" -catemplates
+```
+
+```powershell title="Exporter les templates pour revue"
+certutil -v -template > C:\Temp\adcs-templates.txt
+```
+
+```powershell title="Lire les flags d'une CA"
+certutil -config "CA-SERVER\CONTOSO-CA" -getreg policy\EditFlags
+certutil -config "CA-SERVER\CONTOSO-CA" -getreg policy\RequestDisposition
+```
+
+### Points de contrôle prioritaires
+
+- templates avec EKU `Client Authentication`, `Smart Card Logon` ou `Any Purpose` ;
+- templates où `Authenticated Users`, `Domain Users` ou un groupe large peut enroll ;
+- templates qui autorisent le demandeur à fournir le sujet ou le SAN ;
+- absence de manager approval sur des templates sensibles ;
+- droits `ManageCA` ou `ManageCertificates` accordés trop largement ;
+- Web Enrollment exposé sans protection contre le relais NTLM ;
+- CA présente dans NTAuth sans besoin d'authentification domaine.
+
+!!! danger "PKI = Tier 0"
+    Une CA autorisée dans NTAuth peut émettre des certificats utilisables pour l'authentification AD.
+    Son administration, ses templates et ses endpoints Web doivent être traités comme des composants Tier 0.
+
+!!! quote "En résumé"
+    La surface ADCS critique se trouve surtout dans les templates, les ACL et les endpoints Web.
+    Auditez les classes `ESC1` à `ESC8`, réduisez les droits d'enrollment et protégez les CA comme des actifs Tier 0.
+
+---
+
 ## Pièges de production
 
 ### :material-bomb: Certificat expiré distribué via GPO

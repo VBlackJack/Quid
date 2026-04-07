@@ -509,6 +509,66 @@ Point critique : une fois que `gpsvc` a traite le foreground depuis le cache (av
 
 ---
 
+## Fast Startup (Hiberboot) et impact sur les GPO
+
+`Fast Startup`, ou `Hiberboot`, est un arrêt hybride.
+Au lieu de repartir d'un démarrage entièrement froid, Windows conserve une partie de l'état noyau dans le fichier d'hibernation pour accélérer le prochain allumage.
+
+Ce comportement est utile côté expérience utilisateur, mais il perturbe souvent le diagnostic GPO.
+Un administrateur pense avoir testé un "redémarrage" après modification de GPO, alors que l'utilisateur a seulement effectué un arrêt puis rallumage avec démarrage rapide.
+
+La clé de contrôle principale :
+
+```
+HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power
+  HiberbootEnabled  REG_DWORD
+    0 = Fast Startup désactivé
+    1 = Fast Startup activé
+```
+
+### Effet opérationnel
+
+Les traitements foreground sensibles au démarrage doivent être testés avec un vrai `Restart`, pas avec `Shutdown` puis bouton d'alimentation.
+Cela concerne notamment :
+
+- les GPO machine appliquées au démarrage ;
+- certaines CSE qui nécessitent un cycle foreground ;
+- les scripts de démarrage ;
+- les scénarios `Always wait for the network at computer startup and logon` ;
+- les changements attendus sur VPN, Wi-Fi ou stations portables.
+
+!!! warning "Piège de diagnostic"
+    `gpupdate /force` ne remplace pas toujours un vrai cycle foreground.
+    Si une CSE annonce qu'un redémarrage est requis, utilisez `Restart-Computer` ou le menu Redémarrer, pas un arrêt hybride.
+
+### Pilotage GPO
+
+La stratégie ADMX `Require use of fast startup` se trouve sous :
+
+`Computer Configuration → Administrative Templates → System → Shutdown`
+
+Elle sert surtout à imposer l'usage du démarrage rapide quand il est compatible.
+Pour le désactiver de manière explicite sur un parc administré, une approche courante consiste à pousser la valeur registre via GPP Registry ou baseline de configuration :
+
+```powershell title="Désactiver Fast Startup"
+New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" -Force | Out-Null
+New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" `
+    -Name "HiberbootEnabled" -PropertyType DWord -Value 0 -Force
+```
+
+| Population | Position recommandée |
+|---|---|
+| Postes utilisateurs standards | Garder activé si le support n'observe pas d'écart GPO |
+| Postes administrateurs / PAW | Désactiver pour rendre les cycles de démarrage plus prévisibles |
+| Postes pilotes GPO | Désactiver pendant les tests |
+| Serveurs | Hors sujet dans la plupart des designs, privilégier un vrai redémarrage contrôlé |
+
+!!! quote "En résumé"
+    Fast Startup accélère l'allumage, mais rend les tests GPO ambigus.
+    Pour valider une GPO machine ou une CSE foreground, utilisez un vrai redémarrage et désactivez Hiberboot sur les populations de test sensibles.
+
+---
+
 ## :material-cached: Le cache local des GPO
 
 ### :material-folder: Emplacement des caches

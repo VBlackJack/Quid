@@ -351,6 +351,118 @@ Old Office 2010 Templates     {7C9E2D4F-...}                       20/06/2016 10
 
 ---
 
+## Gouvernance des GPO
+
+Une GPO est un objet de production.
+Elle mérite donc les mêmes réflexes qu'un changement système : nommage, propriétaire, sauvegarde, revue, historique et procédure de retour arrière.
+
+Sans gouvernance, le domaine finit par accumuler des GPO sans lien, sans propriétaire, avec des paramètres contradictoires ou hérités d'une migration ancienne.
+Le problème n'est pas seulement esthétique : chaque GPO inutile augmente le temps de traitement, le bruit d'audit et le risque de conflit silencieux.
+
+### Sauvegarde, restauration et copie
+
+```powershell title="Sauvegarder toutes les GPO"
+$backupRoot = "\\fileserver\gpo-backup\$(Get-Date -Format yyyyMMdd-HHmm)"
+New-Item -ItemType Directory -Path $backupRoot -Force | Out-Null
+Backup-GPO -All -Path $backupRoot
+```
+
+```powershell title="Restaurer une GPO depuis une sauvegarde"
+Restore-GPO -Name "SEC-WKS-Defender-Baseline" -Path "\\fileserver\gpo-backup\20260407-0900"
+```
+
+```powershell title="Copier une GPO vers un nouvel objet"
+Copy-GPO -SourceName "SEC-WKS-Defender-Baseline" `
+    -TargetName "SEC-WKS-Defender-Baseline-Pilot" `
+    -CopyAcl
+```
+
+!!! warning "Sauvegarde GPO ≠ sauvegarde AD complète"
+    `Backup-GPO` sauvegarde le contenu et les métadonnées GPO, mais ne remplace pas une stratégie de sauvegarde et restauration Active Directory.
+    Elle sert au rollback fonctionnel d'une stratégie, pas à reconstruire la forêt.
+
+### AGPM et workflow de changement
+
+`Advanced Group Policy Management` ajoute une logique de coffre, check-in/check-out, approbation et déploiement.
+Il reste pertinent dans les environnements où plusieurs équipes modifient les GPO.
+
+Même sans AGPM, imposez un workflow minimal :
+
+- un propriétaire par GPO ;
+- une raison métier ;
+- un ticket de changement ;
+- une phase pilote ;
+- une date de revue ;
+- une sauvegarde avant modification.
+
+### Export Git des rapports GPO
+
+Le contenu binaire et les ACL d'une GPO ne se versionnent pas parfaitement dans Git.
+En revanche, les rapports XML ou HTML sont excellents pour relire les changements.
+
+```powershell title="Exporter les rapports XML GPO pour revue Git"
+$exportRoot = "C:\GPO-Reports"
+New-Item -ItemType Directory -Path $exportRoot -Force | Out-Null
+
+Get-GPO -All | ForEach-Object {
+    $safeName = $_.DisplayName -replace '[\\/:*?"<>|]', '_'
+    Get-GPOReport -Guid $_.Id -ReportType Xml `
+        -Path (Join-Path $exportRoot "$safeName.xml")
+}
+```
+
+Ce dépôt ne doit pas contenir de secret.
+Relisez les scripts, les préférences avec mots de passe hérités et les chemins internes avant publication hors zone admin.
+
+### Convention de nommage
+
+| Préfixe | Usage | Exemple |
+|---|---|---|
+| `SEC-` | Sécurité et hardening | `SEC-WKS-Defender-ASR` |
+| `CFG-` | Configuration système standard | `CFG-WKS-Power-Settings` |
+| `APP-` | Paramètres applicatifs | `APP-Edge-Baseline` |
+| `USR-` | Paramètres utilisateur | `USR-Explorer-Defaults` |
+| `SRV-` | Serveurs membres | `SRV-SMB-Hardening` |
+| `DC-` | Contrôleurs de domaine | `DC-LDAP-Signing` |
+| `PILOT-` | Tests limités | `PILOT-SEC-WKS-ASR` |
+
+Le nom doit indiquer la cible et l'intention.
+Une GPO appelée `New Group Policy Object` en production est un incident de gouvernance.
+
+### Nettoyage des GPO orphelines
+
+```powershell title="Lister les GPO non liées"
+Get-GPO -All | Where-Object { $_.GpoStatus -ne "AllSettingsDisabled" } |
+    ForEach-Object {
+        $report = [xml](Get-GPOReport -Guid $_.Id -ReportType Xml)
+        if (-not $report.GPO.LinksTo) {
+            [PSCustomObject]@{
+                Name         = $_.DisplayName
+                Id           = $_.Id
+                ModifiedTime = $_.ModificationTime
+            }
+        }
+    } | Sort-Object ModifiedTime
+```
+
+```powershell title="Identifier les GPO sans modification récente"
+$cutoff = (Get-Date).AddMonths(-18)
+Get-GPO -All |
+    Where-Object { $_.ModificationTime -lt $cutoff } |
+    Select-Object DisplayName, GpoStatus, CreationTime, ModificationTime |
+    Sort-Object ModificationTime
+```
+
+!!! tip "Ne supprimez pas directement"
+    Une GPO non liée peut être volontairement conservée comme modèle ou rollback.
+    Marquez-la, sauvegardez-la, demandez validation au propriétaire, puis supprimez seulement après délai.
+
+!!! quote "En résumé"
+    La gouvernance GPO repose sur des sauvegardes, un nommage lisible, une revue des changements et un nettoyage régulier.
+    Une GPO sans propriétaire ni historique est une dette de production.
+
+---
+
 ## Le moteur de traitement : de Userenv.dll à gpsvc
 
 ### NT 4.0 — XP / Server 2003 : Userenv.dll dans Winlogon

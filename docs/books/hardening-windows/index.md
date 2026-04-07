@@ -1,5 +1,5 @@
 ---
-description: "Hardening Windows par le registre et les GPO : baselines CIS/ANSSI, credential protection, ASR, AppLocker, WDAC, Firewall, BitLocker, LAPS et maintien dans le temps en 20 chapitres."
+description: "Hardening Windows par le registre et les GPO : baselines CIS/ANSSI, credential protection, ASR, AppLocker, WDAC, Firewall, BitLocker, LAPS, Active Directory et maintien dans le temps en 21 chapitres."
 tags:
   - hardening
   - securite
@@ -28,6 +28,7 @@ Prérequis utiles : connaître Active Directory, manipuler Regedit sans stress, 
 - Durcir SMB, RDP, le réseau et le firewall
 - Déployer AppLocker, WDAC et les règles ASR
 - Gérer LAPS, BitLocker et Windows Hello for Business par GPO
+- Durcir Active Directory : Kerberos, délégations, LDAP et tiering
 - Construire une checklist de durcissement par niveau (workstation / serveur / DC)
 - Auditer la dérive de configuration dans le temps
 
@@ -55,6 +56,7 @@ Prérequis utiles : connaître Active Directory, manipuler Regedit sans stress, 
 | Déployer BitLocker | [12 - BitLocker](12-bitlocker.md) |
 | Avoir une checklist prête à l'emploi | [18 - Checklist par niveau](18-checklist-niveaux.md) |
 | Surveiller la dérive dans le temps | [20 - Maintien dans le temps](20-maintien-temps.md) |
+| Durcir Active Directory | [21 - Active Directory hardening](21-ad-hardening.md) |
 
 ## Tous les chapitres
 
@@ -80,6 +82,7 @@ Prérequis utiles : connaître Active Directory, manipuler Regedit sans stress, 
 | 18 | [Checklist hardening par niveau](18-checklist-niveaux.md) | Référence terrain |
 | 19 | [Audit de conformité et RSoP](19-audit-conformite.md) | Conformité |
 | 20 | [Maintien dans le temps](20-maintien-temps.md) | Durabilité |
+| 21 | [Active Directory hardening](21-ad-hardening.md) | Active Directory |
 
 !!! tip "Par où commencer ?"
     Lisez 01 et 02 pour cadrer la démarche, puis allez directement au chapitre qui correspond à votre risque prioritaire. La checklist du chapitre 18 est un bon point d'entrée si vous avez un audit imminent.

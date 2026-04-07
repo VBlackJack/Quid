@@ -106,6 +106,43 @@ EnableFeature = 1
 
 ---
 
+## Settings Catalog vs OMA-URI
+
+Le `Settings Catalog` est la surface recommandée dès qu'un paramètre existe nativement dans Intune.
+Il apporte la recherche, les types de données, les libellés, les dépendances et une validation plus sûre qu'un OMA-URI saisi à la main.
+
+L'OMA-URI reste utile quand le paramètre n'est pas encore exposé dans le portail, quand un éditeur documente un CSP spécifique, ou quand vous devez reproduire précisément une policy ADMX-backed.
+
+| Choix | À utiliser quand | Risque principal |
+|---|---|---|
+| Settings Catalog | Paramètre Windows ou Defender déjà exposé dans Intune | Dépendre du rythme de publication du portail |
+| OMA-URI personnalisé | Paramètre absent du portail mais documenté en CSP | Erreur de chemin, type ou valeur |
+| Registry CSP | Besoin de modifier une clé applicative précise | Contourner la logique CSP native |
+| ADMX ingestion | Template tiers ou besoin historique spécifique | Maintenance plus lourde |
+
+!!! tip "Règle simple"
+    Si le paramètre existe dans le Settings Catalog, évitez l'OMA-URI manuel.
+    Réservez l'OMA-URI aux écarts documentés et gardez une preuve du mapping CSP utilisé.
+
+### Vérifier côté registre
+
+Les paramètres MDM modernes apparaissent souvent sous :
+
+```
+HKLM\SOFTWARE\Microsoft\PolicyManager\current\device
+HKLM\SOFTWARE\Microsoft\PolicyManager\providers\{ProviderGUID}
+```
+
+Les paramètres ADMX-backed peuvent aussi aboutir dans les chemins classiques `SOFTWARE\Policies\...` lus par le composant Windows concerné.
+Il faut donc vérifier le CSP, `PolicyManager` et la clé finale quand vous dépannez un conflit GPO/MDM.
+
+!!! info "En resume"
+    - Le Settings Catalog est le choix par défaut pour les paramètres supportés
+    - L'OMA-URI est une échappatoire maîtrisée, pas un style de configuration standard
+    - Le diagnostic doit comparer `PolicyManager`, les clés `Policies` et l'état vu par le composant Windows
+
+---
+
 ## Configuration Service Providers (CSPs)
 
 Les CSPs sont l'interface entre les politiques MDM Intune et la configuration Windows. Chaque CSP gere un domaine specifique et traduit les instructions en modifications registre.
@@ -446,6 +483,39 @@ Co-management actif : Oui
 Authority workloads : 1
 Capabilities        : 255
 ```
+
+### Co-management : workload sliding SCCM → Intune
+
+La co-gestion permet de déplacer progressivement certaines charges de Configuration Manager vers Intune.
+Le mouvement doit être volontaire : pilote d'abord, bascule ensuite, puis retrait de l'ancien paramétrage quand les rapports sont stables.
+
+| Workload | Exemple de bascule | Point de vigilance |
+|---|---|---|
+| Compliance policies | Conformité Intune pour Conditional Access | Ne pas garder deux règles contradictoires |
+| Device configuration | Settings Catalog / Endpoint security | Vérifier les conflits GPO, SCCM et MDM |
+| Endpoint protection | Defender, Firewall, ASR | Tester Tamper Protection et exclusions |
+| Windows Update policies | Update rings / WUfB | Ne pas mélanger deadlines SCCM et WUfB |
+| Client apps | Applications Intune Win32 | Clarifier l'autorité de détection et remédiation |
+| Office Click-to-Run apps | Déploiement Microsoft 365 Apps | Attention aux canaux et redémarrages |
+
+Le registre local aide à confirmer que la machine est bien co-gérée, mais il ne suffit pas à prouver que chaque workload a basculé.
+Il faut comparer la console Configuration Manager, l'admin center Intune et les journaux locaux.
+
+```powershell title="Lire les traces locales de co-management"
+$paths = @(
+    "HKLM:\SOFTWARE\Microsoft\CCM\CoManagementHandler",
+    "HKLM:\SOFTWARE\Microsoft\DeviceManageabilityCSP"
+)
+
+foreach ($path in $paths) {
+    Get-ItemProperty -Path $path -ErrorAction SilentlyContinue |
+        Select-Object PSPath, Authority, CoManagementFlags, EnrollmentID
+}
+```
+
+!!! warning "Bascule partielle"
+    Un workload en mode pilote peut ne concerner qu'une collection limitée.
+    Ne concluez pas depuis un seul poste : vérifiez la collection pilote, l'appartenance de l'appareil et les rapports de conformité.
 
 !!! info "En resume"
     - Les enrollments sont stockes dans `HKLM\SOFTWARE\Microsoft\Enrollments\{GUID}`

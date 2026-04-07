@@ -396,19 +396,45 @@ les événements ne sont pas relus, pas classés, ou pas corrélés à un contex
     La stratégie saine consiste à commencer en audit, à collecter les événements `1122`, puis à passer en blocage et vérifier les `1121`.
     ASR est efficace quand l'observabilité guide réellement la décision.
 
-## 8. Tableau des cinq règles prioritaires
+## 8. Matrice complète des règles ASR
 
-Le tableau ci-dessous résume un ordre de bataille réaliste.
-Il ne remplace pas l'audit,
-mais donne une base de départ solide.
+La table ci-dessous reprend les règles ASR publiées par Microsoft au moment de cette version du chapitre.
+Elle sert de matrice de pilotage : GUID, intention, mapping MITRE indicatif, mode de départ et risque de faux positif.
 
-| Règle prioritaire | GUID court | Mode recommandé au départ | Risque de faux positif |
-|---|---|---|---|
-| Block Office apps from creating child processes | `D4F940AB` | `Audit`, puis `Block` | Moyen |
-| Block execution of potentially obfuscated scripts | `5BEB7EFE` | `Audit`, puis `Block` | Faible à moyen |
-| Block JavaScript or VBScript from launching downloaded executable content | `D3E037E1` | `Audit`, puis `Block` | Faible |
-| Block credential stealing from LSASS | `9E6C4E1F` | Petit pilote direct en `Block` ou `Audit` très court | Moyen à élevé en bruit |
-| Use advanced protection against ransomware | `C1DB55AB` | `Audit`, puis `Block` | Moyen |
+!!! warning "MITRE et règles preview"
+    Les correspondances MITRE ci-dessous sont des repères opérationnels, pas une certification de conformité.
+    Les règles marquées `preview` ou dépendantes de la protection cloud doivent être validées sur un anneau pilote avant standardisation.
+
+| Règle ASR | GUID | MITRE utile | Mode de départ | Risque de faux positif |
+|---|---|---|---|---|
+| Block Office applications from creating executable content | `3B576869-A4EC-4529-8536-B80A7769E899` | `T1204`, `T1059` | `Audit`, puis `Block` | Moyen |
+| Block all Office applications from creating child processes | `D4F940AB-401B-4EFC-AADC-AD5F3C50688A` | `T1204`, `T1059` | `Audit`, puis `Block` | Moyen |
+| Block Office applications from injecting code into other processes | `75668C1F-73B5-4CF0-BB93-3ECF5CB7CC84` | `T1055` | `Audit`, puis `Block` | Faible à moyen |
+| Block JavaScript or VBScript from launching downloaded executable content | `D3E037E1-3EB8-44C8-A917-57927947596D` | `T1059.005`, `T1204` | `Audit`, puis `Block` | Faible |
+| Block execution of potentially obfuscated scripts | `5BEB7EFE-FD9A-4556-801D-275E5FFC04CC` | `T1027`, `T1059` | `Audit`, puis `Block` | Faible à moyen |
+| Block Win32 API calls from Office macros | `92E97FA1-2EDF-4476-BDD6-9DD0B4DDDC7B` | `T1204`, `T1106` | `Audit`, puis `Block` | Moyen |
+| Block credential stealing from the Windows local security authority subsystem | `9E6C4E1F-7D60-472F-BA1A-A39EF669E4B2` | `T1003.001` | `Block` sur petit pilote ou `Audit` court | Moyen à élevé en bruit |
+| Block untrusted and unsigned processes that run from USB | `B2B3F03D-6A65-4F7B-A9C7-1C7EF74A9BA4` | `T1091`, `T1204` | `Audit`, puis `Block` | Moyen |
+| Block executable content from email client and webmail | `BE9BA2D9-53EA-4CDC-84E5-9B1EEEE46550` | `T1566.001`, `T1204` | `Audit`, puis `Block` | Moyen |
+| Block process creations originating from PSExec and WMI commands | `D1E49AAC-8F56-4280-B9BA-993A6D77406C` | `T1021.002`, `T1047` | `Audit`, puis décision par population | Élevé si outils d'administration |
+| Block Adobe Reader from creating child processes | `7674BA52-37EB-4A4F-A9A1-F0F9A1619A2C` | `T1204`, `T1059` | `Audit`, puis `Block` | Faible à moyen |
+| Use advanced protection against ransomware | `C1DB55AB-C21A-4637-BB3F-A12568109D35` | `T1486` | `Audit`, puis `Block` | Moyen |
+| Block persistence through WMI event subscription | `E6DB77E5-3DF2-4CF1-B95A-636979351E5B` | `T1546.003` | `Audit`, puis `Block` | Faible à moyen |
+| Block abuse of exploited vulnerable signed drivers | `56A863A9-875E-4185-98A7-B882C64B5CE5` | `T1068`, `T1014` | `Audit`, puis `Block` | Moyen |
+| Block Webshell creation for Servers | `A8F5898E-1DC8-49A9-9878-85004B8A61E6` | `T1505.003` | `Audit`, puis `Block` sur serveurs exposés | Moyen |
+| Block rebooting machine in Safe Mode | `33DDEDF1-C6E0-47CB-833E-DE6133960387` | `T1562.009` | `Audit` en lab si disponible | Preview / à valider |
+| Block executable files from running unless they meet a prevalence, age, or trusted list criterion | `01443614-CD74-433A-B99E-2ECDC07BFC25` | `T1204`, `T1105` | `Audit`, puis `Warn` ou `Block` ciblé | Élevé |
+| Block Office communication application from creating child processes | `26190899-1602-49E8-8B27-EB1D0A1CE869` | `T1204`, `T1059` | `Audit`, puis `Block` | Moyen |
+| Block use of copied or impersonated system tools | `C0033C00-D16D-4114-A5A0-DC9B3A7D2CEB` | `T1036` | `Audit` en lab si disponible | Preview / à valider |
+
+??? note "Les 5 règles prioritaires (raccourci)"
+    | Règle prioritaire | GUID court | Mode recommandé au départ | Risque de faux positif |
+    |---|---|---|---|
+    | Block Office apps from creating child processes | `D4F940AB` | `Audit`, puis `Block` | Moyen |
+    | Block execution of potentially obfuscated scripts | `5BEB7EFE` | `Audit`, puis `Block` | Faible à moyen |
+    | Block JavaScript or VBScript from launching downloaded executable content | `D3E037E1` | `Audit`, puis `Block` | Faible |
+    | Block credential stealing from LSASS | `9E6C4E1F` | Petit pilote direct en `Block` ou `Audit` très court | Moyen à élevé en bruit |
+    | Use advanced protection against ransomware | `C1DB55AB` | `Audit`, puis `Block` | Moyen |
 
 Le mode recommandé n'est pas universel.
 Il suppose un parc raisonnablement standardisé,
@@ -426,8 +452,94 @@ pas comme une règle isolée.
     revient à transformer une bonne mesure de sécurité en incident de production.
 
 !!! quote "En résumé"
-    Les cinq règles prioritaires couvrent les scénarios les plus rentables.
-    Commencez en audit, traitez `LSASS` séparément, puis industrialisez le blocage avec des événements et des exclusions maîtrisées.
+    Les règles ASR doivent être pilotées règle par règle.
+    Commencez par l'audit, traitez les règles à fort risque d'exploitation, puis basculez en blocage quand les événements et les exceptions sont maîtrisés.
+
+---
+
+## Exploit Protection
+
+Exploit Protection applique des mitigations au niveau système ou par processus :
+DEP, ASLR, blocage de certains comportements mémoire, restrictions de chargement et paramètres compatibles avec les politiques héritées d'EMET.
+
+En entreprise, le bon modèle consiste à exporter une configuration XML depuis un poste de référence, à la relire, puis à la déployer par GPO, Intune ou outil de configuration.
+Un mauvais profil global peut casser une application métier, surtout si elle embarque des composants anciens.
+
+```powershell title="Exporter la configuration Exploit Protection"
+Get-ProcessMitigation -RegistryConfigFilePath "C:\Temp\ExploitProtection.xml"
+```
+
+```powershell title="Importer une configuration Exploit Protection"
+Set-ProcessMitigation -PolicyFilePath "C:\Temp\ExploitProtection.xml"
+```
+
+!!! quote "En résumé"
+    - Exploit Protection complète ASR en durcissant le comportement mémoire et processus.
+    - Déployez par profil XML testé, pas par réglage global improvisé.
+
+---
+
+## Network Protection
+
+Network Protection étend Microsoft Defender SmartScreen et la protection cloud au trafic sortant.
+Il peut bloquer ou auditer les connexions vers des domaines et adresses réputés malveillants, notamment depuis des processus autres que le navigateur.
+
+Le paramètre se pilote typiquement en `Audit` au départ, puis en `Block` une fois le bruit maîtrisé.
+La protection cloud et l'état réel de Defender sont déterminants.
+
+```powershell title="Lire l'état Network Protection"
+Get-MpPreference | Select-Object EnableNetworkProtection
+```
+
+!!! quote "En résumé"
+    - Network Protection réduit les sorties vers des destinations malveillantes.
+    - Son efficacité dépend de Defender, de la protection cloud et d'une phase d'audit lisible.
+
+---
+
+## Controlled Folder Access
+
+Controlled Folder Access protège des dossiers sensibles contre les modifications par des applications non approuvées.
+Il est utile contre des comportements de chiffrement ou de modification massive de fichiers, mais il peut produire des faux positifs sur les outils métiers, les scripts et certains agents de sauvegarde.
+
+Les exclusions doivent être rares, justifiées et révisées.
+Une exclusion trop large transforme la protection en simple affichage de conformité.
+
+```powershell title="Lire l'état Controlled Folder Access"
+Get-MpPreference | Select-Object EnableControlledFolderAccess, ControlledFolderAccessProtectedFolders
+```
+
+!!! quote "En résumé"
+    - Controlled Folder Access protège les données, mais exige une vraie gestion des exclusions.
+    - Commencez en audit ou sur une population pilote avant de généraliser le blocage.
+
+---
+
+## Tamper Protection
+
+Tamper Protection protège les réglages de sécurité Microsoft Defender contre des modifications non autorisées.
+Elle limite les changements locaux ou scriptés qui tenteraient de désactiver la protection.
+
+Dans un parc moderne, elle se pilote plutôt via Intune, Microsoft Defender for Endpoint ou le portail de sécurité que par bricolage local.
+Une GPO qui semble correcte peut ne pas produire l'effet attendu si un mécanisme de protection supérieur verrouille le paramètre.
+
+!!! quote "En résumé"
+    - Tamper Protection protège Defender contre sa désactivation.
+    - Gérez-la depuis le plan de gestion prévu et testez les interactions avec les politiques GPO ou Intune existantes.
+
+---
+
+## Smart App Control (mention)
+
+Smart App Control est une protection Windows 11 qui aide à bloquer les applications non fiables ou malveillantes.
+Elle est surtout pertinente sur des installations neuves ou réinitialisées et n'est pas le substitut d'une politique d'entreprise WDAC.
+
+Pour un design administré, utilisez plutôt `App Control for Business` / WDAC, avec une politique signée, versionnée et testée.
+Smart App Control peut être mentionné dans la stratégie poste, mais il ne doit pas être votre unique contrôle d'exécution.
+
+!!! quote "En résumé"
+    - Smart App Control est utile comme couche Windows 11, mais le contrôle applicatif d'entreprise reste WDAC.
+    - Ne le traitez pas comme un remplacement de votre design App Control.
 
 !!! tip "Voir aussi"
     - :material-book-cog: [Antivirus enterprise](../registre-pour-les-admins/18-antivirus.md) — Registre Admins

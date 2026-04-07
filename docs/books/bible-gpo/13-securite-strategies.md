@@ -603,6 +603,52 @@ NoLMHash                    1      HKLM:\SYSTEM\CurrentControlSet\Control\Lsa
 !!! quote "En résumé"
     Les options de sécurité critiques à configurer en priorité sont : NTLMv2 seul (`LmCompatibilityLevel = 5`), signature SMB obligatoire côté client et serveur, signature LDAP obligatoire, UAC en mode "prompt for credentials" et suppression du stockage des hashs LM. Ces paramètres forment le socle de durcissement réseau de toute infrastructure Windows.
 
+### Windows LAPS via CSE Security
+
+Windows LAPS remplace l'ancien Microsoft LAPS legacy pour la gestion du mot de passe administrateur local.
+Il peut sauvegarder le secret dans Active Directory ou dans Entra ID selon le design.
+
+Point important : Windows LAPS n'est pas une simple option `[System Access]` traitée par `scecli.dll`.
+Les stratégies sont exposées par ADMX et traitées par le composant Windows LAPS côté client.
+Dans le diagnostic GPO, il faut donc lire à la fois la GPO appliquée, le registre de stratégie et les journaux Windows LAPS.
+
+Chemin GPO principal :
+
+`Computer Configuration → Administrative Templates → System → LAPS`
+
+Chemin registre de stratégie :
+
+```
+HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS
+```
+
+| Paramètre | Intention |
+|---|---|
+| `BackupDirectory` | Choisir AD ou Entra ID comme stockage du mot de passe |
+| `PasswordAgeDays` | Définir l'âge maximal du mot de passe local |
+| `PasswordLength` | Imposer une longueur suffisante |
+| `PasswordComplexity` | Définir le jeu de caractères |
+| `PostAuthenticationActions` | Déclencher une rotation après usage du compte |
+| `ADPasswordEncryptionEnabled` | Chiffrer le secret stocké dans AD quand le schéma le permet |
+
+!!! warning "Legacy LAPS vs Windows LAPS"
+    Ne mélangez pas les deux modèles sans plan.
+    L'ancien client Microsoft LAPS, les anciens attributs `ms-Mcs-*` et Windows LAPS n'ont pas exactement les mêmes attributs, journaux et paramètres.
+
+```powershell title="Lire la configuration Windows LAPS locale"
+Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\LAPS" `
+    -ErrorAction SilentlyContinue |
+    Select-Object BackupDirectory, PasswordAgeDays, PasswordLength, PasswordComplexity,
+        ADPasswordEncryptionEnabled, PostAuthenticationActions
+```
+
+!!! quote "En résumé"
+    Windows LAPS doit être traité comme un contrôle de sécurité de base.
+    Vérifiez la GPO, le registre `Policies\LAPS`, les journaux LAPS et les droits AD avant de considérer le déploiement comme conforme.
+
+!!! tip "Voir aussi"
+    - :material-shield-check: [LAPS et comptes locaux](../hardening-windows/11-laps-comptes-locaux.md) — Hardening : deploiement complet, recuperation du mot de passe et audit
+
 ---
 
 ## :material-sitemap: Flux d'application des stratégies de sécurité

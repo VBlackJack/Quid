@@ -172,6 +172,40 @@ Le paramètre **Windows Firewall — Domain Profile — Firewall State** illustr
 !!! quote "En résumé"
     Les ADMX-backed policies permettent à Intune de configurer des paramètres ADMX sans GPO. L'OMA-URI encode l'espace de nommage ADMX. La clé de registre **cible** est identique à celle de la GPO, mais la clé PolicyManager source est distincte. Le Settings Catalog Intune est la surface de découverte recommandée.
 
+### Group Policy Analytics
+
+`Group Policy Analytics` dans Intune importe des rapports GPO au format XML et indique quels paramètres disposent d'un équivalent MDM.
+Il sert à préparer une migration, pas à convertir automatiquement toute l'architecture GPO.
+
+Flux recommandé :
+
+1. Exporter le rapport XML depuis `gpmc.msc` ou `Get-GPOReport`.
+2. Importer le fichier dans `Devices → Manage devices → Group Policy analytics`.
+3. Lire le pourcentage de support MDM, les paramètres inconnus, obsolètes ou non supportés.
+4. Créer une politique Settings Catalog uniquement pour les paramètres supportés et validés.
+5. Piloter sur un groupe restreint avant de délier la GPO historique.
+
+```powershell title="Exporter une GPO pour Group Policy Analytics"
+Get-GPOReport -Name "SEC-WKS-Defender-Baseline" `
+    -ReportType Xml `
+    -Path "C:\Temp\SEC-WKS-Defender-Baseline.xml"
+```
+
+| Résultat Analytics | Lecture |
+|---|---|
+| `MDM Support = Yes` | Mapping disponible vers Intune / Settings Catalog ou CSP |
+| `MDM Support = No` | Pas d'équivalent MDM documenté |
+| `Deprecated` | Paramètre hérité, à remplacer ou supprimer |
+| `Unknown settings` | Paramètre détecté mais non interprété par l'outil |
+
+!!! warning "Limites à connaître"
+    Microsoft documente des limites de taille et d'encodage pour les rapports importés.
+    L'outil peut aussi être moins fiable avec certains exports non anglais ou paramètres non ADMX ; ne migrez pas sans validation fonctionnelle.
+
+!!! quote "En résumé"
+    Group Policy Analytics est un outil d'analyse et de tri.
+    Il accélère la migration GPO → Intune, mais ne remplace ni la revue technique ni le pilote.
+
 ---
 
 ## :material-puzzle: Zones sans recouvrement : GPO-only et MDM-only

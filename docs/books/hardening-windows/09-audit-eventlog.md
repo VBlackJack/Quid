@@ -344,6 +344,52 @@ Si vous avez un SIEM, WEF reste utile pour normaliser le transport natif Windows
     WEF n'est pas un concurrent du SIEM.
     C'est une couche native de collecte Windows qui complète très bien une plateforme d'analyse centralisée.
 
+## Sysmon : supervision avancée
+
+`Sysmon`, de la suite Sysinternals, ajoute des événements orientés détection que les journaux Windows natifs ne produisent pas toujours avec le même niveau de détail.
+Il ne remplace pas l'audit Windows : il le complète avec une télémétrie plus riche sur les processus, le réseau, les fichiers et certains comportements système.
+
+Exemples d'événements utiles :
+
+| Event ID Sysmon | Signal | Usage |
+|---|---|---|
+| `1` | Process Create | Chaînes parent/enfant, lignes de commande |
+| `3` | Network Connection | Connexions sortantes par processus |
+| `7` | Image Loaded | Chargements DLL, très verbeux |
+| `10` | Process Access | Accès à un autre processus, utile pour LSASS |
+| `11` | File Create | Création de fichiers suspects |
+| `22` | DNS Query | Résolutions DNS par processus |
+
+Le point critique est la configuration.
+Un Sysmon installé avec une configuration trop large peut générer beaucoup de bruit.
+Des configurations communautaires comme celle de SwiftOnSecurity sont souvent utilisées comme base de départ, mais elles doivent être relues et adaptées au parc.
+
+```powershell title="Installer Sysmon avec une configuration"
+.\Sysmon64.exe -accepteula -i .\sysmonconfig.xml
+```
+
+```powershell title="Mettre à jour la configuration Sysmon"
+.\Sysmon64.exe -c .\sysmonconfig.xml
+```
+
+```powershell title="Lire les derniers événements Sysmon"
+Get-WinEvent -LogName "Microsoft-Windows-Sysmon/Operational" -MaxEvents 20 |
+    Select-Object TimeCreated, Id, ProviderName, Message
+```
+
+!!! warning "WEF et volume"
+    Ne forwardez pas tout Sysmon sans filtre.
+    Commencez par les événements utiles à vos cas de détection, mesurez le volume, puis élargissez si le collecteur tient la charge.
+
+Les parametres Sysmon sont stockes dans le registre :
+
+- `HKLM\SYSTEM\CurrentControlSet\Services\Sysmon64\Parameters\ConfigFilePath` — emplacement du fichier de configuration actif
+- `HKLM\SYSTEM\CurrentControlSet\Services\Sysmon64\Parameters\HashAlgorithms` — algorithmes de hash utilises (SHA256 recommande)
+
+!!! quote "En résumé"
+    Sysmon apporte une télémétrie de détection très utile, mais sa valeur dépend de la configuration.
+    Installez-le avec une config versionnée, forwardez seulement les événements nécessaires et mesurez le bruit.
+
 ## 6. Flux de centralisation
 
 Le schéma suivant résume un flux simple et robuste. Les postes et serveurs produisent les événements, WEF les transmet à un collecteur, puis le SIEM assure la corrélation et l'investigation.

@@ -277,6 +277,7 @@ nav:
       - Checklist hardening par niveau: books/hardening-windows/18-checklist-niveaux.md
       - Audit de conformite et RSoP: books/hardening-windows/19-audit-conformite.md
       - Maintien dans le temps: books/hardening-windows/20-maintien-temps.md
+      - Active Directory hardening: books/hardening-windows/21-ad-hardening.md
   - Reference rapide:
       - reference/index.md
       - Cheat Sheet GPO: reference/gpo-cheatsheet.md
