@@ -747,3 +747,7 @@ WEBSRV02 | TLS 1.0\Server | Enabled=0
     - Desactivez SSL 2.0/3.0, TLS 1.0/1.1 et activez TLS 1.2/1.3 via les cles Schannel
     - Forcez .NET Framework a utiliser TLS 1.2 avec `SchUseStrongCrypto` et `SystemDefaultTlsVersions`
     - Un redemarrage du serveur est obligatoire pour que les changements Schannel prennent effet
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Services Windows en profondeur](../bible-registre-windows/14-services.md) — Bible Registre
+    - :material-book-open-variant: [Cryptographie, DPAPI et certificats](../bible-registre-windows/29-cryptographie.md) — Bible Registre

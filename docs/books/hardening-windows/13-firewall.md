@@ -260,3 +260,7 @@ flowchart TD
     Activé sur les trois profils, avec des règles entrantes restrictives
     et des exceptions documentées, il réduit la surface d'attaque réseau
     de chaque poste sans dépendre de l'infrastructure périmétrique.
+
+!!! tip "Voir aussi"
+    - :material-shield-lock: [Windows Firewall with Advanced Security via GPO](../bible-gpo/14-firewall.md) — Bible GPO
+    - :material-shield-account: [Wi-Fi, VPN et 802.1X via GPO](../gpo-pour-les-admins/16-wifi-vpn.md) — GPO Admins

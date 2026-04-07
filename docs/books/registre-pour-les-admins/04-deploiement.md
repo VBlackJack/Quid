@@ -1199,3 +1199,7 @@ VERBOSE: [PC-SITE2-01]: LCM:  [ End    Set      ]
     - Le script de deploiement universel applique la baseline sur n'importe quel parc de machines
     - Les tests Pester generes dynamiquement valident la conformite apres deploiement
     - DSC assure le maintien continu de la baseline en corrigeant automatiquement les derives
+
+!!! tip "Voir aussi"
+    - :material-shield-lock: [Deploiement de logiciels via GPO (MSI)](../bible-gpo/17-deploiement-msi.md) — Bible GPO
+    - :material-shield-account: [Automatisation et CI/CD pour les GPO](../gpo-pour-les-admins/23-automation-cicd.md) — GPO Admins

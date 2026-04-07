@@ -1,5 +1,5 @@
 ---
-description: "Quid Wiki — documentation technique exhaustive sur la base de registre Windows et les strategies de groupe. Six livres couvrant du debutant a l'expert."
+description: "Quid Wiki — documentation technique exhaustive sur la base de registre Windows et les strategies de groupe. Sept livres couvrant du debutant a l'expert."
 hide:
   - navigation
   - toc
@@ -21,7 +21,7 @@ Registre Windows, strategies de groupe : choisissez un livre selon votre niveau,
 <div class="quid-action-row" markdown>
 
 [Commencer comme debutant](books/registre-pour-les-nuls/01-cest-quoi.md){ .md-button .md-button--primary }
-[Voir les trois livres](#livres-disponibles){ .md-button }
+[Voir les sept livres](#livres-disponibles){ .md-button }
 
 </div>
 
@@ -170,7 +170,7 @@ Registre Windows, strategies de groupe : choisissez un livre selon votre niveau,
 
     <div class="quid-card-chips">
       <span>Admins et infra</span>
-      <span>25 chapitres</span>
+      <span>30 chapitres</span>
       <span>Cas concrets</span>
     </div>
 
@@ -181,4 +181,23 @@ Registre Windows, strategies de groupe : choisissez un livre selon votre niveau,
 
     </div>
 
+
+-   :material-shield-check:{ .lg .middle } **Hardening Windows**
+
+    ---
+
+    Guide complet de securisation Windows : baselines, Credential Guard, ASR, AppLocker, WDAC, BitLocker, audit et conformite.
+
+    <div class="quid-card-chips">
+      <span>Intermediaire a avance</span>
+      <span>20 chapitres</span>
+      <span>Securisation</span>
+    </div>
+
+    <div class="quid-action-row" markdown>
+
+    [Commencer maintenant](books/hardening-windows/01-philosophie.md){ .md-button .md-button--primary }
+    [Voir le sommaire](books/hardening-windows/index.md){ .md-button }
+
+    </div>
 </div>

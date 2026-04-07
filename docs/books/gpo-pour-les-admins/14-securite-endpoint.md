@@ -664,7 +664,6 @@ Write-Host "Audit exported to CSV."
 !!! quote "En résumé"
     - Validez toujours le résultat sur un poste ou un utilisateur réellement dans le périmètre avant d’élargir.
     - Conservez les commandes et résultats de contrôle comme preuve de conformité post-déploiement.
-    - Cette section fixe l’essentiel à retenir sur vérification globale post-déploiement.
     - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
     - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---

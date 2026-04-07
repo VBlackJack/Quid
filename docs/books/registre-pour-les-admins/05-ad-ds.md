@@ -683,3 +683,7 @@ aucune sortie si la commande reussit.
     - Verifiez `StopReplicationOnAutoRecovery` dans les parametres DFSR apres un crash
     - Desactivez temporairement l'auto-recovery pour debloquer, puis reactivez-le
     - Validez avec `repadmin /replsummary` et `dcdiag /test:replications`
+
+!!! tip "Voir aussi"
+    - :material-shield-lock: [SYSVOL : replication et structure](../bible-gpo/04-sysvol.md) — Bible GPO
+    - :material-book-open-variant: [Gestion d'entreprise et cloud](../bible-registre-windows/24-cloud-entreprise.md) — Bible Registre

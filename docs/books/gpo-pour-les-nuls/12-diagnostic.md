@@ -38,7 +38,6 @@ C'est exactement pareil avec les GPO.
     - "Ma GPO ne marche pas.".
     - C'est la phrase la plus prononcee par les administrateurs Windows debutants.
     - Et la bonne nouvelle : il y a toujours une raison.
-    - Le point clé de la question de depart doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## Etape 1 : gpresult /r — le verdict rapide
@@ -595,10 +594,9 @@ flowchart TD
 ```
 
 
-!!! quote "En résumé"
-    - Voici comment aborder systematiquement le diagnostic d'une GPO qui ne s'applique pas.
-    - Le schéma sur l'arbre de decision sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
-    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
+!!! quote "En resume"
+    - L’arbre de decision resume la demarche : `gpresult /r` d’abord, puis identifier si la GPO est absente, refusee ou presente mais sans effet.
+    - Chaque branche mene a une cause precise (filtrage, OU, heritage, WMI) et une action corrective.
 ---
 
 ## Exercice de diagnostic

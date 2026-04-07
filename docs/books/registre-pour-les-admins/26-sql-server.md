@@ -924,3 +924,7 @@ SQL Browser: Running
     - `TcpPort` = port statique, `TcpDynamicPorts` = port dynamique ; les deux sont mutuellement exclusifs
     - Le pare-feu doit autoriser le port TCP choisi et le port UDP 1434 (SQL Browser)
     - Toujours verifier les protocoles actifs, le port et le pare-feu en cas de probleme de connectivite
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Services Windows en profondeur](../bible-registre-windows/14-services.md) — Bible Registre
+    - :material-book-open-variant: [Securite et permissions](../bible-registre-windows/06-securite.md) — Bible Registre

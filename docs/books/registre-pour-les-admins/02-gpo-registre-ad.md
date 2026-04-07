@@ -817,3 +817,7 @@ Non-Compliant      3
     - Le filtrage de securite par groupe AD limite l'application aux machines pertinentes
     - Le script de fallback couvre les cas ou la GPO n'a pas pu s'appliquer a temps
     - Verifiez toujours le deploiement par un audit PowerShell Remoting apres application
+
+!!! tip "Voir aussi"
+    - :material-shield-lock: [Traitement des strategies : cycle et modes](../bible-gpo/07-traitement.md) — Bible GPO
+    - :material-book-open-variant: [Strategies de groupe en profondeur](../bible-registre-windows/20-gpo.md) — Bible Registre

@@ -461,3 +461,6 @@ pour la plupart des environnements d'entreprise.
     Le niveau 2 renforce la posture avec des prérequis modérés.
     Le niveau 3 s'adresse aux environnements à haute sensibilité.
     L'audit initial et le suivi du score permettent de piloter la progression.
+
+!!! tip "Voir aussi"
+    - :material-shield-lock: [Baselines de securite (CIS, STIG, Microsoft)](../bible-gpo/22-baselines.md) — Bible GPO

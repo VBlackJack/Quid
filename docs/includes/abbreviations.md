@@ -77,3 +77,56 @@
 *[UPD]: User Profile Disk — disque de profil utilisateur pour les sessions RDS
 *[RSAT]: Remote Server Administration Tools — outils d'administration de serveur a distance
 *[WUfB]: Windows Update for Business — service de mise a jour Windows pour les entreprises
+
+<!-- Network & security protocols -->
+*[SMB]: Server Message Block — protocole de partage de fichiers et d'imprimantes Windows
+*[LDAP]: Lightweight Directory Access Protocol — protocole d'acces aux annuaires
+*[TLS]: Transport Layer Security — protocole de chiffrement des communications reseau
+*[SSL]: Secure Sockets Layer — predecesseur de TLS (obsolete, remplace par TLS)
+*[NTLM]: NT LAN Manager — protocole d'authentification Windows legacy
+
+<!-- Defender & endpoint security -->
+*[ASR]: Attack Surface Reduction — regles de reduction de la surface d'attaque Microsoft Defender
+*[HVCI]: Hypervisor-protected Code Integrity — integrite du code protegee par l'hyperviseur
+*[VBS]: Virtualization-Based Security — securite basee sur la virtualisation (Credential Guard, etc.)
+*[EDR]: Endpoint Detection and Response — detection et reponse sur les terminaux
+
+<!-- Hardware & firmware -->
+*[TPM]: Trusted Platform Module — puce de securite materielle pour le chiffrement et l'attestation
+*[UEFI]: Unified Extensible Firmware Interface — interface firmware moderne remplacant le BIOS
+*[BIOS]: Basic Input/Output System — firmware legacy d'initialisation du materiel
+
+<!-- Active Directory advanced -->
+*[ADCS]: Active Directory Certificate Services — autorite de certification integree a Active Directory
+*[ADFS]: Active Directory Federation Services — service de federation d'identite
+*[DC]: Domain Controller — controleur de domaine Active Directory
+
+<!-- Monitoring & compliance -->
+*[SIEM]: Security Information and Event Management — centralisation et correlation des evenements de securite
+*[SOC]: Security Operations Center — centre operationnel de securite
+
+<!-- Network -->
+*[RADIUS]: Remote Authentication Dial-In User Service — protocole d'authentification reseau centralise
+*[UNC]: Universal Naming Convention — convention de nommage reseau (\\serveur\partage)
+*[WQL]: WMI Query Language — langage de requete pour WMI
+*[LLMNR]: Link-Local Multicast Name Resolution — resolution de noms multicast locale (risque de securite)
+*[NBT-NS]: NetBIOS over TCP/IP Name Service — service de noms NetBIOS (risque de securite)
+*[DoH]: DNS over HTTPS — resolution DNS chiffree via HTTPS
+*[WFP]: Windows Filtering Platform — plateforme de filtrage reseau Windows
+
+<!-- Authentication -->
+*[WHfB]: Windows Hello for Business — authentification biometrique/PIN d'entreprise Microsoft
+
+<!-- Security standards & frameworks -->
+*[CIS]: Center for Internet Security — organisation publiant des benchmarks de securite
+*[STIG]: Security Technical Implementation Guide — guide de securisation du DoD americain
+*[ANSSI]: Agence Nationale de la Securite des Systemes d'Information — autorite francaise de cybersecurite
+*[SCT]: Security Compliance Toolkit — boite a outils Microsoft pour appliquer les baselines de securite
+
+<!-- Group Policy internals -->
+*[GPC]: Group Policy Container — objet Active Directory contenant les metadonnees d'une GPO
+
+<!-- Miscellaneous -->
+*[RBAC]: Role-Based Access Control — controle d'acces base sur les roles
+*[CAL]: Client Access License — licence d'acces client Microsoft
+*[NAP]: Network Access Protection — protection d'acces reseau (obsolete, remplace par 802.1X/NAC)

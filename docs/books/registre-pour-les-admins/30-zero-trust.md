@@ -1008,3 +1008,7 @@ Machines requiring remediation :
     - Le deploiement via PSRemoting applique la baseline uniformement, quel que soit l'emplacement du poste
     - Le score de conformite par machine identifie les postes non prets pour le modele Zero Trust
     - Le rapport pour le RSSI fournit une vue executive du taux de preparation de la flotte
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Zero Trust et GPO : le futur de la configuration](../gpo-pour-les-admins/25-zero-trust.md) — GPO Admins
+    - :material-shield-check: [Philosophie du hardening](../hardening-windows/01-philosophie.md) — Hardening

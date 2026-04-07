@@ -423,3 +423,7 @@ Puis on recommence quand l'OS, les menaces ou les usages changent.
     Avant de durcir, il faut connaître l'existant, choisir un référentiel, tester dans un contexte réaliste et déployer par vagues.
     Le bon hardening est reproductible.
     Le meilleur hardening est aussi réversible.
+
+!!! tip "Voir aussi"
+    - :material-shield-lock: [Baselines de securite (CIS, STIG, Microsoft)](../bible-gpo/22-baselines.md) — Bible GPO
+    - :material-shield-account: [Zero Trust et GPO : le futur de la configuration](../gpo-pour-les-admins/25-zero-trust.md) — GPO Admins

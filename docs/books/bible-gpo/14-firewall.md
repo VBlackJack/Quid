@@ -421,8 +421,6 @@ WFAS n'a pas de numéro de priorité explicite comme les ACL réseau. Les règle
     - Le moteur WFP (Windows Filtering Platform) évalue chaque paquet selon un ordre précis.
     - La décision finale suit ce flux.
     - WFAS n'a pas de numéro de priorité explicite comme les ACL réseau.
-    - Le schéma sur flux de traitement d'un paquet sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
-    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
 ---
 
 ## :material-bomb: Piège de production : Block All Outbound sans exception

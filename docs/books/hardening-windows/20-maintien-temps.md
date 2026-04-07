@@ -392,3 +392,6 @@ vérifiée et actualisée au rythme des menaces et du parc.
     et suivi des indicateurs forment le cycle de vie du durcissement.
     Sans ce cycle, le hardening se dégrade silencieusement
     et la surface d'attaque se reconstitue.
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Automatisation et CI/CD pour les GPO](../gpo-pour-les-admins/23-automation-cicd.md) — GPO Admins

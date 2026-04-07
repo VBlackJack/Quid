@@ -428,3 +428,7 @@ pas comme une règle isolée.
 !!! quote "En résumé"
     Les cinq règles prioritaires couvrent les scénarios les plus rentables.
     Commencez en audit, traitez `LSASS` séparément, puis industrialisez le blocage avec des événements et des exclusions maîtrisées.
+
+!!! tip "Voir aussi"
+    - :material-book-cog: [Antivirus enterprise](../registre-pour-les-admins/18-antivirus.md) — Registre Admins
+    - :material-shield-account: [Securite endpoint via GPO](../gpo-pour-les-admins/14-securite-endpoint.md) — GPO Admins

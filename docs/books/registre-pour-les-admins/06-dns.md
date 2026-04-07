@@ -668,3 +668,7 @@ Timestamp                 CounterSamples
     - Videz le cache serveur (`Clear-DnsServerCache`) et client (`Clear-DnsClientCache`) apres correction
     - Reduisez `MaxNegativeCacheTTL` pour limiter l'impact des pannes de forwarder
     - Configurez toujours au moins deux forwarders pour la redondance
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Registre et reseau](../bible-registre-windows/08-reseau.md) — Bible Registre
+    - :material-shield-check: [Durcissement reseau : LLMNR, NBT-NS et DoH](../hardening-windows/17-reseau-llmnr-doh.md) — Hardening

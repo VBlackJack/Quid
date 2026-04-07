@@ -950,3 +950,7 @@ Score : 6 / 6 checks passed
     - Le deploiement via GPO (script de demarrage) ou SCCM (task sequence) couvre l'ensemble du parc
     - La verification post-deploiement valide chaque parametre individuellement
     - Les services cloud Adobe et les mises a jour automatiques Java sont les deux priorites de verrouillage
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Applications tierces via GPO](../gpo-pour-les-admins/21-apps-tierces.md) — GPO Admins
+    - :material-book-open-variant: [Windows Installer (MSI) et le registre](../bible-registre-windows/26-msi-installer.md) — Bible Registre

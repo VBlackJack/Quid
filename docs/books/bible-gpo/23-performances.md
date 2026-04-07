@@ -509,7 +509,6 @@ Le logon total dans ce scénario dépasse 28 secondes — au-delà du seuil d'al
     - Le logon total dans ce scénario dépasse 28 secondes — au-delà du seuil d'alerte de 30 secondes.
     - Évaluation WMI (03.4s → 06.8s) — 3,4 secondes pour deux filtres WMI.
     - C'est ici que se concentre le gain le plus rapide.
-    - Le schéma sur timeline annotée du logon gpo sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
 ---
 
 ## :material-monitor-dashboard: Mesure et monitoring continu

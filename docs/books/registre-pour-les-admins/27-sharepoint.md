@@ -927,3 +927,7 @@ Le temps de chargement moyen est passe de 8-12 secondes a environ 2 secondes. Le
     - Le Distributed Cache doit etre dimensionne selon le nombre d'utilisateurs
     - La compression IIS reduit la bande passante sans impact CPU significatif
     - Les optimisations combinees ont reduit le temps de chargement de 80%
+
+!!! tip "Voir aussi"
+    - :material-book-cog: [Exchange Server](25-exchange.md) — Registre Admins
+    - :material-book-cog: [IIS / Web Server](09-iis.md) — Registre Admins

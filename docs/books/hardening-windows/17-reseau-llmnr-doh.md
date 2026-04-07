@@ -378,3 +378,7 @@ et ne diffuse aucune requête exploitable sur le LAN.
     Désactiver LLMNR et NBT-NS est un quick win à faible coût et à gain élevé.
     DoH apporte la confidentialité DNS en transit mais doit pointer
     vers un résolveur interne pour ne pas contourner les politiques de filtrage.
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Registre et reseau](../bible-registre-windows/08-reseau.md) — Bible Registre
+    - :material-book-cog: [DNS Server](../registre-pour-les-admins/06-dns.md) — Registre Admins

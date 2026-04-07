@@ -542,3 +542,7 @@ flowchart LR
 !!! quote "En résumé"
     Une baseline utile suit toujours le même cycle :
     référence, test, exception documentée, déploiement, contrôle continu.
+
+!!! tip "Voir aussi"
+    - :material-shield-lock: [Baselines de securite (CIS, STIG, Microsoft)](../bible-gpo/22-baselines.md) — Bible GPO
+    - :material-shield-lock: [LGPO et strategies locales multiples](../bible-gpo/21-lgpo.md) — Bible GPO

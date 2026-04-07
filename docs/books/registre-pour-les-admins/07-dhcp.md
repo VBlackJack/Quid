@@ -715,3 +715,7 @@ aucune sortie si la reconciliation est terminee sans erreur.
     - Le service remet `RestoreFlag` a `0` apres une restauration reussie
     - Si le backup automatique est absent, utilisez `Import-DhcpServer` avec un export XML
     - Apres toute restauration, verifiez l'autorisation AD et reconciliez les scopes
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Registre et reseau](../bible-registre-windows/08-reseau.md) — Bible Registre
+    - :material-book-open-variant: [Services Windows en profondeur](../bible-registre-windows/14-services.md) — Bible Registre

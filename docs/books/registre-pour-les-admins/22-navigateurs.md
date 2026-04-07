@@ -677,3 +677,6 @@ La mise a jour de la strategie de l'ordinateur a ete effectuee avec succes.
     - Le deploiement se fait via GPO (script de demarrage) ou outil de gestion (SCCM, Intune)
     - Verifiez avec `chrome://policy` et `edge://policy` apres deploiement
     - Testez systematiquement sur un groupe pilote avant le deploiement general
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Navigateurs (Edge, Chrome, Firefox) via GPO](../gpo-pour-les-admins/09-navigateurs.md) — GPO Admins

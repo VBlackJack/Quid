@@ -457,3 +457,7 @@ flowchart TD
 !!! quote "En résumé"
     Les points de ce chapitre ont été recoupés entre Microsoft Learn,
     le modèle ADMX BitLocker local et l'aide PowerShell native afin de sécuriser les correspondances entre GPO, registre et récupération AD.
+
+!!! tip "Voir aussi"
+    - :material-shield-lock: [BitLocker via GPO](../bible-gpo/16-bitlocker.md) — Bible GPO
+    - :material-shield-account: [BitLocker et LAPS via GPO](../gpo-pour-les-admins/17-bitlocker-laps.md) — GPO Admins

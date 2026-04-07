@@ -816,3 +816,6 @@ PC-DIR-12     Running sccm-mp01.entreprise.com    Passed
     - Un MP obsolete se corrige en modifiant `SMSSLP` dans `HKLM\SOFTWARE\Microsoft\CCM`
     - `CcmEval.exe` + `CcmRepair.exe` resolvent la majorite des problemes de sante client
     - En dernier recours, une reinstallation complete via `ccmsetup.exe /uninstall` puis `/forceinstall`
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [GPO et SCCM/MECM en coexistence](../gpo-pour-les-admins/20-sccm-mecm.md) — GPO Admins

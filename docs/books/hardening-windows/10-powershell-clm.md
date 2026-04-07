@@ -281,3 +281,7 @@ Ce flux n'indique pas tout. `AMSI`, `4103`, la transcription et les événements
 !!! quote "En résumé"
     La séquence défensive utile est : politique d'exécution, réduction des capacités, puis journalisation détaillée.
     Sans cette combinaison, PowerShell reste trop opaque pour une défense sérieuse.
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Scripts et automatisation](../bible-registre-windows/10-scripts.md) — Bible Registre
+    - :material-book-cog: [PowerShell Remoting et le registre a distance](../registre-pour-les-admins/01-powershell-remoting.md) — Registre Admins

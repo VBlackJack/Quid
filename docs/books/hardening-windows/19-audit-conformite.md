@@ -451,3 +451,7 @@ flowchart TD
     `gpresult` identifie les GPO appliquées et refusées.
     Le script PowerShell vérifie les valeurs réelles en registre.
     Sans cette boucle de vérification, le hardening reste une déclaration d'intention.
+
+!!! tip "Voir aussi"
+    - :material-book-cog: [Audit et conformite du registre](../registre-pour-les-admins/03-audit-conformite.md) — Registre Admins
+    - :material-shield-account: [Audit et conformite des GPO](../gpo-pour-les-admins/06-audit-conformite.md) — GPO Admins

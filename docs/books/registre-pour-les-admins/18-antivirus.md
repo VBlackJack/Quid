@@ -953,3 +953,7 @@ Write-Output "5. Protection temps reel : $($status.RealTimeProtectionEnabled)"
     - Deployer les exclusions via GPO Registry Preferences pour couvrir tous les postes concernes
     - Soumettre le faux positif a Microsoft pour correction dans les signatures futures
     - Verifier que la protection temps reel reste active apres l'ajout des exclusions
+
+!!! tip "Voir aussi"
+    - :material-shield-check: [Microsoft Defender Antivirus via GPO](../hardening-windows/16-defender-antivirus.md) — Hardening
+    - :material-shield-check: [Attack Surface Reduction (ASR)](../hardening-windows/08-asr-rules.md) — Hardening

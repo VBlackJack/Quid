@@ -916,3 +916,7 @@ DCSRV01   False           True       False        True        False
     - Les controleurs de domaine doivent conserver leurs partages administratifs (SYSVOL, NETLOGON)
     - Combinez le durcissement SMB avec la segmentation reseau pour une defense en profondeur efficace
     - Deployez ces parametres via GPO pour garantir la coherence et empecher les retours en arriere
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Securite et permissions](../bible-registre-windows/06-securite.md) — Bible Registre
+    - :material-shield-check: [SMB hardening](../hardening-windows/05-smb-hardening.md) — Hardening

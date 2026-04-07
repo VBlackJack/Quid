@@ -160,8 +160,7 @@ flowchart TD
 
 !!! quote "En résumé"
     - Le client contacte toujours le DC logon pour lire SYSVOL.
-    - Le schéma sur visualisation du pipeline registry.pol sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
-    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
+    - Si la réplication DFS-R est en retard, le client peut appliquer une version obsolète de `registry.pol` malgré un DC d’authentification à jour.
 ---
 
 ## :material-powershell: Lire registry.pol avec PowerShell
@@ -838,7 +837,6 @@ $localPol | Format-Table KeyPath, ValueName, TypeName, Value -AutoSize
     - Cela est utile pour les postes workgroup ou pour tester un paramètre sans AD.
     - GPO locale — Machine : C:\Windows\System32\GroupPolicy\Machine\Registry.pol.
     - GPO locale — User : C:\Windows\System32\GroupPolicy\User\Registry.pol.
-    - Le point clé de inspecter registry.pol sur un poste local doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## :material-link-box-variant: Cross-références

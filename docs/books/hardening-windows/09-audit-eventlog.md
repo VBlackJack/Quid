@@ -406,3 +406,7 @@ Le cinquième piège est l'oubli des DC. Une partie de la vérité d'authentific
 !!! quote "En résumé"
     Les trois échecs les plus fréquents sont le bruit, la rotation trop rapide et l'absence de filtrage.
     Un audit efficace est ciblé, dimensionné et centralisé.
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [ETW, tracing et performance du registre](../bible-registre-windows/27-etw-performance.md) — Bible Registre
+    - :material-book-open-variant: [Analyse forensique](../bible-registre-windows/17-forensique.md) — Bible Registre

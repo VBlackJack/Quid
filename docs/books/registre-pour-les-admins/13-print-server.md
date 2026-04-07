@@ -963,3 +963,7 @@ No x86 Drivers                   0 PASS
     - Les pilotes x86 doivent etre supprimes si le parc est 100% 64 bits
     - Le spooler doit etre desactive sur tout serveur qui n'a pas besoin du role d'impression
     - Un script de validation permet de verifier la conformite apres durcissement
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Sous-systeme d'impression et le registre](../bible-registre-windows/30-impression.md) — Bible Registre
+    - :material-shield-account: [PrintNightmare et durcissement Print Spooler](../gpo-pour-les-admins/27-printnightmare-hardening.md) — GPO Admins

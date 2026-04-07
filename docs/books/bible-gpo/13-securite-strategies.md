@@ -640,9 +640,8 @@ Pour les paramètres `[System Access]` (politique de mot de passe et de verrouil
 
 
 !!! quote "En résumé"
-    - Les GPO liées aux OUs enfants sont ignorées pour ces paramètres.
-    - Le schéma sur flux d'application des stratégies de sécurité sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
-    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
+    - Les paramètres `[System Access]` (mot de passe, verrouillage) ne sont résolus qu’à partir des GPO liées à la racine du domaine.
+    - Un paramètre absent dans `GptTmpl.inf` n’écrase pas la valeur existante — contrairement à `registry.pol`.
 ---
 
 ## :material-bug: Diagnostic et dépannage

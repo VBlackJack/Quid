@@ -390,3 +390,6 @@ flowchart TD
     pour protéger le poste depuis le firmware jusqu'au noyau en cours d'exécution.
     L'hyperviseur crée une frontière matérielle entre le système et ses secrets.
     Le déploiement passe par la GPO Device Guard et une validation préalable des drivers.
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Secured-Core PC](../gpo-pour-les-admins/30-secured-core.md) — GPO Admins

@@ -689,3 +689,7 @@ PC-COMPTA01.corp.local    04/04/2026 11:00:00       Desktops-Paris
     - La suppression du `SusClientId` force sa regeneration au prochain cycle
     - `wuauclt /detectnow` et `/reportnow` forcent les cycles de detection et de rapport
     - Verifiez toujours `UseWUServer = 1` dans la sous-cle `AU` : c'est l'oubli le plus frequent
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Windows Update for Business via GPO](../gpo-pour-les-admins/10-windows-update.md) — GPO Admins
+    - :material-shield-star: [Configurer Windows Update par GPO](../gpo-pour-les-nuls/09-windows-update.md) — GPO Nuls

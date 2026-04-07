@@ -43,7 +43,6 @@ La compréhension de cette architecture est fondamentale. La quasi-totalité des
     - Une GPO n'est pas un objet unique.
     - C'est une construction distribuée composée de trois éléments distincts qui doivent rester cohérents entre eux.
     - La compréhension de cette architecture est fondamentale.
-    - Le point clé de les trois couches d'une gpo doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## Le GPC — Group Policy Container
@@ -415,8 +414,6 @@ sequenceDiagram
 !!! quote "En résumé"
     - Le flux est identique pour les politiques Machine (au démarrage) et Utilisateur (à la connexion).
     - Seul le contexte d'exécution change — SYSTEM pour Machine, session de l'utilisateur pour User.
-    - Le schéma sur architecture générale — flux d'application d'une gpo sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
-    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
 ---
 
 ## La synchronisation GPC ↔ GPT : le numéro de version

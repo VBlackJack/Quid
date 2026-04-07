@@ -231,7 +231,6 @@ TimeCreated           User                FilePath                              
     - Les journaux AppLocker se trouvent sous Applications and Services Logs\Microsoft\Windows\AppLocker\.
     - 8002 : Enforce.
     - 8003 : Audit.
-    - Le point clé de applocker : event ids de référence doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## :material-kernel: WDAC : Windows Defender Application Control
@@ -477,9 +476,6 @@ flowchart TD
 
 
 !!! quote "En résumé"
-    - Le schéma sur diagramme de décision : évaluation d'une exécution sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
-    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
-    - Cette section fixe l’essentiel à retenir sur diagramme de décision : évaluation d'une exécution.
     - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
     - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---

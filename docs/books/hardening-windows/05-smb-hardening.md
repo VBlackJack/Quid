@@ -483,3 +483,7 @@ et les publications `MSRC`.
     Le chapitre s'appuie sur des sources Microsoft pour les réglages
     et sur une lecture opérationnelle prudente pour le déploiement.
     C'est cette combinaison qui rend un hardening `SMB` exploitable sur le terrain.
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Registre et reseau](../bible-registre-windows/08-reseau.md) — Bible Registre
+    - :material-book-cog: [File Server / DFS](../registre-pour-les-admins/12-file-server.md) — Registre Admins

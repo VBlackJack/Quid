@@ -551,7 +551,6 @@ En mode Replace, les redirections de dossiers de l'OU utilisateur sont ignorees.
     - Creer une GPO dediee pour le loopback.
     - Ne pas melanger la GPO qui active le loopback avec les GPO qui configurent les parametres utilisateur.
     - Une GPO XXX-Loopback-Replace qui ne contient que le parametre de loopback est plus facile a auditer et a depanner.
-    - Le point clé de bonnes pratiques de deploiement doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## :material-crosshairs: Cross-references

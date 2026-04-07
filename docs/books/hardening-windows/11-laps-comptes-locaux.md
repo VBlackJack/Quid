@@ -575,3 +575,7 @@ flowchart LR
 !!! quote "En résumé"
     Les points techniques de ce chapitre ont été recoupés entre la documentation Microsoft Learn,
     les modèles ADMX locaux et l'aide PowerShell native afin d'éviter les approximations sur LAPS, GPO et AD.
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [BitLocker et LAPS via GPO](../gpo-pour-les-admins/17-bitlocker-laps.md) — GPO Admins
+    - :material-book-open-variant: [Securite et permissions](../bible-registre-windows/06-securite.md) — Bible Registre

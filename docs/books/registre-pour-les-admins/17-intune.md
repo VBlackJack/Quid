@@ -835,3 +835,7 @@ WSH desactive avec succes par remediation.
     - Un script de conformite verifie l'application effective du parametre
     - Un script de remediation couvre les cas ou l'OMA-URI echoue a s'appliquer
     - La verification fonctionnelle (tenter d'executer un VBS) confirme que le parametre a l'effet attendu
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Migration GPO vers Intune](../gpo-pour-les-admins/19-migration-intune.md) — GPO Admins
+    - :material-shield-lock: [GPO et MDM : convergence et coexistence](../bible-gpo/25-mdm-convergence.md) — Bible GPO

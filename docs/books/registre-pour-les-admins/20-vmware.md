@@ -924,3 +924,6 @@ Le tableau suivant resume les risques a surveiller apres l'application de ces op
     - Le MMR decharge le decodage video vers le client : critique pour Adobe Premiere et la lecture de rushes
     - Les tablettes graphiques Wacom s'autorisent par VendorID (VID 056A) via les regles USB
     - Surveiller la bande passante et la charge GPU apres optimisation pour eviter la saturation
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Virtualisation et conteneurs](../bible-registre-windows/19-virtualisation.md) — Bible Registre

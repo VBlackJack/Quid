@@ -746,7 +746,6 @@ Avant de continuer, assurons-nous que les termes sont clairs :
     - Avant de continuer, assurons-nous que les termes sont clairs.
     - GPMC : Group Policy Management Console : l'outil graphique pour gerer les GPO du domaine.
     - RSAT : Remote Server Administration Tools : le pack d'outils d'administration dont GPMC fait partie.
-    - Le point clé de vocabulaire cle de ce chapitre doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## Un mot sur PowerShell et GPMC

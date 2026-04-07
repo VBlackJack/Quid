@@ -742,3 +742,6 @@ Connectivite portail True
     - Utiliser les GPO Registry Preferences pour pousser les 6 valeurs cles de `PanSetup\GlobalProtect`
     - Le MSI accepte la propriete `PORTAL=` pour preconfigurer le portail a l'installation
     - Valider avec un script de verification couvrant service, registre, certificat et connectivite
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Wi-Fi, VPN et 802.1X via GPO](../gpo-pour-les-admins/16-wifi-vpn.md) — GPO Admins

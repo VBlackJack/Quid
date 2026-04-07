@@ -891,3 +891,6 @@ Get-ChildItem $logPath -Filter "SEND*.LOG" |
     - Les journaux de protocole SMTP montrent la cause exacte (ici : certificat expire)
     - Le remplacement du certificat et la relance des files resolvent le probleme
     - Mettez en place des alertes d'expiration pour eviter la recurrence
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Services Windows en profondeur](../bible-registre-windows/14-services.md) — Bible Registre

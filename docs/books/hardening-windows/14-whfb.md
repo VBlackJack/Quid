@@ -280,3 +280,6 @@ l'utilisation locale de cette clé.
     Le secret reste confiné dans le TPM du poste.
     Deux GPO et un TPM 2.0 suffisent pour un déploiement de base.
     Le modèle hybrid key trust couvre la majorité des environnements d'entreprise.
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Windows Hello for Business](../gpo-pour-les-admins/28-whfb.md) — GPO Admins

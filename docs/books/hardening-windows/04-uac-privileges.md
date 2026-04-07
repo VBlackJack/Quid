@@ -450,3 +450,7 @@ reste faible face à la compromission locale.
     Le bon déploiement UAC se joue autant dans la gouvernance des comptes
     que dans les valeurs de registre.
     Si l'identité est mal gérée, la policy seule ne suffira pas.
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Securite et permissions](../bible-registre-windows/06-securite.md) — Bible Registre
+    - :material-book-heart: [Le registre et la securite](../registre-pour-les-nuls/11-securite.md) — Registre Nuls

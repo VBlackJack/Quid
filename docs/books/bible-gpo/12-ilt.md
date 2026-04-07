@@ -286,9 +286,8 @@ flowchart TD
 
 
 !!! quote "En résumé"
-    - Le diagramme suivant représente le flux d'évaluation exécuté par gpprefcl.dll pour chaque item GPP contenant une section <filters>.
-    - Le schéma sur diagramme d'évaluation ilt sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
-    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
+    - `gpprefcl.dll` évalue les filtres ILT de chaque item GPP selon une logique AND entre blocs, OR à l’intérieur d’un bloc.
+    - Le court-circuit booléen s’applique : placez les conditions les plus fréquemment vraies en premier pour optimiser le traitement.
 ---
 
 ## :material-database-search: Condition avancée : LDAP Query

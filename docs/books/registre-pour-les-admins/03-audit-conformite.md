@@ -830,3 +830,7 @@ $report | Out-File "C:\Admin\Incidents\INC-20260404-WDigest.txt" -Encoding UTF8
     - L'Event ID 4624 permet de remonter a l'origine de la session (machine source, IP, type de connexion)
     - La correction immediate doit etre suivie d'un scan de tout le parc pour detecter d'autres compromissions
     - Documentez chaque incident et mettez en place des protections (GPO + SACL) pour eviter la recidive
+
+!!! tip "Voir aussi"
+    - :material-shield-check: [Audit de conformite et RSoP](../hardening-windows/19-audit-conformite.md) — Hardening
+    - :material-shield-check: [Audit et journaux Event Log](../hardening-windows/09-audit-eventlog.md) — Hardening

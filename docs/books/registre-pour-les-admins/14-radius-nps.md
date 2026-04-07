@@ -1058,3 +1058,7 @@ TimeCreated             Id Result User
     - L'export de la configuration NPS (`Export-NpsConfiguration`) permet l'analyse hors-ligne
     - Le service `dot3svc` doit etre redemarre sur les clients pour reinitialiser la session 802.1X
     - Testez tout changement de certificat NPS sur un poste pilote avant le deploiement en production
+
+!!! tip "Voir aussi"
+    - :material-shield-check: [Protection des identifiants](../hardening-windows/03-credential-protection.md) — Hardening
+    - :material-shield-account: [Wi-Fi, VPN et 802.1X via GPO](../gpo-pour-les-admins/16-wifi-vpn.md) — GPO Admins

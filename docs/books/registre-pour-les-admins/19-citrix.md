@@ -845,3 +845,6 @@ Cinq fichiers .reg crees dans C:\Temp\ prets pour le deploiement.
     - L'audio UDP et le pilote d'impression universel ameliorent respectivement la latence et la taille des spools
     - Augmenter le timeout de fiabilite evite les deconnexions sur les liaisons instables
     - Exporter les parametres en fichiers `.reg` permet un deploiement industrialise via GPO ou SCCM
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [FSLogix et GPO](../gpo-pour-les-admins/29-fslogix.md) — GPO Admins

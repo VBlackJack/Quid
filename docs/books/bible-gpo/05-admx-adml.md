@@ -815,7 +815,6 @@ flowchart LR
     - Le schéma ci-dessous illustre le flux complet depuis la définition du modèle jusqu'à l'effet sur le comportement de l'application.
     - Étape 1 — Lecture des définitions.
     - Quand GPMC ouvre l'éditeur de stratégie de groupe, il lit les fichiers ADMX dans le Central Store.
-    - Le point clé de relation admx → registry.pol → registre doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## :material-alert-circle-outline: Event ID 4017 : erreurs de parsing ADMX

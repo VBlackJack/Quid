@@ -756,3 +756,6 @@ WORKSTATION04 5.1.3.62    True
     - Le profil XML definit les serveurs, l'auto-connect, l'auto-reconnect et le comportement utilisateur
     - Le deploiement via GPO utilise un script de demarrage PowerShell
     - La verification a distance avec `Invoke-Command` permet de valider le deploiement sur tout le parc
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Wi-Fi, VPN et 802.1X via GPO](../gpo-pour-les-admins/16-wifi-vpn.md) — GPO Admins

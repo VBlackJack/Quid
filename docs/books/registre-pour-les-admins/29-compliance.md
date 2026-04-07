@@ -1106,3 +1106,7 @@ Scheduled task created : weekly Monday at 06:00
     - Le deploiement via PSRemoting couvre l'ensemble du parc en une seule execution
     - Le rapport CSV horodate constitue une preuve d'audit exploitable par l'auditeur
     - La verification hebdomadaire via tache planifiee garantit la conformite continue entre les audits
+
+!!! tip "Voir aussi"
+    - :material-shield-check: [Checklist hardening par niveau](../hardening-windows/18-checklist-niveaux.md) — Hardening
+    - :material-shield-check: [Audit de conformite et RSoP](../hardening-windows/19-audit-conformite.md) — Hardening

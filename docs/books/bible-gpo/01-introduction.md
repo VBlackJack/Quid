@@ -249,9 +249,6 @@ timeline
 
 
 !!! quote "En résumé"
-    - Le schéma sur diagramme : évolution chronologique sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
-    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
-    - Cette section fixe l’essentiel à retenir sur diagramme : évolution chronologique.
     - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
     - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---
@@ -738,7 +735,6 @@ Un écart entre `CentralStoreCount` et `LocalCount` indique que le Central Store
 !!! quote "En résumé"
     - Windows NT 4.0 : Non.
     - Windows 2000 : Non.
-    - Le point clé de référence de version par os doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## Clés de registre de référence

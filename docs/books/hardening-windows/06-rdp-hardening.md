@@ -444,3 +444,7 @@ ont été recoupés avec les sources Microsoft suivantes :
     Le hardening `RDP` est simple à énoncer :
     moins d'exposition, `NLA`, `TLS`,
     puis un mode d'administration adapté au contexte `Kerberos`.
+
+!!! tip "Voir aussi"
+    - :material-book-cog: [Remote Desktop Services](../registre-pour-les-admins/10-rds.md) — Registre Admins
+    - :material-shield-account: [Remote Desktop Services via GPO](../gpo-pour-les-admins/11-rds.md) — GPO Admins

@@ -873,3 +873,7 @@ RDSH05  The Remote Desktop Session Host server is properly licensed with...     
     - Verifiez la connectivite RPC (port 135) entre chaque Session Host et le serveur de licences
     - La cle `GracePeriod` peut etre supprimee en urgence pour debloquer l'acces, mais ce n'est pas une solution permanente
     - Deployer la configuration via GPO est recommande pour garantir la coherence sur tous les serveurs de la ferme
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Remote Desktop Services via GPO](../gpo-pour-les-admins/11-rds.md) — GPO Admins
+    - :material-shield-account: [FSLogix et GPO](../gpo-pour-les-admins/29-fslogix.md) — GPO Admins

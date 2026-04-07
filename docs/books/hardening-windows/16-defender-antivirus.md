@@ -375,3 +375,6 @@ flowchart LR
     pour atteindre son potentiel de détection. MAPS Advanced, Block at First Sight,
     la protection comportementale et un fallback de signatures robuste
     transforment un antivirus passif en une couche de détection connectée et durcie.
+
+!!! tip "Voir aussi"
+    - :material-book-cog: [Antivirus enterprise](../registre-pour-les-admins/18-antivirus.md) — Registre Admins

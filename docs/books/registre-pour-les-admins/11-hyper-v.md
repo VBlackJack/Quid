@@ -882,3 +882,6 @@ VM-WEB-01    vSwitch-Prod {Ok}   {10.0.1.52, fe80::...}
     - Sauvegardez la correspondance VM/commutateur avant toute operation destructive
     - Les cles registre VMSMP sous `Services\VMSMP\Parameters` peuvent contenir des references orphelines apres une corruption
     - Planifiez une sauvegarde de la configuration reseau avant les mises a jour cumulatives
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Virtualisation et conteneurs](../bible-registre-windows/19-virtualisation.md) — Bible Registre

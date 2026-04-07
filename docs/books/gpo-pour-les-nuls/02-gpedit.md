@@ -40,8 +40,6 @@ Pensez-y comme le panneau de controle d'un avion. Chaque interrupteur correspond
     - Avant de l'ouvrir, un mot rapide sur ce qu'est cet outil.
     - gpedit.msc est l'editeur de strategies de groupe locales.
     - Le mot "locales" est important : cet editeur ne gere que les regles de votre poste.
-    - Point connexe : chapitre 4.
-    - Le point clé de qu'est-ce que gpedit.msc ? doit être relu comme un repère de diagnostic et de conception.
 ---
 
 ## Ouvrir gpedit.msc

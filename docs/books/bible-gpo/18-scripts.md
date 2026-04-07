@@ -348,8 +348,6 @@ sequenceDiagram
 
 !!! quote "En résumé"
     - Le diagramme suivant illustre le flux complet depuis l'appel de gpsvc jusqu'à la complétion ou l'expiration du timeout.
-    - Le point clé de cycle de vie de gpscript.exe doit être relu comme un repère de diagnostic et de conception.
-    - Cette section fixe l’essentiel à retenir sur cycle de vie de gpscript.exe.
     - Retenez surtout ce qui change la portée, l’ordre d’application ou le résultat final observé.
     - Ce résumé sert à vérifier que vous avez retenu le mécanisme, sa portée et sa conséquence pratique.
 ---

@@ -1082,3 +1082,6 @@ La mise a jour telecharge la derniere version du canal cible.
     - La GPO `OfficeUpdate` permet un deploiement centralise avec `UpdateBranch`
     - Le rollback est possible a tout moment en rechangeant le canal et en declenchant une mise a jour
     - Surveiller la progression via des scripts d'inventaire PowerShell Remoting
+
+!!! tip "Voir aussi"
+    - :material-shield-account: [Microsoft 365 Apps (Office) via GPO](../gpo-pour-les-admins/08-m365-office.md) — GPO Admins

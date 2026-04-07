@@ -823,3 +823,7 @@ renderXml = true
     - Architecture : sources (500 serveurs) > collecteur WEF > forwarder SIEM
     - Les abonnements filtrent par EventID pour eviter la surcharge
     - Le forwarder SIEM lit le journal `ForwardedEvents` sur le collecteur
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Sauvegarde et restauration](../bible-registre-windows/07-sauvegarde.md) — Bible Registre
+    - :material-shield-account: [Sauvegarde, restauration et migration des GPO](../gpo-pour-les-admins/05-backup-migration.md) — GPO Admins

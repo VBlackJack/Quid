@@ -660,3 +660,7 @@ Sur des groupes très privilégiés, cela peut même provoquer un verrouillage o
 !!! quote "En résumé"
     La protection des identifiants est un domaine où l'ordre de déploiement compte presque autant que le réglage lui-même.
     On commence simple, on valide les dépendances, puis on élève le niveau de protection.
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Securite moderne](../bible-registre-windows/16-securite-moderne.md) — Bible Registre
+    - :material-shield-account: [Windows Hello for Business](../gpo-pour-les-admins/28-whfb.md) — GPO Admins

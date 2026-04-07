@@ -490,9 +490,8 @@ flowchart TD
 
 
 !!! quote "En résumé"
-    - Points de défaillance identifiés dans le diagramme.
-    - Le schéma sur séquence de chargement du profil — diagramme sert à visualiser l’ordre, les dépendances et les points de rupture du mécanisme.
-    - Relisez cette vue d’ensemble avant un diagnostic : elle montre où une étape manquante casse tout le flux.
+    - Les principaux points de défaillance du chargement de profil sont : VHDX inaccessible (FSLogix), UNC inaccessible (profil itinérant) et CSE Folder Redirection silencieusement en échec.
+    - Les sessions simultanées sur plusieurs machines sans FSLogix entraînent un scénario "last writer wins" avec perte de données.
 ---
 
 ## :material-bomb: Pièges de production

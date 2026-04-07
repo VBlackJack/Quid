@@ -894,3 +894,7 @@ Unreachable        9
     - `-ThrottleLimit` et `-ErrorVariable` sont essentiels pour les operations a grande echelle
     - Testez toujours sur un echantillon avant de deployer sur le parc complet
     - Generez systematiquement un rapport CSV pour la tracabilite
+
+!!! tip "Voir aussi"
+    - :material-book-open-variant: [Registre et reseau](../bible-registre-windows/08-reseau.md) — Bible Registre
+    - :material-book-open-variant: [Scripts et automatisation](../bible-registre-windows/10-scripts.md) — Bible Registre

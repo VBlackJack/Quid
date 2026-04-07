@@ -539,3 +539,7 @@ Corrigez-les en rendant les exceptions plus intelligentes.
 !!! quote "En résumé"
     Les pièges majeurs sont les faux positifs, les exceptions trop larges et l'impact sur les chaînes de déploiement.
     Un contrôle applicatif réussi repose sur l'audit, un périmètre pilote et des exceptions minimales.
+
+!!! tip "Voir aussi"
+    - :material-shield-lock: [AppLocker et WDAC : controle d'application via GPO](../bible-gpo/15-applocker-wdac.md) — Bible GPO
+    - :material-shield-account: [Securite endpoint via GPO](../gpo-pour-les-admins/14-securite-endpoint.md) — GPO Admins
