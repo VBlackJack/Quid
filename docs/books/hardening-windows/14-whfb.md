@@ -243,6 +243,36 @@ Lorsqu'un utilisateur se connecte sur un poste ciblé par la GPO :
     Le provisionnement est transparent pour l'utilisateur
     et se déclenche à la connexion suivante.
 
+### FIDO2 et durcissement
+
+Pour les comptes sensibles, ajoutez FIDO2 comme facteur physique plutôt que comme remplacement automatique de WHfB.
+
+```
+HKLM\SOFTWARE\Policies\Microsoft\FIDO
+    UseSecurityKeyForSignin = 1
+```
+
+Complétez avec des réglages de durcissement cohérents :
+
+```
+HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+    DontDisplayLastUserName = 1
+
+HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters
+    SupportedEncryptionTypes = 0x18
+```
+
+`0x18` force AES128 + AES256 pour Kerberos. C'est cohérent avec WHfB Cloud Kerberos Trust, mais seulement si tous les services et comptes applicatifs supportent AES.
+
+!!! warning "RC4"
+    Ne désactivez pas RC4 sans inventaire Kerberos. Un ancien service, un compte avec mot de passe jamais renouvelé ou une application legacy peut encore dépendre de RC4.
+
+!!! quote "En resume"
+    - FIDO2 complète WHfB pour les comptes à risque.
+    - `UseSecurityKeyForSignin=1` autorise la clé de sécurité.
+    - `DontDisplayLastUserName=1` réduit l'exposition à l'écran de connexion.
+    - `SupportedEncryptionTypes=0x18` doit être validé avant suppression de RC4.
+
 ## 6. Flux d'authentification WHfB
 
 ```mermaid

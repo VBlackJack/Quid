@@ -723,6 +723,100 @@ The term 'Remove-Item' is not recognized as the name of a cmdlet...
 
 ---
 
+## OpenSSH : l'alternative moderne a WinRM
+
+OpenSSH est inclus comme fonctionnalite optionnelle depuis Windows 10 1809 et Windows Server 2019. Sur les generations recentes, dont Server 2025, il devient une alternative credible a WinRM pour les environnements hybrides, cross-OS ou segmentes par pare-feu. PowerShell 7+ supporte le remoting via SSH avec `Enter-PSSession -HostName` et `Invoke-Command -HostName`.
+
+### Cles de registre OpenSSH
+
+```
+HKLM\SOFTWARE\OpenSSH
+```
+
+| Valeur | Type | Exemple | Effet |
+|--------|------|---------|-------|
+| `DefaultShell` | REG_SZ | `C:\Program Files\PowerShell\7\pwsh.exe` | Shell lance par defaut a la connexion SSH |
+| `DefaultShellCommandOption` | REG_SZ | `-c` pour `pwsh`, `/c` pour `cmd.exe` | Option transmise au shell pour executer une commande |
+| `DefaultShellEscapeArguments` | REG_DWORD | `0` | Controle l'echappement automatique des arguments |
+
+!!! warning "Version OpenSSH"
+    `DefaultShell` est la cle la plus stable. Les options `DefaultShellCommandOption` et `DefaultShellEscapeArguments` doivent etre verifiees sur la version OpenSSH de l'image cible avant standardisation.
+
+### Installation et activation
+
+```powershell title="Installer et demarrer le serveur OpenSSH"
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+Set-Service -Name sshd -StartupType Automatic
+Start-Service sshd
+```
+
+```powershell title="Definir PowerShell 7 comme shell SSH"
+New-Item -Path "HKLM:\SOFTWARE\OpenSSH" -Force | Out-Null
+Set-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell `
+    -Value "C:\Program Files\PowerShell\7\pwsh.exe" -Type String
+```
+
+### Configuration pour PowerShell Remoting over SSH
+
+Editez `C:\ProgramData\ssh\sshd_config` et ajoutez ou validez :
+
+```text title="sshd_config"
+Subsystem powershell C:/progra~1/powershell/7/pwsh.exe -sshs -NoLogo
+PasswordAuthentication yes
+```
+
+Puis redemarrez le service :
+
+```powershell title="Recharger sshd"
+Restart-Service sshd
+```
+
+Pour un environnement durci, remplacez ensuite `PasswordAuthentication yes` par une authentification par cle publique et une restriction de groupes.
+
+!!! tip "Chemin PowerShell"
+    OpenSSH peut mal gerer les chemins avec espaces dans `Subsystem`. Utilisez le nom court `C:/progra~1/...` ou un lien symbolique vers `pwsh.exe` dans `C:\ProgramData\ssh`.
+
+```powershell title="Connexion PS Remoting via SSH"
+Enter-PSSession -HostName server01 -UserName admin
+
+Invoke-Command -HostName server01,server02 -UserName admin -ScriptBlock {
+    Get-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion
+}
+```
+
+### Decision matrix WinRM vs SSH
+
+| Critere | WinRM | SSH |
+|---------|-------|-----|
+| Protocole | HTTP/HTTPS, TCP 5985/5986 | SSH, TCP 22 |
+| Authentification | Kerberos, NTLM, certificat | Cle publique, mot de passe |
+| Cross-platform | Windows principalement | Windows, Linux, macOS |
+| PowerShell version | Windows PowerShell 5.1 + PowerShell 7 | PowerShell 7 recommande |
+| Configuration | GPO + WinRM listeners | `sshd_config` + service `sshd` |
+| Registre a distance | `Invoke-Command`, provider `Registry::` | `Invoke-Command -HostName` |
+| Firewall | Ports WinRM a ouvrir | Port 22 a ouvrir |
+| Recommandation | Environnements AD homogenes | Environnements hybrides ou cross-OS |
+
+### Hardening SSH
+
+Commencez par ces quatre controles :
+
+- `PasswordAuthentication no` dans `sshd_config` apres deploiement des cles publiques ;
+- restriction des utilisateurs avec `AllowGroups SSH-Admins` ;
+- pare-feu limite aux sous-reseaux d'administration ;
+- journalisation et supervision du service `sshd`.
+
+!!! tip "Lien avec JEA"
+    SSH ne remplace pas JEA. Si vous avez besoin d'endpoints JEA et de configurations de session avancees, WinRM reste le transport le plus adapte ; SSH sert surtout les scenarios hybrides et cross-OS.
+
+!!! quote "En resume"
+    - OpenSSH est l'alternative moderne a WinRM pour les environnements hybrides et cross-OS.
+    - `HKLM\SOFTWARE\OpenSSH\DefaultShell` permet de lancer PowerShell 7 par defaut.
+    - Le remoting PowerShell via SSH utilise `Enter-PSSession -HostName` et `Invoke-Command -HostName`.
+    - En production, privilegiez les cles publiques, `AllowGroups` et un filtrage pare-feu strict.
+
+---
+
 ## Scenario reel : deployer un correctif de registre sur 200 postes
 
 Votre equipe securite a identifie que la valeur legacy `DisableAntiSpyware` est presente sur certains postes. Sur Windows moderne, cette valeur ne prouve pas a elle seule que Defender est desactive, mais elle reste un signal de sabotage ou de politique obsolete. Vous devez auditer les 200 postes du parc, nettoyer les machines suspectes et generer un rapport.

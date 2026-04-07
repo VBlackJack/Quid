@@ -311,6 +311,38 @@ HKEY_USERS\S-1-5-21-XXXXXXXXXX-XXXXXXXXXX-XXXXXXXXXX-1001
 
 ---
 
+## Acces distant
+
+### OpenSSH
+
+Windows inclut `ssh.exe` comme client natif depuis Windows 10 1809. Le serveur `sshd` existe aussi comme fonctionnalite optionnelle et devient pertinent pour administrer des machines Windows depuis des postes Linux, macOS ou PowerShell 7.
+
+```powershell title="Lire une cle registre via ssh.exe"
+ssh admin@server01 "reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion /v ProductName"
+```
+
+Pour des operations registre complexes, privilegiez PowerShell Remoting over SSH :
+
+```powershell title="Provider registre via SSH remoting"
+Enter-PSSession -HostName server01 -UserName admin
+Get-ItemProperty HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion
+```
+
+Deux outils historiques restent utiles :
+
+- `reg compare` compare deux sous-arbres de registre, pratique pour detecter une derive entre image de reference et poste cible ;
+- `regini.exe` modifie le registre et les ACL en batch, mais sa syntaxe est cryptique : preferez PowerShell sauf contrainte legacy.
+
+Pour la configuration complete d'OpenSSH et le choix WinRM vs SSH, voir [PowerShell Remoting](../registre-pour-les-admins/01-powershell-remoting.md).
+
+!!! quote "En resume"
+    - `ssh.exe` permet d'executer rapidement `reg query` a distance sans WinRM.
+    - Pour les operations serieuses, utilisez PowerShell 7 remoting over SSH.
+    - `reg compare` est utile pour comparer deux branches registre.
+    - `regini.exe` existe encore pour les cas legacy, mais PowerShell reste preferable.
+
+---
+
 ## API de programmation
 
 ### API Win32 (C/C++)

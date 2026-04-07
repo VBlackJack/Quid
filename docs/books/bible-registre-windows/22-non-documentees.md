@@ -84,35 +84,6 @@ HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization
 
 ---
 
-### Desactiver Copilot (Windows 11)
-
-```
-HKCU\Software\Policies\Microsoft\Windows\WindowsCopilot
-```
-
-| Valeur | Type | Donnees | Effet |
-|--------|:----:|:-------:|-------|
-| `TurnOffWindowsCopilot` | REG_DWORD | `1` | Desactive Copilot |
-
-Pour une desactivation machine entiere (necessite les droits administrateur) :
-
-```
-HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot
-```
-
-| Valeur | Type | Donnees | Effet |
-|--------|:----:|:-------:|-------|
-| `TurnOffWindowsCopilot` | REG_DWORD | `1` | Desactive Copilot pour tous les utilisateurs |
-
-**Versions** : Windows 11 23H2+
-
-**Effets secondaires** : l'icone Copilot disparait de la barre des taches. La fonctionnalite est totalement inactive.
-
-!!! info "Redemarrage"
-    Un redemarrage ou une fermeture de session est necessaire.
-
----
-
 ### Desactiver la recherche web dans le menu Demarrer
 
 Quand vous tapez dans le menu Demarrer, Windows envoie votre recherche a Bing. Pour desactiver :
@@ -521,6 +492,70 @@ The operation completed successfully.
     - AllowTelemetry controle le niveau de donnees envoyees a Microsoft (0 = minimum, 3 = complet)
     - L'identifiant publicitaire, l'historique d'activite et les suggestions de contenu sont desactivables individuellement
     - Le service DiagTrack peut etre desactive completement mais impacte les rapports de probleme et certaines mises a jour
+
+---
+
+## Intelligence artificielle et Copilot+
+
+Windows 11 24H2 a ajoute une famille de politiques `WindowsAI` pour les fonctions Copilot+ et Recall. Ces reglages sont surtout utiles sur les postes geres : ils evitent qu'une fonctionnalite IA locale soit activee sans validation securite, DLP et conformite.
+
+### Desactiver Windows Recall
+
+Recall capture des snapshots de l'ecran, les indexe localement et permet de retrouver ce que l'utilisateur a vu sur son poste. La fonctionnalite cible les Copilot+ PC en Windows 11 24H2, avec NPU compatible.
+
+```
+HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsAI
+```
+
+| Valeur | Type | Donnees | Effet |
+|--------|:----:|:-------:|-------|
+| `DisableAIDataAnalysis` | REG_DWORD | `1` | Desactive l'enregistrement des snapshots pour Recall |
+| `AllowRecallEnablement` | REG_DWORD | `0` | Rend Recall indisponible sur les builds qui exposent cette politique |
+
+**Chemin GPO** : `Configuration ordinateur > Modeles d'administration > Composants Windows > Windows AI > Desactiver l'enregistrement des snapshots de Windows`
+
+!!! warning "Donnees locales sensibles"
+    Recall n'est pas cense stocker les snapshots dans le cloud, mais les donnees locales peuvent contenir des mots de passe affiches, des documents confidentiels ou des donnees personnelles. Traitez le dossier et l'index Recall comme une surface sensible, meme hors cloud.
+
+!!! warning "Disponibilite par build"
+    `DisableAIDataAnalysis` est documentee dans `WindowsAI`. `AllowRecallEnablement` depend de builds 24H2 recentes et doit etre validee dans les ADMX/Policy CSP du poste cible avant de l'imposer en production.
+
+### Controler Copilot (etat post-24H2)
+
+Dans les builds initiales de Windows 11, Copilot etait integre comme experience systeme. Apres 24H2, le controle bascule davantage vers une application classique, Edge et Microsoft 365. Les anciennes politiques `TurnOffWindowsCopilot` restent utiles pour des parcs Windows 11, mais elles ne couvrent pas toutes les experiences Copilot integrees aux applications Office ou au navigateur.
+
+```
+HKCU\Software\Policies\Microsoft\Windows\WindowsCopilot
+HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot
+HKLM\SOFTWARE\Policies\Microsoft\Edge
+```
+
+| Valeur | Type | Donnees | Effet |
+|--------|:----:|:-------:|-------|
+| `TurnOffWindowsCopilot` | REG_DWORD | `1` | Desactive l'experience Copilot Windows pour l'utilisateur ou la machine |
+| `HubsSidebarEnabled` | REG_DWORD | `0` | Desactive la barre laterale Edge ou les hubs associes |
+
+Pour le Copilot integre a Microsoft 365 Apps, privilegiez les politiques Microsoft 365/Intune et les controles de tenant : la cle Windows ne remplace pas la gouvernance des apps Office.
+
+### Masquer les suggestions IA dans les parametres
+
+Pour un poste durci, combinez le masquage d'interface utilisateur et la politique `WindowsAI` :
+
+```
+HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsAI
+```
+
+| Valeur | Type | Donnees | Effet |
+|--------|:----:|:-------:|-------|
+| `ShowCopilotButton` | REG_DWORD | `0` | Masque le bouton Copilot quand la build l'expose encore |
+| `DisableAIDataAnalysis` | REG_DWORD | `1` | Bloque l'enregistrement Recall et limite les experiences fondees sur l'analyse locale |
+
+!!! quote "En resume"
+    - `HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsAI` devient la branche centrale pour Recall et certaines fonctions Copilot+.
+    - `DisableAIDataAnalysis=1` desactive l'enregistrement des snapshots Recall ; `AllowRecallEnablement=0` doit etre valide selon la build.
+    - `TurnOffWindowsCopilot` reste utile, mais Copilot post-24H2 se gouverne aussi via Edge, Microsoft 365 et Intune.
+    - Meme locales, les donnees Recall doivent etre traitees comme sensibles.
 
 ---
 

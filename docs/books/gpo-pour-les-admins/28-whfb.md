@@ -929,3 +929,73 @@ Il se corrige en retirant l'ambiguïté :
     - L'ordre de diagnostic correct est : **TPM**, **GPO**, **join**, **events**.
     - Un grand nombre d'incidents WHfB sont en réalité des problèmes de **séquencement** ou de **double gouvernance**.
     - Votre objectif n'est pas seulement d'enrôler ; votre objectif est de **rendre le diagnostic banal** pour le support.
+
+---
+
+## :material-key-chain: FIDO2, Passkeys et l'avenir du passwordless
+
+WHfB n'est pas le seul mécanisme passwordless à piloter. Les clés FIDO2, les passkeys device-bound et les passkeys synchronisées couvrent des besoins différents. La bonne question n'est pas "FIDO2 ou WHfB ?", mais : quel facteur, quel appareil et quel niveau de contrôle entreprise ?
+
+### FIDO2 Security Keys vs WHfB
+
+| Critère | WHfB PIN | WHfB Biométrique | FIDO2 Security Key | Passkey (synced) |
+|---------|----------|------------------|--------------------|------------------|
+| Facteur | Ce que je sais | Ce que je suis | Ce que j'ai | Ce que j'ai (synced) |
+| Lié au device | Oui | Oui | Oui, clé physique | Non, cross-device |
+| Résistant au phishing | Oui | Oui | Oui | Oui |
+| Utilisable hors ligne | Oui | Oui | Oui | Dépend du provider |
+| Provisioning | GPO/Intune | GPO/Intune | Portail Entra ID | Self-service ou provider |
+
+### Activer FIDO2 pour le sign-in Windows
+
+```
+HKLM\SOFTWARE\Policies\Microsoft\FIDO
+```
+
+| Valeur | Type | Données | Effet |
+|---|---|---|---|
+| `UseSecurityKeyForSignin` | REG_DWORD | `1` | Autorise la connexion Windows par clé de sécurité |
+
+**Chemin GPO** : `Configuration ordinateur > Modèles d'administration > Système > Ouverture de session > Activer la connexion par clé de sécurité`
+
+Prérequis à valider :
+
+- Windows 10 1903+ ou Windows 11 ;
+- Microsoft Entra ID hybrid ou cloud-only selon le scénario ;
+- clé FIDO2 certifiée, FIPS si votre référentiel sécurité l'exige ;
+- méthode FIDO2 activée dans Entra ID ;
+- provisioning par l'utilisateur dans **My Security Info**, pas par GPO.
+
+!!! warning "GPO ne provisionne pas la clé"
+    La GPO autorise l'usage de la clé de sécurité sur Windows. Elle ne remplace pas l'activation Entra ID, les règles d'enregistrement et le cycle de vie de la clé physique.
+
+### Passkeys : device-bound vs synced
+
+Une **device-bound passkey** est proche du modèle FIDO2 : le secret reste lié à l'appareil. Une **synced passkey** est synchronisée par un provider comme iCloud Keychain, Google Password Manager ou 1Password. Les deux sont résistants au phishing, mais ils n'ont pas le même niveau de contrôle entreprise.
+
+Windows 11 23H2+ expose un support passkey natif dans Windows Hello. Le contrôle entreprise passe surtout par Entra ID, Intune, les navigateurs et les providers autorisés.
+
+```
+HKLM\SOFTWARE\Policies\Microsoft\Passkeys
+```
+
+| Valeur | Type | Données | Effet |
+|---|---|---|---|
+| `EnablePasskeys` | REG_DWORD | `1` | Autorise la proposition de création de passkeys si la build expose cette policy |
+
+!!! warning "Clé à vérifier"
+    `EnablePasskeys` n'est pas un mapping registre stable sur tous les builds Windows 11. Si votre ADMX/Settings Catalog ne l'expose pas, ne créez pas la valeur à l'aveugle : pilotez d'abord les passkeys via Entra ID, Intune et la politique navigateur.
+
+### Recommandation entreprise
+
+Pour une entreprise, privilégiez :
+
+1. WHfB Cloud Kerberos Trust pour le poste principal ;
+2. FIDO2 Security Keys pour les comptes sensibles, le break glass et les scénarios sans biométrie ;
+3. passkeys synchronisées uniquement après validation du provider, du stockage et de la récupération.
+
+!!! quote "En resume"
+    - WHfB, FIDO2 et passkeys ne résolvent pas le même problème de gouvernance.
+    - `UseSecurityKeyForSignin=1` autorise la connexion Windows par clé FIDO2, mais Entra ID reste la source de provisioning.
+    - Les passkeys synchronisées sont pratiques, mais moins contrôlables que les clés FIDO2 physiques en contexte haute sécurité.
+    - Pour l'entreprise, combinez WHfB Cloud Kerberos Trust et FIDO2 plutôt que de remplacer l'un par l'autre.

@@ -615,6 +615,114 @@ Le menu contextuel classique revient apres redemarrage d'Explorer.
 
 ---
 
+## Windows Server 2025
+
+Windows Server 2025 partage la base technique Windows 11 24H2 : build 26100, canal LTSC, disponibilite generale Microsoft au 1er novembre 2024. C'est la premiere version Server alignee sur la generation Windows 11, alors que Server 2019 et Server 2022 etaient encore dans la lignee Windows 10.
+
+### SMB over QUIC
+
+SMB over QUIC transporte SMB 3.1.1 dans un tunnel QUIC chiffre via UDP 443. Le cas d'usage principal est l'acces distant a des partages de fichiers sans exposer TCP 445 et sans VPN traditionnel.
+
+```
+HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
+HKLM\SYSTEM\CurrentControlSet\Services\LanmanWorkstation\Parameters
+```
+
+| Valeur | Branche | Type | Donnees | Effet |
+|--------|---------|------|---------|-------|
+| `EnableSMBQUIC` | `LanmanServer\Parameters` | REG_DWORD | `1` | Autorise SMB over QUIC cote serveur |
+| `EnableSMBQUIC` | `LanmanWorkstation\Parameters` | REG_DWORD | `1` | Autorise SMB over QUIC cote client |
+
+**Chemins GPO** :
+
+- `Configuration ordinateur > Modeles d'administration > Reseau > Serveur Lanman > Activer SMB over QUIC`
+- `Configuration ordinateur > Modeles d'administration > Reseau > Station de travail Lanman > Activer SMB over QUIC`
+
+!!! warning "Certificat obligatoire"
+    SMB over QUIC necessite un certificat TLS cote serveur dont le nom correspond au FQDN utilise par les clients. Evitez les adresses IP dans les Subject Alternative Names : cela pousse vers NTLM et fragilise le design.
+
+```powershell title="Verifier la configuration SMB over QUIC"
+Get-SmbServerConfiguration | Select-Object EnableSMBQUIC
+Get-SmbClientConfiguration | Select-Object EnableSMBQUIC
+```
+
+### Hotpatching
+
+Hotpatching applique certains correctifs de securite sans redemarrage. Le pilotage n'est pas une simple bascule registre : il depend de l'edition, de l'abonnement et de l'enrolement dans le service de gestion Microsoft.
+
+```
+HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Orchestrator\HotPatch
+```
+
+| Valeur | Type | Donnees | Remarque |
+|--------|------|---------|----------|
+| `Enabled` | REG_DWORD | `1` | Etat local a verifier, ne suffit pas a activer le service |
+
+Prerequis a valider : Azure Arc, abonnement Hotpatch, Server 2025 Datacenter Azure Edition ou scenario Server 2025 Standard gere via Azure Arc, et correctif qualifie par Microsoft pour hotpatch.
+
+!!! warning "Ne pas piloter uniquement par registre"
+    La cle `HotPatch\Enabled` peut servir d'indicateur local, mais l'activation supportee passe par l'enrolement et les services Microsoft. Ne l'utilisez pas comme seul mecanisme de configuration.
+
+### SMB NTLM blocking et rate limiter
+
+Server 2025 renforce le durcissement SMB autour de NTLM. Le rate limiter ralentit les tentatives d'authentification NTLM pour reduire l'interet du brute force.
+
+```
+HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters
+```
+
+| Valeur | Type | Donnees | Effet |
+|--------|------|---------|-------|
+| `InvalidAuthenticationDelayTimeInMs` | REG_DWORD | `2000` | Delai par defaut applique aux echecs d'authentification |
+| `RestrictNTLMServerExceptions` | REG_MULTI_SZ | Liste de serveurs | Exceptions au blocage NTLM cote serveur |
+
+**Chemin GPO client** : `Configuration ordinateur > Modeles d'administration > Reseau > Station de travail Lanman > Bloquer NTLM`
+
+!!! warning "Valeurs NTLM a valider"
+    Les noms exacts des valeurs liees au blocage NTLM SMB dependent de la revision ADMX et des cmdlets SMB disponibles sur Server 2025. Utilisez d'abord les GPO ou PowerShell, puis controlez le registre effectif sur un serveur pilote avant de documenter une exception permanente.
+
+!!! info "Design recommande"
+    Bloquez NTLM par anneaux. Commencez par l'audit, inventoriez les dependances legacy, puis activez le blocage sur un groupe pilote avant de toucher aux files servers de production.
+
+### OpenSSH natif
+
+OpenSSH Server est inclus comme fonctionnalite Windows et devient un choix naturel pour les environnements hybrides. Le service a surveiller est `sshd`.
+
+```
+HKLM\SOFTWARE\OpenSSH
+```
+
+| Valeur | Type | Exemple | Effet |
+|--------|------|---------|-------|
+| `DefaultShell` | REG_SZ | `C:\Program Files\PowerShell\7\pwsh.exe` | Shell lance a la connexion SSH |
+
+```powershell title="Installer et activer OpenSSH Server"
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+Set-Service -Name sshd -StartupType Automatic
+Start-Service sshd
+```
+
+Voir aussi le chapitre sur PowerShell remoting pour le choix WinRM vs SSH.
+
+### dMSA (Delegated Managed Service Accounts)
+
+Les dMSA etendent le modele gMSA avec une delegation plus fine. Il n'y a pas de cle registre directe a configurer pour creer un compte dMSA : le pilotage se fait via Active Directory et PowerShell.
+
+```powershell title="Creer un dMSA"
+New-ADServiceAccount -Name "svc-app-dmsa" -DelegatedManagedServiceAccount
+```
+
+!!! warning "Module AD requis"
+    La disponibilite exacte des parametres dMSA depend du niveau fonctionnel, des DC et du module Active Directory installe. Validez la commande dans une foret pilote avant de migrer un service critique.
+
+!!! quote "En resume"
+    - Windows Server 2025 est base sur la build 26100, comme Windows 11 24H2, avec disponibilite generale Microsoft le 1er novembre 2024.
+    - SMB over QUIC cible les partages distants via UDP 443 avec certificat TLS cote serveur.
+    - Hotpatching depend d'Azure Arc, de l'edition et de correctifs qualifies ; la cle registre seule ne suffit pas.
+    - Le durcissement SMB, OpenSSH natif et dMSA font partie des sujets a integrer aux baselines Server 2025.
+
+---
+
 ## Editions serveur : differences cles
 
 Les editions Windows Server partagent le meme format de registre, mais leur **configuration par defaut** differe significativement.

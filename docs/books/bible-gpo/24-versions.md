@@ -319,11 +319,62 @@ Server 2022 introduit des paramètres ADMX spécifiques à l'édition Server, ab
 
 **Secured-Core Server** : les paramètres de Virtualization Based Security (VBS), Hypervisor Protected Code Integrity (HVCI) et Secure Boot sont disponibles dans les ADMX Server 2022 avec une granularité supérieure aux éditions client.
 
-#### :material-server-plus: Server 2025 : SMB over QUIC et Hyper-V étendu
+### :material-server-plus: Windows Server 2025
 
-Server 2025 ajoute des catégories ADMX pour **SMB over QUIC** — le protocole SMB 3.1.1 sur QUIC (UDP 443) introduit comme alternatif à SMB sur TCP pour les accès distants. Ces paramètres n'existent pas dans les ADMX client.
+Windows Server 2025 reprend la base 24H2 et ajoute des catégories à traiter dans les baselines serveur : **SMB over QUIC**, durcissement NTLM SMB, OpenSSH Server et Hotpatching. Ces paramètres doivent être validés avec les ADMX Server 2025, pas seulement avec le kit ADMX Windows 11.
 
-La gestion Hyper-V via GPO est étendue avec de nouveaux paramètres de contrôle des machines virtuelles et de la politique d'isolation mémoire.
+#### :material-lan-connect: SMB over QUIC
+
+SMB over QUIC publie SMB via UDP 443, avec certificat TLS côté serveur. Les GPO à documenter dans une baseline Server 2025 sont :
+
+| Cible | Chemin GPO | Usage |
+|---|---|---|
+| Serveur | `Configuration ordinateur > Modèles d'administration > Réseau > Serveur Lanman > Activer SMB over QUIC` | Autoriser ou bloquer SMB over QUIC côté file server |
+| Client | `Configuration ordinateur > Modèles d'administration > Réseau > Station de travail Lanman > Activer SMB over QUIC` | Autoriser ou bloquer les connexions SMB over QUIC sortantes |
+| Client | `Configuration ordinateur > Modèles d'administration > Réseau > Station de travail Lanman > Liste d'exceptions des serveurs SMB over QUIC désactivés` | Autoriser certains serveurs même si SMB over QUIC est désactivé côté client |
+
+!!! warning "Certificats"
+    La GPO ne remplace pas le prérequis certificat. Le FQDN utilisé par les clients doit correspondre au certificat du serveur ; évitez les adresses IP pour ne pas retomber sur des scénarios NTLM fragiles.
+
+#### :material-shield-key: NTLM blocking et rate limiter SMB
+
+Server 2025 renforce le contrôle NTLM côté SMB. Commencez par l'audit, puis activez le blocage par anneaux.
+
+| Besoin | Chemin GPO |
+|---|---|
+| Bloquer NTLM côté client SMB | `Configuration ordinateur > Modèles d'administration > Réseau > Station de travail Lanman > Bloquer NTLM` |
+| Déclarer des exceptions | `Configuration ordinateur > Modèles d'administration > Réseau > Station de travail Lanman > Exceptions au blocage NTLM` |
+| Régler le rate limiter d'authentification | `Configuration ordinateur > Modèles d'administration > Réseau > Serveur Lanman > Délai des échecs d'authentification SMB` |
+
+!!! warning "Noms ADMX variables"
+    Les libellés exacts du rate limiter peuvent varier selon la révision ADMX Server 2025. Si le paramètre n'apparaît pas dans GPMC, pilotez-le par PowerShell/registre après validation sur un serveur pilote.
+
+#### :material-console-network: OpenSSH Server
+
+OpenSSH Server fait partie des fonctionnalités Windows à intégrer aux baselines hybrides. La GPO ne suffit pas à définir toute la configuration `sshd_config`, mais elle doit au minimum couvrir :
+
+- installation/présence de la fonctionnalité OpenSSH Server ;
+- état du service `sshd` et type de démarrage ;
+- règles de pare-feu sur TCP 22 limitées aux sous-réseaux d'administration ;
+- groupes autorisés, par exemple `SSH-Admins`, via `AllowGroups` dans `sshd_config`.
+
+#### :material-update: Hotpatching et Config Refresh
+
+Hotpatching réduit certains redémarrages, mais dépend de l'édition, d'Azure Arc et de l'abonnement. Traitez-le comme une capacité de gestion de correctifs, pas comme une simple GPO.
+
+Config Refresh est hérité de la vague 24H2 : sur Server 2025, il doit être pris en compte dans les baselines car il peut réappliquer des paramètres de sécurité même sans changement de version GPO.
+
+#### :material-format-list-checks: Impact baseline
+
+La baseline Server 2025 du Security Compliance Toolkit doit devenir la référence de comparaison. Les écarts à isoler en revue :
+
+- GPO SMB over QUIC serveur/client ;
+- NTLM blocking et exceptions temporaires ;
+- configuration OpenSSH et firewall ;
+- Hotpatching via Azure Arc quand applicable ;
+- Config Refresh et effets de réapplication.
+
+Pour l'audit SMB over QUIC côté client, surveillez `Applications and Services Logs > Microsoft > Windows > SMBClient > Connectivity`, notamment l'Event ID `30832`.
 
 !!! info "ADMX Server vs ADMX Client : ne pas mélanger"
     Les ADMX téléchargés depuis le kit ADMX Windows 11 ne contiennent pas les paramètres Server 2025. Et inversement. Pour un parc mixte client/serveur, le Central Store doit être alimenté avec les deux sets d'ADMX. En cas de conflit de namespace (même fichier `.admx`, versions différentes), la version la plus récente doit remplacer l'ancienne.
@@ -333,7 +384,7 @@ La gestion Hyper-V via GPO est étendue avec de nouveaux paramètres de contrôl
     - Vista : ADMX + GPP = les deux piliers de la gestion GPO moderne.
     - Windows 10 : l'ère hybride GPO/MDM commence. `MDMWinsOverGP` peut silencieusement invalider des GPO.
     - Windows 11 : le Start Menu XML est mort. Deux mécanismes distincts pour W10 et W11, sans ADMX commune.
-    - Server 2022/2025 : des paramètres spécifiques serveur (Azure Arc, OpenSSH, SMB over QUIC) ne se trouvent que dans les ADMX Server.
+    - Server 2022/2025 : des paramètres spécifiques serveur (Azure Arc, OpenSSH, SMB over QUIC, NTLM blocking, Config Refresh) ne se trouvent que dans les ADMX Server.
 
 ---
 

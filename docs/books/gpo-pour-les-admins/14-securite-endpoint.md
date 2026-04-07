@@ -615,6 +615,104 @@ WKS-002     1              True       True        True
 
 ---
 
+## :material-refresh: Config Refresh (24H2+)
+
+Config Refresh reapplique periodiquement certaines politiques de securite meme si la version de la GPO n'a pas change. Le cas d'usage est simple : si un administrateur local ou un outil tiers modifie un reglage protege, Windows le remet automatiquement dans l'etat attendu au cycle suivant.
+
+### Fonctionnement attendu
+
+L'intervalle de reference reste proche de `gpupdate` : 90 minutes par defaut. La difference est que Config Refresh ne se contente pas de verifier si la GPO a change cote SYSVOL ; il reapplique le sous-ensemble de parametres de securite pris en charge.
+
+| Point | `gpupdate` classique | Config Refresh |
+|---|---|---|
+| Declencheur | Changement de version GPO ou cycle standard | Cycle standard, meme sans changement detecte |
+| Portee | GPO completes selon CSE | Sous-ensemble de parametres de securite |
+| Preferences GPP | Oui, selon extension | Non |
+| Scripts | Oui, selon policy | Non |
+
+### Cles registre
+
+```
+HKLM\SOFTWARE\Policies\Microsoft\Windows\System
+```
+
+| Valeur | Type | Donnees | Effet |
+|---|---|---|---|
+| `ConfigRefreshEnabled` | REG_DWORD | `1` | Active Config Refresh |
+| `ConfigRefreshInterval` | REG_DWORD | `90` | Intervalle en minutes, minimum attendu : 30 |
+
+**Chemin GPO** : `Configuration ordinateur > Modeles d'administration > Systeme > Strategie de groupe > Activer l'actualisation de la configuration`
+
+!!! warning "Mapping a verifier"
+    La disponibilite de Config Refresh et de ces valeurs depend des ADMX/Policy CSP livres avec la build 24H2 cible. Si le parametre n'apparait pas dans votre Central Store, ne forcez pas ces cles sans test sur un poste pilote.
+
+### Impact terrain
+
+Si une modification locale desactive Defender ou affaiblit un reglage de securite couvert, Config Refresh peut restaurer l'etat voulu sans attendre une modification de GPO. Ce n'est pas un remplacement de la surveillance de conformite : journalisez toujours les derives et cherchez leur origine.
+
+!!! quote "En resume"
+    - Config Refresh reapplique des politiques de securite meme sans changement de version de GPO.
+    - L'intervalle vise reste proche de 90 minutes, avec un plancher a valider autour de 30 minutes.
+    - Il ne remplace pas les preferences, scripts ou extensions GPO classiques.
+    - Verifiez le mapping ADMX/Policy CSP de `ConfigRefreshEnabled` sur la build 24H2 cible.
+
+---
+
+## :material-shield-key: LSASS PPL par défaut
+
+Sur les installations propres de Windows 11 22H2+ et 24H2 compatibles HVCI, LSASS peut tourner par defaut en Protected Process Light (PPL). Ce mode limite l'injection, la lecture memoire et le chargement de composants non autorises dans le processus `lsass.exe`.
+
+### Registre et GPO
+
+La cle historique de runtime reste utile pour l'audit :
+
+```
+HKLM\SYSTEM\CurrentControlSet\Control\Lsa
+```
+
+| Valeur | Type | Donnees | Effet |
+|---|---|---|---|
+| `RunAsPPL` | REG_DWORD | `1` | Active PPL avec verrouillage UEFI selon contexte |
+| `RunAsPPL` | REG_DWORD | `2` | Active PPL sans verrouillage UEFI |
+
+Le parametre de politique moderne est expose dans les ADMX `Local Security Authority` :
+
+```
+HKLM\SOFTWARE\Policies\Microsoft\Windows\System
+```
+
+**Chemin GPO** : `Configuration ordinateur > Modeles d'administration > Systeme > Local Security Authority > Configurer LSASS pour qu'il s'execute en tant que processus protege`
+
+| Valeur de politique | Signification |
+|---|---|
+| `Disabled` | LSASS ne tourne pas en processus protege |
+| `EnabledWithUEFILock` | PPL actif avec verrouillage UEFI |
+| `EnabledWithoutUEFILock` | PPL actif sans verrouillage UEFI |
+
+### Verification
+
+```powershell title="Verifier LSASS PPL et Device Guard"
+Get-CimInstance Win32_DeviceGuard -Namespace root\Microsoft\Windows\DeviceGuard |
+    Select-Object LsaCfgFlags, SecurityServicesConfigured, SecurityServicesRunning
+
+Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Lsa" -Name RunAsPPL -ErrorAction SilentlyContinue
+```
+
+### Lien avec Credential Guard
+
+Credential Guard et LSASS PPL sont complementaires, pas equivalents. PPL durcit le processus `lsass.exe`; Credential Guard isole certains secrets dans VBS via `LsaIso.exe`. Sur un parc moderne, les deux doivent etre evalues ensemble, avec un pilote applicatif pour les SSP/AP legacy.
+
+!!! warning "Upgrades depuis versions anciennes"
+    Les installations propres et les upgrades ne se comportent pas toujours pareil. Sur un poste migre depuis une version anterieure, ne supposez pas que PPL est actif : auditez `RunAsPPL`, la policy effective et les journaux Device Guard.
+
+!!! quote "En resume"
+    - LSASS PPL reduit la surface de vol de secrets dans `lsass.exe`.
+    - `RunAsPPL=2` active PPL sans verrouillage UEFI ; le pilotage prefere reste la GPO `Local Security Authority`.
+    - Credential Guard isole des secrets via VBS, mais ne remplace pas PPL.
+    - Auditez les postes migres : PPL n'est pas garanti sur tous les upgrades.
+
+---
+
 ## :material-test-tube: Vérification globale post-déploiement
 
 Après déploiement de l'ensemble des politiques de ce chapitre, exécutez un audit consolidé sur un échantillon représentatif du parc :

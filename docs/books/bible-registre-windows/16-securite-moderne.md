@@ -432,6 +432,40 @@ vboxdrv        VirtualBox Support Driver       FALSE
 !!! info "En resume"
     HVCI protege l'integrite du code noyau via l'hyperviseur. La cle `Scenarios\HypervisorEnforcedCodeIntegrity\Enabled` = 1 l'active. `Locked` = 1 verrouille dans l'UEFI. Les pilotes non signes ou utilisant des allocations memoire WX sont bloques.
 
+### Admin Protection (24H2+)
+
+Admin Protection change le modele d'elevation administrateur introduit par UAC. Au lieu de conserver un split token administrateur dans la session normale, Windows utilise un modele ou le jeton admin n'est pas present dans la session utilisateur courante et ou l'elevation demande une authentification complete, par exemple Windows Hello ou un mot de passe.
+
+```
+HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+```
+
+| Valeur | Type | Donnees | Description |
+|--------|------|---------|-------------|
+| `TypeOfAdminApprovalMode` | `REG_DWORD` | `1` | Mode d'approbation administrateur classique |
+| `TypeOfAdminApprovalMode` | `REG_DWORD` | `2` | Admin Protection sur les builds qui le supportent |
+
+**Chemin GPO** : `Configuration ordinateur > Parametres Windows > Parametres de securite > Strategies locales > Options de securite > Controle de compte d'utilisateur : configurer le type de mode d'approbation de l'administrateur`
+
+| Critere | UAC classique | Admin Protection |
+|---------|---------------|------------------|
+| Jeton admin dans la session standard | Present sous forme de split token | Non present dans la session normale |
+| Elevation | Consentement ou credentials selon la policy UAC | Authentification complete requise |
+| Risque principal | Vol ou reutilisation de jeton admin | Surface reduite contre le token theft |
+| Plateforme | Windows client et Server selon versions | Windows 11 24H2+ client, pas Server |
+
+!!! warning "Validation de build"
+    Microsoft documente Admin Protection comme une fonctionnalite Windows 11 24H2 en deploiement progressif. Validez la presence de la policy et la valeur `TypeOfAdminApprovalMode` sur vos ADMX/Policy CSP cibles avant d'en faire un standard de production.
+
+!!! info "Prerequis"
+    Ciblez Windows 11 24H2 Pro/Enterprise. N'appliquez pas cette configuration a Windows Server : le modele Admin Protection n'y est pas expose comme fonctionnalite supportee.
+
+!!! quote "En resume"
+    - Admin Protection retire le jeton admin de la session normale et impose une elevation par authentification complete.
+    - `TypeOfAdminApprovalMode=2` cible le nouveau modele sur Windows 11 24H2+ ; `1` conserve l'UAC classique.
+    - Le benefice principal est la reduction des attaques de type token theft.
+    - Validez la disponibilite sur la build et les ADMX avant generalisation.
+
 ---
 
 ## Secure Boot et le registre

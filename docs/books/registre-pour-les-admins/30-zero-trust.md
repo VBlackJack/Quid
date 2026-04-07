@@ -423,6 +423,52 @@ Write-Output "Azure Virtual Desktop optimization applied."
 Azure Virtual Desktop optimization applied.
 ```
 
+### Cloud PC (Windows 365)
+
+Un Cloud PC Windows 365 est une VM Windows hebergee dans Azure, geree par Microsoft et administree comme un poste via Intune. Le registre reste celui d'un poste Windows, mais le contexte materiel n'est pas le meme.
+
+#### Differences registre entre Cloud PC et poste physique
+
+| Point | Poste physique | Cloud PC |
+|-------|----------------|----------|
+| Firmware | UEFI local, accessible via BIOS/UEFI | Pas d'acces direct au firmware |
+| TPM | Puce physique ou firmware TPM | vTPM expose au systeme |
+| Disque OS | Local | Heberge dans Azure |
+| Registre | Local | Identique fonctionnellement, mais latence de stockage differente |
+
+```
+HKLM\SOFTWARE\Microsoft\Virtual Machine\Guest\Parameters
+HKLM\SYSTEM
+```
+
+| Valeur | Type | Effet |
+|--------|------|-------|
+| `HostName` | REG_SZ | Peut contenir le nom de l'hote Azure/Hyper-V |
+| `HyperVisorPresent` | REG_DWORD | Signal de virtualisation a verifier selon build et image |
+
+!!! warning "Detection Cloud PC"
+    Ne basez pas un ciblage critique sur une seule cle. Combinez les signaux Intune, le join type, le modele de machine, `Win32_ComputerSystem.HypervisorPresent` et les cles Hyper-V guest si vous devez distinguer Cloud PC, AVD et VM interne.
+
+#### Intune vs GPO pour Cloud PC
+
+Cloud PC peut etre Microsoft Entra joined ou Microsoft Entra Hybrid Join. En Entra Join pur, la gestion attendue est Intune : Settings Catalog, profils de configuration ou OMA-URI. Les GPO AD ne s'appliquent que dans les scenarios hybrid avec ligne de vue domaine.
+
+```
+HKLM\SOFTWARE\Policies\Microsoft\Windows\MDM
+```
+
+| Valeur | Type | Donnees | Effet |
+|--------|------|---------|-------|
+| `MDMWinsOverGP` | REG_DWORD | `1` | Intune prioritaire sur GPO en cas de conflit |
+
+Si vous avez encore besoin de GPO, documentez explicitement le design : Entra Hybrid Join, Azure AD Domain Services ou domaine AD joignable depuis le reseau Cloud PC. Sans cela, un troubleshooting GPO sur Cloud PC devient rapidement ambigu.
+
+!!! quote "En resume"
+    - Cloud PC utilise un registre Windows standard, mais tourne dans une VM geree par Microsoft.
+    - Le vTPM et l'hyperviseur changent le diagnostic materiel, pas les cles de politique Windows.
+    - En Entra Join pur, Intune pilote la configuration ; les GPO ne concernent que les designs hybrid.
+    - `MDMWinsOverGP=1` clarifie la priorite Intune quand GPO et MDM configurent le meme parametre.
+
 ### Optimisation Windows generique pour VDI
 
 ```powershell

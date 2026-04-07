@@ -374,6 +374,33 @@ C'est :
 - sa sauvegarde
 - sa capacité
 
+### Cloud Cache pour multi-region
+
+Cloud Cache remplace `VHDLocations` par `CCDLocations`. Le profil est cache localement puis replique vers plusieurs backends, par exemple deux partages SMB dans deux regions.
+
+```
+HKLM\SOFTWARE\FSLogix\Profiles
+```
+
+| Paramètre | Type | Exemple |
+|---|---|---|
+| `CCDLocations` | REG_SZ | `type=smb,connectionString=\\server1\profiles;type=smb,connectionString=\\server2\profiles` |
+
+Avantage : resilience multi-site et basculement si un backend devient indisponible.
+
+Inconvenient : plus de trafic reseau au logon/logoff, synchronisation plus longue et diagnostic stockage plus exigeant.
+
+Cas d'usage raisonnables : AVD multi-region, Cloud PC avec sauvegarde on-prem, design DR active-active.
+
+!!! warning "Exclusivite"
+    Ne combinez pas `VHDLocations` et `CCDLocations` dans la meme GPO. Choisissez Profile Container classique ou Cloud Cache, puis documentez le design de stockage correspondant.
+
+!!! quote "En resume"
+    - Cloud Cache utilise `CCDLocations` au lieu de `VHDLocations`.
+    - Il apporte de la resilience multi-backend, mais augmente la charge reseau et la complexite.
+    - Il est pertinent pour AVD multi-region, Cloud PC avec secours ou DR active-active.
+    - Ne melangez pas `VHDLocations` et `CCDLocations`.
+
 ### `DeleteLocalProfileWhenVHDShouldApply`
 
 Cette valeur évite une grande partie des sessions "bizarres".
