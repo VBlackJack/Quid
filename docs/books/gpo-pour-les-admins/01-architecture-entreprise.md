@@ -559,6 +559,90 @@ CREATOR OWNER removed from: CFG-Postes-Reseau
 
 ---
 
+## Optimiser le temps de logon GPO
+
+Un logon lent est rarement causé par "les GPO" en bloc.
+Il est causé par un composant précis : trop de GPO liées, un filtre WMI lent, un script, DNS, SYSVOL ou une CSE qui prend trop de temps.
+
+La méthode saine est donc simple : mesurer, isoler, corriger.
+
+### Mesurer le temps GPO par CSE
+
+Le journal utile est :
+
+`Applications and Services Logs > Microsoft > Windows > GroupPolicy > Operational`
+
+| Event ID | Description |
+|:--------:|-------------|
+| `4016` | Debut du traitement d'une CSE |
+| `4017` | Fin du traitement d'une CSE, avec duree |
+| `4018` | Fin du traitement GPO global, avec duree totale |
+| `5016` | Fin du traitement de la CSE Security |
+
+```powershell title="Extraire les durees de traitement par CSE"
+Get-WinEvent -LogName "Microsoft-Windows-GroupPolicy/Operational" -MaxEvents 100 |
+    Where-Object { $_.Id -eq 4017 } |
+    Select-Object TimeCreated,
+        @{N='CSE';E={$_.Properties[5].Value}},
+        @{N='Duration_ms';E={$_.Properties[0].Value}} |
+    Sort-Object Duration_ms -Descending |
+    Select-Object -First 10
+```
+
+!!! warning "Indices de propriétés"
+    Les propriétés d'événements peuvent varier selon version et localisation.
+    Si le script renvoie des valeurs incohérentes, ouvrez un événement `4017` dans l'Observateur d'événements et vérifiez l'ordre exact des champs.
+
+### gpresult /h timing breakdown
+
+Le rapport HTML de `gpresult` contient aussi les durées de traitement par composant.
+
+```batch
+gpresult /h C:\Temp\gpresult.html
+```
+
+Ouvrez le rapport, puis cherchez la section **Component Status**.
+Chaque CSE y affiche sa durée en millisecondes.
+Les composants au-dessus de 5 secondes sont les premiers candidats à l'optimisation.
+
+### Top 5 des causes de logon lent
+
+| # | Cause | Impact | Solution |
+|:-:|-------|--------|----------|
+| 1 | Trop de GPO (`> 50`) | Chaque GPO est lue depuis SYSVOL | Fusionner les GPO atomiques |
+| 2 | Filtres WMI complexes | Evaluation WMI a chaque refresh | Simplifier ou supprimer les filtres WMI |
+| 3 | Scripts de demarrage lents | Bloquent le logon en mode synchrone | Migrer vers des taches planifiees |
+| 4 | DNS lent | Le client met du temps a trouver le DC | Verifier la resolution DNS, `dcdiag` |
+| 5 | SYSVOL non replique | DFS-R en retard, fichiers manquants | `dcdiag /test:sysvolcheck` |
+
+### Interaction Fast Startup
+
+Fast Startup peut masquer les problèmes de temps de logon, car un arrêt hybride ne reproduit pas toujours le même cycle foreground qu'un vrai redémarrage.
+
+Pour mesurer le vrai temps de traitement GPO :
+
+1. Utilisez un poste de référence
+2. Désactivez Fast Startup sur ce poste
+3. Lancez un vrai redémarrage, pas un arrêt puis rallumage
+4. Relisez `GroupPolicy/Operational`
+
+Référence : [Traitement GPO et Fast Startup](../bible-gpo/07-traitement.md).
+
+### Checklist d'optimisation
+
+- [ ] Nombre de GPO liees < 50 par OU
+- [ ] Aucun filtre WMI avec requete complexe (> 2 secondes)
+- [ ] Scripts de demarrage < 5 secondes ou migres en taches planifiees
+- [ ] DNS resolution vers le DC < 100 ms
+- [ ] DFS-R replique et en sante (`dcdiag /test:sysvolcheck`)
+- [ ] Fast Startup desactive sur les postes de reference
+
+!!! quote "En resume"
+    Un logon GPO lent se mesure par CSE, pas au ressenti.
+    Commencez par `GroupPolicy/Operational`, confirmez avec `gpresult /h`, puis corrigez les GPO trop nombreuses, les filtres WMI, les scripts, DNS et SYSVOL.
+
+---
+
 ## :material-book-open-outline: Références croisées
 
 | Sujet | Reference |

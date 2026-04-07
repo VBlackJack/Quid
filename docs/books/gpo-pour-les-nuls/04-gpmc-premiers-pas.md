@@ -660,7 +660,7 @@ Pour vous y retrouver dans GPMC, voici un recapitulatif des actions principales 
 
 ---
 
-## Exercice pratique : explorer votre domaine
+## Exercice : decouvrir la console GPMC et lire une GPO
 
 Rien ne vaut la pratique. Si vous avez acces a un domaine Active Directory (meme un environnement de test), essayez cet exercice.
 
@@ -691,6 +691,24 @@ Rien ne vaut la pratique. Si vous avez acces a un domaine Active Directory (meme
     - La meilleure facon d'apprendre GPMC est de l'ouvrir et d'explorer
     - Commencez par les deux GPO par defaut : elles sont toujours presentes et sans risque a consulter
     - Si vous n'avez pas de domaine, un lab virtuel est la solution ideale
+
+!!! example "Exercice : lire la Default Domain Policy"
+    La Default Domain Policy est la GPO la plus importante de votre domaine. Elle contient les parametres de mot de passe et de verrouillage.
+
+    1. Dans GPMC, developpez votre domaine et cliquez sur **Default Domain Policy**
+    2. Cliquez sur l'onglet **Parametres** (Settings)
+    3. Attendez le chargement du rapport (il peut prendre quelques secondes)
+    4. Cherchez la section **Strategies de comptes > Strategie de mot de passe**
+    5. Notez sur un papier : la longueur minimale, la complexite requise, et l'age maximum
+
+    ??? success "Ce que vous devez trouver"
+        Les valeurs les plus courantes dans un domaine par defaut :
+
+        - Longueur minimale : **7 caracteres** (valeur par defaut Microsoft)
+        - Complexite : **Activee**
+        - Age maximum : **42 jours**
+
+        Si vos valeurs sont differentes, c'est que quelqu'un les a modifiees — ce qui est normal en production.
 
 ---
 

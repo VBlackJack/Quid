@@ -18,6 +18,85 @@ tags:
 
 ---
 
+## Comment trouver la bonne cle registre
+
+Quand vous changez un parametre dans Windows, il existe souvent une valeur registre derrière.
+Le plus dur n'est pas toujours de modifier cette valeur.
+Le plus dur est de trouver **la bonne clé**.
+
+### Methode 1 : Ctrl+F dans Regedit
+
+Ouvrez Regedit, appuyez sur ++ctrl+f++, puis tapez un mot-cle.
+Par exemple : `Searchbox`, `Explorer`, `Taskbar`, `Wallpaper`.
+
+C'est simple, mais lent.
+Regedit ne trouve que ce qui est chargé et visible dans les ruches ouvertes.
+
+### Methode 2 : Process Monitor
+
+Process Monitor montre ce que Windows fait en temps réel.
+
+1. Lancez **ProcMon** en administrateur
+2. Ajoutez le filtre : `Operation` `is` `RegSetValue` puis **Include**
+3. Cliquez sur la gomme pour vider l'affichage
+4. Changez le parametre dans Windows
+5. Regardez quelle clé a été modifiée
+
+!!! tip "Methode la plus fiable"
+    La methode ProcMon est la plus fiable car elle montre exactement ce que Windows fait en temps reel.
+
+### Methode 3 : Regshot
+
+Regshot compare deux instantanés du registre.
+
+1. Prenez un snapshot avant le changement
+2. Modifiez le parametre dans Windows
+3. Prenez un snapshot apres
+4. Comparez les deux
+
+L'outil montre ce qui a été ajouté, modifié ou supprimé.
+C'est très pratique quand vous ne savez pas quel processus écrit la valeur.
+
+### Methode 4 : recherche web
+
+Tapez le nom du parametre + `registry key` dans un moteur de recherche.
+Exemple : `Windows search box taskbar registry key`.
+
+!!! warning "Verifier avant d'appliquer"
+    Les résultats web peuvent être anciens ou faux.
+    Vérifiez toujours la clé, la version Windows concernée et la source.
+    Le chapitre 10 explique comment évaluer les tutoriels avant de les suivre.
+
+---
+
+## Pourquoi mon changement registre ne fonctionne pas
+
+Le registre a un **ordre de precedence**.
+Votre modification peut être écrasée par un niveau supérieur.
+
+| Priorite | Source | Ou ca s'ecrit |
+|:--------:|--------|---------------|
+| 1 (plus fort) | Intune / MDM | `HKLM\SOFTWARE\Microsoft\PolicyManager\...` |
+| 2 | GPO domaine | `HKLM\SOFTWARE\Policies\...` ou `HKCU\Software\Policies\...` |
+| 3 | GPO locale | Meme chemin que GPO domaine |
+| 4 | Application | Variable, souvent `HKCU\Software\<Editeur>\<App>` |
+| 5 (plus faible) | Vous (Regedit) | Variable |
+
+Si vous modifiez une valeur dans Regedit mais qu'une GPO écrit au même endroit, votre changement sera écrasé au prochain `gpupdate`.
+Par défaut, un rafraîchissement GPO arrive environ toutes les 90 minutes, avec une variation aléatoire.
+
+Comment vérifier rapidement :
+
+1. Regardez le chemin de la clé
+2. Si elle est sous `HKLM\SOFTWARE\Policies\` ou `HKCU\Software\Policies\`, elle est gérée par GPO
+3. Dans ce cas, la modification doit passer par la GPO, pas par Regedit
+
+!!! tip "Reflexe"
+    Avant de modifier une valeur, vérifiez si elle est sous `Policies\`.
+    Si oui, cherchez la GPO responsable au lieu de corriger localement.
+
+---
+
 ## La regle du redemarrage
 
 Avant de plonger dans le registre, essayez toujours **la solution la plus simple** :
@@ -155,6 +234,16 @@ HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList
 ```
 
 **Etape 2** -- Vous verrez des sous-cles avec des noms comme `S-1-5-21-...`. Cherchez votre SID. Pour trouver le votre :
+
+!!! info "Qu'est-ce qu'un SID ?"
+    Un **SID** (Security Identifier) est un identifiant unique que Windows attribue a chaque utilisateur, groupe et machine. Il ressemble a ceci :
+
+    `S-1-5-21-3623811015-3361044348-30300820-1013`
+
+    - Les 3 blocs de chiffres au milieu identifient votre **domaine** (ou votre machine locale)
+    - Le dernier chiffre (`1013`) est votre **identifiant personnel** dans ce domaine
+
+    Windows utilise le SID en interne, pas votre nom d'utilisateur. C'est pourquoi quand un profil est corrompu, vous devez retrouver votre SID pour reparer la situation.
 
 ```powershell
 # Find your SID

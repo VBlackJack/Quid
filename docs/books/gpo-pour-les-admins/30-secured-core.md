@@ -663,7 +663,7 @@ et vous perdez la main.
 | 5 | Passer HVCI + CG en UEFI lock | Test pilote validé |
 | 6 | Labellisation Secured-Core PC | Toutes étapes validées |
 
-### Étape 1 : Secure Boot + TPM 2.0
+### Prerequis materiel pour Secured-Core PC
 
 Sans cette base, le reste n'a pas de sens.
 

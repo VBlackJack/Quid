@@ -728,6 +728,22 @@ Prenez l'habitude de toujours passer par cet onglet avant de cliquer sur OK.
     - **Erreur 3 :** Mauvais type de donnees → verifiez dans la documentation ou dans regedit.
     - **Erreur 4 :** Ne pas tester le ciblage ILT → testez sur un seul poste d'abord avec `gpresult /r`.
 
+!!! example "Exercice : observer le tatouage d'une preference"
+    Cet exercice montre la difference entre un **parametre GPO** (qui disparait quand on supprime la GPO) et une **preference** (qui reste — c'est le tatouage).
+
+    **Preparation :** creez une GPO de test `TST-Preference-Test` liee a une OU de test.
+
+    1. Editez la GPO : `Configuration utilisateur > Preferences > Parametres Windows > Registre`
+    2. Clic droit > **Nouveau > Element de registre**
+    3. Action : **Mettre a jour** | Ruche : `HKCU` | Chemin : `Software\QuidTest` | Nom : `PreferenceValue` | Type : `REG_SZ` | Donnees : `Hello`
+    4. Appliquez sur le poste de test : `gpupdate /force`
+    5. Verifiez dans Regedit : `HKCU\Software\QuidTest\PreferenceValue` = `Hello`
+    6. Maintenant, **supprimez la GPO** dans GPMC (ou deliez-la)
+    7. Faites `gpupdate /force` sur le poste
+    8. Verifiez Regedit : **la valeur est toujours la !** C'est le tatouage.
+
+    Pour l'eviter : cochez la case "Supprimer cet element lorsqu'il ne s'applique plus" dans les proprietes de l'element.
+
 ---
 
 ## Recapitulatif du chapitre

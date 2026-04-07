@@ -247,72 +247,32 @@ Pour des raisons de compatibilite, certains reglages existent **a la fois** dans
 
 ---
 
-## Exercice pratique
+## Exercice : observer la correspondance Parametres-Registre
 
-!!! example "Essayez vous-meme"
+!!! example "Exercice : changer le mode de recherche de la barre des taches"
+    1. Ouvrez `Parametres > Personnalisation > Barre des taches > Rechercher`
+    2. Notez le mode actuel : icone, barre de recherche ou masque
+    3. Ouvrez Regedit et naviguez vers `HKCU\Software\Microsoft\Windows\CurrentVersion\Search`
+    4. Trouvez la valeur `SearchboxTaskbarMode`
+    5. Notez sa valeur actuelle
 
-    ### Etape 1 : Verifier le mode sombre dans le registre
+    | Valeur | Mode affiche |
+    |:------:|-------------|
+    | `0` | Masque : pas de recherche visible |
+    | `1` | Icone de recherche uniquement |
+    | `2` | Barre de recherche complete |
+    | `3` | Bouton de recherche sur Windows 11 |
 
-    1. Ouvrez les **Parametres** (++win+i++) > **Personnalisation** > **Couleurs**
-    2. Notez si le mode sombre est active ou non pour les applications
-    3. Ouvrez **Regedit** (++win+r++, tapez `regedit`, ++enter++)
-    4. Collez ce chemin dans la barre d'adresse :
-       ```
-       HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
-       ```
-    5. Regardez la valeur `AppsUseLightTheme` dans le panneau de droite
+    6. Changez la valeur dans Regedit, par exemple `0` pour masquer la recherche
+    7. Fermez et rouvrez l'Explorateur, ou deconnectez-vous puis reconnectez-vous
+    8. Verifiez que `Parametres` reflete le changement
 
-    ```title="Resultat attendu"
-
-    - Si le mode sombre est active dans les Parametres → la valeur est `0`
-
-    ```
-    - Si le mode clair est active → la valeur est `1`
-
-    ---
-
-    ### Etape 2 : Trouver un reglage cache
-
-    Certains reglages n'apparaissent pas dans les Parametres. Essayez celui-ci :
-
-    1. Dans Regedit, naviguez vers :
-       ```
-       HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
-       ```
-    2. Cherchez la valeur `TaskbarSi` (taille de la barre des taches, Windows 11 uniquement)
-    3. Si elle n'existe pas, creez-la :
-        - Clic droit dans le panneau de droite > **Nouveau** > **Valeur DWORD (32 bits)**
-        - Nommez-la `TaskbarSi`
-        - Double-cliquez et mettez `0` (petite), `1` (moyenne, defaut) ou `2` (grande)
-    4. Redemarrez l'Explorateur ou deconnectez-vous pour voir le changement
-
-    Ce reglage a longtemps ete un bon exemple de parametre expose uniquement par le registre.
-
-!!! warning "Windows 11 23H2 et versions ulterieures"
-    `TaskbarSi` est devenu **obsolete** sur les versions recentes de Windows 11, notamment 23H2 et suivantes. Selon la build, la valeur peut etre ignoree completement. Gardez cet exercice comme illustration historique du registre, pas comme un reglage fiable en production.
-
-    ---
-
-    ### Etape 3 : Modifier le registre, verifier dans les Parametres
-
-    1. Dans Regedit, naviguez vers :
-       ```
-       HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize
-       ```
-    2. Double-cliquez sur `AppsUseLightTheme`
-    3. Changez la valeur : si c'est `0`, mettez `1` (ou inversement)
-    4. Cliquez **OK**
-    5. Ouvrez les **Parametres** > **Personnalisation** > **Couleurs**
-
-    ```title="Resultat attendu"
-
-    le mode d'application a change ! Le registre et les Parametres sont synchronises. Modifier l'un modifie l'autre.
-
-    ```
+    !!! success "Ce que vous avez appris"
+        Un meme parametre peut etre modifie par l'interface graphique ou par le registre. Les deux ecrivent au meme endroit.
 
 !!! quote "En resume"
     - L'exercice montre que le registre et les Parametres sont **synchronises** : modifier l'un modifie l'autre instantanement.
-    - Certains reglages avances ont longtemps existe uniquement dans le registre, mais leur prise en charge peut disparaitre au fil des versions.
+    - `SearchboxTaskbarMode` remplace l'ancien exercice devenu obsolete sur les versions recentes de Windows 11.
 
 ---
 

@@ -147,7 +147,7 @@ La migration d'une GPO vers Intune ne se fait pas en un clic. Chaque workload do
 | **6. Observation** | Surveiller les tickets, les événements et la conformité pendant **2 semaines** | Admin IT + Support | Intune Compliance + helpdesk | Aucun incident lié au paramètre |
 | **7. Suppression de la GPO** | Supprimer la GPO après la fenêtre d'observation | Admin AD | GPMC | GPO absente de `Get-GPO -All` |
 
-### Étape 1 — Identifier les gaps avant de commencer
+### Inventaire et cartographie des GPO avant migration Intune
 
 Avant de créer un seul profil Intune, exportez le rapport GPA en CSV depuis le portail.
 

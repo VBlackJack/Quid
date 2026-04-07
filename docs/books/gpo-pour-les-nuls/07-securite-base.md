@@ -794,6 +794,23 @@ Chacune de ces erreurs semble anodine isolement. Mais combinees, elles creent un
     - Duree de vie maximale : a definir selon votre politique interne (`90 jours` reste un exemple classique).
     - Duree de vie minimale : 1 jour.
     - Voici l'ensemble des parametres recommandes dans ce chapitre, regroupes dans un tableau de reference unique.
+
+---
+
+## Quiz : les strategies de compte
+
+??? question "Question 1 : ou definir la politique de mot de passe du domaine ?"
+    **Reponse :** Dans une GPO liee a la **racine du domaine** (par convention, la Default Domain Policy). Une GPO liee a une OU n'a aucun effet sur les strategies de comptes.
+
+??? question "Question 2 : que se passe-t-il si vous definissez une politique de mot de passe dans une GPO liee a une OU ?"
+    **Reponse :** Rien. Les strategies de comptes (mot de passe, verrouillage, Kerberos) ne s'appliquent qu'a la racine du domaine. Pour des politiques differentes par groupe, il faut utiliser les Fine-Grained Password Policies (PSO).
+
+??? question "Question 3 : un utilisateur est verrouille. Ou regarder ?"
+    **Reponse :** Sur le PDC Emulator (le DC qui centralise les verrouillages). Outil : `Search-ADAccount -LockedOut` ou Event Viewer > Security > Event ID 4740.
+
+??? question "Question 4 : quelle est la difference entre desactiver un compte et le verrouiller ?"
+    **Reponse :** Un verrouillage est **temporaire** (il se leve apres la duree configuree ou manuellement). Une desactivation est **permanente** jusqu'a reactivation manuelle par un admin.
+
 ---
 
 ## La suite

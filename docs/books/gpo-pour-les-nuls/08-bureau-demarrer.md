@@ -649,7 +649,7 @@ Pour forcer un theme specifique :
 
 ---
 
-## Exercice pratique
+## Exercice : personnaliser le bureau et le menu Demarrer via GPO
 
 Il est temps de mettre tout ca en pratique. On va creer une GPO complete qui standardise l'environnement de bureau pour tous les utilisateurs d'une OU.
 

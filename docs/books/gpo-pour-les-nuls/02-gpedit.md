@@ -1,5 +1,5 @@
 ---
-description: "Apprenez a ouvrir et naviguer dans l'editeur de strategies de groupe locales (gpedit.msc) : interface, categories, etats des parametres et exercice pratique."
+description: "Apprenez a ouvrir et naviguer dans l'editeur de strategies de groupe locales (gpedit.msc) : interface, categories, etats des parametres et exercice d'exploration."
 tags:
   - gpo
   - debutant
@@ -628,7 +628,7 @@ Le livre [Le Registre pour les Nuls](../registre-pour-les-nuls/index.md) vous gu
 
 ---
 
-## Exercice pratique : explorer sans toucher
+## Exercice : explorer gpedit sans rien modifier
 
 ### Objectif
 

@@ -350,3 +350,108 @@ L'operation a reussi.
     - `Start = 4` desactive un service
     - En cas de blocage au demarrage : charger la ruche SYSTEM hors ligne et desactiver le service coupable
     - Verifier `Select\Current` pour savoir quel `ControlSet` est actif
+
+---
+
+## Trouver quelle GPO a modifie une cle
+
+Quand une valeur revient après correction manuelle, cherchez d'abord une GPO.
+Le registre n'est souvent que le résultat final ; l'autorité réelle peut être dans Active Directory.
+
+### Methode 1 : gpresult
+
+```batch
+gpresult /h rapport.html
+```
+
+Ouvrez `rapport.html`, puis recherchez le nom du paramètre, la clé ou la valeur.
+Le rapport indique les GPO appliquées et, selon le type de paramètre, le composant qui l'a écrit.
+
+### Methode 2 : regarder le chemin de la cle
+
+Si la valeur est sous l'un de ces chemins, elle vient très probablement d'une politique :
+
+```
+HKLM\SOFTWARE\Policies\...
+HKCU\Software\Policies\...
+```
+
+Comparer la valeur actuelle avec la valeur sous `Policies` permet de distinguer un réglage applicatif d'un réglage GPO.
+
+### Methode 3 : audit et evenements
+
+Deux événements peuvent aider selon la source du changement :
+
+| Event ID | Journal | Usage |
+|---|---|---|
+| `5136` | Security sur DC | Modification d'objet AD, utile pour suivre un changement de GPO côté annuaire |
+| `4657` | Security local | Modification d'une valeur registre auditée |
+
+Activer l'audit registre :
+
+```batch
+auditpol /set /subcategory:"Registry" /success:enable /failure:enable
+```
+
+Il faut aussi poser une SACL sur la clé surveillée.
+Sans SACL, activer la sous-catégorie ne suffit pas à produire les événements utiles.
+
+### Trouver les GPO qui ciblent un chemin registre
+
+```powershell title="Trouver les GPO qui modifient une cle specifique"
+$targetKey = "HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate"
+
+Get-GPO -All | ForEach-Object {
+    [xml]$report = Get-GPOReport -Guid $_.Id -ReportType Xml
+    if ($report.OuterXml -match [regex]::Escape($targetKey)) {
+        [PSCustomObject]@{
+            GPO    = $_.DisplayName
+            Status = $_.GpoStatus
+        }
+    }
+}
+```
+
+!!! warning "Module GroupPolicy"
+    `Get-GPO` nécessite le module `GroupPolicy`, généralement disponible dans Windows PowerShell 5.1 avec RSAT ou sur un serveur d'administration.
+
+!!! info "En resume"
+    Pour trouver l'origine d'une valeur imposée, commencez par `gpresult /h`, vérifiez si la clé est sous `Policies`, puis utilisez les rapports XML GPO ou l'audit si l'origine reste ambiguë.
+
+---
+
+## Codes d'erreur courants
+
+| Code | Source | Description | Action |
+|------|--------|-------------|--------|
+| `0x00000005` | `reg.exe` / API | `ERROR_ACCESS_DENIED` | Verifier permissions, lancer en admin, verifier TrustedInstaller |
+| `0x00000002` | `reg.exe` / API | `ERROR_FILE_NOT_FOUND` | Cle ou valeur inexistante |
+| `0x000003F1` | Regedit import | `ERROR_LOG_HARD_ERROR` | Fichier `.reg` corrompu ou encodage incorrect |
+| `0x80070005` | PowerShell | `E_ACCESSDENIED` (COM) | WMI/CIM acces refuse, verifier DCOM permissions |
+| `0x800703FA` | Service | `ERROR_KEY_DELETED` | Cle supprimee pendant l'acces, relancer l'operation |
+
+!!! tip "Lecture rapide"
+    `0x80070005` est presque toujours un problème d'autorisation.
+    Avant de chercher une corruption, vérifiez le contexte d'exécution, l'élévation et les ACL.
+
+---
+
+## Arbre de decision : symptome → outil → correction
+
+```mermaid
+flowchart TD
+    A["Probleme registre"] --> B{"La cle existe ?"}
+    B -->|Non| C["reg query / Get-ItemProperty"]
+    C --> D{"Erreur acces refuse ?"}
+    D -->|Oui| E["Lancer en admin ou verifier ACL"]
+    D -->|Non| F["Cle supprimee ou jamais creee"]
+    B -->|Oui| G{"Valeur correcte ?"}
+    G -->|Non| H{"Sous Policies\\ ?"}
+    H -->|Oui| I["GPO : gpresult /h pour identifier"]
+    H -->|Non| J["Modification locale, Process Monitor pour tracer"]
+    G -->|Oui| K{"Effet visible ?"}
+    K -->|Non| L["Redemarrage requis ou service a relancer"]
+```
+
+!!! info "En resume"
+    Le dépannage registre commence par trois questions : la clé existe-t-elle, la valeur est-elle correcte, et une autorité supérieure la réécrit-elle.

@@ -540,6 +540,30 @@ MaValeur=dword:00000001
     - Les erreurs les plus frequentes : oubli de l'en-tete, anti-slashes simples dans les valeurs texte (il faut les doubler), espaces avant le `=`, prefixe en majuscules.
     - Les noms de valeurs doivent toujours etre entre **guillemets** et les prefixes de type (`dword:`, `hex:`) en **minuscules**.
 
+!!! example "Exercice : debugger un fichier .reg casse"
+    Voici un fichier .reg qui ne fonctionne pas. Trouvez les 4 erreurs :
+
+    ```reg title="broken-example.reg (4 erreurs)"
+    REGEDIT4
+
+    [HKEY_CURRENT_USER\Software\QuidTest]
+    "MySetting"="Hello World"
+    "MyNumber"=dword:GG
+    "MyPath"=hex(2):43,00,3a,00,5c,00,00,00
+    @=Valeur par defaut
+    ```
+
+    ??? success "Solution"
+        1. **Ligne 1** : `REGEDIT4` est l'ancien format Windows 9x (ANSI). Utilisez `Windows Registry Editor Version 5.00` (Unicode).
+        2. **Ligne 5** : `dword:GG` est invalide — les valeurs DWORD sont en hexadecimal (`0-9`, `A-F`). Corrigez en `dword:00000000` par exemple.
+        3. **Ligne 7** : la valeur par defaut doit etre entre guillemets : `@="Valeur par defaut"`
+        4. **Bonus** : le fichier devrait etre enregistre en **UTF-16 LE avec BOM** si vous utilisez le header v5.00.
+
+!!! warning "Encodage UTF-16 LE"
+    Les fichiers `.reg` exportes par Regedit utilisent l'encodage **UTF-16 LE avec BOM**. Si vous creez un fichier `.reg` a la main dans un editeur de texte (Notepad, VS Code), l'encodage par defaut est souvent UTF-8. Cela peut provoquer des caracteres corrompus dans les valeurs.
+
+    **Recommandation :** exportez toujours une cle voisine depuis Regedit, puis modifiez le fichier exporte. Vous etes certain d'avoir le bon encodage.
+
 ---
 
 ## Lignes longues et continuation

@@ -375,5 +375,127 @@ PC003             i9j0k1l2-...
 
 ---
 
+## DSC : Registry comme ressource declarative
+
+Desired State Configuration (DSC) permet de declarer l'etat souhaite du registre.
+Au lieu d'ecrire un script imperatif qui "fait" des modifications, vous décrivez la configuration attendue.
+Le moteur DSC applique ensuite l'écart si nécessaire.
+
+```powershell title="Configuration DSC pour une cle registre"
+Configuration RegistryBaseline {
+    Node 'localhost' {
+        Registry DisableIPv6 {
+            Key       = 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters'
+            ValueName = 'DisabledComponents'
+            ValueData = '0xff'
+            ValueType = 'Dword'
+            Ensure    = 'Present'
+        }
+    }
+}
+
+RegistryBaseline
+Start-DscConfiguration -Path .\RegistryBaseline -Wait -Force -Verbose
+```
+
+Commandes utiles :
+
+| Commande | Usage |
+|---|---|
+| `Test-DscConfiguration` | Verifie si l'etat actuel correspond a l'etat declare |
+| `Get-DscConfiguration` | Retourne l'etat actuel de toutes les ressources |
+| `Start-DscConfiguration` | Applique la configuration compilee |
+
+Avantages :
+
+- idempotent : relancer la configuration ne double pas les modifications ;
+- auditable : l'etat cible est declare explicitement ;
+- versionnable en Git ;
+- pratique pour une baseline stable.
+
+!!! warning "DSC v2 et v3"
+    DSC v2 côté Windows PowerShell 5.1 reste très présent dans les environnements existants.
+    DSC v3 évolue vers un modèle refondu ; ne migrez pas un runbook sans valider les ressources disponibles et le moteur cible.
+
+!!! info "En resume"
+    DSC est utile quand vous voulez declarer une baseline registre et la tester de maniere idempotente.
+    Pour un simple changement ponctuel, un script PowerShell classique reste souvent plus rapide.
+
+---
+
+## Gestion des erreurs dans les scripts registre
+
+Dans un script de production, une erreur de registre ne doit pas passer inaperçue.
+Utilisez `-ErrorAction Stop` pour transformer les erreurs non terminales PowerShell en exceptions capturables par `try/catch`.
+
+```powershell title="Pattern standard try/catch pour le registre"
+try {
+    $value = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\MyApp" -Name "Setting" -ErrorAction Stop
+}
+catch [System.Management.Automation.ItemNotFoundException] {
+    Write-Warning "Key does not exist: HKLM:\SOFTWARE\MyApp"
+}
+catch [System.Security.SecurityException] {
+    Write-Warning "Access denied to HKLM:\SOFTWARE\MyApp"
+}
+catch {
+    Write-Error "Unexpected error: $_"
+}
+```
+
+| Erreur | Exception | Cause |
+|--------|-----------|-------|
+| Cle inexistante | `ItemNotFoundException` | Chemin incorrect |
+| Acces refuse | `SecurityException` | Permissions ou TrustedInstaller |
+| Type incorrect | `InvalidCastException` | Valeur `REG_DWORD` traitee comme string |
+
+!!! tip "Production"
+    Ajoutez `-ErrorAction Stop` sur les lectures et écritures critiques.
+    Sans cela, un `catch` peut ne jamais s'exécuter alors que la commande affiche une erreur.
+
+!!! info "En resume"
+    Les scripts registre doivent echouer clairement.
+    `try/catch` + `-ErrorAction Stop` rendent les erreurs exploitables dans les logs et les pipelines CI.
+
+---
+
+## Tests Pester pour le registre
+
+Pester est le framework de test PowerShell standard.
+Il permet de transformer une baseline registre en tests lisibles et répétables.
+
+```powershell title="Test Pester : verifier une cle registre"
+Describe "Registry baseline compliance" {
+    It "DisabledComponents should be 0xff (IPv6 disabled)" {
+        $value = Get-ItemPropertyValue "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -Name "DisabledComponents"
+        $value | Should -Be 255
+    }
+
+    It "RDP should be enabled (fDenyTSConnections = 0)" {
+        $value = Get-ItemPropertyValue "HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections"
+        $value | Should -Be 0
+    }
+}
+```
+
+Exécution :
+
+```powershell
+Invoke-Pester .\RegistryBaseline.Tests.ps1 -Output Detailed
+```
+
+Cas d'usage :
+
+- validation de baseline après déploiement ;
+- audit de conformité ;
+- contrôle CI/CD d'une image de référence ;
+- non-régression après modification d'un script registre.
+
+!!! info "En resume"
+    Pester transforme les attentes registre en tests automatisés.
+    C'est le bon outil quand une baseline doit être prouvée, pas seulement appliquée.
+
+---
+
 !!! note "Premiers pas avec PowerShell"
     Si vous debutez avec PowerShell, commencez par [PowerShell et le registre : les bases](../registre-pour-les-nuls/13-powershell-bases.md) dans le guide pour debutants.

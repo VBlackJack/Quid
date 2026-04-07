@@ -591,6 +591,41 @@ Dans six mois, ces descriptions ne vous apprendront rien. Laquelle des trois sau
     - Apres restauration d'une GPO supprimee : **recreez les liens** vers les OU.
     - Les descriptions de sauvegarde doivent contenir : **date, motif precis, auteur**.
 
+!!! example "Exercice : sauvegarder, supprimer et restaurer une GPO"
+    Cet exercice vous fait pratiquer le cycle complet de sauvegarde/restauration. Utilisez une GPO de test, **jamais une GPO de production**.
+
+    **Etape 1 : creer une GPO de test**
+
+    1. Dans GPMC : clic droit sur votre OU de test > **Creer un objet GPO dans ce domaine, et le lier ici**
+    2. Nommez-la `TST-Backup-Exercise`
+    3. Editez-la : activez un parametre visible (ex: desactiver l'ecran de veille)
+
+    **Etape 2 : sauvegarder**
+
+    1. Dans GPMC : clic droit sur `TST-Backup-Exercise` > **Sauvegarder**
+    2. Choisissez un dossier sur votre bureau
+    3. Ajoutez un commentaire : "Sauvegarde avant test de suppression"
+    4. Cliquez sur **Sauvegarder**
+
+    **Etape 3 : supprimer**
+
+    1. Clic droit sur `TST-Backup-Exercise` > **Supprimer**
+    2. Confirmez la suppression
+    3. Verifiez : la GPO a disparu de GPMC
+
+    **Etape 4 : restaurer**
+
+    1. Clic droit sur le conteneur **Objets de strategie de groupe** > **Gerer les sauvegardes**
+    2. Pointez vers le dossier de sauvegarde
+    3. Selectionnez votre sauvegarde > **Restaurer**
+    4. Verifiez : la GPO est de retour avec ses parametres et ses liaisons
+
+    !!! success "Ce que vous avez appris"
+        - Une sauvegarde GPO capture les parametres, les filtres de securite et les permissions
+        - La restauration recree la GPO avec le meme GUID
+        - Les liaisons vers les OU doivent etre verifiees ou recreees apres restauration
+        - En production, cette procedure est votre filet de securite avant toute modification risquee
+
 ---
 
 ## Tableau de reference : commandes et operations

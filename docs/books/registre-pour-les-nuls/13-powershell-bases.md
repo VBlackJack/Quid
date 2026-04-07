@@ -184,7 +184,7 @@ Mozilla
 
 ---
 
-### Exercice pratique : explorer une cle connue
+### Exercice : lire et modifier le registre en PowerShell
 
 !!! example "Essayez vous-meme"
     Naviguez jusqu'a la cle qui contient des informations sur votre version de Windows :

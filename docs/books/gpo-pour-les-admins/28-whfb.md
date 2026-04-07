@@ -579,7 +579,7 @@ Résultat :
     5. Forcer `gpupdate /force`, puis **redémarrer**.
     6. Vérifier l'enrôlement dans le journal **Microsoft-Windows-HelloForBusiness** avec l'**Event ID 358**.
 
-### Étape 1 : contrôler Microsoft Entra Connect Sync
+### Prerequis infrastructure pour WHfB Cloud Kerberos Trust
 
 Le but n'est pas de faire un audit exhaustif du connecteur.
 

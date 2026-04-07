@@ -108,6 +108,34 @@ End of search: 1 match(es) found.
 
 ---
 
+### reg flags
+
+`reg flags` affiche ou modifie les flags de virtualisation UAC d'une cle.
+En diagnostic, le mode le plus utile est `QUERY`.
+
+```batch
+reg flags HKLM\Software\MyApp QUERY
+```
+
+Les flags possibles :
+
+| Flag | Effet |
+|---|---|
+| `DONT_VIRTUALIZE` | Empêche la virtualisation UAC pour la clé |
+| `DONT_SILENT_FAIL` | Évite l'échec silencieux en cas d'accès refusé |
+| `RECURSE_FLAG` | Applique le comportement de manière récursive |
+
+Cas d'usage typique : une ancienne application tente d'ecrire dans `HKLM`, mais l'écriture finit dans le magasin virtuel utilisateur :
+
+```
+HKCU\Software\Classes\VirtualStore
+```
+
+!!! tip "Diagnostic UAC"
+    Si un programme voit une valeur que Regedit ne montre pas sous `HKLM`, vérifiez `VirtualStore` et les flags de virtualisation de la clé.
+
+---
+
 ### Ecriture
 
 ```batch
@@ -195,6 +223,15 @@ The operation completed successfully.
 
 !!! danger "reg save vs reg export"
     `reg export` cree un fichier `.reg` **texte** lisible et modifiable. `reg save` cree un fichier `.hiv` **binaire** brut (copie exacte de la ruche). Utilisez `export` pour des sauvegardes partielles et `save` pour des sauvegardes completes de ruche.
+
+### Codes d'erreur courants de reg.exe
+
+| Code | Signification | Cause frequente |
+|:----:|---------------|-----------------|
+| `0` | Succes | — |
+| `1` | Erreur generique | Cle inexistante, acces refuse, syntaxe invalide |
+| `2` | Cle ou valeur introuvable | Chemin incorrect ou cle supprimee |
+| `5` | Acces refuse | Permissions insuffisantes ou cle protegee par TrustedInstaller |
 
 !!! info "En resume"
     `reg.exe` couvre tous les besoins : `query` pour lire, `add` pour ecrire, `delete` pour supprimer, `export/import` pour le format texte `.reg`, et `save/restore` pour le format binaire `.hiv`. Le flag `/f` supprime les confirmations.
@@ -306,8 +343,34 @@ HKEY_USERS\S-1-5-20
 HKEY_USERS\S-1-5-21-XXXXXXXXXX-XXXXXXXXXX-XXXXXXXXXX-1001
 ```
 
-!!! info "En resume"
+!!! info "Commandes PowerShell de base"
     PowerShell traite le registre comme un systeme de fichiers. `Get-ChildItem` liste les sous-cles, `Get-ItemProperty` lit les valeurs, `Set-ItemProperty` ecrit, `Remove-Item` supprime. Creez un `PSDrive` pour acceder aux ruches autres que HKLM et HKCU.
+
+### PowerShell 7 vs Windows PowerShell
+
+Windows PowerShell 5.1 et PowerShell 7 accedent au registre via le même provider `Registry`.
+Pour les opérations de base (`Get-ItemProperty`, `Set-ItemProperty`, `New-PSDrive`), la logique reste donc identique.
+
+La différence se voit surtout autour de l'écosystème :
+
+| Besoin | Choix recommandé | Pourquoi |
+|---|---|---|
+| Lire ou modifier le registre local | PowerShell 7 ou Windows PowerShell 5.1 | Même provider `Registry` |
+| Remoting SSH | PowerShell 7 | Support de `-SSHTransport` et meilleure portabilité |
+| Scripts cross-platform | PowerShell 7 | Même moteur sur Windows, Linux et macOS |
+| Cmdlets GPO (`Get-GPO`, `Backup-GPO`) | Windows PowerShell 5.1 | Le module `GroupPolicy` n'est pas disponible nativement dans PS7 |
+| Runbook mixte | PS7 + appel ponctuel à `powershell.exe` | Permet de garder PS7 tout en appelant un module legacy |
+
+```powershell title="Appeler Windows PowerShell depuis PowerShell 7"
+powershell.exe -NoProfile -Command "Import-Module GroupPolicy; Get-GPO -All | Select-Object DisplayName"
+```
+
+!!! tip "Recommandation pratique"
+    Utilisez PowerShell 7 pour le remoting moderne et les opérations registre.
+    Gardez Windows PowerShell 5.1 pour les cmdlets GPO et certains modules RSAT historiques.
+
+!!! info "En resume"
+    PowerShell 7 et Windows PowerShell 5.1 lisent le registre de la même manière, mais pas le même écosystème de modules. PS7 est meilleur pour SSH et les scripts modernes ; Windows PowerShell 5.1 reste nécessaire pour `GroupPolicy`.
 
 ---
 
@@ -340,6 +403,20 @@ Pour la configuration complete d'OpenSSH et le choix WinRM vs SSH, voir [PowerSh
     - Pour les operations serieuses, utilisez PowerShell 7 remoting over SSH.
     - `reg compare` est utile pour comparer deux branches registre.
     - `regini.exe` existe encore pour les cas legacy, mais PowerShell reste preferable.
+
+### Matrice de decision : acces distant au registre
+
+| Methode | Protocole | Prerequis | Cas d'usage |
+|---------|-----------|-----------|-------------|
+| `Invoke-Command -ComputerName` | WinRM (`5985/5986`) | WinRM actif, firewall ouvert | Parc AD homogene |
+| `Enter-PSSession -SSHTransport` | SSH (`22`) | OpenSSH Server, PowerShell 7 | Environnement hybride |
+| `reg.exe \\computer` | RPC/SMB | Service Remote Registry | Requete ponctuelle legacy |
+| `[Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey()` | RPC | Service Remote Registry | Script .NET |
+| CIM (`Get-CimInstance StdRegProv`) | WinRM ou DCOM | WMI/CIM disponible | Inventaire massif |
+
+!!! warning "Remote Registry"
+    Le service Remote Registry est souvent désactivé, et c'est généralement sain.
+    Préférez WinRM ou SSH sauf contrainte legacy explicite.
 
 ---
 
