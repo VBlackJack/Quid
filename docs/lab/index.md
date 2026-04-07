@@ -145,6 +145,93 @@ New-ADUser -Name "u.test1" -SamAccountName "u.test1" `
     -Enabled $true -Path "OU=Utilisateurs,OU=LAB,$base"
 ```
 
+## 5bis. Promouvoir DC02 comme deuxieme controleur de domaine
+
+Le deuxième DC transforme le lab en vrai terrain de test AD : réplication, SYSVOL multi-DC, bascule DNS et diagnostic de cohérence GPO.
+
+```powershell title="Promouvoir DC02"
+Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+
+Install-ADDSDomainController `
+    -DomainName "lab.local" `
+    -SiteName "Default-First-Site-Name" `
+    -InstallDns:$true `
+    -Credential (Get-Credential "LAB\Administrator") `
+    -SafeModeAdministratorPassword (Read-Host -AsSecureString "DSRM password") `
+    -Force:$true
+```
+
+Après la réplication initiale :
+
+```powershell
+repadmin /replsummary
+dfsrdiag pollad
+```
+
+Avantages lab :
+
+- tester la réplication AD ;
+- vérifier DFS-R SYSVOL ;
+- simuler la perte d'un DC ;
+- observer le comportement GPO quand plusieurs DC répondent.
+
+### Creer le Central Store
+
+```powershell title="Creer le Central Store dans SYSVOL"
+$sysvolPath = "\\lab.local\SYSVOL\lab.local\Policies\PolicyDefinitions"
+New-Item -Path $sysvolPath -ItemType Directory -Force
+Copy-Item "C:\Windows\PolicyDefinitions\*" $sysvolPath -Recurse -Force
+```
+
+Après copie, GPMC utilise automatiquement le Central Store au lieu des fichiers ADMX locaux.
+
+Vérification : ouvrez GPMC, éditez une GPO, puis regardez les modèles d'administration.
+Le titre doit indiquer que les modèles viennent du **Central Store**.
+
+### Installer RSAT sur CLIENT01
+
+```powershell title="Installer les outils RSAT"
+Get-WindowsCapability -Online -Name "RSAT*" |
+    Where-Object { $_.State -ne "Installed" } |
+    Add-WindowsCapability -Online
+```
+
+RSAT permet de gérer AD, DNS, DHCP et GPMC depuis un poste client.
+Dans le lab, c'est utile pour pratiquer l'administration sans ouvrir directement une session sur le DC.
+
+### Creer les GPO de test
+
+```powershell title="Creer les GPO de base pour le lab"
+# Security baseline
+New-GPO -Name "LAB-Security-Baseline" -Comment "Baseline securite pour le lab"
+New-GPLink -Name "LAB-Security-Baseline" -Target "OU=LAB,DC=lab,DC=local"
+
+# Desktop settings
+New-GPO -Name "LAB-Desktop-Settings" -Comment "Parametres bureau pour le lab"
+New-GPLink -Name "LAB-Desktop-Settings" -Target "OU=LAB,DC=lab,DC=local"
+```
+
+Recommandation : préfixez toutes les GPO de lab avec `LAB-`.
+Le script de nettoyage plus bas supprime uniquement les GPO `LAB-*`, ce qui limite les accidents.
+
+### Extension cloud : Entra ID free tenant
+
+Un lab cloud-hybride minimal permet de tester les notions Hybrid Join, synchronisation d'identités et enrollment sans connecter le domaine à la production.
+
+Étapes de principe :
+
+1. Créer un tenant Entra ID gratuit depuis `entra.microsoft.com`
+2. Installer Microsoft Entra Connect Sync ou Entra Cloud Sync
+3. Synchroniser quelques comptes AD de test vers Entra ID
+4. Tester Hybrid Join et les scénarios d'enrollment disponibles dans votre licence
+
+!!! warning "Ne jamais connecter le lab au tenant de production"
+    Un lab AD doit rester jetable.
+    Ne le synchronisez pas avec un tenant Entra ID de production, même "juste pour tester".
+
+Limitation : un tenant gratuit ne fournit pas les licences Intune.
+Il permet de tester la synchronisation et certains prérequis cloud, mais pas tout le cycle de gestion Intune en production.
+
 ## 6. Snapshots strategiques
 
 Les snapshots sont votre veritable gain de temps. Faites-en peu, mais au bon moment.

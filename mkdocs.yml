@@ -284,6 +284,9 @@ nav:
       - Cheat Sheet Registre: reference/registre-cheatsheet.md
       - Event IDs: reference/event-ids.md
       - Boite a outils: reference/outils.md
+      - FAQ: reference/faq.md
+      - Guide de lecture: reference/guide-de-lecture.md
+      - CSE GUIDs: reference/cse-guids.md
   - Lab pratique:
       - lab/index.md
   - Index thematique: cross-index.md

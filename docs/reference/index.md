@@ -16,6 +16,9 @@ Cette section regroupe les pages a garder ouvertes pendant les labos, les depann
 - [Registre Windows - Aide-memoire de reference rapide](registre-cheatsheet.md) : ruches, types, `reg.exe`, cmdlets PowerShell, `.reg` et cles critiques
 - [Event IDs Windows - Reference GPO et Registre](event-ids.md) : synthese operationnelle des evenements cites dans les livres
 - [Boite a outils - Outils Windows essentiels](outils.md) : consoles, CLI et executables a connaitre
+- [Questions frequentes](faq.md) : reponses courtes aux questions de diagnostic et d'usage
+- [Guide de lecture](guide-de-lecture.md) : choisir le bon livre selon le profil et le besoin
+- [GUIDs des CSE](cse-guids.md) : aide-memoire des Client-Side Extensions GPO
 
 ## Comment utiliser cette section
 
@@ -23,6 +26,9 @@ Cette section regroupe les pages a garder ouvertes pendant les labos, les depann
 - Ouvrez la cheat sheet Registre quand vous devez ecrire une cle, lire un type ou produire un fichier `.reg`.
 - Gardez la page Event IDs a cote de l'Observateur d'evenements.
 - Utilisez la boite a outils comme pense-bete pour savoir "quel outil pour quel job".
+- Ouvrez la FAQ pour retrouver vite le chapitre detaille a consulter.
+- Utilisez le guide de lecture quand vous ne savez pas par quel livre commencer.
+- Consultez les GUIDs CSE quand vous lisez `gPCMachineExtensionNames`, `gPCUserExtensionNames` ou le journal GroupPolicy.
 
 !!! tip "Bonne pratique"
     Utilisez ces pages comme accelerateurs, pas comme substitut au raisonnement. Si un cas devient flou, revenez au chapitre de fond correspondant plutot que d'improviser a partir d'un seul tableau.

@@ -156,5 +156,58 @@ Cette page regroupe les Event IDs Windows cites dans les 142 chapitres. Les IDs 
 | 1033 | `MsiInstaller` / `Application` | MSI | Installation MSI reussie | Info | Preuve d'installation cote client |
 | 1034 | `MsiInstaller` / `Application` | MSI | Desinstallation MSI ou operation package | Info | Confirmer les transitions de version |
 
+## Defender et Microsoft Defender for Endpoint
+
+| ID | Source/Log | Categorie | Signification | Gravite | Action |
+|----|------------|-----------|---------------|---------|--------|
+| 1006 | `Microsoft-Windows-Windows Defender/Operational` | Defender | Moteur de scan : malware detecte | Critical | Isoler la machine et verifier l'action associee |
+| 1007 | `Microsoft-Windows-Windows Defender/Operational` | Defender | Action prise sur un malware | Warning | Confirmer quarantaine, suppression ou echec |
+| 1116 | `Microsoft-Windows-Windows Defender/Operational` | Defender temps reel | Menace detectee en temps reel | Critical | Correlater avec fichier, utilisateur et processus |
+| 1117 | `Microsoft-Windows-Windows Defender/Operational` | Defender temps reel | Menace bloquee ou actionnee en temps reel | Warning | Confirmer que l'action a reussi |
+| 5001 | `Microsoft-Windows-Windows Defender/Operational` | Defender configuration | Protection en temps reel desactivee | Critical | Alerter immediatement et verifier Tamper Protection |
+| 5010 | `Microsoft-Windows-Windows Defender/Operational` | Defender configuration | Scan de spyware desactive | Critical | Rechercher la politique ou l'action locale fautive |
+| 5012 | `Microsoft-Windows-Windows Defender/Operational` | Defender configuration | Scan de virus desactive | Critical | Revenir a une configuration Defender conforme |
+
+## Windows Update
+
+| ID | Source/Log | Categorie | Signification | Gravite | Action |
+|----|------------|-----------|---------------|---------|--------|
+| 19 | `Microsoft-Windows-WindowsUpdateClient/Operational` | Windows Update | Installation reussie d'une mise a jour | Info | Preuve de deploiement cote client |
+| 20 | `Microsoft-Windows-WindowsUpdateClient/Operational` | Windows Update | Echec d'installation d'une mise a jour | Error | Lire le code erreur et verifier WUfB / WSUS |
+| 43 | `Microsoft-Windows-WindowsUpdateClient/Operational` | Windows Update | Telechargement d'une mise a jour commence | Info | Confirmer que le client recupere le contenu |
+| 44 | `Microsoft-Windows-WindowsUpdateClient/Operational` | Windows Update | Telechargement d'une mise a jour termine | Info | Verifier la transition vers installation |
+
+## PowerShell
+
+| ID | Source/Log | Categorie | Signification | Gravite | Action |
+|----|------------|-----------|---------------|---------|--------|
+| 4103 | `Microsoft-Windows-PowerShell/Operational` | Module logging | Commande executee avec parametres | Warning | Rechercher les modules et cmdlets sensibles |
+| 4104 | `Microsoft-Windows-PowerShell/Operational` | Script block logging | Contenu du script execute | Critical | Prioritaire pour detection et chasse |
+| 4688 | `Security` | Process creation | Process creation avec command line si audit avance active | Info | Correlater `powershell.exe`, `pwsh.exe` et arguments |
+| 800 | `Windows PowerShell` | Pipeline execution | Details d'execution de pipeline | Info | Utile sur Windows PowerShell legacy |
+
+## Sysmon
+
+| ID | Source/Log | Categorie | Signification | Gravite | Action |
+|----|------------|-----------|---------------|---------|--------|
+| 1 | `Microsoft-Windows-Sysmon/Operational` | Process Create | Creation de processus avec hash et parent process | Info | Base de detection et timeline |
+| 3 | `Microsoft-Windows-Sysmon/Operational` | Network Connection | Connexion reseau avec IP destination et port | Info | Correlater processus et destination |
+| 7 | `Microsoft-Windows-Sysmon/Operational` | Image Loaded | DLL chargee par un processus | Info | Tres verbeux, filtrer avant forwarding |
+| 11 | `Microsoft-Windows-Sysmon/Operational` | File Create | Creation de fichier | Info | Surveiller dossiers sensibles et depots temporaires |
+| 12 | `Microsoft-Windows-Sysmon/Operational` | Registry | Registry object create/delete | Warning | Surveiller Run keys, services et policies |
+| 13 | `Microsoft-Windows-Sysmon/Operational` | Registry | Registry value set | Warning | Identifier processus auteur et valeur modifiee |
+| 14 | `Microsoft-Windows-Sysmon/Operational` | Registry | Registry key/value rename | Warning | Rechercher persistance ou contournement |
+| 22 | `Microsoft-Windows-Sysmon/Operational` | DNS Query | Domaine interroge | Info | Correlater avec processus et flux reseau |
+
+## Certificats et PKI
+
+| ID | Source/Log | Categorie | Signification | Gravite | Action |
+|----|------------|-----------|---------------|---------|--------|
+| 64 | `Microsoft-Windows-CertificateServicesClient-AutoEnrollment/Operational` | Auto-enrollment | Auto-enrollment reussi | Info | Preuve d'enrolement certificat cote client |
+| 65 | `Microsoft-Windows-CertificateServicesClient-AutoEnrollment/Operational` | Auto-enrollment | Auto-enrollment echoue | Error | Lire le code erreur, verifier template et ACL |
+| 4886 | `Security` | ADCS | Certificate Services a recu une demande de certificat | Info | Surveiller demandeur, template et CA |
+| 4887 | `Security` | ADCS | Certificate Services a approuve une demande | Warning | Confirmer que le template est attendu |
+| 4888 | `Security` | ADCS | Certificate Services a refuse une demande | Info | Utile pour diagnostic template ou droits |
+
 !!! tip "Methode de travail"
     Commencez toujours par le couple `Source/Log + ID`, puis seulement apres par le symptome. Deux evenements numeriquement proches n'ont souvent rien a voir si le journal change.
