@@ -96,166 +96,168 @@ extra:
 
 nav:
   - Accueil: index.md
-  - La Bible de la Base de Registre Windows:
-      - books/bible-registre-windows/index.md
-      - Introduction: books/bible-registre-windows/01-introduction.md
-      - Architecture et structure: books/bible-registre-windows/02-architecture.md
-      - Les ruches principales: books/bible-registre-windows/03-ruches.md
-      - Types de données: books/bible-registre-windows/04-types-donnees.md
-      - Outils et méthodes d'accès: books/bible-registre-windows/05-outils.md
-      - Sécurité et permissions: books/bible-registre-windows/06-securite.md
-      - Sauvegarde et restauration: books/bible-registre-windows/07-sauvegarde.md
-      - Registre et réseau: books/bible-registre-windows/08-reseau.md
-      - Optimisation et maintenance: books/bible-registre-windows/09-optimisation.md
-      - Scripts et automatisation: books/bible-registre-windows/10-scripts.md
-      - Dépannage avancé: books/bible-registre-windows/11-depannage.md
-      - Référence des clés: books/bible-registre-windows/12-reference.md
-      - Processus de démarrage et BCD: books/bible-registre-windows/13-demarrage-bcd.md
-      - Services Windows en profondeur: books/bible-registre-windows/14-services.md
-      - COM, DCOM et le Shell: books/bible-registre-windows/15-com-shell.md
-      - Sécurité moderne: books/bible-registre-windows/16-securite-moderne.md
-      - Analyse forensique: books/bible-registre-windows/17-forensique.md
-      - Évolution à travers les versions: books/bible-registre-windows/18-versions.md
-      - Virtualisation et conteneurs: books/bible-registre-windows/19-virtualisation.md
-      - Stratégies de groupe en profondeur: books/bible-registre-windows/20-gpo.md
-      - Applications modernes: books/bible-registre-windows/21-apps-modernes.md
-      - Clés non documentées: books/bible-registre-windows/22-non-documentees.md
-      - WMI, CIM et le registre: books/bible-registre-windows/23-wmi-cim.md
-      - Gestion d'entreprise et cloud: books/bible-registre-windows/24-cloud-entreprise.md
-      - API Win32 et noyau en profondeur: books/bible-registre-windows/25-api-avancees.md
-      - Windows Installer (MSI) et le registre: books/bible-registre-windows/26-msi-installer.md
-      - ETW, tracing et performance: books/bible-registre-windows/27-etw-performance.md
-      - Planificateur de tâches et le registre: books/bible-registre-windows/28-taches-planifiees.md
-      - Cryptographie, DPAPI et certificats: books/bible-registre-windows/29-cryptographie.md
-      - Sous-système d'impression: books/bible-registre-windows/30-impression.md
-  - La Base de Registre pour les Nuls:
-      - books/registre-pour-les-nuls/index.md
-      - C'est quoi la base de registre ?: books/registre-pour-les-nuls/01-cest-quoi.md
-      - Premiers pas avec Regedit: books/registre-pour-les-nuls/02-premiers-pas.md
-      - Comprendre la structure: books/registre-pour-les-nuls/03-structure.md
-      - Modifications simples et utiles: books/registre-pour-les-nuls/04-modifications.md
-      - Sauvegarder avant de toucher: books/registre-pour-les-nuls/05-sauvegarde.md
-      - Les erreurs à éviter: books/registre-pour-les-nuls/06-erreurs.md
-      - Astuces pratiques: books/registre-pour-les-nuls/07-astuces.md
-      - Comprendre les fichiers .reg: books/registre-pour-les-nuls/08-fichiers-reg.md
-      - Mon premier dépannage: books/registre-pour-les-nuls/09-depannage.md
-      - Évaluer les tutoriels en ligne: books/registre-pour-les-nuls/10-evaluer-tutos.md
-      - Le registre et la sécurité: books/registre-pour-les-nuls/11-securite.md
-      - Glossaire illustré: books/registre-pour-les-nuls/12-glossaire.md
-      - PowerShell et le registre: books/registre-pour-les-nuls/13-powershell-bases.md
-      - Stratégies de groupe pour débutants: books/registre-pour-les-nuls/14-gpo-debutant.md
-      - Le registre et Windows 11: books/registre-pour-les-nuls/15-windows11.md
-      - Paramètres Windows vs Registre: books/registre-pour-les-nuls/16-parametres-registre.md
-      - Mini-projets: books/registre-pour-les-nuls/17-mini-projets.md
-  - Le Registre pour les Administrateurs:
-      - books/registre-pour-les-admins/index.md
-      - PowerShell Remoting et le registre a distance: books/registre-pour-les-admins/01-powershell-remoting.md
-      - GPO et registre en environnement AD: books/registre-pour-les-admins/02-gpo-registre-ad.md
-      - Audit et conformite du registre: books/registre-pour-les-admins/03-audit-conformite.md
-      - Deploiement et industrialisation: books/registre-pour-les-admins/04-deploiement.md
-      - Active Directory Domain Services: books/registre-pour-les-admins/05-ad-ds.md
-      - DNS Server: books/registre-pour-les-admins/06-dns.md
-      - DHCP Server: books/registre-pour-les-admins/07-dhcp.md
-      - WSUS: books/registre-pour-les-admins/08-wsus.md
-      - IIS / Web Server: books/registre-pour-les-admins/09-iis.md
-      - Remote Desktop Services: books/registre-pour-les-admins/10-rds.md
-      - Hyper-V: books/registre-pour-les-admins/11-hyper-v.md
-      - File Server / DFS: books/registre-pour-les-admins/12-file-server.md
-      - Print Server: books/registre-pour-les-admins/13-print-server.md
-      - RADIUS / NPS: books/registre-pour-les-admins/14-radius-nps.md
-      - GlobalProtect (Palo Alto): books/registre-pour-les-admins/15-globalprotect.md
-      - SCCM / MECM (ConfigMgr): books/registre-pour-les-admins/16-sccm-mecm.md
-      - Microsoft Intune: books/registre-pour-les-admins/17-intune.md
-      - Antivirus enterprise: books/registre-pour-les-admins/18-antivirus.md
-      - Citrix Virtual Apps & Desktops: books/registre-pour-les-admins/19-citrix.md
-      - VMware Horizon / Workspace ONE: books/registre-pour-les-admins/20-vmware.md
-      - Microsoft 365 Apps (Office): books/registre-pour-les-admins/21-m365-office.md
-      - Navigateurs enterprise: books/registre-pour-les-admins/22-navigateurs.md
-      - VPN clients: books/registre-pour-les-admins/23-vpn-clients.md
-      - Backup et monitoring: books/registre-pour-les-admins/24-backup-monitoring.md
-      - Exchange Server: books/registre-pour-les-admins/25-exchange.md
-      - SQL Server: books/registre-pour-les-admins/26-sql-server.md
-      - SharePoint Server: books/registre-pour-les-admins/27-sharepoint.md
-      - Adobe et Java: books/registre-pour-les-admins/28-adobe-java.md
-      - Compliance (HIPAA, PCI-DSS, SOC 2): books/registre-pour-les-admins/29-compliance.md
-      - Zero Trust et VDI: books/registre-pour-les-admins/30-zero-trust.md
-  - La Bible des Strategies de Groupe:
-      - books/bible-gpo/index.md
-      - Introduction et histoire: books/bible-gpo/01-introduction.md
-      - Architecture et composants internes: books/bible-gpo/02-architecture.md
-      - Client-Side Extensions (CSE): books/bible-gpo/03-cse.md
-      - "SYSVOL : replication et structure": books/bible-gpo/04-sysvol.md
-      - "Modeles d'administration (ADMX/ADML)": books/bible-gpo/05-admx-adml.md
-      - Le format registry.pol: books/bible-gpo/06-registry-pol.md
-      - "Traitement des strategies : cycle et modes": books/bible-gpo/07-traitement.md
-      - Heritage et ordre d'application (LSDOU): books/bible-gpo/08-heritage-lsdou.md
-      - Filtrage de securite et filtrage WMI: books/bible-gpo/09-filtrage.md
-      - "Loopback Processing : modes et cas d'usage": books/bible-gpo/10-loopback.md
-      - Preferences de strategie de groupe (GPP): books/bible-gpo/11-preferences-gpp.md
-      - Item-Level Targeting avance: books/bible-gpo/12-ilt.md
-      - Strategies de securite: books/bible-gpo/13-securite-strategies.md
-      - Windows Firewall via GPO: books/bible-gpo/14-firewall.md
-      - AppLocker et WDAC: books/bible-gpo/15-applocker-wdac.md
-      - BitLocker via GPO: books/bible-gpo/16-bitlocker.md
-      - Deploiement de logiciels (.msi): books/bible-gpo/17-deploiement-msi.md
-      - Scripts et planification via GPO: books/bible-gpo/18-scripts.md
-      - Redirection de dossiers et profils: books/bible-gpo/19-redirection-profils.md
-      - Resultats de strategie (RSoP) et diagnostic: books/bible-gpo/20-rsop-diagnostic.md
-      - LGPO et strategies locales multiples: books/bible-gpo/21-lgpo.md
-      - Baselines de securite (CIS, STIG, Microsoft): books/bible-gpo/22-baselines.md
-      - Performances et optimisation des GPO: books/bible-gpo/23-performances.md
-      - Evolution a travers les versions Windows: books/bible-gpo/24-versions.md
-      - "GPO et MDM : convergence et coexistence": books/bible-gpo/25-mdm-convergence.md
-  - Les GPO pour les Nuls:
-      - books/gpo-pour-les-nuls/index.md
-      - "C'est quoi une strategie de groupe ?": books/gpo-pour-les-nuls/01-cest-quoi.md
-      - "L'editeur de strategies locales (gpedit.msc)": books/gpo-pour-les-nuls/02-gpedit.md
-      - 10 modifications utiles avec gpedit: books/gpo-pour-les-nuls/03-modifications-utiles.md
-      - "La console GPMC : premiers pas": books/gpo-pour-les-nuls/04-gpmc-premiers-pas.md
-      - Creer et lier sa premiere GPO: books/gpo-pour-les-nuls/05-premiere-gpo.md
-      - "Comprendre l'heritage et l'ordre d'application": books/gpo-pour-les-nuls/06-heritage.md
-      - Les parametres de securite essentiels: books/gpo-pour-les-nuls/07-securite-base.md
-      - Gerer le bureau et le menu Demarrer: books/gpo-pour-les-nuls/08-bureau-demarrer.md
-      - Configurer Windows Update par GPO: books/gpo-pour-les-nuls/09-windows-update.md
-      - Les preferences de registre par GPO: books/gpo-pour-les-nuls/10-preferences.md
-      - Sauvegarder avant de toucher: books/gpo-pour-les-nuls/11-sauvegarde.md
-      - Mon premier diagnostic GPO: books/gpo-pour-les-nuls/12-diagnostic.md
-      - Les erreurs classiques a eviter: books/gpo-pour-les-nuls/13-erreurs.md
-      - GPO et Windows 11: books/gpo-pour-les-nuls/14-windows11.md
-      - Mini-projets GPO: books/gpo-pour-les-nuls/15-mini-projets.md
-  - Les GPO pour les Administrateurs:
-      - books/gpo-pour-les-admins/index.md
-      - "Concevoir une architecture GPO d'entreprise": books/gpo-pour-les-admins/01-architecture-entreprise.md
-      - Gouvernance et delegation des GPO: books/gpo-pour-les-admins/02-gouvernance.md
-      - PowerShell GroupPolicy module: books/gpo-pour-les-admins/03-powershell-gpo.md
-      - Central Store et gestion des ADMX: books/gpo-pour-les-admins/04-central-store.md
-      - "Sauvegarde, restauration et migration": books/gpo-pour-les-admins/05-backup-migration.md
-      - Audit et conformite des GPO: books/gpo-pour-les-admins/06-audit-conformite.md
-      - GPO multi-sites et multi-forets: books/gpo-pour-les-admins/07-multi-sites.md
-      - Microsoft 365 Apps (Office) via GPO: books/gpo-pour-les-admins/08-m365-office.md
-      - "Navigateurs (Edge, Chrome, Firefox) via GPO": books/gpo-pour-les-admins/09-navigateurs.md
-      - Windows Update for Business via GPO: books/gpo-pour-les-admins/10-windows-update.md
-      - Remote Desktop Services via GPO: books/gpo-pour-les-admins/11-rds.md
-      - "Gestion du bureau et de l'energie": books/gpo-pour-les-admins/12-bureau-energie.md
-      - "Imprimantes, lecteurs et ressources partagees": books/gpo-pour-les-admins/13-imprimantes-lecteurs.md
-      - Securite endpoint via GPO: books/gpo-pour-les-admins/14-securite-endpoint.md
-      - Certificats et PKI via GPO: books/gpo-pour-les-admins/15-certificats-pki.md
-      - "Wi-Fi, VPN et 802.1X via GPO": books/gpo-pour-les-admins/16-wifi-vpn.md
-      - BitLocker et LAPS via GPO: books/gpo-pour-les-admins/17-bitlocker-laps.md
-      - Azure AD Hybrid Join et GPO cloud: books/gpo-pour-les-admins/18-azure-ad-hybrid.md
-      - Migration GPO vers Intune: books/gpo-pour-les-admins/19-migration-intune.md
-      - GPO et SCCM/MECM en coexistence: books/gpo-pour-les-admins/20-sccm-mecm.md
-      - "Applications tierces (Adobe, Java, 7-Zip)": books/gpo-pour-les-admins/21-apps-tierces.md
-      - "Depannage de terrain : 15 cas reels": books/gpo-pour-les-admins/22-depannage-terrain.md
-      - Automatisation et CI/CD pour les GPO: books/gpo-pour-les-admins/23-automation-cicd.md
-      - Securite des GPO elles-memes: books/gpo-pour-les-admins/24-securite-gpo.md
-      - "Zero Trust et GPO : le futur de la configuration": books/gpo-pour-les-admins/25-zero-trust.md
-      - "26 - OSD / MDT / WDS": books/gpo-pour-les-admins/26-osd-mdt-wds.md
-      - "27 - PrintNightmare & Print Spooler": books/gpo-pour-les-admins/27-printnightmare-hardening.md
-      - "28 - Windows Hello for Business": books/gpo-pour-les-admins/28-whfb.md
-      - "29 - FSLogix et GPO": books/gpo-pour-les-admins/29-fslogix.md
-      - "30 - Secured-Core PC": books/gpo-pour-les-admins/30-secured-core.md
-  - Hardening Windows — Registre & GPO:
+  - Registre:
+      - Bible du Registre:
+          - books/bible-registre-windows/index.md
+          - Introduction: books/bible-registre-windows/01-introduction.md
+          - Architecture et structure: books/bible-registre-windows/02-architecture.md
+          - Les ruches principales: books/bible-registre-windows/03-ruches.md
+          - Types de données: books/bible-registre-windows/04-types-donnees.md
+          - Outils et méthodes d'accès: books/bible-registre-windows/05-outils.md
+          - Sécurité et permissions: books/bible-registre-windows/06-securite.md
+          - Sauvegarde et restauration: books/bible-registre-windows/07-sauvegarde.md
+          - Registre et réseau: books/bible-registre-windows/08-reseau.md
+          - Optimisation et maintenance: books/bible-registre-windows/09-optimisation.md
+          - Scripts et automatisation: books/bible-registre-windows/10-scripts.md
+          - Dépannage avancé: books/bible-registre-windows/11-depannage.md
+          - Référence des clés: books/bible-registre-windows/12-reference.md
+          - Processus de démarrage et BCD: books/bible-registre-windows/13-demarrage-bcd.md
+          - Services Windows en profondeur: books/bible-registre-windows/14-services.md
+          - COM, DCOM et le Shell: books/bible-registre-windows/15-com-shell.md
+          - Sécurité moderne: books/bible-registre-windows/16-securite-moderne.md
+          - Analyse forensique: books/bible-registre-windows/17-forensique.md
+          - Évolution à travers les versions: books/bible-registre-windows/18-versions.md
+          - Virtualisation et conteneurs: books/bible-registre-windows/19-virtualisation.md
+          - Stratégies de groupe en profondeur: books/bible-registre-windows/20-gpo.md
+          - Applications modernes: books/bible-registre-windows/21-apps-modernes.md
+          - Clés non documentées: books/bible-registre-windows/22-non-documentees.md
+          - WMI, CIM et le registre: books/bible-registre-windows/23-wmi-cim.md
+          - Gestion d'entreprise et cloud: books/bible-registre-windows/24-cloud-entreprise.md
+          - API Win32 et noyau en profondeur: books/bible-registre-windows/25-api-avancees.md
+          - Windows Installer (MSI) et le registre: books/bible-registre-windows/26-msi-installer.md
+          - ETW, tracing et performance: books/bible-registre-windows/27-etw-performance.md
+          - Planificateur de tâches et le registre: books/bible-registre-windows/28-taches-planifiees.md
+          - Cryptographie, DPAPI et certificats: books/bible-registre-windows/29-cryptographie.md
+          - Sous-système d'impression: books/bible-registre-windows/30-impression.md
+      - Registre pour les Nuls:
+          - books/registre-pour-les-nuls/index.md
+          - C'est quoi la base de registre ?: books/registre-pour-les-nuls/01-cest-quoi.md
+          - Premiers pas avec Regedit: books/registre-pour-les-nuls/02-premiers-pas.md
+          - Comprendre la structure: books/registre-pour-les-nuls/03-structure.md
+          - Modifications simples et utiles: books/registre-pour-les-nuls/04-modifications.md
+          - Sauvegarder avant de toucher: books/registre-pour-les-nuls/05-sauvegarde.md
+          - Les erreurs à éviter: books/registre-pour-les-nuls/06-erreurs.md
+          - Astuces pratiques: books/registre-pour-les-nuls/07-astuces.md
+          - Comprendre les fichiers .reg: books/registre-pour-les-nuls/08-fichiers-reg.md
+          - Mon premier dépannage: books/registre-pour-les-nuls/09-depannage.md
+          - Évaluer les tutoriels en ligne: books/registre-pour-les-nuls/10-evaluer-tutos.md
+          - Le registre et la sécurité: books/registre-pour-les-nuls/11-securite.md
+          - Glossaire illustré: books/registre-pour-les-nuls/12-glossaire.md
+          - PowerShell et le registre: books/registre-pour-les-nuls/13-powershell-bases.md
+          - Stratégies de groupe pour débutants: books/registre-pour-les-nuls/14-gpo-debutant.md
+          - Le registre et Windows 11: books/registre-pour-les-nuls/15-windows11.md
+          - Paramètres Windows vs Registre: books/registre-pour-les-nuls/16-parametres-registre.md
+          - Mini-projets: books/registre-pour-les-nuls/17-mini-projets.md
+      - Registre pour les Admins:
+          - books/registre-pour-les-admins/index.md
+          - PowerShell Remoting et le registre a distance: books/registre-pour-les-admins/01-powershell-remoting.md
+          - GPO et registre en environnement AD: books/registre-pour-les-admins/02-gpo-registre-ad.md
+          - Audit et conformite du registre: books/registre-pour-les-admins/03-audit-conformite.md
+          - Deploiement et industrialisation: books/registre-pour-les-admins/04-deploiement.md
+          - Active Directory Domain Services: books/registre-pour-les-admins/05-ad-ds.md
+          - DNS Server: books/registre-pour-les-admins/06-dns.md
+          - DHCP Server: books/registre-pour-les-admins/07-dhcp.md
+          - WSUS: books/registre-pour-les-admins/08-wsus.md
+          - IIS / Web Server: books/registre-pour-les-admins/09-iis.md
+          - Remote Desktop Services: books/registre-pour-les-admins/10-rds.md
+          - Hyper-V: books/registre-pour-les-admins/11-hyper-v.md
+          - File Server / DFS: books/registre-pour-les-admins/12-file-server.md
+          - Print Server: books/registre-pour-les-admins/13-print-server.md
+          - RADIUS / NPS: books/registre-pour-les-admins/14-radius-nps.md
+          - GlobalProtect (Palo Alto): books/registre-pour-les-admins/15-globalprotect.md
+          - SCCM / MECM (ConfigMgr): books/registre-pour-les-admins/16-sccm-mecm.md
+          - Microsoft Intune: books/registre-pour-les-admins/17-intune.md
+          - Antivirus enterprise: books/registre-pour-les-admins/18-antivirus.md
+          - Citrix Virtual Apps & Desktops: books/registre-pour-les-admins/19-citrix.md
+          - VMware Horizon / Workspace ONE: books/registre-pour-les-admins/20-vmware.md
+          - Microsoft 365 Apps (Office): books/registre-pour-les-admins/21-m365-office.md
+          - Navigateurs enterprise: books/registre-pour-les-admins/22-navigateurs.md
+          - VPN clients: books/registre-pour-les-admins/23-vpn-clients.md
+          - Backup et monitoring: books/registre-pour-les-admins/24-backup-monitoring.md
+          - Exchange Server: books/registre-pour-les-admins/25-exchange.md
+          - SQL Server: books/registre-pour-les-admins/26-sql-server.md
+          - SharePoint Server: books/registre-pour-les-admins/27-sharepoint.md
+          - Adobe et Java: books/registre-pour-les-admins/28-adobe-java.md
+          - Compliance (HIPAA, PCI-DSS, SOC 2): books/registre-pour-les-admins/29-compliance.md
+          - Zero Trust et VDI: books/registre-pour-les-admins/30-zero-trust.md
+  - GPO:
+      - Bible des GPO:
+          - books/bible-gpo/index.md
+          - Introduction et histoire: books/bible-gpo/01-introduction.md
+          - Architecture et composants internes: books/bible-gpo/02-architecture.md
+          - Client-Side Extensions (CSE): books/bible-gpo/03-cse.md
+          - "SYSVOL : replication et structure": books/bible-gpo/04-sysvol.md
+          - "Modeles d'administration (ADMX/ADML)": books/bible-gpo/05-admx-adml.md
+          - Le format registry.pol: books/bible-gpo/06-registry-pol.md
+          - "Traitement des strategies : cycle et modes": books/bible-gpo/07-traitement.md
+          - Heritage et ordre d'application (LSDOU): books/bible-gpo/08-heritage-lsdou.md
+          - Filtrage de securite et filtrage WMI: books/bible-gpo/09-filtrage.md
+          - "Loopback Processing : modes et cas d'usage": books/bible-gpo/10-loopback.md
+          - Preferences de strategie de groupe (GPP): books/bible-gpo/11-preferences-gpp.md
+          - Item-Level Targeting avance: books/bible-gpo/12-ilt.md
+          - Strategies de securite: books/bible-gpo/13-securite-strategies.md
+          - Windows Firewall via GPO: books/bible-gpo/14-firewall.md
+          - AppLocker et WDAC: books/bible-gpo/15-applocker-wdac.md
+          - BitLocker via GPO: books/bible-gpo/16-bitlocker.md
+          - Deploiement de logiciels (.msi): books/bible-gpo/17-deploiement-msi.md
+          - Scripts et planification via GPO: books/bible-gpo/18-scripts.md
+          - Redirection de dossiers et profils: books/bible-gpo/19-redirection-profils.md
+          - Resultats de strategie (RSoP) et diagnostic: books/bible-gpo/20-rsop-diagnostic.md
+          - LGPO et strategies locales multiples: books/bible-gpo/21-lgpo.md
+          - Baselines de securite (CIS, STIG, Microsoft): books/bible-gpo/22-baselines.md
+          - Performances et optimisation des GPO: books/bible-gpo/23-performances.md
+          - Evolution a travers les versions Windows: books/bible-gpo/24-versions.md
+          - "GPO et MDM : convergence et coexistence": books/bible-gpo/25-mdm-convergence.md
+      - GPO pour les Nuls:
+          - books/gpo-pour-les-nuls/index.md
+          - "C'est quoi une strategie de groupe ?": books/gpo-pour-les-nuls/01-cest-quoi.md
+          - "L'editeur de strategies locales (gpedit.msc)": books/gpo-pour-les-nuls/02-gpedit.md
+          - 10 modifications utiles avec gpedit: books/gpo-pour-les-nuls/03-modifications-utiles.md
+          - "La console GPMC : premiers pas": books/gpo-pour-les-nuls/04-gpmc-premiers-pas.md
+          - Creer et lier sa premiere GPO: books/gpo-pour-les-nuls/05-premiere-gpo.md
+          - "Comprendre l'heritage et l'ordre d'application": books/gpo-pour-les-nuls/06-heritage.md
+          - Les parametres de securite essentiels: books/gpo-pour-les-nuls/07-securite-base.md
+          - Gerer le bureau et le menu Demarrer: books/gpo-pour-les-nuls/08-bureau-demarrer.md
+          - Configurer Windows Update par GPO: books/gpo-pour-les-nuls/09-windows-update.md
+          - Les preferences de registre par GPO: books/gpo-pour-les-nuls/10-preferences.md
+          - Sauvegarder avant de toucher: books/gpo-pour-les-nuls/11-sauvegarde.md
+          - Mon premier diagnostic GPO: books/gpo-pour-les-nuls/12-diagnostic.md
+          - Les erreurs classiques a eviter: books/gpo-pour-les-nuls/13-erreurs.md
+          - GPO et Windows 11: books/gpo-pour-les-nuls/14-windows11.md
+          - Mini-projets GPO: books/gpo-pour-les-nuls/15-mini-projets.md
+      - GPO pour les Admins:
+          - books/gpo-pour-les-admins/index.md
+          - "Concevoir une architecture GPO d'entreprise": books/gpo-pour-les-admins/01-architecture-entreprise.md
+          - Gouvernance et delegation des GPO: books/gpo-pour-les-admins/02-gouvernance.md
+          - PowerShell GroupPolicy module: books/gpo-pour-les-admins/03-powershell-gpo.md
+          - Central Store et gestion des ADMX: books/gpo-pour-les-admins/04-central-store.md
+          - "Sauvegarde, restauration et migration": books/gpo-pour-les-admins/05-backup-migration.md
+          - Audit et conformite des GPO: books/gpo-pour-les-admins/06-audit-conformite.md
+          - GPO multi-sites et multi-forets: books/gpo-pour-les-admins/07-multi-sites.md
+          - Microsoft 365 Apps (Office) via GPO: books/gpo-pour-les-admins/08-m365-office.md
+          - "Navigateurs (Edge, Chrome, Firefox) via GPO": books/gpo-pour-les-admins/09-navigateurs.md
+          - Windows Update for Business via GPO: books/gpo-pour-les-admins/10-windows-update.md
+          - Remote Desktop Services via GPO: books/gpo-pour-les-admins/11-rds.md
+          - "Gestion du bureau et de l'energie": books/gpo-pour-les-admins/12-bureau-energie.md
+          - "Imprimantes, lecteurs et ressources partagees": books/gpo-pour-les-admins/13-imprimantes-lecteurs.md
+          - Securite endpoint via GPO: books/gpo-pour-les-admins/14-securite-endpoint.md
+          - Certificats et PKI via GPO: books/gpo-pour-les-admins/15-certificats-pki.md
+          - "Wi-Fi, VPN et 802.1X via GPO": books/gpo-pour-les-admins/16-wifi-vpn.md
+          - BitLocker et LAPS via GPO: books/gpo-pour-les-admins/17-bitlocker-laps.md
+          - Azure AD Hybrid Join et GPO cloud: books/gpo-pour-les-admins/18-azure-ad-hybrid.md
+          - Migration GPO vers Intune: books/gpo-pour-les-admins/19-migration-intune.md
+          - GPO et SCCM/MECM en coexistence: books/gpo-pour-les-admins/20-sccm-mecm.md
+          - "Applications tierces (Adobe, Java, 7-Zip)": books/gpo-pour-les-admins/21-apps-tierces.md
+          - "Depannage de terrain : 15 cas reels": books/gpo-pour-les-admins/22-depannage-terrain.md
+          - Automatisation et CI/CD pour les GPO: books/gpo-pour-les-admins/23-automation-cicd.md
+          - Securite des GPO elles-memes: books/gpo-pour-les-admins/24-securite-gpo.md
+          - "Zero Trust et GPO : le futur de la configuration": books/gpo-pour-les-admins/25-zero-trust.md
+          - "26 - OSD / MDT / WDS": books/gpo-pour-les-admins/26-osd-mdt-wds.md
+          - "27 - PrintNightmare & Print Spooler": books/gpo-pour-les-admins/27-printnightmare-hardening.md
+          - "28 - Windows Hello for Business": books/gpo-pour-les-admins/28-whfb.md
+          - "29 - FSLogix et GPO": books/gpo-pour-les-admins/29-fslogix.md
+          - "30 - Secured-Core PC": books/gpo-pour-les-admins/30-secured-core.md
+  - Hardening:
       - books/hardening-windows/index.md
       - Philosophie du hardening: books/hardening-windows/01-philosophie.md
       - "Baselines : CIS, STIG, ANSSI, Microsoft": books/hardening-windows/02-baselines.md
@@ -278,15 +280,16 @@ nav:
       - Audit de conformite et RSoP: books/hardening-windows/19-audit-conformite.md
       - Maintien dans le temps: books/hardening-windows/20-maintien-temps.md
       - Active Directory hardening: books/hardening-windows/21-ad-hardening.md
-  - Reference rapide:
-      - reference/index.md
-      - Cheat Sheet GPO: reference/gpo-cheatsheet.md
-      - Cheat Sheet Registre: reference/registre-cheatsheet.md
-      - Event IDs: reference/event-ids.md
-      - Boite a outils: reference/outils.md
-      - FAQ: reference/faq.md
-      - Guide de lecture: reference/guide-de-lecture.md
-      - CSE GUIDs: reference/cse-guids.md
-  - Lab pratique:
-      - lab/index.md
-  - Index thematique: cross-index.md
+  - Reference:
+      - Aide-memoire:
+          - reference/index.md
+          - Cheat Sheet GPO: reference/gpo-cheatsheet.md
+          - Cheat Sheet Registre: reference/registre-cheatsheet.md
+          - Event IDs: reference/event-ids.md
+          - Boite a outils: reference/outils.md
+          - FAQ: reference/faq.md
+          - Guide de lecture: reference/guide-de-lecture.md
+          - CSE GUIDs: reference/cse-guids.md
+      - Lab pratique:
+          - lab/index.md
+      - Index thematique: cross-index.md
