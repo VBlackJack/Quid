@@ -330,6 +330,10 @@
   color: var(--dracula-pink);
 }
 
+[data-md-color-scheme="dracula"] .md-typeset .md-button:hover {
+  color: var(--dracula-background);
+}
+
 /* ---------- Headings ---------- */
 
 [data-md-color-scheme="dracula"] .md-typeset h1 {
